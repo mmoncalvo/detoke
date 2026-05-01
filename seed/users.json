@@ -1,0 +1,4 @@
+[
+  { "id": "admin-uuid", "username": "admin", "password": "hashed_admin_password", "role": "admin", "fullName": "Administrador", "email": "admin@example.com" },
+  { "id": "client-uuid-1", "username": "cliente1", "password": "hashed_client_password", "role": "cliente", "fullName": "Cliente Uno", "email": "cliente1@example.com" }
+]

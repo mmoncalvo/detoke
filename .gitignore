@@ -1,0 +1,9 @@
+node_modules/
+dist/
+build/
+*.sqlite
+.env
+client/build/
+*.log
+.vscode/
+.idea/

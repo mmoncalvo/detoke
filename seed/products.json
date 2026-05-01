@@ -1,0 +1,3 @@
+[
+  { "id": "prod-1", "title": "Producto Demo 1", "description": "Descripción del producto demo 1", "price": 99.99, "categoryId": "cat-1", "images": "[\"product-1.jpg\"]" }
+]
