@@ -7,8 +7,8 @@ venv/
 coverage/
 .vscode/
 .idea/
-# Images and uploads (91 MB): kept on disk, not in git
-/data/
+# Uploads from users stay out of git; data/images (the seed photos) is versioned
+/data/uploads/
 database.sqlite*
 *.bak
 docs/screenshots/

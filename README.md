@@ -34,7 +34,7 @@ src/                 Web React + shadcn/ui + Tailwind v4
 public/seed/logos/   Logos SVG de los negocios de ejemplo
 test/                Pruebas de la API (vitest + supertest) sobre una SQLite temporal
 scripts/             seed.ts, check-seed-images.ts; legacy/ guarda los scripts viejos
-data/                images/ y uploads/ (se publican en /data; no están en git)
+data/                images/ (fotos del seed, en git) y uploads/ (subidas, fuera de git); se publican en /data
 ```
 
 Las respuestas de la API son siempre `{ success: true, data }` o `{ success: false, error }`, con el error en español.
@@ -48,7 +48,7 @@ npm run db:seed
 npm run dev
 ```
 
-La carpeta `data/` no está en git: las fotos de ejemplo se copian aparte.
+Las fotos del seed están en `data/images/`; lo que suben los usuarios va a `data/uploads/`, que no está en git.
 
 ## Día a día
 

@@ -54,7 +54,7 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - `tsx` (esbuild) doesn't emit decorator metadata: always pass an explicit `DataType` to `@Column`.
 - Never return a value from a `useEffect` arrow by accident: `window.scrollTo()` returns a Promise in current Chrome, and React then crashes calling it as cleanup.
 - Components copied from other projects may use tokens that don't exist here (`bg-brand`): Tailwind drops them silently.
-- `data/` (images and uploads) is not in git. `server/data/seed/` is: keep the `/data/` rule in `.gitignore` anchored to the root.
+- `data/images/` (seed photos) is in git; `data/uploads/` is not. Keep the `/data/uploads/` rule in `.gitignore` anchored to the root.
 - Many files in `data/images` do not show what their name says. Check the picture before using one in the seed, and run `npm run db:check-images`.
 - `.env`, `database.sqlite` and `scripts/legacy/` API keys must never be pushed or published.
 - `scripts/legacy/` is the old image and seed tooling, kept for reference. Its relative paths are not maintained.
