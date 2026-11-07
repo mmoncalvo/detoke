@@ -26,7 +26,7 @@ shared/              Lo que usan el servidor y la web
   types.ts           Tipos de la API
 src/                 Web React + shadcn/ui + Tailwind v4
   api.ts             Cliente fetch: desempaqueta { success, data }
-  context/           AuthContext, CartContext, ThemeContext (claro, oscuro, sistema)
+  context/           AuthContext, CartContext, ThemeContext (claro y oscuro)
   layouts/           PublicLayout, DashboardLayout
   components/        ui/ (shadcn), common/, layout/, business/, product/, dashboard/
   pages/             Home, Explore, BusinessPage, Checkout, Login, Register

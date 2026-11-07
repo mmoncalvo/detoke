@@ -96,117 +96,119 @@ export default function BusinessPage() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-0 sm:px-4 sm:pt-6">
+    <>
       <div className="relative">
-        <SafeImage src={business.coverImage} alt="" className="h-52 w-full sm:h-72 sm:rounded-2xl" />
+        <SafeImage src={business.coverImage} alt="" className="h-52 w-full sm:h-72" />
       </div>
+      <div className="mx-auto max-w-6xl px-0 sm:px-4 sm:pt-6">
 
-      <header className="relative px-4 sm:px-6">
-        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
-          <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative -mt-12 size-24 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
-          <div className="min-w-0 flex-1 sm:pt-3">
-            <h1 className="flex items-center gap-2 text-3xl font-extrabold sm:text-4xl">
-              {business.name}
-              {business.isVerified && <BadgeCheck className="size-6 shrink-0 text-primary" aria-label="Negocio verificado" />}
-            </h1>
-            <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
-          </div>
-          <div className="flex gap-2 sm:pt-4">
-            <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp</a></Button>
-            <Button variant="outline" size="icon" aria-label="Compartir" onClick={share}><Share2 className="size-4" /></Button>
-          </div>
-        </div>
-        <div className="mt-3 flex flex-wrap items-center gap-2">
-          <OpenBadge hours={business.hours} detailed />
-          {business.tagline && <p className="text-sm font-medium">{business.tagline}</p>}
-        </div>
-        {business.description && <p className="mt-3 max-w-3xl text-muted-foreground">{business.description}</p>}
-      </header>
-
-      <div className="mt-8 grid gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_320px]">
-        <div className="min-w-0">
-          <div className="sticky top-16 z-20 -mx-4 bg-background/95 px-4 pb-3 pt-3 backdrop-blur sm:mx-0 sm:px-0">
-            <div className="relative">
-              <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-              <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Buscar en ${business.name}`} className="bg-card pl-9" aria-label="Buscar productos" />
+        <header className="relative px-4 sm:px-6 -mt-6">
+          <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5 my-6">
+            <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative -mt-12 size-36 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
+            <div className="min-w-0 flex-1">
+              <h1 className="flex items-start gap-2 text-3xl font-extrabold sm:text-4xl">
+                {business.name}
+                {business.isVerified && <BadgeCheck className="size-6 shrink-0 text-primary m-2" aria-label="Negocio verificado" />}
+              </h1>
+              <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
             </div>
-            {sections.length > 1 && (
-              <nav aria-label="Categorías de productos" className="mt-2 flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
-                {sections.map((s) => <a key={s.id} href={`#section-${s.id}`} className="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-medium hover:bg-accent">{s.name}</a>)}
-              </nav>
+            <div className="flex gap-2">
+              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp</a></Button>
+              <Button variant="outline" size="icon" aria-label="Compartir" onClick={share}><Share2 className="size-4" /></Button>
+            </div>
+          </div>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <OpenBadge hours={business.hours} detailed />
+            {business.tagline && <p className="text-sm font-medium">{business.tagline}</p>}
+          </div>
+          {business.description && <p className="mt-3 max-w-3xl text-muted-foreground">{business.description}</p>}
+        </header>
+
+        <div className="mt-8 grid gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_320px]">
+          <div className="min-w-0">
+            <div className="sticky top-16 z-20 -mx-4 bg-background/95 px-4 pb-3 pt-3 backdrop-blur sm:mx-0 sm:px-0">
+              <div className="relative">
+                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Buscar en ${business.name}`} className="bg-card pl-9" aria-label="Buscar productos" />
+              </div>
+              {sections.length > 1 && (
+                <nav aria-label="Categorías de productos" className="mt-2 flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
+                  {sections.map((s) => <a key={s.id} href={`#section-${s.id}`} className="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-medium hover:bg-accent">{s.name}</a>)}
+                </nav>
+              )}
+            </div>
+
+            {sections.length === 0 ? (
+              <EmptyState icon={PackageOpen} title={search ? 'No encontramos ese producto' : 'Todavía no hay productos publicados'} description={search ? 'Probá con otra palabra.' : 'Podés consultar por WhatsApp.'} />
+            ) : sections.map((section) => (
+              <section key={section.id} id={`section-${section.id}`} className="mt-5">
+                <h2 className="mb-3 text-xl font-bold">{section.name}</h2>
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                  {section.products.map((p) => <ProductCard key={p.id} product={p} business={business} onOpen={() => setSelected(p)} />)}
+                </div>
+              </section>
+            ))}
+
+            {business.gallery.length > 0 && (
+              <section className="mt-10">
+                <h2 className="mb-3 text-xl font-bold">Galería</h2>
+                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+                  {business.gallery.map((src) => (
+                    <button key={src} onClick={() => setPhoto(src)} className="overflow-hidden rounded-xl" aria-label="Ampliar foto">
+                      <SafeImage src={src} alt="" className="aspect-square w-full transition-transform hover:scale-105" />
+                    </button>
+                  ))}
+                </div>
+              </section>
             )}
           </div>
 
-          {sections.length === 0 ? (
-            <EmptyState icon={PackageOpen} title={search ? 'No encontramos ese producto' : 'Todavía no hay productos publicados'} description={search ? 'Probá con otra palabra.' : 'Podés consultar por WhatsApp.'} />
-          ) : sections.map((section) => (
-            <section key={section.id} id={`section-${section.id}`} className="mt-5">
-              <h2 className="mb-3 text-xl font-bold">{section.name}</h2>
-              <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
-                {section.products.map((p) => <ProductCard key={p.id} product={p} business={business} onOpen={() => setSelected(p)} />)}
-              </div>
-            </section>
-          ))}
-
-          {business.gallery.length > 0 && (
-            <section className="mt-10">
-              <h2 className="mb-3 text-xl font-bold">Galería</h2>
-              <div className="grid grid-cols-3 gap-2 sm:gap-3">
-                {business.gallery.map((src) => (
-                  <button key={src} onClick={() => setPhoto(src)} className="overflow-hidden rounded-xl" aria-label="Ampliar foto">
-                    <SafeImage src={src} alt="" className="aspect-square w-full transition-transform hover:scale-105" />
-                  </button>
+          <aside className="space-y-3 lg:sticky lg:top-20 lg:self-start">
+            <InfoBlock icon={Clock} title="Horarios">
+              <ul className="space-y-1">
+                {DAYS.map((day) => (
+                  <li key={day} className={`flex justify-between gap-3 ${day === today ? 'font-semibold' : 'text-muted-foreground'}`}>
+                    <span>{DAY_LABELS[day]}</span>
+                    <span className="text-right">{formatDayHours(business.hours[day])}</span>
+                  </li>
                 ))}
+              </ul>
+            </InfoBlock>
+            <InfoBlock icon={Bike} title="Entrega"><DeliveryInfo business={business} /></InfoBlock>
+            <InfoBlock icon={CreditCard} title="Medios de pago">
+              <div className="flex flex-wrap gap-1.5">{business.paymentMethods.map((m) => <Badge key={m} variant="secondary">{PAYMENT_LABELS[m]}</Badge>)}</div>
+            </InfoBlock>
+            {(business.address || business.latitude != null) && (
+              <InfoBlock icon={MapPin} title="Dónde estamos">
+                <p>{[business.address, business.neighborhood, business.city].filter(Boolean).join(', ')}</p>
+                {business.latitude != null && business.longitude != null && (
+                  <div className="mt-3">
+                    <Suspense fallback={<Skeleton className="h-48 w-full rounded-xl" />}><BusinessMap latitude={business.latitude} longitude={business.longitude} /></Suspense>
+                    <Button asChild variant="link" className="mt-1 h-auto p-0">
+                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`} target="_blank" rel="noreferrer">Cómo llegar</a>
+                    </Button>
+                  </div>
+                )}
+              </InfoBlock>
+            )}
+            {(business.website || business.instagram) && (
+              <div className="flex gap-2">
+                {business.website && <Button asChild variant="outline" size="sm"><a href={business.website} target="_blank" rel="noreferrer"><Globe /> Sitio web</a></Button>}
+                {business.instagram && <Button asChild variant="outline" size="sm"><a href={`https://instagram.com/${business.instagram}`} target="_blank" rel="noreferrer"><AtSign /> Instagram</a></Button>}
               </div>
-            </section>
-          )}
+            )}
+          </aside>
         </div>
 
-        <aside className="space-y-3 lg:sticky lg:top-20 lg:self-start">
-          <InfoBlock icon={Clock} title="Horarios">
-            <ul className="space-y-1">
-              {DAYS.map((day) => (
-                <li key={day} className={`flex justify-between gap-3 ${day === today ? 'font-semibold' : 'text-muted-foreground'}`}>
-                  <span>{DAY_LABELS[day]}</span>
-                  <span className="text-right">{formatDayHours(business.hours[day])}</span>
-                </li>
-              ))}
-            </ul>
-          </InfoBlock>
-          <InfoBlock icon={Bike} title="Entrega"><DeliveryInfo business={business} /></InfoBlock>
-          <InfoBlock icon={CreditCard} title="Medios de pago">
-            <div className="flex flex-wrap gap-1.5">{business.paymentMethods.map((m) => <Badge key={m} variant="secondary">{PAYMENT_LABELS[m]}</Badge>)}</div>
-          </InfoBlock>
-          {(business.address || business.latitude != null) && (
-            <InfoBlock icon={MapPin} title="Dónde estamos">
-              <p>{[business.address, business.neighborhood, business.city].filter(Boolean).join(', ')}</p>
-              {business.latitude != null && business.longitude != null && (
-                <div className="mt-3">
-                  <Suspense fallback={<Skeleton className="h-48 w-full rounded-xl" />}><BusinessMap latitude={business.latitude} longitude={business.longitude} /></Suspense>
-                  <Button asChild variant="link" className="mt-1 h-auto p-0">
-                    <a href={`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`} target="_blank" rel="noreferrer">Cómo llegar</a>
-                  </Button>
-                </div>
-              )}
-            </InfoBlock>
-          )}
-          {(business.website || business.instagram) && (
-            <div className="flex gap-2">
-              {business.website && <Button asChild variant="outline" size="sm"><a href={business.website} target="_blank" rel="noreferrer"><Globe /> Sitio web</a></Button>}
-              {business.instagram && <Button asChild variant="outline" size="sm"><a href={`https://instagram.com/${business.instagram}`} target="_blank" rel="noreferrer"><AtSign /> Instagram</a></Button>}
-            </div>
-          )}
-        </aside>
+        <ProductDialog product={selected} business={business} onClose={() => setSelected(null)} />
+        <Dialog open={!!photo} onOpenChange={(open) => !open && setPhoto(null)}>
+          <DialogContent className="max-w-3xl p-2">
+            <DialogTitle className="sr-only">Foto de {business.name}</DialogTitle>
+            <DialogDescription className="sr-only">Foto ampliada de la galería</DialogDescription>
+            {photo && <img src={imageUrl(photo)} alt="" className="max-h-[80svh] w-full rounded-md object-contain" />}
+          </DialogContent>
+        </Dialog>
       </div>
-
-      <ProductDialog product={selected} business={business} onClose={() => setSelected(null)} />
-      <Dialog open={!!photo} onOpenChange={(open) => !open && setPhoto(null)}>
-        <DialogContent className="max-w-3xl p-2">
-          <DialogTitle className="sr-only">Foto de {business.name}</DialogTitle>
-          <DialogDescription className="sr-only">Foto ampliada de la galería</DialogDescription>
-          {photo && <img src={imageUrl(photo)} alt="" className="max-h-[80svh] w-full rounded-md object-contain" />}
-        </DialogContent>
-      </Dialog>
-    </div>
+    </>
   );
 }

@@ -1,21 +1,14 @@
-import { Monitor, Moon, Sun } from 'lucide-react';
+import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
-import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { useTheme } from '@/context/ThemeContext';
 
 export function ThemeToggle() {
   const { resolvedTheme, setTheme } = useTheme();
-  const Icon = resolvedTheme === 'dark' ? Moon : Sun;
+  const isDark = resolvedTheme === 'dark';
+  const Icon = isDark ? Sun : Moon;
   return (
-    <DropdownMenu>
-      <DropdownMenuTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label="Cambiar tema"><Icon className="size-5" /></Button>
-      </DropdownMenuTrigger>
-      <DropdownMenuContent align="end">
-        <DropdownMenuItem onClick={() => setTheme('light')}><Sun /> Claro</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('dark')}><Moon /> Oscuro</DropdownMenuItem>
-        <DropdownMenuItem onClick={() => setTheme('system')}><Monitor /> Sistema</DropdownMenuItem>
-      </DropdownMenuContent>
-    </DropdownMenu>
+    <Button variant="ghost" size="icon" aria-label={isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro'} onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+      <Icon className="size-5" />
+    </Button>
   );
 }
