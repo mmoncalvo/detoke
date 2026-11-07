@@ -19,7 +19,7 @@ async function main() {
     app.get(/^(?!\/(api|data)(\/|$)).*/, (_req, res) => res.sendFile(path.join(dist, 'index.html')));
   } else {
     const { createServer } = await import('vite');
-    const vite = await createServer({ server: { middlewareMode: true }, appType: 'spa' });
+    const vite = await createServer({ server: { middlewareMode: true, hmr: { port: config.port + 20000 } }, appType: 'spa' });
     app.use(vite.middlewares);
   }
 
