@@ -1,4 +1,5 @@
-import { sequelize } from './server.js';
+import { sequelize, User, Product, Category } from './models/index.js';
+import bcrypt from 'bcryptjs';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -17,7 +18,22 @@ const runSeed = async () => {
     const products = JSON.parse(fs.readFileSync(path.join(seedDir, 'products.json'), 'utf8'));
     const categories = JSON.parse(fs.readFileSync(path.join(seedDir, 'categories.json'), 'utf8'));
 
-    // Here you would insert into DB, simplified for example
+    // Seed categories
+    for (const cat of categories) {
+      await Category.create(cat);
+    }
+
+    // Seed users with hashed passwords
+    for (const user of users) {
+      const hashedPassword = await bcrypt.hash(user.password, 10);
+      await User.create({ ...user, password: hashedPassword });
+    }
+
+    // Seed products
+    for (const product of products) {
+      await Product.create(product);
+    }
+
     console.log('Seeding completed:', { users: users.length, products: products.length, categories: categories.length });
     process.exit(0);
   } catch (err) {

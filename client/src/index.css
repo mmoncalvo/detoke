@@ -1,0 +1,20 @@
+@import "tailwindcss";
+@import "leaflet/dist/leaflet.css";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+@layer base {
+  body {
+    @apply bg-gray-50 text-gray-900 dark:bg-gray-950 dark:text-gray-100;
+  }
+}
+
+@keyframes highlight-fade {
+  0% { background-color: transparent; }
+  50% { background-color: rgba(16, 185, 129, 0.25); }
+  100% { background-color: transparent; }
+}
+
+.highlight-product {
+  animation: highlight-fade 3s ease-in-out 1;
+}

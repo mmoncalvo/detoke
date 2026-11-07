@@ -1,12 +1,19 @@
-const { Sequelize } = require('sequelize');
-const dbConfig = require('../config/database');
+import { Sequelize } from 'sequelize';
+import dbConfig from '../config/database.js';
 
 const sequelize = new Sequelize(dbConfig);
 
-const User = require('./user')(sequelize, Sequelize.DataTypes);
-const Product = require('./product')(sequelize, Sequelize.DataTypes);
+import UserModel from './user.js';
+import ProductModel from './product.js';
+import CategoryModel from './category.js';
 
-User.hasMany(Product);
-Product.belongsTo(User);
+const User = UserModel(sequelize, Sequelize.DataTypes);
+const Product = ProductModel(sequelize, Sequelize.DataTypes);
+const Category = CategoryModel(sequelize, Sequelize.DataTypes);
 
-module.exports = { sequelize, User, Product };
+User.hasMany(Product, { foreignKey: 'userId' });
+Product.belongsTo(User, { foreignKey: 'userId' });
+Category.hasMany(Product, { foreignKey: 'categoryId' });
+Product.belongsTo(Category, { foreignKey: 'categoryId' });
+
+export { sequelize, User, Product, Category };

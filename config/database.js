@@ -1,5 +1,7 @@
-require('dotenv').config();
-const path = require('path');
+import dotenv from 'dotenv';
+import path from 'path';
+
+dotenv.config();
 
 const config = {
   development: {
@@ -18,4 +20,4 @@ const config = {
   }
 };
 
-module.exports = config[process.env.NODE_ENV || 'development'];
+export default config[process.env.NODE_ENV || 'development'];

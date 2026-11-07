@@ -1,53 +1,46 @@
-import { Sequelize, DataTypes } from 'sequelize';
-import dotenv from 'dotenv';
+import express from 'express';
+import morgan from 'morgan';
+import cors from 'cors';
 import path from 'path';
-import { fileURLToPath } from 'url';
+import dotenv from 'dotenv';
+import { sequelize, User, Product, Category } from './models/index.js';
+import apiRoutes from './routes/api.js';
+import { authenticate } from './middleware/auth.js';
 
 dotenv.config({ quiet: true });
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
+const app = express();
+const PORT = process.env.PORT || 3000;
 
-const sequelize = new Sequelize({
-  dialect: process.env.DB_DIALECT || 'sqlite',
-  storage: process.env.DB_STORAGE ? path.join(process.cwd(), process.env.DB_STORAGE) : path.join(process.cwd(), 'database.sqlite'),
-  logging: false
+app.use(morgan('dev'));
+app.use(express.json());
+app.use(cors());
+app.use('/data', express.static(path.join(process.cwd(), 'data')));
+
+// Health check
+app.get('/api/health', (req, res) => {
+  res.json({ status: 'ok', db: 'connected' });
 });
 
-let dbReady = false;
+// API routes
+app.use('/api', apiRoutes);
 
-const setDbReady = (status: boolean) => { dbReady = status; };
-const isDbReady = () => dbReady;
-
-const startServer = async () => {
-  const app = (await import('express')).default();
-  const PORT = 3000;
-
-  app.use((await import('morgan')).default('dev'));
-  app.use((await import('express')).default.json());
-  app.use((await import('cors')).default());
-
-  // API Routes
-  app.use('/api', (await import('./routes/api.js')).default);
-
-  // Health check
-  app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok', db: isDbReady() ? 'connected' : 'initializing' });
-  });
-
+// Start server
+const start = async () => {
   try {
     await sequelize.authenticate();
+    console.log('Database connected');
+    
     await sequelize.sync();
-    setDbReady(true);
+    console.log('Database synced');
     
     app.listen(PORT, '0.0.0.0', () => {
       console.log(`Server running on port ${PORT}`);
     });
   } catch (err) {
-    console.error('Failed to start server:', err);
+    console.error('Error starting server:', err);
+    process.exit(1);
   }
 };
 
-startServer();
-
-export { sequelize, isDbReady, setDbReady };
+start();

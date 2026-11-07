@@ -14,6 +14,16 @@ export default defineConfig({
     host: "0.0.0.0",
     port: 3002,
     cors: true,
+    proxy: {
+      '/api': {
+        target: 'http://192.168.1.7:3000',
+        changeOrigin: true,
+      },
+      '/data': {
+        target: 'http://192.168.1.7:3000',
+        changeOrigin: true,
+      }
+    }
   },
   build: {
     outDir: path.resolve(__dirname, "build"),
