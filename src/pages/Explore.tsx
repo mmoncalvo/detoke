@@ -7,7 +7,7 @@ import ProductModal from '@/components/ProductModal';
 
 import type { Business, Category, Product } from '@shared/types';
 
-export default function Explorar() {
+export default function Explore() {
   const [searchParams] = useSearchParams();
   const [categories, setCategories] = useState<Category[]>([]);
   const [products, setProducts] = useState<Product[]>([]);
@@ -18,24 +18,24 @@ export default function Explorar() {
   const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
   
-  // Paginación
+  // Pagination
   const [visibleCount, setVisibleCount] = useState(12);
   const [loadingMore, setLoadingMore] = useState(false);
   const observerTarget = useRef(null);
 
   useEffect(() => {
-    api.get('/categorias').then(res => setCategories(res.data || res));
-    api.get('/productos').then(res => {
+    api.get('/categories').then(res => setCategories(res.data || res));
+    api.get('/products').then(res => {
         const shuffled = (res.data || res).sort(() => 0.5 - Math.random());
         setProducts(shuffled);
     });
-    api.get('/usuarios').then(res => {
+    api.get('/users').then(res => {
         const shuffled = (res.data || res).sort(() => 0.5 - Math.random());
         setBusinesses(shuffled);
     });
   }, []);
 
-  // Reiniciar visibilidad al cambiar tab o filtros
+  // Reset visible items when the tab or filters change
   useEffect(() => {
     setVisibleCount(12);
   }, [activeTab, selectedCat, search]);
@@ -84,7 +84,7 @@ export default function Explorar() {
       <main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
         <header>
           <div className="flex flex-col gap-6 mb-8">
-            {/* Primera línea: Título y Tabs */}
+            {/* First row: title and tabs */}
             <div className="flex flex-wrap items-center gap-6">
               <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Explorar</h1>
               <div className="flex bg-white dark:bg-gray-900 rounded-xl shadow-sm p-1 border border-gray-100 dark:border-gray-800">
@@ -105,7 +105,7 @@ export default function Explorar() {
               </div>
             </div>
 
-            {/* Segunda línea: Buscador y Tags */}
+            {/* Second row: search and tags */}
             <div className="flex flex-col md:flex-row gap-4 items-center">
               <div className="relative w-full md:w-64">
                 <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -148,7 +148,7 @@ export default function Explorar() {
                 <Link key={b.id} to={`/negocio/${b.slug}`} className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-lg transition-shadow duration-300 group">
                   <div className="h-48 overflow-hidden">
                     <img 
-                      src={getImageUrl(b.imagenPortada) || ''} 
+                      src={getImageUrl(b.coverImage) || ''} 
                       alt={b.businessName} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                     />

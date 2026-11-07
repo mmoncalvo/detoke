@@ -9,7 +9,7 @@ export class HttpError extends Error {
   }
 }
 
-/** Express 4 no captura los errores de los handlers async: los pasa a errorHandler. */
+/** Express 4 does not catch errors from async handlers: forwards them to errorHandler. */
 export function asyncHandler(fn: (req: Request, res: Response, next: NextFunction) => Promise<unknown>): RequestHandler {
   return (req, res, next) => {
     fn(req, res, next).catch(next);

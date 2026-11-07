@@ -17,7 +17,7 @@ export function signToken(user: User): string {
   return jwt.sign({ id: user.id, username: user.username, role: user.role }, config.jwtSecret, { expiresIn: '7d' });
 }
 
-/** Exige el token Bearer y deja el usuario en req.user. */
+/** Requires the Bearer token and sets req.user. */
 export async function requireAuth(req: Request, _res: Response, next: NextFunction) {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
@@ -40,7 +40,7 @@ export async function requireAuth(req: Request, _res: Response, next: NextFuncti
   }
 }
 
-/** Usuario de la sesión en una ruta protegida por requireAuth. */
+/** Session user on a route protected by requireAuth. */
 export function currentUser(req: Request): User {
   if (!req.user) throw new HttpError(401, 'No autorizado');
   return req.user;

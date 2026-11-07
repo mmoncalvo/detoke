@@ -27,7 +27,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
   const [items, setItems] = useState<CartItem[]>([]);
   const [isInitialized, setIsInitialized] = useState(false);
 
-  // Cargar carrito desde localStorage
+  // Load the cart from localStorage
   useEffect(() => {
     const saved = localStorage.getItem('cart');
     if (saved) {
@@ -41,7 +41,7 @@ export function CartProvider({ children }: { children: React.ReactNode }) {
     setIsInitialized(true);
   }, []);
 
-  // Guardar en localStorage solo después de la inicialización
+  // Save to localStorage only after initialization
   useEffect(() => {
     if (isInitialized) {
       localStorage.setItem('cart', JSON.stringify(items));

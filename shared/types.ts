@@ -1,6 +1,6 @@
-// Tipos que viajan entre el servidor y la web.
+// Types shared by the server and the web app.
 
-/** { success: true, data } o { success: false, error }, con el error en español. */
+/** { success: true, data } or { success: false, error }; the error is shown to users, in Spanish. */
 export interface ApiResponse<T = any> {
   success: boolean;
   data: T;
@@ -15,28 +15,28 @@ export interface Category {
   isActive?: boolean;
 }
 
-/** Datos públicos de un usuario: cada vendedor es un negocio. */
+/** Public user data: every seller is a business. */
 export interface Business {
   id: string;
   slug: string;
   businessName: string;
   description?: string;
   logo?: string;
-  imagenPortada?: string;
+  coverImage?: string;
   whatsapp: string;
   address?: string;
-  latitud?: number;
-  longitud?: number;
-  /** JSON: {"lunes": "09:00-18:00", ...} */
-  horario?: string;
-  /** JSON: lista de URLs. */
-  galeria?: string;
-  sitioWeb?: string;
-  estaVerificado: boolean;
+  latitude?: number;
+  longitude?: number;
+  /** JSON: {"monday": "09:00-18:00", "sunday": "closed", ...} */
+  hours?: string;
+  /** JSON: list of URLs. */
+  gallery?: string;
+  website?: string;
+  isVerified: boolean;
   Products?: Product[];
 }
 
-/** Usuario de la sesión. */
+/** Session user. */
 export interface User extends Business {
   username: string;
   role: string;
@@ -51,10 +51,10 @@ export interface Product {
   slug?: string;
   description?: string;
   price: number;
-  /** JSON: lista de rutas de imágenes. */
+  /** JSON: list of image paths. */
   images: string;
   stock?: number;
-  destacado?: boolean;
+  featured?: boolean;
   whatsapp?: string;
   isAvailable?: boolean;
   categoryId?: string;

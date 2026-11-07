@@ -9,22 +9,22 @@ import { upload, uploadPath } from '../services/upload.js';
 
 export const userRoutes = Router();
 
-const LIST_ATTRIBUTES = ['id', 'slug', 'businessName', 'description', 'logo', 'imagenPortada', 'whatsapp', 'address', 'latitud', 'longitud', 'estaVerificado', 'horario', 'galeria'];
-const PROFILE_ATTRIBUTES = [...LIST_ATTRIBUTES, 'sitioWeb'];
+const LIST_ATTRIBUTES = ['id', 'slug', 'businessName', 'description', 'logo', 'coverImage', 'whatsapp', 'address', 'latitude', 'longitude', 'isVerified', 'hours', 'gallery'];
+const PROFILE_ATTRIBUTES = [...LIST_ATTRIBUTES, 'website'];
 
 const userUpdateSchema = z.object({
   businessName: z.string().min(3).optional(),
   description: z.string().optional(),
   whatsapp: z.string().optional(),
   address: z.string().optional(),
-  latitud: z.number().optional(),
-  longitud: z.number().optional(),
-  horario: z.string().optional(), // JSON
-  galeria: z.string().optional(), // JSON
-  sitioWeb: z.string().url().optional(),
+  latitude: z.number().optional(),
+  longitude: z.number().optional(),
+  hours: z.string().optional(), // JSON
+  gallery: z.string().optional(), // JSON
+  website: z.string().url().optional(),
 });
 
-/** Empresa activa con sus productos disponibles. */
+/** Active business with its available products. */
 async function findBusiness(where: WhereOptions) {
   const user = await User.findOne({
     where: { ...where, isActive: true },
@@ -40,7 +40,7 @@ async function findBusiness(where: WhereOptions) {
   return user;
 }
 
-/** Solo el dueño del perfil o un admin. */
+/** Only the profile owner or an admin. */
 async function findEditableUser(req: Request) {
   const me = currentUser(req);
   if (me.id !== req.params.id && me.role !== 'admin') throw new HttpError(403, 'No autorizado');
@@ -49,7 +49,7 @@ async function findEditableUser(req: Request) {
   return user;
 }
 
-/** Normaliza un campo JSON guardado como texto. */
+/** Normalizes a JSON field stored as text. */
 function normalizeJson(value: string, error: string) {
   try {
     return JSON.stringify(JSON.parse(value));
@@ -58,7 +58,7 @@ function normalizeJson(value: string, error: string) {
   }
 }
 
-// Público: listar empresas activas
+// Public: list active businesses
 userRoutes.get('/', asyncHandler(async (req, res) => {
   const { search } = req.query;
   const where: Record<string | symbol, unknown> = { isActive: true };
@@ -74,30 +74,30 @@ userRoutes.get('/', asyncHandler(async (req, res) => {
   ok(res, users);
 }));
 
-// Público: obtener empresa por slug
+// Public: get a business by slug
 userRoutes.get('/slug/:slug', asyncHandler(async (req, res) => {
   ok(res, await findBusiness({ slug: req.params.slug }));
 }));
 
-// Público: obtener empresa por id
+// Public: get a business by id
 userRoutes.get('/:id', asyncHandler(async (req, res) => {
   ok(res, await findBusiness({ id: req.params.id }));
 }));
 
-// Protegido: actualizar perfil de la empresa
+// Protected: update the business profile
 userRoutes.put('/:id', requireAuth, asyncHandler(async (req, res) => {
   const user = await findEditableUser(req);
   const data = userUpdateSchema.parse(req.body);
 
-  if (data.horario) data.horario = normalizeJson(data.horario, 'Formato de horario inválido');
-  if (data.galeria) data.galeria = normalizeJson(data.galeria, 'Formato de galería inválido');
+  if (data.hours) data.hours = normalizeJson(data.hours, 'Formato de horario inválido');
+  if (data.gallery) data.gallery = normalizeJson(data.gallery, 'Formato de galería inválido');
 
   await user.update(data);
 
   ok(res, await User.findByPk(req.params.id, { attributes: PROFILE_ATTRIBUTES }));
 }));
 
-// Público: productos de una empresa
+// Public: products of a business
 userRoutes.get('/:id/products', asyncHandler(async (req, res) => {
   const { categoryId } = req.query;
   const where: Record<string, unknown> = { userId: req.params.id, isAvailable: true };
@@ -112,24 +112,24 @@ userRoutes.get('/:id/products', asyncHandler(async (req, res) => {
   ok(res, products);
 }));
 
-// Protegido: subir imagen de portada
+// Protected: upload the cover image
 userRoutes.post('/:id/upload-cover', requireAuth, upload.single('cover'), asyncHandler(async (req, res) => {
   const user = await findEditableUser(req);
   if (!req.file) throw new HttpError(400, 'Falta la imagen');
 
-  const imagenPortada = uploadPath(req.file);
-  await user.update({ imagenPortada });
+  const coverImage = uploadPath(req.file);
+  await user.update({ coverImage });
 
-  ok(res, { imagenPortada });
+  ok(res, { coverImage });
 }));
 
-// Protegido: agregar imágenes a la galería
+// Protected: add images to the gallery
 userRoutes.post('/:id/upload-gallery', requireAuth, upload.array('gallery', 10), asyncHandler(async (req, res) => {
   const user = await findEditableUser(req);
 
   const files = (req.files ?? []) as Express.Multer.File[];
-  const galeria = [...JSON.parse(user.galeria || '[]'), ...files.map(uploadPath)];
-  await user.update({ galeria: JSON.stringify(galeria) });
+  const gallery = [...JSON.parse(user.gallery || '[]'), ...files.map(uploadPath)];
+  await user.update({ gallery: JSON.stringify(gallery) });
 
-  ok(res, { galeria });
+  ok(res, { gallery });
 }));

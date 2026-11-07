@@ -7,7 +7,7 @@ venv/
 coverage/
 .vscode/
 .idea/
-# Imágenes y archivos subidos (91 MB): quedan en disco, no en git
+# Images and uploads (91 MB): kept on disk, not in git
 /data/
 database.sqlite*
 *.bak

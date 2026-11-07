@@ -19,7 +19,7 @@ const productSchema = z.object({
   isAvailable: z.preprocess((val) => val === 'true' || val === true, z.boolean().optional()),
 });
 
-/** El producto del id, si es de quien hace el pedido. */
+/** The product with that id, if it belongs to the requester. */
 async function findOwnProduct(req: Request) {
   const product = await Product.findByPk(req.params.id);
   if (!product) throw new HttpError(404, 'Producto no encontrado');
@@ -27,7 +27,7 @@ async function findOwnProduct(req: Request) {
   return product;
 }
 
-// Público: listar productos con filtros
+// Public: list products with filters
 productRoutes.get('/', asyncHandler(async (req, res) => {
   const { categoryId, userId, search } = req.query;
   const where: Record<string | symbol, unknown> = { isAvailable: true };
@@ -48,7 +48,7 @@ productRoutes.get('/', asyncHandler(async (req, res) => {
   ok(res, products);
 }));
 
-// Público: obtener producto por id
+// Public: get a product by id
 productRoutes.get('/:id', asyncHandler(async (req, res) => {
   const product = await Product.findByPk(req.params.id, {
     include: [
@@ -61,7 +61,7 @@ productRoutes.get('/:id', asyncHandler(async (req, res) => {
   ok(res, product);
 }));
 
-// Protegido: subir imagen del producto
+// Protected: upload a product image
 productRoutes.post('/:id/upload-image', requireAuth, upload.single('image'), asyncHandler(async (req, res) => {
   const product = await findOwnProduct(req);
   if (!req.file) throw new HttpError(400, 'Falta la imagen');
@@ -72,7 +72,7 @@ productRoutes.post('/:id/upload-image', requireAuth, upload.single('image'), asy
   ok(res, { images });
 }));
 
-// Protegido: crear producto con imagen
+// Protected: create a product with an image
 productRoutes.post('/', requireAuth, upload.single('image'), asyncHandler(async (req, res) => {
   const data = productSchema.parse(req.body);
 
@@ -85,7 +85,7 @@ productRoutes.post('/', requireAuth, upload.single('image'), asyncHandler(async 
   ok(res, product, 201);
 }));
 
-// Protegido: actualizar producto (solo dueño)
+// Protected: update a product (owner only)
 productRoutes.put('/:id', requireAuth, asyncHandler(async (req, res) => {
   const product = await findOwnProduct(req);
   const data = productSchema.partial().parse(req.body);
@@ -95,7 +95,7 @@ productRoutes.put('/:id', requireAuth, asyncHandler(async (req, res) => {
   ok(res, product);
 }));
 
-// Protegido: eliminar producto (solo dueño)
+// Protected: delete a product (owner only)
 productRoutes.delete('/:id', requireAuth, asyncHandler(async (req, res) => {
   const product = await findOwnProduct(req);
   await product.destroy();

@@ -8,7 +8,7 @@ export class User extends Model {
 
   @Column({ type: DataType.STRING, allowNull: false, unique: true }) username!: string;
   @Column({ type: DataType.STRING, allowNull: false }) password!: string;
-  @Column({ type: DataType.STRING, defaultValue: 'vendedor' }) role!: string;
+  @Column({ type: DataType.STRING, defaultValue: 'seller' }) role!: string;
   @Column(DataType.STRING) fullName!: string | null;
   @Column(DataType.STRING) email!: string | null;
   @Column({ type: DataType.STRING, allowNull: false }) businessName!: string;
@@ -16,18 +16,18 @@ export class User extends Model {
   @Column({ type: DataType.STRING, allowNull: false }) whatsapp!: string;
   @Column(DataType.TEXT) description!: string | null;
   @Column(DataType.STRING) logo!: string | null;
-  @Column(DataType.STRING) imagenPortada!: string | null;
+  @Column(DataType.STRING) coverImage!: string | null;
   @Column(DataType.STRING) address!: string | null;
-  @Column(DataType.DECIMAL(10, 8)) latitud!: number | null;
-  @Column(DataType.DECIMAL(11, 8)) longitud!: number | null;
-  /** JSON: {"lunes": "09:00-18:00", ...} */
-  @Column(DataType.TEXT) horario!: string | null;
-  /** JSON: lista de URLs. */
-  @Column(DataType.TEXT) galeria!: string | null;
-  @Column(DataType.STRING) sitioWeb!: string | null;
-  @Column({ type: DataType.BOOLEAN, defaultValue: false }) estaVerificado!: boolean;
+  @Column(DataType.DECIMAL(10, 8)) latitude!: number | null;
+  @Column(DataType.DECIMAL(11, 8)) longitude!: number | null;
+  /** JSON: {"monday": "09:00-18:00", "sunday": "closed", ...} */
+  @Column(DataType.TEXT) hours!: string | null;
+  /** JSON: list of URLs. */
+  @Column(DataType.TEXT) gallery!: string | null;
+  @Column(DataType.STRING) website!: string | null;
+  @Column({ type: DataType.BOOLEAN, defaultValue: false }) isVerified!: boolean;
   @Column({ type: DataType.BOOLEAN, defaultValue: true }) isActive!: boolean;
 
-  // El nombre de la propiedad es la clave en el JSON: la web lee `Products`.
+  // The property name is the JSON key: the web app reads `Products`.
   @HasMany(() => Product, { foreignKey: 'userId', onDelete: 'CASCADE', onUpdate: 'CASCADE' }) Products!: Product[];
 }

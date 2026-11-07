@@ -41,7 +41,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
           <X size={20} />
         </button>
         
-        {/* Columna Izquierda: Imagen (60%) */}
+        {/* Left column: image (60%) */}
         <div className="w-full md:w-3/5 bg-gray-100 dark:bg-gray-800 flex items-center justify-center overflow-hidden">
           {imageUrl ? (
             <img src={imageUrl} alt={product.title} className="w-full h-full object-cover" />
@@ -50,7 +50,7 @@ export default function ProductModal({ product, isOpen, onClose }: ProductModalP
           )}
         </div>
         
-        {/* Columna Derecha: Contenido (40%) */}
+        {/* Right column: content (40%) */}
         <div className="w-full md:w-2/5 p-8 flex flex-col justify-between bg-white dark:bg-gray-900">
           <div>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-white leading-tight">{product.title}</h2>

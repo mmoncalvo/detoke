@@ -9,7 +9,7 @@ export const searchRoutes = Router();
 const contains = (column: string, term: string) =>
   Sequelize.where(Sequelize.fn('LOWER', Sequelize.col(column)), 'LIKE', `%${term}%`);
 
-// Público: buscador global de negocios, productos y categorías
+// Public: global search across businesses, products and categories
 searchRoutes.get('/', asyncHandler(async (req, res) => {
   const { q } = req.query;
   if (!q || typeof q !== 'string') return ok(res, []);
@@ -27,8 +27,8 @@ searchRoutes.get('/', asyncHandler(async (req, res) => {
   ]);
 
   ok(res, [
-    ...users.map((u) => ({ id: u.id, type: 'negocio', title: u.businessName, slug: u.slug, logo: u.logo, icon: '🏪', subtitle: 'Negocio' })),
-    ...products.map((p) => ({ id: p.id, type: 'producto', title: p.title, slug: p.User?.slug, images: p.images, price: p.price, icon: '📦', subtitle: 'Producto' })),
-    ...categories.map((c) => ({ id: c.id, type: 'categoria', title: c.name, icon: c.icon, subtitle: 'Categoría' })),
+    ...users.map((u) => ({ id: u.id, type: 'business', title: u.businessName, slug: u.slug, logo: u.logo, icon: '🏪', subtitle: 'Negocio' })),
+    ...products.map((p) => ({ id: p.id, type: 'product', title: p.title, slug: p.User?.slug, images: p.images, price: p.price, icon: '📦', subtitle: 'Producto' })),
+    ...categories.map((c) => ({ id: c.id, type: 'category', title: c.name, icon: c.icon, subtitle: 'Categoría' })),
   ]);
 }));

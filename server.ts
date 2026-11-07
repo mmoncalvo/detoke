@@ -1,5 +1,5 @@
-// Punto de entrada: Express con la API en /api y la web en el mismo puerto.
-// En desarrollo monta Vite como middleware; en producción sirve dist/.
+// Entry point: Express serves the API on /api and the web app on the same port.
+// In development it mounts Vite as middleware; in production it serves dist/.
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import express from 'express';
@@ -24,7 +24,7 @@ async function main() {
   }
 
   app.listen(config.port, '0.0.0.0', () => {
-    console.log(`detoke escuchando en http://localhost:${config.port}`);
+    console.log(`detoke listening on http://localhost:${config.port}`);
   });
 }
 

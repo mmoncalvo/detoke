@@ -25,8 +25,8 @@ export default function Home() {
   };
 
   useEffect(() => {
-    api.get('/usuarios').then(res => setBusinesses((res.data || res).sort(() => 0.5 - Math.random())));
-    api.get('/productos').then(res => setProducts(res.data || res));
+    api.get('/users').then(res => setBusinesses((res.data || res).sort(() => 0.5 - Math.random())));
+    api.get('/products').then(res => setProducts(res.data || res));
   }, []);
 
   useEffect(() => {
@@ -67,7 +67,7 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 py-8 space-y-12">
         <ProductModal product={selectedProduct} isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); setIsPaused(false); }} />
 
-        {/* Negocios destacados */}
+        {/* Featured businesses */}
         {businesses.length > 0 && (
           <section>
             <div className="flex items-center gap-3 mb-6">
@@ -83,7 +83,7 @@ export default function Home() {
                 >
                   <div className="h-48 overflow-hidden">
                     <img 
-                      src={getImageUrl(b.imagenPortada) || ''} 
+                      src={getImageUrl(b.coverImage) || ''} 
                       alt={b.businessName} 
                       className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
                     />
@@ -91,7 +91,7 @@ export default function Home() {
                   <div className="p-5">
                     <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">{b.businessName}</h3>
                     <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{b.description}</p>
-                    {b.estaVerificado && (
+                    {b.isVerified && (
                       <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-2 block">✓ Verificado</span>
                     )}
                   </div>
@@ -101,7 +101,7 @@ export default function Home() {
           </section>
         )}
 
-        {/* Productos Destacados */}
+        {/* Featured products */}
         <section>
           <div className="flex items-center justify-between mb-6">
             <div className="flex items-center gap-3">

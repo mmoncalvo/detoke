@@ -15,5 +15,5 @@ const storage = multer.diskStorage({
 
 export const upload = multer({ storage });
 
-/** Ruta pública de un archivo subido. */
+/** Public path of an uploaded file. */
 export const uploadPath = (file: Express.Multer.File) => '/data/uploads/' + file.filename;

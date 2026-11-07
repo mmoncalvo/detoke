@@ -23,7 +23,7 @@ export default function Checkout() {
     localStorage.setItem('checkout_payments', JSON.stringify(payments));
   }, [payments]);
   
-  // Agrupar items por negocio
+  // Group items by business
   const groupedItems = items.reduce((acc: any, item) => {
     if (!acc[item.userId]) acc[item.userId] = { 
         businessName: item.businessName, 
@@ -70,7 +70,7 @@ export default function Checkout() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-950 dark:text-gray-100 pt-24 pb-8 px-4">
       <main className="max-w-2xl mx-auto">
-        {/* Aviso de múltiples carritos */}
+        {/* Multiple carts notice */}
         {Object.keys(groupedItems).length > 1 && (
           <div className="mb-8 bg-emerald-50 dark:bg-emerald-900/20 border border-emerald-100 dark:border-emerald-800 p-4 rounded-2xl flex items-center gap-3 text-emerald-800 dark:text-emerald-200">
             <span className="text-2xl">🛍️</span>

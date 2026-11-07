@@ -11,17 +11,17 @@ export class Product extends Model {
   @Column({ type: DataType.STRING, unique: true }) slug!: string | null;
   @Column(DataType.TEXT) description!: string | null;
   @Column({ type: DataType.DECIMAL(10, 2), allowNull: false }) price!: number;
-  /** JSON: lista de rutas de imágenes. */
+  /** JSON: list of image paths. */
   @Column({ type: DataType.TEXT, defaultValue: '[]' }) images!: string;
   @Column({ type: DataType.INTEGER, defaultValue: 0 }) stock!: number;
-  @Column({ type: DataType.BOOLEAN, defaultValue: false }) destacado!: boolean;
+  @Column({ type: DataType.BOOLEAN, defaultValue: false }) featured!: boolean;
   @Column(DataType.STRING) whatsapp!: string | null;
   @Column({ type: DataType.BOOLEAN, defaultValue: true }) isAvailable!: boolean;
 
   @ForeignKey(() => Category) @Column(DataType.STRING) categoryId!: string | null;
   @ForeignKey(() => User) @Column(DataType.STRING) userId!: string | null;
 
-  // El nombre de la propiedad es la clave en el JSON: la web lee `User` y `Category`.
+  // The property name is the JSON key: the web app reads `User` and `Category`.
   @BelongsTo(() => User, { foreignKey: 'userId', onDelete: 'CASCADE', onUpdate: 'CASCADE' }) User?: User;
   @BelongsTo(() => Category, { foreignKey: 'categoryId', onDelete: 'CASCADE', onUpdate: 'CASCADE' }) Category?: Category;
 }

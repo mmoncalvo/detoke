@@ -10,13 +10,13 @@ import type { Category, Product } from '@shared/types';
 
 
 const DAYS = [
-  { id: 'lunes', label: 'Lunes' },
-  { id: 'martes', label: 'Martes' },
-  { id: 'miercoles', label: 'Miércoles' },
-  { id: 'jueves', label: 'Jueves' },
-  { id: 'viernes', label: 'Viernes' },
-  { id: 'sabado', label: 'Sábado' },
-  { id: 'domingo', label: 'Domingo' }
+  { id: 'monday', label: 'Lunes' },
+  { id: 'tuesday', label: 'Martes' },
+  { id: 'wednesday', label: 'Miércoles' },
+  { id: 'thursday', label: 'Jueves' },
+  { id: 'friday', label: 'Viernes' },
+  { id: 'saturday', label: 'Sábado' },
+  { id: 'sunday', label: 'Domingo' }
 ];
 
 export default function Dashboard() {
@@ -35,39 +35,39 @@ export default function Dashboard() {
     description: user?.description || '',
     whatsapp: user?.whatsapp || '',
     address: user?.address || '',
-    sitioWeb: user?.sitioWeb || ''
+    website: user?.website || ''
   });
   const [businessHours, setBusinessHours] = useState<Record<string, { isOpen: boolean, open: string, close: string }>>({});
-  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(user?.imagenPortada ? user.imagenPortada : null);
+  const [coverImagePreview, setCoverImagePreview] = useState<string | null>(user?.coverImage ? user.coverImage : null);
   const [selectedCoverFile, setSelectedCoverFile] = useState<File | null>(null);
 
-  const safeParseGallery = (galeria: any): string[] => {
-    if (!galeria) return [];
-    if (Array.isArray(galeria)) return galeria;
+  const safeParseGallery = (gallery: any): string[] => {
+    if (!gallery) return [];
+    if (Array.isArray(gallery)) return gallery;
     try {
-      return JSON.parse(galeria);
+      return JSON.parse(gallery);
     } catch (e) {
       console.error('Error parsing gallery:', e);
       return [];
     }
   };
 
-  const [galleryImages, setGalleryImages] = useState<string[]>(safeParseGallery(user?.galeria));
+  const [galleryImages, setGalleryImages] = useState<string[]>(safeParseGallery(user?.gallery));
   const [selectedGalleryFiles, setSelectedGalleryFiles] = useState<FileList | null>(null);
   const [galleryPreviews, setGalleryPreviews] = useState<string[]>([]);
 
-  const parseHorario = (horarioStr: string | undefined | null) => {
+  const parseHours = (hoursStr: string | undefined | null) => {
     const defaultHours: any = {};
     DAYS.forEach(day => { defaultHours[day.id] = { isOpen: false, open: '09:00', close: '18:00' }; });
 
-    if (!horarioStr) return defaultHours;
+    if (!hoursStr) return defaultHours;
 
     try {
-      const parsed = JSON.parse(horarioStr);
+      const parsed = JSON.parse(hoursStr);
       const hours: any = { ...defaultHours };
       Object.keys(parsed).forEach(day => {
         const val = parsed[day];
-        if (val === 'cerrado' || val === 'Cerrado') {
+        if (val === 'closed') {
           hours[day] = { ...hours[day], isOpen: false };
         } else if (typeof val === 'string' && val.includes('-')) {
           const [open, close] = val.split('-');
@@ -76,15 +76,15 @@ export default function Dashboard() {
       });
       return hours;
     } catch (e) {
-      console.error('Error parsing horario:', e);
+      console.error('Error parsing hours:', e);
       return defaultHours;
     }
   };
 
-  const formatHorario = (hours: Record<string, { isOpen: boolean, open: string, close: string }>) => {
+  const formatHours = (hours: Record<string, { isOpen: boolean, open: string, close: string }>) => {
     const result: any = {};
     Object.keys(hours).forEach(day => {
-      result[day] = hours[day].isOpen ? `${hours[day].open}-${hours[day].close}` : 'cerrado';
+      result[day] = hours[day].isOpen ? `${hours[day].open}-${hours[day].close}` : 'closed';
     });
     return JSON.stringify(result);
   };
@@ -93,7 +93,7 @@ export default function Dashboard() {
     if (!path) return null;
     if (path.startsWith('http') || path.startsWith('data:image')) return path;
     if (path.startsWith('/data/')) return `${BASE_URL}${path}`;
-    // Si es solo un nombre de archivo, es una imagen de semilla (data/images)
+    // A bare file name is a seed image (data/images)
     return `${BASE_URL}/data/images/${path}`;
   };
 
@@ -102,7 +102,7 @@ export default function Dashboard() {
       try {
         // Assuming there's an API endpoint to get products for the logged-in user
         // Or products are associated with the user's ID
-        const res = await api.get(`/productos?userId=${user.id}`, token);
+        const res = await api.get(`/products?userId=${user.id}`, token);
         setProducts(res.data || []);
       } catch (error) {
         console.error('Error fetching products:', error);
@@ -112,7 +112,7 @@ export default function Dashboard() {
 
   const fetchCategories = async () => {
     try {
-      const res = await api.get('/categorias');
+      const res = await api.get('/categories');
       setCategories(res.data || []);
     } catch (error) {
       console.error('Error fetching categories:', error);
@@ -123,9 +123,9 @@ export default function Dashboard() {
     fetchProducts();
     fetchCategories();
     // Initialize image states and hours when user changes
-    if (user?.imagenPortada) setCoverImagePreview(user.imagenPortada);
-    setGalleryImages(safeParseGallery(user?.galeria));
-    setBusinessHours(parseHorario(user?.horario));
+    if (user?.coverImage) setCoverImagePreview(user.coverImage);
+    setGalleryImages(safeParseGallery(user?.gallery));
+    setBusinessHours(parseHours(user?.hours));
   }, [user, token]);
 
   const handleProfileChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -172,7 +172,7 @@ export default function Dashboard() {
       if (selectedCoverFile) {
         const formData = new FormData();
         formData.append('cover', selectedCoverFile);
-        const res = await api.upload(`/usuarios/${user!.id}/upload-cover`, formData, token!);
+        const res = await api.upload(`/users/${user!.id}/upload-cover`, formData, token!);
         if (!res.success) throw new Error(res.error);
       }
 
@@ -182,27 +182,27 @@ export default function Dashboard() {
         for (let i = 0; i < selectedGalleryFiles.length; i++) {
           formData.append('gallery', selectedGalleryFiles[i]);
         }
-        const res = await api.upload(`/usuarios/${user!.id}/upload-gallery`, formData, token!);
+        const res = await api.upload(`/users/${user!.id}/upload-gallery`, formData, token!);
         if (!res.success) throw new Error(res.error);
-        currentGallery = res.data.galeria; // Update with images returned from server
+        currentGallery = res.data.gallery; // Update with images returned from server
       }
 
       // Update profile data
       const payload = {
         ...profileForm,
-        horario: formatHorario(businessHours),
-        galeria: JSON.stringify(currentGallery),
+        hours: formatHours(businessHours),
+        gallery: JSON.stringify(currentGallery),
       };
 
-      const res = await api.put(`/usuarios/${user!.id}`, payload, token!);
+      const res = await api.put(`/users/${user!.id}`, payload, token!);
       if (res.success) {
         setShowProfileForm(false);
         setSelectedCoverFile(null);
         setSelectedGalleryFiles(null);
         setGalleryPreviews([]);
-        setCoverImagePreview(res.data.imagenPortada || null);
-        setGalleryImages(res.data.galeria ? JSON.parse(res.data.galeria) : []);
-        setBusinessHours(parseHorario(res.data.horario));
+        setCoverImagePreview(res.data.coverImage || null);
+        setGalleryImages(res.data.gallery ? JSON.parse(res.data.gallery) : []);
+        setBusinessHours(parseHours(res.data.hours));
         login(token!, res.data);
         toast.success('Perfil actualizado correctamente');
       } else {
@@ -221,7 +221,7 @@ export default function Dashboard() {
         onClick: async () => {
           try {
             const updatedGallery = galleryImages.filter(img => img !== imageUrlToDelete);
-            const res = await api.put(`/usuarios/${user!.id}`, { galeria: JSON.stringify(updatedGallery) }, token!);
+            const res = await api.put(`/users/${user!.id}`, { gallery: JSON.stringify(updatedGallery) }, token!);
             if (res.success) {
               setGalleryImages(updatedGallery);
               toast.success('Imagen eliminada');
@@ -254,13 +254,13 @@ export default function Dashboard() {
       let productResponse;
 
       if (editing) {
-        productResponse = await api.put(`/productos/${editing.id}`, payload, token!);
+        productResponse = await api.put(`/products/${editing.id}`, payload, token!);
         if (!productResponse.success) throw new Error(JSON.stringify(productResponse.error));
         
         if (selectedFile) {
           const formData = new FormData();
           formData.append('image', selectedFile);
-          const imgRes = await api.upload(`/productos/${editing.id}/upload-image`, formData, token!);
+          const imgRes = await api.upload(`/products/${editing.id}/upload-image`, formData, token!);
           if (!imgRes.success) throw new Error(JSON.stringify(imgRes.error));
         }
       } else {
@@ -272,15 +272,15 @@ export default function Dashboard() {
           formData.append('categoryId', form.categoryId);
           formData.append('isAvailable', String(form.isAvailable));
           formData.append('image', selectedFile);
-          productResponse = await api.upload('/productos', formData, token!);
+          productResponse = await api.upload('/products', formData, token!);
         } else {
-          // Asegurar tipos para el JSON
+          // Ensure types for the JSON payload
           const jsonPayload = {
             ...form,
             price: parseFloat(form.price),
             isAvailable: Boolean(form.isAvailable)
           };
-          productResponse = await api.post('/productos', jsonPayload, token!);
+          productResponse = await api.post('/products', jsonPayload, token!);
         }
         if (!productResponse.success) throw new Error(JSON.stringify(productResponse.error));
       }
@@ -313,7 +313,7 @@ export default function Dashboard() {
         label: 'Eliminar',
         onClick: async () => {
           try {
-            await api.delete(`/productos/${id}`, token!);
+            await api.delete(`/products/${id}`, token!);
             fetchProducts();
             toast.success('Producto eliminado');
           } catch (e) {
@@ -353,12 +353,12 @@ export default function Dashboard() {
                   description: user?.description || '',
                   whatsapp: user?.whatsapp || '',
                   address: user?.address || '',
-                  sitioWeb: user?.sitioWeb || '' // Initialize with user's sitioWeb
+                  website: user?.website || '' // Initialize with user's website
                 });
-                setBusinessHours(parseHorario(user?.horario));
+                setBusinessHours(parseHours(user?.hours));
                 setSelectedCoverFile(null); // Clear selected file on form open
-                setCoverImagePreview(user?.imagenPortada || null); // Show current image
-                setGalleryImages(safeParseGallery(user?.galeria)); // Load existing gallery
+                setCoverImagePreview(user?.coverImage || null); // Show current image
+                setGalleryImages(safeParseGallery(user?.gallery)); // Load existing gallery
                 setSelectedGalleryFiles(null);
                 setGalleryPreviews([]);
                 setShowProfileForm(true);
@@ -474,10 +474,10 @@ export default function Dashboard() {
             </div>
 
             <input
-              name="sitioWeb"
+              name="website"
               type="url"
               placeholder="Sitio Web (ej: https://www.misitio.com)"
-              value={profileForm.sitioWeb}
+              value={profileForm.website}
               onChange={handleProfileChange}
               className="w-full px-4 py-3 border rounded-xl dark:bg-gray-800 dark:border-gray-700 dark:text-white"
             />
@@ -549,11 +549,11 @@ export default function Dashboard() {
                 onClick={() => {
                   setShowProfileForm(false);
                   setSelectedCoverFile(null);
-                  setCoverImagePreview(user?.imagenPortada || null);
-                  setGalleryImages(user?.galeria ? JSON.parse(user.galeria) : []); // Reset gallery
+                  setCoverImagePreview(user?.coverImage || null);
+                  setGalleryImages(user?.gallery ? JSON.parse(user.gallery) : []); // Reset gallery
                   setSelectedGalleryFiles(null);
                   setGalleryPreviews([]);
-                  setBusinessHours(parseHorario(user?.horario));
+                  setBusinessHours(parseHours(user?.hours));
                 }}
                 className="bg-gray-100 px-6 py-2.5 rounded-xl"
               >

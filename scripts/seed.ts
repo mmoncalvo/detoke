@@ -1,6 +1,6 @@
-// npm run db:seed — borra la base de desarrollo y carga los datos de ejemplo.
+// npm run db:seed — wipes the database and loads the sample data.
 import { sequelize } from '../server/db.js';
 import { seed } from '../server/services/seed.js';
 
-console.log('Datos de ejemplo cargados:', await seed());
+console.log('Sample data loaded:', await seed());
 await sequelize.close();

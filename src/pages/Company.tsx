@@ -45,7 +45,7 @@ export default function Company() {
 
     const fetchCompany = async () => {
       try {
-        const res = await api.get(`/usuarios/slug/${slug}`);
+        const res = await api.get(`/users/slug/${slug}`);
         if (res.success && res.data) {
           setCompany(res.data);
           setError(null);
@@ -62,7 +62,7 @@ export default function Company() {
 
   useEffect(() => {
     if (company?.id) {
-      api.get(`/usuarios/${company.id}/products`)
+      api.get(`/users/${company.id}/products`)
         .then(res => setProducts(res.data || res))
         .catch(err => console.error('Error fetching products', err));
     }
@@ -82,7 +82,7 @@ export default function Company() {
 
   if (!company) return <div className="p-8 text-center">Cargando...</div>;
 
-  const galleryImages = company.galeria ? JSON.parse(company.galeria) : [];
+  const galleryImages = company.gallery ? JSON.parse(company.gallery) : [];
   const isOwner = user && user.id === company.id;
 
   return (
@@ -105,28 +105,28 @@ export default function Company() {
         businessName={company.businessName}
         description={company.description}
         logo={company.logo}
-        imagenPortada={company.imagenPortada}
+        coverImage={company.coverImage}
         whatsapp={company.whatsapp}
-        estaVerificado={company.estaVerificado}
+        isVerified={company.isVerified}
         address={company.address}
         slug={company.slug}
-        sitioWeb={company.sitioWeb}
+        website={company.website}
       />
 
       <main className="max-w-7xl mx-auto px-4 py-8 space-y-8">
-        {/* Grid de Mapa y Horarios */}
-        {(company.latitud && company.longitud || company.horario) && (
+        {/* Map and hours grid */}
+        {(company.latitude && company.longitude || company.hours) && (
           <div className="grid grid-cols-1 md:grid-cols-12 gap-8 items-stretch">
-            {company.horario && (
+            {company.hours && (
               <div className="md:col-span-5 h-full">
-                <BusinessHours horario={company.horario} />
+                <BusinessHours hours={company.hours} />
               </div>
             )}
-            {company.latitud && company.longitud && (
+            {company.latitude && company.longitude && (
               <div className="md:col-span-7 h-full min-h-[300px]">
                 <div className="h-full">
                   <BusinessMap
-                    center={[company.latitud, company.longitud]}
+                    center={[company.latitude, company.longitude]}
                     address={company.address || ''}
                     businessName={company.businessName}
                   />
@@ -136,12 +136,12 @@ export default function Company() {
           </div>
         )}
 
-        {/* Galería */}
+        {/* Gallery */}
         <div className="mb-20">
           <ImageGallery images={galleryImages} />
         </div>
 
-        {/* Productos destacados */}
+        {/* Featured products */}
         <section className="mt-8">
           <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-6">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Productos destacados</h2>

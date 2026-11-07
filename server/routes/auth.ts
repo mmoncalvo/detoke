@@ -22,7 +22,7 @@ const registerSchema = z.object({
   email: z.string().email().optional(),
 });
 
-/** Token y datos del usuario, sin la contraseña. */
+/** Token and user data, without the password. */
 function session(user: User) {
   const { password: _password, ...data } = user.toJSON();
   return { token: signToken(user), user: data };

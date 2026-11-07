@@ -4,7 +4,7 @@ import { api, BASE_URL } from '@/api';
 
 interface SearchResult {
   id: string;
-  type: 'negocio' | 'producto' | 'categoria';
+  type: 'business' | 'product' | 'category';
   title: string;
   slug?: string;
   logo?: string;
@@ -86,11 +86,11 @@ export default function SearchGlobal({ isOpen, setIsOpen }: { isOpen: boolean, s
 
   const handleSelect = (result: SearchResult) => {
     setIsOpen(false);
-    if (result.type === 'negocio') {
+    if (result.type === 'business') {
       navigate(`/negocio/${result.slug}`);
-    } else if (result.type === 'producto') {
+    } else if (result.type === 'product') {
       navigate(`/negocio/${result.slug}?prodId=${result.id}`);
-    } else if (result.type === 'categoria') {
+    } else if (result.type === 'category') {
       navigate(`/?cat=${result.id}`);
     }
   };
@@ -152,9 +152,9 @@ export default function SearchGlobal({ isOpen, setIsOpen }: { isOpen: boolean, s
                     }`}>
                     {(() => {
                       let imageUrl = null;
-                      if (result.type === 'negocio' && result.logo) {
+                      if (result.type === 'business' && result.logo) {
                         imageUrl = result.logo.startsWith('http') ? result.logo : `${BASE_URL}/data/images/${result.logo}`;
-                      } else if (result.type === 'producto' && result.images) {
+                      } else if (result.type === 'product' && result.images) {
                         try {
                           const parsed = JSON.parse(result.images);
                           if (parsed.length > 0) {

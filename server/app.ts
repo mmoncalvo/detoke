@@ -6,7 +6,7 @@ import { config } from './config.js';
 import { apiRoutes } from './routes/index.js';
 import { errorHandler, notFound } from './middleware/errorHandler.js';
 
-/** Arma la app de Express con la API. server.ts le agrega Vite o los estáticos. */
+/** Builds the Express app with the API. server.ts adds Vite or the static files. */
 export function createApp() {
   const app = express();
   app.disable('x-powered-by');

@@ -7,7 +7,7 @@ import { Toaster } from "sonner";
 import Navbar from "@/components/Navbar";
 import SearchGlobal from "@/components/SearchGlobal";
 import Home from "@/pages/Home";
-import Explorar from "@/pages/Explorar";
+import Explore from "@/pages/Explore";
 import Company from "@/pages/Company";
 import Dashboard from "@/pages/Dashboard";
 import Login from "@/pages/Login";
@@ -38,7 +38,7 @@ function App() {
             <SearchGlobal isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/explorar" element={<Explorar />} />
+              <Route path="/explorar" element={<Explore />} />
               <Route path="/checkout" element={<Checkout />} />
               <Route path="/negocio/:slug" element={<Company />} />
               <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />

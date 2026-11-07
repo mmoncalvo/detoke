@@ -5,24 +5,24 @@ interface BusinessHeaderProps {
   businessName: string;
   description?: string;
   logo?: string;
-  imagenPortada?: string;
+  coverImage?: string;
   whatsapp: string;
-  estaVerificado: boolean;
+  isVerified: boolean;
   address?: string;
   slug: string;
-  sitioWeb?: string; // New field
+  website?: string; // New field
 }
 
 export default function BusinessHeader({ 
   businessName, 
   description, 
   logo, 
-  imagenPortada, 
+  coverImage, 
   whatsapp, 
-  estaVerificado,
+  isVerified,
   address,
   slug,
-  sitioWeb
+  website
 }: BusinessHeaderProps) {
   const [coverError, setCoverError] = useState(false);
   const [logoError, setLogoError] = useState(false);
@@ -32,16 +32,16 @@ export default function BusinessHeader({
     if (path.startsWith('http')) return path;
     // Prepend BASE_URL for paths starting with /data/
     if (path.startsWith('/data/')) return `${BASE_URL}${path}`;
-    // Si es solo un nombre de archivo, es una imagen de semilla (data/images)
+    // A bare file name is a seed image (data/images)
     return `${BASE_URL}/data/images/${path}`;
   };
   
-  const coverUrl = getImageUrl(imagenPortada);
+  const coverUrl = getImageUrl(coverImage);
   const logoUrl = getImageUrl(logo);
   
   return (
     <div className="relative">
-      {/* Portada */}
+      {/* Cover */}
       <div className="w-full h-64 md:h-80 bg-gradient-to-r from-emerald-500 to-emerald-600 relative overflow-hidden">
         {coverUrl && !coverError ? (
           <img src={coverUrl} alt={businessName} className="w-full h-full object-cover" onError={() => setCoverError(true)} />
@@ -69,7 +69,7 @@ export default function BusinessHeader({
             <div className="flex-1">
               <div className="flex items-center gap-3 mb-2">
                 <h1 className="text-3xl font-bold text-gray-900 dark:text-white">{businessName}</h1>
-                {estaVerificado && (
+                {isVerified && (
                   <span className="bg-emerald-100 dark:bg-emerald-900/30 text-emerald-700 dark:text-emerald-400 text-xs font-medium px-3 py-1 rounded-full">
                     ✓ Verificado
                   </span>
@@ -83,14 +83,14 @@ export default function BusinessHeader({
                   📍 {address}
                 </p>
               )}
-              {sitioWeb && (
+              {website && (
                 <a 
-                  href={sitioWeb} 
+                  href={website} 
                   target="_blank" 
                   rel="noopener noreferrer" 
                   className="text-sm text-blue-600 dark:text-blue-400 hover:underline flex items-center gap-1 mt-1"
                 >
-                  🌐 {sitioWeb.replace(/https?:\/\//, '')}
+                  🌐 {website.replace(/https?:\/\//, '')}
                 </a>
               )}
             </div>

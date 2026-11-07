@@ -1,9 +1,9 @@
-// Cliente de la API. Mismo origen salvo que VITE_API_URL apunte a otro servidor.
+// API client. Same origin unless VITE_API_URL points to another server.
 import type { ApiResponse } from '@shared/types';
 
 const BASE: string = import.meta.env.VITE_API_URL ?? '';
 const API_URL = `${BASE}/api`;
-/** Prefijo de las imágenes en /data. */
+/** Prefix for images on /data. */
 export const BASE_URL = BASE;
 
 export const api = {

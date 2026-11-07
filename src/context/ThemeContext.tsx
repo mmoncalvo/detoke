@@ -18,8 +18,8 @@ export function ThemeProvider({ children }: { children: React.ReactNode }) {
     const root = window.document.documentElement;
     if (theme === 'dark') {
       root.classList.add('dark');
-      root.style.backgroundColor = '#030711'; // Corresponde a gray-950
-      root.style.color = '#f9fafb'; // Corresponde a gray-50
+      root.style.backgroundColor = '#030711'; // Matches gray-950
+      root.style.color = '#f9fafb'; // Matches gray-50
     } else {
       root.classList.remove('dark');
       root.style.backgroundColor = '';

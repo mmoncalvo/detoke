@@ -1,4 +1,4 @@
-// Datos de ejemplo. Borra y recrea todas las tablas.
+// Sample data. Drops and recreates every table.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';

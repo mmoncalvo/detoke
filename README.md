@@ -22,13 +22,15 @@ src/                 Web React + Tailwind v4
   api.ts             Cliente fetch
   context/           AuthContext, CartContext, ThemeContext
   components/        Navbar, ProductCard, ProductModal, BusinessMap, ...
-  pages/             Home, Explorar, Company, Checkout, Dashboard, Login
+  pages/             Home, Explore, Company, Checkout, Dashboard, Login
 test/                Pruebas de la API (vitest + supertest) sobre una SQLite temporal
-scripts/             seed.ts; legacy/ guarda los scripts viejos de descarga de imágenes
+scripts/             seed.ts; migrations/ con los cambios de la base; legacy/ guarda los scripts viejos de descarga de imágenes
 data/                images/ y uploads/ (se publican en /data; no están en git)
 ```
 
 Las respuestas de la API son siempre `{ success: true, data }` o `{ success: false, error }`, con el error en español.
+
+**Regla del proyecto:** el código va en inglés (archivos, variables, tipos, columnas, rutas de la API, claves de JSON y comentarios) y todo lo que ve el usuario va en español (pantallas, toasts, errores de la API y el mensaje de WhatsApp).
 
 ## Primera vez
 
@@ -60,7 +62,13 @@ El dialecto sale de `DATABASE_URL`:
 - **Sin `DATABASE_URL`**: SQLite en `./database.sqlite` (otra ruta con `DATABASE_PATH`). Si el archivo no existe se crea solo, vacío: `npm run db:seed` carga los datos de ejemplo. `sync` crea las tablas que faltan pero no modifica las existentes.
 - **`DATABASE_URL=postgres://…`**: Postgres. Ahí `sync` también ajusta columnas (`alter`).
 
-Las tablas (`Users`, `Products`, `Categories`) y sus columnas en camelCase son las de siempre, por eso los modelos no usan `underscored`.
+Las tablas son `Users`, `Products` y `Categories`, con columnas en camelCase, por eso los modelos no usan `underscored`.
+
+Una base SQLite anterior, con columnas en español, se actualiza con este comando (se puede correr más de una vez; hacé una copia antes):
+
+```bash
+npx tsx scripts/migrations/001-english-columns.ts
+```
 
 ## API
 
@@ -69,18 +77,18 @@ Las tablas (`Users`, `Products`, `Categories`) y sus columnas en camelCase son l
 | `GET /api/health` | Estado del servidor |
 | `POST /api/auth/register`, `POST /api/auth/login` | Devuelven `{ token, user }` |
 | `GET /api/auth/me` 🔒 | Usuario de la sesión |
-| `GET /api/usuarios` | Negocios activos (`?search=`) |
-| `GET /api/usuarios/slug/:slug`, `GET /api/usuarios/:id` | Negocio con sus productos |
-| `GET /api/usuarios/:id/products` | Productos del negocio (`?categoryId=`) |
-| `PUT /api/usuarios/:id` 🔒 | Edita el perfil (dueño o admin) |
-| `POST /api/usuarios/:id/upload-cover` 🔒 | Portada (campo `cover`) |
-| `POST /api/usuarios/:id/upload-gallery` 🔒 | Galería (campo `gallery`, hasta 10) |
-| `GET /api/productos` | Productos disponibles (`?categoryId=`, `?userId=`, `?search=`) |
-| `GET /api/productos/:id` | Un producto |
-| `POST /api/productos` 🔒 | Crea un producto (JSON, o multipart con campo `image`) |
-| `PUT /api/productos/:id`, `DELETE /api/productos/:id` 🔒 | Edita o borra (solo el dueño) |
-| `POST /api/productos/:id/upload-image` 🔒 | Agrega una imagen (campo `image`) |
-| `GET /api/categorias` | Categorías activas |
+| `GET /api/users` | Negocios activos (`?search=`) |
+| `GET /api/users/slug/:slug`, `GET /api/users/:id` | Negocio con sus productos |
+| `GET /api/users/:id/products` | Productos del negocio (`?categoryId=`) |
+| `PUT /api/users/:id` 🔒 | Edita el perfil (dueño o admin) |
+| `POST /api/users/:id/upload-cover` 🔒 | Portada (campo `cover`) |
+| `POST /api/users/:id/upload-gallery` 🔒 | Galería (campo `gallery`, hasta 10) |
+| `GET /api/products` | Productos disponibles (`?categoryId=`, `?userId=`, `?search=`) |
+| `GET /api/products/:id` | Un producto |
+| `POST /api/products` 🔒 | Crea un producto (JSON, o multipart con campo `image`) |
+| `PUT /api/products/:id`, `DELETE /api/products/:id` 🔒 | Edita o borra (solo el dueño) |
+| `POST /api/products/:id/upload-image` 🔒 | Agrega una imagen (campo `image`) |
+| `GET /api/categories` | Categorías activas |
 | `GET /api/search?q=` | Buscador global de negocios, productos y categorías |
 | `GET /data/...` | Imágenes y archivos subidos |
 
