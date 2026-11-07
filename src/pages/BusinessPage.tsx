@@ -100,9 +100,9 @@ export default function BusinessPage() {
       <div className="relative">
         <SafeImage src={business.coverImage} alt="" className="h-52 w-full sm:h-72" />
       </div>
-      <div className="mx-auto max-w-page px-0 sm:px-4 sm:pt-6">
+      <div className="mx-auto max-w-page px-4 sm:pt-6">
 
-        <header className="relative px-4 sm:px-6 -mt-6">
+        <header className="relative -mt-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5 my-6">
             <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative -mt-16 size-32 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
             <div className="min-w-0 flex-1">
@@ -124,7 +124,7 @@ export default function BusinessPage() {
           {business.description && <p className="mt-3 max-w-3xl text-muted-foreground">{business.description}</p>}
         </header>
 
-        <div className="mt-8 grid gap-8 px-4 sm:px-6 lg:grid-cols-[1fr_320px]">
+        <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0">
             <div className="sticky top-16 z-20 -mx-4 bg-background/95 px-4 pb-3 pt-3 backdrop-blur sm:mx-0 sm:px-0">
               <div className="relative">

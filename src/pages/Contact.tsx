@@ -92,7 +92,7 @@ export default function Contact() {
   return (
     <div className="mx-auto max-w-page px-4 py-8 sm:py-12">
       <h1 className="text-3xl font-bold sm:text-5xl">Hablemos</h1>
-      <p className="mt-2 max-w-xl text-lg text-muted-foreground">¿Tenés una duda, una idea o algo no funcionó como esperabas? Escribinos.</p>
+      <p className="mt-2 max-w-xl text-lg text-muted-foreground sm:text-nowrap">¿Tenés una duda, una idea o algo no funcionó como esperabas? Escribinos.</p>
 
       <div className="mt-8 grid items-start gap-6 lg:grid-cols-[1fr_380px]">
         <div className="min-w-0 rounded-2xl border bg-card p-5 sm:p-8">
@@ -123,6 +123,7 @@ export default function Contact() {
                   rows={6}
                   maxLength={2000}
                   placeholder="Contanos en qué te podemos ayudar."
+                  className='min-h-60'
                   description={<span className="block text-right tabular-nums">{length} / 2000</span>}
                 />
                 <FormField
@@ -153,8 +154,7 @@ export default function Contact() {
           {info.data && <Channels info={info.data} />}
 
           <section className="rounded-2xl bg-accent p-5 text-accent-foreground">
-            <Store className="size-6" />
-            <h2 className="mt-2 text-lg font-semibold">¿Tenés un negocio? Sumalo gratis</h2>
+            <h2 className="flex gap-2 mt-2 text-lg font-semibold"><Store className="size-6" />¿Tenés un negocio? Sumalo gratis</h2>
             <p className="mt-1 text-sm">Publicá tu catálogo en minutos y recibí los pedidos en tu WhatsApp.</p>
             <Button asChild className="mt-3"><Link to="/register">Sumá tu negocio</Link></Button>
           </section>
