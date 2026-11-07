@@ -15,7 +15,9 @@ export default function PublicLayout() {
   const [searchOpen, setSearchOpen] = useState(false);
   const { pathname } = useLocation();
 
-  useEffect(() => window.scrollTo(0, 0), [pathname]);
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
 
   return (
     <div className="flex min-h-svh flex-col">

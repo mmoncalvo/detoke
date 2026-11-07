@@ -42,8 +42,8 @@ function DeliveryInfo({ business }: { business: Business }) {
   return (
     <>
       <div className="flex flex-wrap gap-1.5">
-        {delivers && <Badge variant="accent"><Bike /> Delivery</Badge>}
-        {business.deliveryOptions.includes('pickup') && <Badge variant="secondary"><Store /> Retiro en el local</Badge>}
+        {delivers && <Badge variant="accent"><Bike className="size-3.5" /> Delivery</Badge>}
+        {business.deliveryOptions.includes('pickup') && <Badge variant="secondary"><Store className="size-3.5" /> Retiro en el local</Badge>}
       </div>
       {rows.length > 0 && (
         <dl className="mt-3 space-y-1">
@@ -64,15 +64,15 @@ export default function BusinessPage() {
 
   const sections = useMemo(() => {
     const term = fold(search.trim());
-    const groups = new Map<string, { id: string; name: string; products: Product[] }>();
+    const groups = new Map<string, { id: string; name: string; position: number; products: Product[] }>();
     for (const product of business?.products ?? []) {
       if (term && !fold(product.name).includes(term)) continue;
       const key = product.category?.id ?? 'other';
-      const group = groups.get(key) ?? { id: key, name: product.category?.name ?? 'Otros', products: [] };
+      const group = groups.get(key) ?? { id: key, name: product.category?.name ?? 'Otros', position: product.category?.position ?? Infinity, products: [] };
       group.products.push(product);
       groups.set(key, group);
     }
-    return [...groups.values()];
+    return [...groups.values()].sort((a, b) => a.position - b.position);
   }, [business, search]);
 
   if (loading && !business) {
@@ -102,16 +102,16 @@ export default function BusinessPage() {
       </div>
 
       <header className="relative px-4 sm:px-6">
-        <div className="-mt-10 flex flex-col gap-3 sm:flex-row sm:items-end sm:gap-5">
-          <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative size-24 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
-          <div className="min-w-0 flex-1 sm:pb-1">
+        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5">
+          <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative -mt-12 size-24 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
+          <div className="min-w-0 flex-1 sm:pt-3">
             <h1 className="flex items-center gap-2 text-3xl font-extrabold sm:text-4xl">
               {business.name}
               {business.isVerified && <BadgeCheck className="size-6 shrink-0 text-primary" aria-label="Negocio verificado" />}
             </h1>
             <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
           </div>
-          <div className="flex gap-2 sm:pb-1">
+          <div className="flex gap-2 sm:pt-4">
             <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp</a></Button>
             <Button variant="outline" size="icon" aria-label="Compartir" onClick={share}><Share2 className="size-4" /></Button>
           </div>

@@ -2,7 +2,7 @@
 
 ## Project Overview
 
-Detoke is a directory of neighborhood businesses with online catalogs: each business has a page with products, hours, map and gallery, and orders go through WhatsApp. Single-app repo: Vite + React 19 frontend, Express 4 backend (SQLite by default, Postgres with `DATABASE_URL`).
+Detoke is a directory of neighborhood businesses with online catalogs: each business has a page with products, hours, map, payment and delivery options, and orders go through WhatsApp. Single-app repo: Vite + React 19 frontend, Express 4 backend (SQLite by default, Postgres with `DATABASE_URL`).
 
 ## Language Rule
 
@@ -16,6 +16,7 @@ Code is in English: file names, variables, types, columns, API routes, JSON keys
 - `npm run lint` — **typecheck only** (`tsc --noEmit`)
 - `npm test` — API tests (vitest + supertest, temporary SQLite)
 - `npm run db:seed` — **wipes the database** and loads `server/data/seed/*.json`
+- `npm run db:check-images` — fails if the seed references an image that does not exist
 
 Run `npm run lint` and `npm test` before any commit.
 
@@ -25,30 +26,34 @@ Run `npm run lint` and `npm test` before any commit.
 server.ts           → Express entry point (API + Vite middleware in dev, dist/ in production)
 server/config.ts    → The only place that reads process.env
 server/db.ts        → Sequelize init, initDb({ reset? })
-server/app.ts       → createApp(): cors, json, morgan, /data static, /api routes, error handling
-server/models/      → User, Product, Category (sequelize-typescript decorators)
-server/routes/      → auth, users, products, categories, search
-scripts/migrations/ → One-off SQLite schema changes (idempotent)
+server/app.ts       → createApp(): compression, cors, json, morgan, /data static, /api routes, errors
+server/models/      → User, Business, BusinessCategory, Product, ProductCategory (sequelize-typescript)
+server/routes/      → auth, businesses, products, categories, search
 server/middleware/  → requireAuth (JWT Bearer), errorHandler (also asyncHandler, HttpError)
-server/services/    → upload (multer), seed, response (ok helper)
-shared/types.ts     → Types shared by server and web (@shared alias)
-src/                → React SPA (pages/, components/, context/), react-router v7
-src/api.ts          → Fetch client; returns the raw { success, data } JSON
+server/services/    → upload (multer + sharp), seed, slug, response (ok helper)
+shared/             → business.ts (hours, open status, labels), schemas.ts (zod), profile.ts, types.ts
+src/                → React SPA: layouts/, pages/, pages/dashboard/, components/, context/, react-router v7
+src/api.ts          → Fetch client; unwraps { success, data } and throws ApiError
+src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 ```
 
 **Key patterns:**
 - API responses are always `{ success, data }` or `{ success: false, error }`, errors in Spanish.
-- API routes: `/api/auth`, `/api/users`, `/api/products`, `/api/categories`, `/api/search`, `/api/health`.
+- API routes: `/api/auth`, `/api/businesses`, `/api/products`, `/api/business-categories`, `/api/product-categories`, `/api/search`, `/api/health`.
 - Express 4 does not catch async errors: wrap every async handler in `asyncHandler`, and throw `HttpError` or let zod throw.
-- A user is a business (`businessName`, `slug`, `whatsapp`); there is no separate business model.
-- `images`, `hours` and `gallery` are JSON stored as text. `hours` uses English day keys and `closed`: `{"monday": "09:00-18:00", "sunday": "closed"}`.
+- A seller `User` owns one `Business`. `POST /api/auth/register` creates both in a transaction.
+- Validation lives in `shared/schemas.ts` and is reused by the API and by react-hook-form.
+- `hours`, `gallery`, `images`, `deliveryOptions` and `paymentMethods` are JSON columns.
+- "Open now" uses `openStatus()` from `shared/business.ts`, in the Buenos Aires time zone. It supports split shifts and overnight ranges.
+- Search folds accents in JS (`fold()`), so `/api/businesses` and `/api/search` load all rows: revisit if the catalog grows.
 
 ## Gotchas
 
-- `database.sqlite` uses tables `Users`/`Products`/`Categories` with camelCase columns: never enable `underscored`.
-- `sync` does not alter existing SQLite tables: schema changes need a script in `scripts/migrations/`.
-- Association property names (`User`, `Category`, `Products`) are the JSON keys the web reads. Don't rename them.
+- Test mode: there are no migrations and `sync` does not alter SQLite tables. After changing a model, run `npm run db:seed`.
 - `tsx` (esbuild) doesn't emit decorator metadata: always pass an explicit `DataType` to `@Column`.
+- Never return a value from a `useEffect` arrow by accident: `window.scrollTo()` returns a Promise in current Chrome, and React then crashes calling it as cleanup.
+- Components copied from other projects may use tokens that don't exist here (`bg-brand`): Tailwind drops them silently.
 - `data/` (images and uploads) is not in git. `server/data/seed/` is: keep the `/data/` rule in `.gitignore` anchored to the root.
+- Many files in `data/images` do not show what their name says. Check the picture before using one in the seed, and run `npm run db:check-images`.
 - `.env`, `database.sqlite` and `scripts/legacy/` API keys must never be pushed or published.
 - `scripts/legacy/` is the old image and seed tooling, kept for reference. Its relative paths are not maintained.

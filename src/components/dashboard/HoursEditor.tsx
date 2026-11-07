@@ -20,6 +20,8 @@ export function HoursEditor({ value, onChange }: { value: BusinessHours; onChang
     onChange(Object.fromEntries(DAYS.map((day) => [day, value[day].open ? { open: true, ranges: value[source].ranges.map((r) => ({ ...r })) } : value[day]])) as unknown as BusinessHours);
   };
 
+  const firstOpen = DAYS.find((day) => value[day].open);
+
   return (
     <ul className="divide-y rounded-xl border bg-card">
       {DAYS.map((day) => {
@@ -46,7 +48,7 @@ export function HoursEditor({ value, onChange }: { value: BusinessHours; onChang
                   {ranges.length < 2 && (
                     <Button type="button" variant="ghost" size="sm" onClick={() => update(day, { ...value[day], ranges: [...ranges, { from: '16:00', to: '20:00' }] })}><Plus /> Horario cortado</Button>
                   )}
-                  <Button type="button" variant="ghost" size="sm" onClick={() => copyToAll(day)}><Copy /> Copiar a los días abiertos</Button>
+                  {day === firstOpen && <Button type="button" variant="ghost" size="sm" onClick={() => copyToAll(day)}><Copy /> Copiar a los días abiertos</Button>}
                 </div>
               </div>
             ) : <p className="flex h-9 items-center text-sm text-muted-foreground">Cerrado</p>}

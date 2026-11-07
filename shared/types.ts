@@ -17,6 +17,7 @@ export interface ProductCategory {
   id: string;
   name: string;
   slug: string;
+  position?: number;
 }
 
 export interface Business {

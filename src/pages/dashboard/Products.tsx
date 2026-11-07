@@ -122,7 +122,7 @@ export default function Products() {
                   <TableCell>
                     <button onClick={() => openForm(product)} className="flex min-w-0 items-center gap-3 text-left">
                       <SafeImage src={product.images[0]} alt="" className="size-10 shrink-0 rounded-md" />
-                      <span className="max-w-32 truncate font-medium hover:underline sm:max-w-64">{product.name}</span>
+                      <span className="max-w-24 truncate font-medium hover:underline sm:max-w-64">{product.name}</span>
                     </button>
                   </TableCell>
                   <TableCell className="hidden text-muted-foreground md:table-cell">{product.category?.name ?? 'Sin categoría'}</TableCell>

@@ -9,13 +9,14 @@ import { Button } from '@/components/ui/button';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useCart } from '@/context/CartContext';
 import { formatPrice } from '@/lib/format';
+import { cn } from '@/lib/utils';
 
 export function ProductPrice({ product, className }: { product: Product; className?: string }) {
   return (
-    <p className={className}>
+    <p className={cn('flex flex-wrap items-baseline gap-x-1.5', className)}>
       <span className="font-semibold">{formatPrice(product.price)}</span>
       {product.compareAtPrice != null && product.compareAtPrice > product.price && (
-        <s className="ml-1.5 text-sm font-normal text-muted-foreground">{formatPrice(product.compareAtPrice)}</s>
+        <s className="text-xs font-normal text-muted-foreground">{formatPrice(product.compareAtPrice)}</s>
       )}
     </p>
   );
@@ -38,7 +39,7 @@ export function ProductCard({ product, business, showBusiness, onOpen }: { produ
         </button>
         {showBusiness && <Link to={`/negocio/${business.slug}`} className="mt-0.5 truncate text-xs text-muted-foreground hover:underline">{business.name}</Link>}
         <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-          <ProductPrice product={product} className="min-w-0 truncate text-[15px]" />
+          <ProductPrice product={product} className="min-w-0 text-[15px]" />
           {quantity === 0 && (
             <Button
               size="icon"

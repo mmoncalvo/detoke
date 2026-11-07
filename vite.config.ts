@@ -19,7 +19,7 @@ export default defineConfig({
     rollupOptions: {
       output: {
         manualChunks: {
-          react: ['react', 'react-dom', 'react-router-dom'],
+          react: ['react', 'react-dom', 'react-dom/client', 'react-router-dom'],
           ui: ['radix-ui', 'cmdk', 'sonner'],
           forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
           map: ['leaflet', 'react-leaflet'],

@@ -4,6 +4,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import { openStatus } from '@shared/business';
 import type { Business, BusinessCategory, Product } from '@shared/types';
 import { BusinessCard, BusinessCardSkeleton } from '@/components/business/BusinessCard';
+import { SafeImage } from '@/components/common/SafeImage';
 import { ErrorState } from '@/components/common/States';
 import { ProductCard, ProductCardSkeleton } from '@/components/product/ProductCard';
 import { ProductDialog } from '@/components/product/ProductDialog';
@@ -40,16 +41,24 @@ export default function Home() {
   }, [businesses.data]);
 
   const featured = useMemo(() => {
+    // One product per business and per photo, so the shelf does not repeat itself.
     const seen = new Set<string>();
-    return (products.data ?? []).filter((p) => (seen.has(p.businessId) ? false : seen.add(p.businessId))).slice(0, 10);
+    const isNew = (key: string) => !seen.has(key) && !!seen.add(key);
+    const shuffled = [...(products.data ?? [])].sort((a, b) => a.id.localeCompare(b.id));
+    return shuffled.filter((p) => !seen.has(p.businessId) && isNew(p.images[0] ?? p.id) && isNew(p.businessId)).slice(0, 10);
   }, [products.data]);
 
   return (
     <>
-      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+      <section className="relative overflow-hidden bg-hero text-[oklch(0.985_0.01_88)]">
         <div className="awning" aria-hidden style={{ background: 'repeating-linear-gradient(90deg, var(--mustard) 0 32px, var(--background) 32px 64px)' }} />
-        <div className="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:pb-20 sm:pt-14">
-          <h1 className="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-6xl">Todo lo del barrio, de toque.</h1>
+        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-10 sm:pb-20 sm:pt-14">
+          <div className="pointer-events-none absolute -bottom-10 right-4 hidden w-[380px] lg:block" aria-hidden>
+            <SafeImage src="pizza_napolitana.jpg" alt="" className="absolute bottom-24 right-40 size-52 -rotate-6 rounded-2xl border-4 border-white/90 shadow-xl" />
+            <SafeImage src="panaderia_cover.jpg" alt="" className="absolute bottom-40 right-0 size-44 rotate-3 rounded-2xl border-4 border-white/90 shadow-xl" />
+            <SafeImage src="verduleria_cover.jpg" alt="" className="absolute bottom-4 right-12 size-44 rotate-[-2deg] rounded-2xl border-4 border-white/90 shadow-xl" />
+          </div>
+          <h1 className="relative max-w-xl text-4xl font-extrabold leading-[1.05] sm:text-6xl">Todo lo del barrio, de toque.</h1>
           <p className="mt-4 max-w-xl text-lg opacity-85">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
           <form
             className="mt-7 flex max-w-xl items-center gap-2 rounded-xl bg-card p-1.5 shadow-xl shadow-black/15"
