@@ -2,13 +2,16 @@ import crypto from 'node:crypto';
 import { Column, DataType, DefaultScope, HasOne, Model, PrimaryKey, Table } from 'sequelize-typescript';
 import { Business } from './Business.js';
 
-@DefaultScope(() => ({ attributes: { exclude: ['passwordHash'] } }))
+@DefaultScope(() => ({ attributes: { exclude: ['passwordHash', 'googleId'] } }))
 @Table({ tableName: 'users' })
 export class User extends Model {
   @PrimaryKey @Column({ type: DataType.STRING, defaultValue: () => crypto.randomUUID() }) id!: string;
 
   @Column({ type: DataType.STRING, allowNull: false, unique: true }) email!: string;
-  @Column({ type: DataType.STRING, allowNull: false }) passwordHash!: string;
+  /** null for accounts that only sign in with Google. */
+  @Column(DataType.STRING) passwordHash!: string | null;
+  @Column({ type: DataType.STRING, unique: true }) googleId!: string | null;
+  @Column(DataType.STRING) avatarUrl!: string | null;
   @Column({ type: DataType.STRING, allowNull: false }) name!: string;
   @Column(DataType.STRING) phone!: string | null;
   @Column({ type: DataType.STRING, allowNull: false, defaultValue: 'seller' }) role!: 'seller' | 'admin';

@@ -1,10 +1,11 @@
 import { Router } from 'express';
 import { openStatus, fold } from '../../shared/business.js';
-import { businessUpdateSchema } from '../../shared/schemas.js';
+import { businessUpdateSchema, newBusinessSchema } from '../../shared/schemas.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
-import { currentBusiness, requireAuth } from '../middleware/requireAuth.js';
+import { currentBusiness, currentUser, requireAuth } from '../middleware/requireAuth.js';
 import { Business, BusinessCategory, Product, ProductCategory } from '../models/index.js';
 import { ok } from '../services/response.js';
+import { uniqueSlug } from '../services/slug.js';
 import { saveImage, upload } from '../services/upload.js';
 
 export const businessRoutes = Router();
@@ -37,6 +38,19 @@ businessRoutes.get('/', asyncHandler(async (req, res) => {
 // Protected: the session user's business
 businessRoutes.get('/me', requireAuth, asyncHandler(async (req, res) => {
   ok(res, await withCategory(await currentBusiness(req)));
+}));
+
+// Protected: create the business of an account that has none (accounts made with Google)
+businessRoutes.post('/me', requireAuth, asyncHandler(async (req, res) => {
+  const user = currentUser(req);
+  if (user.role === 'admin') throw new HttpError(403, 'Las cuentas de administración no tienen negocio');
+  if (await Business.findOne({ where: { ownerId: user.id } })) throw new HttpError(409, 'Tu cuenta ya tiene un negocio');
+
+  const data = newBusinessSchema.parse(req.body);
+  if (!(await BusinessCategory.findByPk(data.businessCategoryId))) throw new HttpError(400, 'Elegí un rubro de la lista');
+
+  const business = await Business.create({ ...data, ownerId: user.id, slug: await uniqueSlug(Business, data.name) });
+  ok(res, await withCategory(business), 201);
 }));
 
 // Protected: update the session user's business, any subset of its fields

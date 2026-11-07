@@ -18,18 +18,26 @@ function read(name: string, fallback: string, opts: { requiredInProduction?: boo
 }
 
 // ------------------------------------------------------------------ database
-// A Postgres DATABASE_URL selects Postgres; otherwise SQLite at ./database.sqlite
-// (or DATABASE_PATH), created on demand. Tests use a temporary SQLite file.
+// A Postgres DATABASE_URL selects Postgres. Otherwise SQLite at ./database.sqlite (or
+// DATABASE_PATH), created on demand. Production needs DATABASE_URL, or an explicit
+// DATABASE_PATH to run on SQLite on purpose. Tests use a temporary SQLite file.
 const POSTGRES_URL = /^postgres(ql)?:\/\//i;
 
-function database(): { dialect: 'postgres'; url: string } | { dialect: 'sqlite'; storage: string } {
+type DatabaseConfig = { dialect: 'postgres'; url: string; ssl: boolean } | { dialect: 'sqlite'; storage: string };
+
+function database(): DatabaseConfig {
   if (isTest) return { dialect: 'sqlite', storage: path.join(os.tmpdir(), `detoke-test-${process.pid}.sqlite`) };
   const url = process.env.DATABASE_URL?.trim();
-  if (url && POSTGRES_URL.test(url)) return { dialect: 'postgres', url };
+  if (url && POSTGRES_URL.test(url)) return { dialect: 'postgres', url, ssl: process.env.DATABASE_SSL === 'true' };
   if (url) console.warn('[config] DATABASE_URL is not a Postgres URL: using local SQLite');
-  else if (isProduction) console.warn('[config] DATABASE_URL is not set in production: using local SQLite');
-  return { dialect: 'sqlite', storage: path.resolve(process.env.DATABASE_PATH?.trim() || 'database.sqlite') };
+  const sqlitePath = process.env.DATABASE_PATH?.trim();
+  if (isProduction && !sqlitePath) {
+    throw new Error('[config] Missing DATABASE_URL in production: set the Postgres connection string (postgres://...), or DATABASE_PATH to use SQLite on purpose');
+  }
+  return { dialect: 'sqlite', storage: path.resolve(sqlitePath || 'database.sqlite') };
 }
+
+const appUrl = (process.env.APP_URL?.trim() || 'http://localhost:3000').replace(/\/$/, '');
 
 export const config = {
   isProduction,
@@ -40,7 +48,7 @@ export const config = {
   /** Folder published on /data (images and uploads). */
   dataDir: path.resolve('data'),
   /** Upload folder. Tests use a temporary one. */
-  uploadsDir: isTest ? path.join(os.tmpdir(), 'detoke-test-uploads') : path.resolve('data/uploads'),
+  uploadsDir: isTest ? path.join(os.tmpdir(), 'detoke-test-uploads') : path.resolve(process.env.UPLOADS_DIR?.trim() || 'data/uploads'),
   maxUploadBytes: 8 * 1024 * 1024,
   /** Shown on the contact page and used as the destination of the contact form. */
   contact: {
@@ -58,6 +66,14 @@ export const config = {
     pass: process.env.SMTP_PASS || null,
     from: process.env.SMTP_FROM?.trim() || 'Detoke <no-reply@detoke.test>',
   },
+  /** Public address of the web app, where OAuth flows return. */
+  appUrl,
+  /** Google sign-in is enabled only when both id and secret are set. */
+  google: {
+    clientId: process.env.GOOGLE_CLIENT_ID?.trim() || null,
+    clientSecret: process.env.GOOGLE_CLIENT_SECRET?.trim() || null,
+    redirectUri: process.env.GOOGLE_REDIRECT_URI?.trim() || `${appUrl}/api/auth/google/callback`,
+  },
   /** Origins allowed to call the API in production, besides the same-origin web app. */
-  corsOrigins: (process.env.CORS_ORIGINS ?? 'http://localhost,https://localhost').split(',').map((s) => s.trim()).filter(Boolean),
+  corsOrigins: (process.env.CORS_ORIGINS ?? appUrl).split(',').map((s) => s.trim()).filter(Boolean),
 };

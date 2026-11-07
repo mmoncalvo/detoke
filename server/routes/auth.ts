@@ -10,7 +10,7 @@ import { uniqueSlug } from '../services/slug.js';
 
 export const authRoutes = Router();
 
-export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role });
+export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role, avatarUrl: user.avatarUrl ?? null });
 export const businessOf = (user: User) => Business.findOne({ where: { ownerId: user.id }, include: [BusinessCategory] });
 
 authRoutes.post('/register', asyncHandler(async (req, res) => {
@@ -34,7 +34,8 @@ authRoutes.post('/login', asyncHandler(async (req, res) => {
   const { email, password } = loginSchema.parse(req.body);
 
   const user = await User.unscoped().findOne({ where: { email } });
-  if (!user || !(await bcrypt.compare(password, user.passwordHash))) throw new HttpError(401, 'El email o la contraseña no son correctos');
+  if (user && !user.passwordHash && user.googleId) throw new HttpError(401, 'Esta cuenta usa Google para ingresar');
+  if (!user?.passwordHash || !(await bcrypt.compare(password, user.passwordHash))) throw new HttpError(401, 'El email o la contraseña no son correctos');
 
   ok(res, { token: signToken(user), user: userData(user), business: await businessOf(user) });
 }));

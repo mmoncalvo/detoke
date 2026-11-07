@@ -2,12 +2,13 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Check, Loader2 } from 'lucide-react';
 import { lazy, Suspense, useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import type { z } from 'zod';
 import { defaultHours, type BusinessHours } from '@shared/business';
 import { accountSchema, hoursSchema, newBusinessSchema } from '@shared/schemas';
-import type { BusinessCategory, Session } from '@shared/types';
+import type { Business, BusinessCategory, Session } from '@shared/types';
 import { api, ApiError } from '@/api';
+import { GoogleSignIn } from '@/components/auth/GoogleButton';
 import { BrandMark } from '@/components/common/BrandMark';
 import { SelectField, TextField } from '@/components/common/FormFields';
 import { HoursEditor } from '@/components/dashboard/HoursEditor';
@@ -54,7 +55,8 @@ function AccountStep({ initial, emailError, onNext }: { initial?: Account; email
 
   return (
     <Form {...form}>
-      <form onSubmit={form.handleSubmit(onNext)} className="space-y-4" noValidate>
+      <GoogleSignIn label="Registrarme con Google" />
+      <form onSubmit={form.handleSubmit(onNext)} className="mt-4 space-y-4" noValidate>
         <TextField control={form.control} name="name" label="Tu nombre" autoComplete="name" autoFocus />
         <TextField control={form.control} name="email" label="Email" type="email" autoComplete="email" />
         <TextField control={form.control} name="password" label="Contraseña" type="password" autoComplete="new-password" description="Al menos 8 caracteres." />
@@ -64,7 +66,7 @@ function AccountStep({ initial, emailError, onNext }: { initial?: Account; email
   );
 }
 
-function BusinessStep({ onBack, onNext }: { onBack: () => void; onNext: (business: z.output<typeof newBusinessSchema>) => Promise<void> }) {
+function BusinessStep({ onBack, onNext }: { onBack?: () => void; onNext: (business: z.output<typeof newBusinessSchema>) => Promise<void> }) {
   const categories = useFetch<BusinessCategory[]>('/business-categories');
   const form = useForm<z.input<typeof newBusinessSchema>, unknown, z.output<typeof newBusinessSchema>>({ resolver: zodResolver(newBusinessSchema), defaultValues: { name: '', businessCategoryId: '', whatsapp: '' } });
 
@@ -75,7 +77,7 @@ function BusinessStep({ onBack, onNext }: { onBack: () => void; onNext: (busines
         <SelectField control={form.control} name="businessCategoryId" label="Rubro" placeholder="Elegí tu rubro" options={categories.data ?? []} />
         <TextField control={form.control} name="whatsapp" label="WhatsApp del negocio" type="tel" inputMode="tel" placeholder="11 2345 6789" description="Acá te van a llegar los pedidos. Si estás fuera de Argentina, incluí el código de país." />
         <div className="flex items-center justify-between gap-3 pt-2">
-          <Button type="button" variant="ghost" onClick={onBack}>Volver</Button>
+          {onBack ? <Button type="button" variant="ghost" onClick={onBack}>Volver</Button> : <span />}
           <Button type="submit" size="lg" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className="animate-spin" />} Crear mi negocio</Button>
         </div>
       </form>
@@ -148,18 +150,29 @@ function ImagesStep({ onFinish }: { onFinish: () => void }) {
 export default function Register() {
   useTitle('Sumá tu negocio');
   const navigate = useNavigate();
-  const { user, isLoading, signIn } = useAuth();
-  const [step, setStep] = useState(0);
+  const { user, business, isLoading, signIn, setBusiness } = useAuth();
+  const [params] = useSearchParams();
+  const [step, setStep] = useState(() => ({ business: 1, location: 2 })[params.get('step') ?? ''] ?? 0);
   const [account, setAccount] = useState<Account>();
   const [emailError, setEmailError] = useState<string>();
 
-  // Someone already signed in has nothing to do here, unless this form just created the account.
+  // Signed in without a business (new Google account): start at the business step.
+  // Signed in with one: nothing to do here, unless this form is completing it.
   useEffect(() => {
-    if (!isLoading && user && step < 2) navigate('/dashboard', { replace: true });
-  }, [isLoading, user, step, navigate]);
+    if (isLoading || !user) return;
+    if (!business && user.role !== 'admin') setStep((current) => (current < 1 ? 1 : current));
+    else if (step < 2) navigate('/dashboard', { replace: true });
+  }, [isLoading, user, business, step, navigate]);
 
-  const createBusiness = async (business: z.output<typeof newBusinessSchema>) => {
+  const createBusiness = async (data: z.output<typeof newBusinessSchema>) => {
     try {
+      if (user) {
+        // Account made with Google: only the business is missing.
+        setBusiness(await api<Business>('/businesses/me', { method: 'POST', body: data }));
+        setStep(2);
+        return;
+      }
+      const business = data;
       const session = await api<Session>('/auth/register', { method: 'POST', body: { ...account, business } });
       setStep(2);
       signIn(session);
@@ -196,11 +209,12 @@ export default function Register() {
           ))}
         </ol>
 
-        <h1 className="mt-8 text-3xl font-bold">{STEPS[step].title}</h1>
+        {user && step === 1 && <p className="mt-8 text-sm text-muted-foreground">Hola, {user.name.split(' ')[0]}. Ya creaste tu cuenta con Google: ahora sumá tu negocio.</p>}
+        <h1 className={user && step === 1 ? 'mt-2 text-3xl font-bold' : 'mt-8 text-3xl font-bold'}>{STEPS[step].title}</h1>
         <p className="mb-6 mt-1 text-muted-foreground">{STEPS[step].subtitle}</p>
 
         {step === 0 && <AccountStep initial={account} emailError={emailError} onNext={(a) => { setAccount(a); setEmailError(undefined); setStep(1); }} />}
-        {step === 1 && <BusinessStep onBack={() => setStep(0)} onNext={createBusiness} />}
+        {step === 1 && <BusinessStep onBack={user ? undefined : () => setStep(0)} onNext={createBusiness} />}
         {step === 2 && <LocationStep onNext={() => setStep(3)} />}
         {step === 3 && <HoursStep onNext={() => setStep(4)} />}
         {step === 4 && <ImagesStep onFinish={finish} />}

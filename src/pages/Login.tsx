@@ -2,11 +2,12 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import type { z } from 'zod';
 import { loginSchema } from '@shared/schemas';
 import type { Session } from '@shared/types';
 import { api } from '@/api';
+import { GOOGLE_ERRORS, GoogleSignIn } from '@/components/auth/GoogleButton';
 import { BrandMark } from '@/components/common/BrandMark';
 import { TextField } from '@/components/common/FormFields';
 import { Alert, AlertDescription } from '@/components/ui/alert';
@@ -19,7 +20,8 @@ export default function Login() {
   useTitle('Ingresar');
   const navigate = useNavigate();
   const { user, signIn } = useAuth();
-  const [error, setError] = useState('');
+  const [params] = useSearchParams();
+  const [error, setError] = useState(() => GOOGLE_ERRORS[params.get('error') ?? ''] ?? '');
   const form = useForm<z.input<typeof loginSchema>, unknown, z.output<typeof loginSchema>>({ resolver: zodResolver(loginSchema), defaultValues: { email: '', password: '' } });
 
   useEffect(() => {
@@ -44,9 +46,12 @@ export default function Login() {
           <h1 className="mt-6 text-3xl font-bold">Hola de nuevo</h1>
           <p className="mt-1 text-muted-foreground">Entrá para administrar tu negocio.</p>
 
+          <div className="mt-6 space-y-4">
+            {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
+            <GoogleSignIn />
+          </div>
           <Form {...form}>
-            <form onSubmit={onSubmit} className="mt-6 space-y-4" noValidate>
-              {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
+            <form onSubmit={onSubmit} className="mt-4 space-y-4" noValidate>
               <TextField control={form.control} name="email" label="Email" type="email" autoComplete="email" autoFocus />
               <TextField control={form.control} name="password" label="Contraseña" type="password" autoComplete="current-password" />
               <Button type="submit" size="lg" className="w-full" disabled={form.formState.isSubmitting}>

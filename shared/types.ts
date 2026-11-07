@@ -81,6 +81,7 @@ export interface User {
   name: string;
   phone: string | null;
   role: 'seller' | 'admin';
+  avatarUrl?: string | null;
 }
 
 export type Impersonator = Pick<User, 'id' | 'name' | 'email'>;

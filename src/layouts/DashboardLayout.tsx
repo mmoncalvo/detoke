@@ -1,7 +1,6 @@
 import { ArrowLeftRight, Bike, CalendarClock, ExternalLink, Images, LayoutDashboard, LifeBuoy, LogOut, Package, Store, Users } from 'lucide-react';
 import { lazy, useEffect } from 'react';
-import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { EmptyState } from '@/components/common/States';
+import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { ImpersonationBanner } from '@/components/layout/ImpersonationBanner';
 import { Button } from '@/components/ui/button';
@@ -77,13 +76,8 @@ export default function DashboardLayout() {
     navigate('/dashboard');
   };
 
-  if (!isAdmin && !business) {
-    return (
-      <div className="mx-auto max-w-lg px-4 py-20">
-        <EmptyState icon={Store} title="Esta cuenta no tiene un negocio" action={<Button variant="outline" onClick={exit}>Cerrar sesión</Button>} />
-      </div>
-    );
-  }
+  // Accounts made with Google start without a business: finish the onboarding first.
+  if (!isAdmin && !business) return <Navigate to="/register?step=business" replace />;
 
   return (
     <SidebarProvider defaultOpen={savedSidebarOpen()}>
@@ -125,7 +119,9 @@ export default function DashboardLayout() {
             </SidebarMenuItem>
             <SidebarMenuItem>
               <SidebarMenuButton size="lg" tooltip={user?.email} className="cursor-default hover:bg-transparent active:bg-transparent">
-                <span className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-accent text-xs font-semibold text-sidebar-accent-foreground">{initials(user?.name)}</span>
+                {user?.avatarUrl
+                  ? <img src={user.avatarUrl} alt="" referrerPolicy="no-referrer" className="aspect-square size-8 shrink-0 rounded-lg object-cover" />
+                  : <span className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-accent text-xs font-semibold text-sidebar-accent-foreground">{initials(user?.name)}</span>}
                 <span className="grid flex-1 text-left text-xs leading-tight">
                   <span className="truncate font-medium text-sidebar-accent-foreground">{user?.name}</span>
                   <span className="truncate">{user?.email}</span>

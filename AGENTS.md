@@ -46,6 +46,8 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - `hours`, `gallery`, `images`, `deliveryOptions` and `paymentMethods` are JSON columns.
 - "Open now" uses `openStatus()` from `shared/business.ts`, in the Buenos Aires time zone. It supports split shifts and overnight ranges.
 - Admin impersonation: `POST /api/admin/impersonate/:userId` returns a 2 h token for the seller with `actorId` and `impersonationLogId`. `requireAuth` sets `req.impersonation`, every write is stored in `audit_logs`, and `requireAdmin` rejects impersonation tokens. Wrap future email, password or account deletion routes in `requireOwnSession`. The web keeps the admin token in `detoke.adminToken` while impersonating.
+- Google sign-in: server-side OAuth (`server/routes/google.ts`). The callback never puts the JWT in a URL: it redirects to `/auth/callback?code=` with a one-time code (in memory, 60 s) traded at `POST /api/auth/google/exchange`. New Google accounts have no password and no business; the web sends them to `/register?step=business`, which uses `POST /api/businesses/me`. Admins can't sign in with Google.
+- Deploy: Render (`render.yaml`). Every absolute URL comes from `APP_URL`. Production requires `DATABASE_URL` (or an explicit `DATABASE_PATH`).
 - Contact messages live in `contact_messages`. `server/services/mail.ts` emails them only when `SMTP_HOST` is set. There is no inbox screen yet: `GET /api/contact` is admin-only.
 - Search folds accents in JS (`fold()`), so `/api/businesses` and `/api/search` load all rows: revisit if the catalog grows.
 

@@ -11,6 +11,7 @@ const Checkout = lazy(() => import('@/pages/Checkout'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
+const AuthCallback = lazy(() => import('@/pages/AuthCallback'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
 const DashboardLayout = lazy(() => import('@/layouts/DashboardLayout'));
 const Overview = lazy(() => import('@/pages/dashboard/Overview'));
@@ -40,6 +41,7 @@ export default function App() {
         </Route>
         <Route path="login" element={<Login />} />
         <Route path="register" element={<Register />} />
+        <Route path="auth/callback" element={<AuthCallback />} />
         <Route path="dashboard" element={<RequireAuth><DashboardLayout /></RequireAuth>}>
           <Route index element={<Overview />} />
           <Route path="products" element={<Products />} />

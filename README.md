@@ -76,13 +76,36 @@ Todos los negocios de ejemplo usan el mismo WhatsApp de prueba.
 El dialecto sale de `DATABASE_URL`:
 
 - **Sin `DATABASE_URL`**: SQLite en `./database.sqlite` (otra ruta con `DATABASE_PATH`). `sync` crea las tablas que faltan pero no modifica las existentes.
-- **`DATABASE_URL=postgres://…`**: Postgres. Ahí `sync` también ajusta columnas (`alter`).
+- **`DATABASE_URL=postgres://…`**: Postgres, obligatorio en producción. Ahí `sync` también ajusta columnas (`alter`). Con una URL externa que pide TLS, `DATABASE_SSL=true`.
 
 El proyecto está en modo pruebas: no hay migraciones. Si cambia un modelo, se regenera todo con `npm run db:seed`.
 
 ## Contacto
 
 El formulario de `/contact` guarda cada mensaje en `contact_messages`. Con `SMTP_HOST` en el `.env` también manda un aviso a `CONTACT_EMAIL` y un acuse a quien escribió; sin SMTP solo guarda y lo registra con `[contact]`. Los canales públicos salen de `CONTACT_EMAIL`, `CONTACT_WHATSAPP` y `CONTACT_HOURS`. Todavía no hay pantalla para leer los mensajes: se consultan por la API con la cuenta admin.
+
+## Ingreso con Google
+
+Sin credenciales el botón "Continuar con Google" no aparece y todo funciona igual. Para activarlo:
+
+1. En [Google Cloud Console](https://console.cloud.google.com/apis/credentials) creá un proyecto y configurá la pantalla de consentimiento (tipo Externo, con el nombre Detoke).
+2. Credenciales → Crear credenciales → ID de cliente de OAuth → tipo **Aplicación web**.
+3. Orígenes de JavaScript autorizados: `http://localhost:3000` y `https://detoke.onrender.com`.
+4. URI de redireccionamiento autorizados: `http://localhost:3000/api/auth/google/callback` y `https://detoke.onrender.com/api/auth/google/callback`.
+5. Copiá el ID y el secreto en `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET` (en el `.env` y en Render) y reiniciá el servidor.
+
+Cómo funciona: el servidor manda a Google, recibe el código en `/api/auth/google/callback`, verifica la identidad y devuelve a la web un código de un solo uso que `/auth/callback` canjea por la sesión. Si el email ya tenía cuenta se vinculan; si no, se crea una cuenta de vendedor y el registro sigue en "Tu negocio". Las cuentas admin no pueden entrar con Google.
+
+## Deploy en Render
+
+`render.yaml` define el servicio web y una base Postgres (Blueprint): en Render, New → Blueprint → elegir este repo.
+
+- **Build:** `npm ci --include=dev && npm run build` (tsx y vite son dependencias de desarrollo).
+- **Start:** `npm start`. Health check: `/api/health`.
+- **Variables:** `NODE_ENV=production`, `APP_URL=https://detoke.onrender.com`, `JWT_SECRET` (Render la genera), `DATABASE_URL` (sale de la base `detoke-db`), `GOOGLE_CLIENT_ID` y `GOOGLE_CLIENT_SECRET`, `CORS_ORIGINS=https://detoke.onrender.com`, `CONTACT_EMAIL`, `CONTACT_WHATSAPP` y `CONTACT_HOURS`, y opcionalmente `SMTP_*`.
+- **Datos de ejemplo:** la primera vez, desde la Shell del servicio, `npm run db:seed` (borra la base). Las fotos del seed salen del repo (`data/images`).
+- **Archivos subidos:** el disco de Render es efímero, así que `data/uploads` se pierde en cada deploy. Para conservarlos hace falta un Persistent Disk (plan pago) montado, por ejemplo, en `/var/data`, con `UPLOADS_DIR=/var/data/uploads`; más adelante, un almacenamiento externo.
+- En producción sin `DATABASE_URL` el servidor no arranca y lo explica en el log.
 
 ## Imágenes
 

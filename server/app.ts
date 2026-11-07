@@ -10,10 +10,14 @@ import { errorHandler, notFound } from './middleware/errorHandler.js';
 export function createApp() {
   const app = express();
   app.disable('x-powered-by');
+  // Behind Render's proxy: real client IPs and secure cookies.
+  if (config.isProduction) app.set('trust proxy', 1);
   app.use(compression());
   if (!config.isProduction && !config.isTest) app.use(morgan('dev'));
   app.use('/api', cors({ origin: config.isProduction ? config.corsOrigins : true }));
   app.use(express.json());
+  // Uploads can live on a mounted disk (UPLOADS_DIR); seed photos ship in the repo.
+  app.use('/data/uploads', express.static(config.uploadsDir));
   app.use('/data', express.static(config.dataDir));
   app.use('/api', apiRoutes);
   app.use('/api', notFound);

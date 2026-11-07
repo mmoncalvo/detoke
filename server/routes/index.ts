@@ -2,6 +2,7 @@ import { Router } from 'express';
 import { ok } from '../services/response.js';
 import { adminRoutes } from './admin.js';
 import { authRoutes } from './auth.js';
+import { googleRoutes, providerRoutes } from './google.js';
 import { businessRoutes } from './businesses.js';
 import { businessCategoryRoutes, productCategoryRoutes } from './categories.js';
 import { contactRoutes } from './contact.js';
@@ -10,6 +11,8 @@ import { searchRoutes } from './search.js';
 
 export const apiRoutes = Router();
 apiRoutes.get('/health', (_req, res) => ok(res, { status: 'ok', db: 'connected' }));
+apiRoutes.use('/auth/google', googleRoutes);
+apiRoutes.use('/auth/providers', providerRoutes);
 apiRoutes.use('/auth', authRoutes);
 apiRoutes.use('/admin', adminRoutes);
 apiRoutes.use('/businesses', businessRoutes);

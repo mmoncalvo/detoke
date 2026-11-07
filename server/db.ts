@@ -12,7 +12,14 @@ export const isPostgres = db.dialect === 'postgres';
 
 export const sequelize =
   db.dialect === 'postgres'
-    ? new Sequelize(db.url, { dialect: 'postgres', logging: false, models, define: { underscored: true } })
+    ? new Sequelize(db.url, {
+        dialect: 'postgres',
+        logging: false,
+        models,
+        define: { underscored: true },
+        // Render's external connection strings need TLS; its internal ones do not.
+        dialectOptions: db.ssl ? { ssl: { require: true, rejectUnauthorized: false } } : {},
+      })
     : new Sequelize({ dialect: 'sqlite', storage: db.storage, logging: false, models, define: { underscored: true } });
 
 /**
