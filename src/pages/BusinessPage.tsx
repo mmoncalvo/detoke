@@ -5,6 +5,7 @@ import { toast } from 'sonner';
 import { DAYS, DAY_LABELS, fold, formatDayHours, PAYMENT_LABELS, todayKey } from '@shared/business';
 import type { Business, Product } from '@shared/types';
 import { OpenBadge } from '@/components/business/OpenBadge';
+import { ParallaxCover } from '@/components/business/ParallaxCover';
 import { SafeImage } from '@/components/common/SafeImage';
 import { EmptyState, ErrorState } from '@/components/common/States';
 import { ProductCard } from '@/components/product/ProductCard';
@@ -97,9 +98,7 @@ export default function BusinessPage() {
 
   return (
     <>
-      <div className="relative">
-        <SafeImage src={business.coverImage} alt="" className="h-52 w-full sm:h-72" />
-      </div>
+      <ParallaxCover src={business.coverImage} className="h-52 w-full sm:h-72" />
       <div className="mx-auto max-w-page px-4 sm:pt-6">
 
         <header className="relative -mt-6">
