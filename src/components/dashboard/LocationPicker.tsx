@@ -1,8 +1,8 @@
 import { LocateFixed } from 'lucide-react';
 import { useEffect } from 'react';
-import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { Marker, useMap, useMapEvents } from 'react-leaflet';
 import { toast } from 'sonner';
-import { mapPin } from '@/components/business/BusinessMap';
+import { BaseMap, mapPin } from '@/components/map/BaseMap';
 import { Button } from '@/components/ui/button';
 
 const DEFAULT_CENTER: [number, number] = [-34.6037, -58.4];
@@ -40,8 +40,7 @@ export default function LocationPicker({ value, onChange }: { value: Point; onCh
   return (
     <div className="space-y-2">
       <div className="overflow-hidden rounded-xl border">
-        <MapContainer center={position ?? DEFAULT_CENTER} zoom={position ? 16 : 12} className="h-64 w-full">
-          <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+        <BaseMap center={position ?? DEFAULT_CENTER} zoom={position ? 16 : 12} className="h-64 w-full">
           <ClickHandler onChange={onChange} />
           <Recenter position={position} />
           {position && (
@@ -52,7 +51,7 @@ export default function LocationPicker({ value, onChange }: { value: Point; onCh
               eventHandlers={{ dragend: (e) => { const { lat, lng } = e.target.getLatLng(); onChange({ latitude: lat, longitude: lng }); } }}
             />
           )}
-        </MapContainer>
+        </BaseMap>
       </div>
       <div className="flex items-center justify-between gap-2">
         <p className="text-sm text-muted-foreground">{position ? 'Podés arrastrar el marcador para ajustarlo.' : 'Tocá el mapa para marcar tu local.'}</p>

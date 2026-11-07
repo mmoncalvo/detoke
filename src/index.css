@@ -158,3 +158,8 @@
   font-family: inherit;
   z-index: 0;
 }
+
+/* The pin can still be dragged with one finger while the map lets the page scroll. */
+.leaflet-marker-draggable {
+  touch-action: none;
+}
