@@ -23,10 +23,11 @@ export default function PublicLayout() {
     <div className="flex min-h-svh flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded-md focus:bg-card focus:px-3 focus:py-2">Saltar al contenido</a>
       <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
-        <div className="mx-auto flex h-16 max-w-page items-center judtify-center gap-1 px-4 sm:gap-2">
+        <div className="mx-auto flex h-16 max-w-page items-center gap-1 px-4 sm:gap-2">
           <BrandMark compact />
-          <nav className="ml-1 block sm:ml-4" aria-label="Principal">
+          <nav className="ml-1 block sm:ml-6" aria-label="Principal">
             <NavLink to="/explorar" className={({ isActive }) => `rounded-md px-2 py-2 text-sm sm:px-3 font-medium hover:bg-secondary ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>Explorar</NavLink>
+            <NavLink to="/contact" className={({ isActive }) => `hidden rounded-md px-3 py-2 text-sm font-medium hover:bg-secondary md:inline-block ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>Contacto</NavLink>
           </nav>
 
           <button
@@ -68,6 +69,7 @@ export default function PublicLayout() {
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <Link to="/explorar" className="hover:text-sidebar-accent-foreground">Explorar</Link>
             <Link to="/register" className="hover:text-sidebar-accent-foreground">Sumá tu negocio</Link>
+            <Link to="/contact" className="hover:text-sidebar-accent-foreground">Contacto</Link>
             <Link to="/login" className="hover:text-sidebar-accent-foreground">Ingresar</Link>
           </div>
         </div>

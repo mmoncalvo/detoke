@@ -42,6 +42,22 @@ export const config = {
   /** Upload folder. Tests use a temporary one. */
   uploadsDir: isTest ? path.join(os.tmpdir(), 'detoke-test-uploads') : path.resolve('data/uploads'),
   maxUploadBytes: 8 * 1024 * 1024,
+  /** Shown on the contact page and used as the destination of the contact form. */
+  contact: {
+    email: process.env.CONTACT_EMAIL?.trim() || (isProduction ? null : 'hola@detoke.test'),
+    whatsapp: process.env.CONTACT_WHATSAPP?.trim() || null,
+    hours: process.env.CONTACT_HOURS?.trim() || 'Lunes a viernes de 9 a 18',
+  },
+  /** Contact form sends per IP and hour. */
+  contactRateLimit: isTest ? 1000 : 5,
+  /** Without a host, contact messages are only stored. */
+  smtp: {
+    host: process.env.SMTP_HOST?.trim() || null,
+    port: Number(process.env.SMTP_PORT) || 465,
+    user: process.env.SMTP_USER?.trim() || null,
+    pass: process.env.SMTP_PASS || null,
+    from: process.env.SMTP_FROM?.trim() || 'Detoke <no-reply@detoke.test>',
+  },
   /** Origins allowed to call the API in production, besides the same-origin web app. */
   corsOrigins: (process.env.CORS_ORIGINS ?? 'http://localhost,https://localhost').split(',').map((s) => s.trim()).filter(Boolean),
 };

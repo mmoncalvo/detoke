@@ -1,4 +1,4 @@
-import { Bike, CalendarClock, ExternalLink, Images, LayoutDashboard, LogOut, Package, Store } from 'lucide-react';
+import { Bike, CalendarClock, ExternalLink, Images, LayoutDashboard, LifeBuoy, LogOut, Package, Store } from 'lucide-react';
 import { Link, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { BrandMark } from '@/components/common/BrandMark';
 import { EmptyState } from '@/components/common/States';
@@ -64,6 +64,7 @@ export default function DashboardLayout() {
             <p className="truncate">{user?.email}</p>
           </div>
           <SidebarMenu>
+            <SidebarMenuItem><SidebarMenuButton asChild><Link to="/contact"><LifeBuoy /> Ayuda</Link></SidebarMenuButton></SidebarMenuItem>
             <SidebarMenuItem><SidebarMenuButton onClick={exit}><LogOut /> Cerrar sesión</SidebarMenuButton></SidebarMenuItem>
           </SidebarMenu>
         </SidebarFooter>

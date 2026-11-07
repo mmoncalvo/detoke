@@ -1,5 +1,6 @@
 // Validation shared by the API and the forms. Messages are shown to users.
 import { z } from 'zod';
+import { CONTACT_REASONS, CONTACT_STATUSES } from './contact.js';
 import { DAYS, DELIVERY_OPTIONS, normalizeWhatsapp, PAYMENT_METHODS, type BusinessHours } from './business.js';
 
 const required = (label: string, max = 120) => z.string({ required_error: `Completá ${label}` }).trim().min(1, `Completá ${label}`).max(max, `Máximo ${max} caracteres`);
@@ -109,6 +110,20 @@ export const productUpdateSchema = z.object({
   featured: z.boolean(),
   productCategoryId: productSchema.shape.productCategoryId,
 }).partial();
+
+export const contactSchema = z.object({
+  name: required('tu nombre', 80),
+  email: z.string({ required_error: 'Completá el email' }).trim().toLowerCase().email('Ingresá un email válido'),
+  phone: optionalPhone,
+  reason: z.enum(CONTACT_REASONS, { errorMap: () => ({ message: 'Elegí un motivo' }) }),
+  businessName: optionalText(80),
+  message: z.string({ required_error: 'Escribí tu mensaje' }).trim().min(10, 'Contanos un poco más, al menos 10 caracteres').max(2000, 'Máximo 2000 caracteres'),
+  consent: z.boolean({ required_error: 'Necesitamos tu aceptación para responderte' }).refine((v) => v, 'Necesitamos tu aceptación para responderte'),
+  /** Honeypot: hidden from people, bots fill it in. */
+  company: z.string().max(200).optional(),
+});
+
+export const contactStatusSchema = z.object({ status: z.enum(CONTACT_STATUSES, { errorMap: () => ({ message: 'Estado inválido' }) }) });
 
 export type RegisterInput = z.input<typeof registerSchema>;
 export type BusinessUpdate = z.output<typeof businessUpdateSchema>;

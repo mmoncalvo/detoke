@@ -8,6 +8,7 @@ const Home = lazy(() => import('@/pages/Home'));
 const Explore = lazy(() => import('@/pages/Explore'));
 const BusinessPage = lazy(() => import('@/pages/BusinessPage'));
 const Checkout = lazy(() => import('@/pages/Checkout'));
+const Contact = lazy(() => import('@/pages/Contact'));
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
 const NotFound = lazy(() => import('@/pages/NotFound'));
@@ -34,6 +35,7 @@ export default function App() {
           <Route path="explorar" element={<Explore />} />
           <Route path="negocio/:slug" element={<BusinessPage />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="login" element={<Login />} />

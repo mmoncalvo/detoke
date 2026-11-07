@@ -3,6 +3,7 @@ import { ok } from '../services/response.js';
 import { authRoutes } from './auth.js';
 import { businessRoutes } from './businesses.js';
 import { businessCategoryRoutes, productCategoryRoutes } from './categories.js';
+import { contactRoutes } from './contact.js';
 import { productRoutes } from './products.js';
 import { searchRoutes } from './search.js';
 
@@ -14,3 +15,4 @@ apiRoutes.use('/products', productRoutes);
 apiRoutes.use('/business-categories', businessCategoryRoutes);
 apiRoutes.use('/product-categories', productCategoryRoutes);
 apiRoutes.use('/search', searchRoutes);
+apiRoutes.use('/contact', contactRoutes);

@@ -1,0 +1,6 @@
+[
+  { "name": "Valeria Duarte", "email": "valeria@example.com", "phone": "11 4567 8901", "reason": "join", "businessName": "Heladería Duarte", "message": "Hola, tengo una heladería en Flores y quisiera saber cómo sumarla. No encontré el rubro al registrarme.", "status": "new" },
+  { "name": "Martín Ibáñez", "email": "martin@example.com", "phone": null, "reason": "report", "businessName": null, "message": "En la página de una verdulería aparece un horario que no coincide con el real. ¿Lo pueden revisar?", "status": "new" },
+  { "name": "Oscar Díaz", "email": "carniceria@detoke.test", "phone": null, "reason": "support", "businessName": "El Buen Corte", "message": "¿Cómo cambio el logo de mi negocio? Ya lo resolví desde Mi negocio, gracias.", "status": "read" },
+  { "name": "Revista Barrial", "email": "redaccion@example.com", "phone": null, "reason": "press", "businessName": null, "message": "Estamos preparando una nota sobre comercios de cercanía y nos gustaría hablar con ustedes.", "status": "archived" }
+]

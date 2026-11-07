@@ -14,10 +14,10 @@ server/
   config.ts          Lee el .env; avisa con [config] si usa un valor por defecto
   db.ts              Sequelize (SQLite o Postgres) + sync
   app.ts             Arma la app de Express (también la usan las pruebas)
-  models/            User, Business, BusinessCategory, Product, ProductCategory
-  routes/            auth, businesses, products, categories, search
-  middleware/        requireAuth (token Bearer), errorHandler
-  services/          upload (multer + sharp), seed, slug, response
+  models/            User, Business, BusinessCategory, Product, ProductCategory, ContactMessage
+  routes/            auth, businesses, products, categories, search, contact
+  middleware/        requireAuth (token Bearer), rateLimit, errorHandler
+  services/          upload (multer + sharp), mail, seed, slug, response
   data/seed/         JSON de los datos de ejemplo
 shared/              Lo que usan el servidor y la web
   business.ts        Horarios y "abierto ahora", medios de pago, entrega, slugs
@@ -29,7 +29,7 @@ src/                 Web React + shadcn/ui + Tailwind v4
   context/           AuthContext, CartContext, ThemeContext (claro y oscuro)
   layouts/           PublicLayout, DashboardLayout
   components/        ui/ (shadcn), common/, layout/, business/, product/, dashboard/
-  pages/             Home, Explore, BusinessPage, Checkout, Login, Register
+  pages/             Home, Explore, BusinessPage, Checkout, Contact, Login, Register
   pages/dashboard/   Overview, Products, BusinessProfile, Hours, Gallery, DeliveryPayments
 public/seed/logos/   Logos SVG de los negocios de ejemplo
 test/                Pruebas de la API (vitest + supertest) sobre una SQLite temporal
@@ -80,6 +80,10 @@ El dialecto sale de `DATABASE_URL`:
 
 El proyecto está en modo pruebas: no hay migraciones. Si cambia un modelo, se regenera todo con `npm run db:seed`.
 
+## Contacto
+
+El formulario de `/contact` guarda cada mensaje en `contact_messages`. Con `SMTP_HOST` en el `.env` también manda un aviso a `CONTACT_EMAIL` y un acuse a quien escribió; sin SMTP solo guarda y lo registra con `[contact]`. Los canales públicos salen de `CONTACT_EMAIL`, `CONTACT_WHATSAPP` y `CONTACT_HOURS`. Todavía no hay pantalla para leer los mensajes: se consultan por la API con la cuenta admin.
+
 ## Imágenes
 
 Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, portada 16:9, productos 1:1) y las guarda en WEBP en `data/uploads/`.
@@ -104,6 +108,9 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `POST /api/products`, `PUT`, `DELETE /api/products/:id` 🔒 | Alta, edición y baja (solo el dueño) |
 | `GET /api/business-categories`, `/api/product-categories` | Rubros y categorías |
 | `GET /api/search?q=` | Buscador global, sin distinguir acentos |
+| `GET /api/contact/info` | Canales de contacto públicos |
+| `POST /api/contact` | Guarda el mensaje del formulario (hasta 5 por hora e IP) y, con SMTP, avisa por email |
+| `GET /api/contact`, `PATCH /api/contact/:id` 🔒 | Solo admin: listado paginado (`?page=`, `?status=`) y cambio de estado |
 | `GET /data/...` | Imágenes y archivos subidos |
 
 🔒 Pide `Authorization: Bearer <token>`.

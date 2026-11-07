@@ -1,8 +1,12 @@
+import bcrypt from 'bcryptjs';
+import type { Request, Response } from 'express';
 import sharp from 'sharp';
-import { beforeAll, describe, expect, it } from 'vitest';
+import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { defaultHours, emptyHours, normalizeWhatsapp, openStatus, slugify } from '../shared/business.js';
 import { initDb } from '../server/db.js';
-import { Business } from '../server/models/index.js';
+import { rateLimit } from '../server/middleware/rateLimit.js';
+import { signToken } from '../server/middleware/requireAuth.js';
+import { Business, ContactMessage, User } from '../server/models/index.js';
 import { app, auth, createCategories, register, request } from './helpers.js';
 
 let categories: Awaited<ReturnType<typeof createCategories>>;
@@ -258,6 +262,76 @@ describe('search', () => {
 
   it('returns an empty list without a term', async () => {
     expect((await request(app).get('/api/search')).body).toEqual({ success: true, data: [] });
+  });
+});
+
+describe('contact', () => {
+  const message = { name: 'Ana', email: 'ANA@detoke.test', reason: 'general', message: 'Hola, quería hacer una consulta.', consent: true };
+
+  it('publishes the contact channels', async () => {
+    const res = await request(app).get('/api/contact/info');
+    expect(res.body.data).toHaveProperty('email');
+    expect(res.body.data).toHaveProperty('hours');
+  });
+
+  it('stores a valid message with its request data', async () => {
+    const res = await request(app).post('/api/contact').set('User-Agent', 'prueba').send({ ...message, reason: 'join', businessName: 'Lo de Ana', phone: '11 2345 6789' });
+    expect(res.status).toBe(201);
+    const saved = await ContactMessage.findOne({ where: { email: 'ana@detoke.test' } });
+    expect(saved).toMatchObject({ reason: 'join', businessName: 'Lo de Ana', status: 'new', userAgent: 'prueba' });
+    expect(saved?.ip).toBeTruthy();
+  });
+
+  it('links the message to the session user', async () => {
+    const { token, user } = await register(categories.pizzas.id);
+    await request(app).post('/api/contact').set(auth(token)).send({ ...message, email: 'conlogin@detoke.test' });
+    expect((await ContactMessage.findOne({ where: { email: 'conlogin@detoke.test' } }))?.userId).toBe(user.id);
+  });
+
+  it('validates the fields', async () => {
+    const send = (extra: object) => request(app).post('/api/contact').send({ ...message, ...extra });
+    expect((await send({ message: 'Hola' })).body.error).toBe('Contanos un poco más, al menos 10 caracteres');
+    expect((await send({ reason: 'nada' })).body.error).toBe('Elegí un motivo');
+    expect((await send({ consent: false })).body.error).toBe('Necesitamos tu aceptación para responderte');
+    expect((await send({ email: 'no' })).status).toBe(400);
+    expect((await send({ phone: 'abc' })).status).toBe(400);
+  });
+
+  it('silently drops messages that fill in the honeypot', async () => {
+    const res = await request(app).post('/api/contact').send({ ...message, email: 'bot@detoke.test', company: 'ACME' });
+    expect(res.status).toBe(201);
+    expect(await ContactMessage.count({ where: { email: 'bot@detoke.test' } })).toBe(0);
+  });
+
+  it('limits requests per IP', () => {
+    const limit = rateLimit({ windowMs: 1000, max: 2, message: 'Basta' });
+    const req = { ip: '1.1.1.1' } as Request;
+    const json = vi.fn();
+    const res = { status: vi.fn(() => ({ json })) } as unknown as Response;
+    const next = vi.fn();
+    for (let i = 0; i < 3; i += 1) limit(req, res, next);
+    expect(next).toHaveBeenCalledTimes(2);
+    expect(res.status).toHaveBeenCalledWith(429);
+    expect(json).toHaveBeenCalledWith({ success: false, error: 'Basta' });
+  });
+
+  it('lets only admins read and update messages', async () => {
+    const { token } = await register(categories.pizzas.id);
+    expect((await request(app).get('/api/contact')).status).toBe(401);
+    expect((await request(app).get('/api/contact').set(auth(token))).status).toBe(403);
+
+    const admin = await User.create({ email: 'admin@detoke.test', name: 'Admin', passwordHash: await bcrypt.hash('secreta123', 4), role: 'admin' });
+    const adminToken = signToken(admin);
+    const list = await request(app).get('/api/contact').query({ status: 'new', limit: 1 }).set(auth(adminToken));
+    expect(list.status).toBe(200);
+    expect(list.body.data.items).toHaveLength(1);
+    expect(list.body.data.total).toBeGreaterThan(1);
+
+    const { id } = list.body.data.items[0];
+    expect((await request(app).patch(`/api/contact/${id}`).set(auth(token)).send({ status: 'read' })).status).toBe(403);
+    expect((await request(app).patch(`/api/contact/${id}`).set(auth(adminToken)).send({ status: 'nada' })).status).toBe(400);
+    const updated = await request(app).patch(`/api/contact/${id}`).set(auth(adminToken)).send({ status: 'read' });
+    expect(updated.body.data.status).toBe('read');
   });
 });
 

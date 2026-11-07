@@ -4,7 +4,7 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import bcrypt from 'bcryptjs';
 import { initDb } from '../db.js';
-import { Business, BusinessCategory, Product, ProductCategory, User } from '../models/index.js';
+import { Business, BusinessCategory, ContactMessage, Product, ProductCategory, User } from '../models/index.js';
 
 const seedDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'data', 'seed');
 const readSeed = (name: string) => JSON.parse(fs.readFileSync(path.join(seedDir, name), 'utf8'));
@@ -18,6 +18,8 @@ interface SeedBusiness {
   products: (Record<string, unknown> & { category: string })[];
   [field: string]: unknown;
 }
+
+export const seedContactMessages = () => ContactMessage.bulkCreate(readSeed('contact-messages.json'));
 
 export async function seed() {
   await initDb({ reset: true });
@@ -42,6 +44,8 @@ export async function seed() {
     })));
     productCount += products.length;
   }
+
+  await seedContactMessages();
 
   return { businesses: businesses.length, products: productCount, accounts: businesses.map((b) => `${b.owner.email} (${b.name})`) };
 }

@@ -40,6 +40,12 @@ export async function requireAuth(req: Request, _res: Response, next: NextFuncti
   }
 }
 
+/** Use after requireAuth on admin-only routes. */
+export function requireAdmin(req: Request, _res: Response, next: NextFunction) {
+  if (req.user?.role !== 'admin') return next(new HttpError(403, 'No tenés permiso para ver esto'));
+  next();
+}
+
 /** Session user on a route protected by requireAuth. */
 export function currentUser(req: Request): User {
   if (!req.user) throw new HttpError(401, 'Iniciá sesión para continuar');

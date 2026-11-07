@@ -39,12 +39,13 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 
 **Key patterns:**
 - API responses are always `{ success, data }` or `{ success: false, error }`, errors in Spanish.
-- API routes: `/api/auth`, `/api/businesses`, `/api/products`, `/api/business-categories`, `/api/product-categories`, `/api/search`, `/api/health`.
+- API routes: `/api/auth`, `/api/businesses`, `/api/products`, `/api/business-categories`, `/api/product-categories`, `/api/search`, `/api/contact`, `/api/health`.
 - Express 4 does not catch async errors: wrap every async handler in `asyncHandler`, and throw `HttpError` or let zod throw.
 - A seller `User` owns one `Business`. `POST /api/auth/register` creates both in a transaction.
 - Validation lives in `shared/schemas.ts` and is reused by the API and by react-hook-form.
 - `hours`, `gallery`, `images`, `deliveryOptions` and `paymentMethods` are JSON columns.
 - "Open now" uses `openStatus()` from `shared/business.ts`, in the Buenos Aires time zone. It supports split shifts and overnight ranges.
+- Contact messages live in `contact_messages`. `server/services/mail.ts` emails them only when `SMTP_HOST` is set. There is no inbox screen yet: `GET /api/contact` is admin-only.
 - Search folds accents in JS (`fold()`), so `/api/businesses` and `/api/search` load all rows: revisit if the catalog grows.
 
 ## Gotchas
