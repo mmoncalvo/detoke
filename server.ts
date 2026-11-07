@@ -1,46 +1,34 @@
+// Punto de entrada: Express con la API en /api y la web en el mismo puerto.
+// En desarrollo monta Vite como middleware; en producción sirve dist/.
+import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 import express from 'express';
-import morgan from 'morgan';
-import cors from 'cors';
-import path from 'path';
-import dotenv from 'dotenv';
-import { sequelize, User, Product, Category } from './models/index.js';
-import apiRoutes from './routes/api.js';
-import { authenticate } from './middleware/auth.js';
+import { config } from './server/config.js';
+import { initDb } from './server/db.js';
+import { createApp } from './server/app.js';
 
-dotenv.config({ quiet: true });
+const root = path.dirname(fileURLToPath(import.meta.url));
 
-const app = express();
-const PORT = process.env.PORT || 3000;
+async function main() {
+  await initDb();
+  const app = createApp();
 
-app.use(morgan('dev'));
-app.use(express.json());
-app.use(cors());
-app.use('/data', express.static(path.join(process.cwd(), 'data')));
-
-// Health check
-app.get('/api/health', (req, res) => {
-  res.json({ status: 'ok', db: 'connected' });
-});
-
-// API routes
-app.use('/api', apiRoutes);
-
-// Start server
-const start = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Database connected');
-    
-    await sequelize.sync();
-    console.log('Database synced');
-    
-    app.listen(PORT, '0.0.0.0', () => {
-      console.log(`Server running on port ${PORT}`);
-    });
-  } catch (err) {
-    console.error('Error starting server:', err);
-    process.exit(1);
+  if (config.isProduction) {
+    const dist = path.join(root, 'dist');
+    app.use(express.static(dist));
+    app.get(/^(?!\/(api|data)(\/|$)).*/, (_req, res) => res.sendFile(path.join(dist, 'index.html')));
+  } else {
+    const { createServer } = await import('vite');
+    const vite = await createServer({ server: { middlewareMode: true }, appType: 'spa' });
+    app.use(vite.middlewares);
   }
-};
 
-start();
+  app.listen(config.port, '0.0.0.0', () => {
+    console.log(`detoke escuchando en http://localhost:${config.port}`);
+  });
+}
+
+main().catch((err) => {
+  console.error(err);
+  process.exit(1);
+});

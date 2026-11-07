@@ -1,9 +1,13 @@
 node_modules/
 dist/
-build/
-*.sqlite
+venv/
 .env
-client/build/
 *.log
+.DS_Store
+coverage/
 .vscode/
 .idea/
+# Imágenes y archivos subidos (91 MB): quedan en disco, no en git
+/data/
+database.sqlite*
+*.bak

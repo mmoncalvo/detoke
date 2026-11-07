@@ -1,187 +1,91 @@
-# Detoke - Marketplace Multimarca
+# Detoke
 
-Sistema de marketplace para vendedores de comida, almacén y diversas categorías. Cada negocio tiene su propia landing page con información, mapa, galería de imágenes y productos.
+Directorio de comercios de barrio con catálogo online. Cada negocio tiene su página con productos, horarios, mapa y galería; quien compra arma el carrito y hace el pedido por WhatsApp. Cada vendedor administra su perfil y sus productos desde el panel.
 
-## Características
+## Estructura
 
-- ✅ **Multimarca**: Cada negocio tiene su propia página (`/negocio/:slug`)
-- ✅ **Landing pages**: Portada, logo, descripción, horarios, mapa, galería
-- ✅ **Productos**: Gestión completa con imágenes, stock, categorías
-- ✅ **WhatsApp**: Botones de contacto directo en productos y negocios
-- ✅ **Mapas**: Integración con Leaflet para ubicación de negocios
-- ✅ **Autenticación**: JWT para vendedores
-- ✅ **Dashboard**: Gestión de productos para cada negocio
+Una sola app con un `package.json`. Express sirve la API en `/api`, las imágenes en `/data` y la web en el mismo puerto (3000).
 
-## Tecnologías
+```
+server.ts            Entrada: Express + Vite (desarrollo) o dist/ (producción)
+server/
+  config.ts          Lee el .env; avisa con [config] si usa un valor por defecto
+  db.ts              Sequelize (SQLite o Postgres) + sync
+  app.ts             Arma la app de Express (también la usan las pruebas)
+  models/            User, Product, Category (sequelize-typescript)
+  routes/            auth, users, products, categories, search
+  middleware/        requireAuth (token Bearer), errorHandler
+  services/          upload (multer), seed, response
+  data/seed/         JSON de los datos de ejemplo
+shared/              Tipos que usan el servidor y la web
+src/                 Web React + Tailwind v4
+  api.ts             Cliente fetch
+  context/           AuthContext, CartContext, ThemeContext
+  components/        Navbar, ProductCard, ProductModal, BusinessMap, ...
+  pages/             Home, Explorar, Company, Checkout, Dashboard, Login
+test/                Pruebas de la API (vitest + supertest) sobre una SQLite temporal
+scripts/             seed.ts; legacy/ guarda los scripts viejos de descarga de imágenes
+data/                images/ y uploads/ (se publican en /data; no están en git)
+```
 
-**Backend:**
-- Node.js + Express
-- JavaScript (CommonJS)
-- Sequelize ORM + SQLite
-- JWT para autenticación
-- Multer para subida de imágenes
+Las respuestas de la API son siempre `{ success: true, data }` o `{ success: false, error }`, con el error en español.
 
-**Frontend:**
-- React 19 + TypeScript
-- Vite
-- Tailwind CSS v4
-- Leaflet.js para mapas
-- React Router DOM v7
-
-## Instalación
+## Primera vez
 
 ```bash
-# Clonar/Entrar al proyecto
-cd /opt/homebrew/var/www/detoke
-
-# Instalar dependencias del backend
+cp .env.example .env
 npm install
-
-# Instalar dependencias del frontend
-cd client && npm install && cd ..
-```
-
-## Configuración
-
-Crear archivo `.env` en la raíz:
-
-```env
-NODE_ENV=development
-JWT_SECRET=detoke-super-secret-jwt-key-2026
-
-# SQLite (Desarrollo)
-DB_DIALECT=sqlite
-DB_STORAGE=database.sqlite
-
-# Demo data
-SEED_DB=true
-```
-
-## Ejecución
-
-```bash
-# Desarrollo (backend + frontend)
 npm run dev
-
-# Solo backend
-npm run server:dev
-
-# Solo frontend
-npm run client:dev
-
-# Poblar base de datos
-npm run seed
 ```
 
-Servidores:
-- **Backend**: http://localhost:3000
-- **Frontend**: http://localhost:3002
+La carpeta `data/` no está en git: las imágenes se copian aparte.
 
-## Estructura del Proyecto
+## Día a día
 
-```
-detoke/
-├── server.cjs              # Servidor Express principal
-├── package.json
-├── .env                    # Variables de entorno
-├── models/                 # Modelos Sequelize
-│   ├── index.js           # Exporta modelos
-│   ├── usuario.js         # Modelo de usuario/negocio
-│   ├── producto.js         # Modelo de producto
-│   └── categoria.js       # Modelo de categoría
-├── routes/                 # Rutas API
-│   ├── api.js             # Router principal
-│   ├── auth.js             # Login/Registro
-│   ├── usuarios.js         # Rutas de negocios
-│   ├── productos.js         # Rutas de productos
-│   └── categorias.js       # Rutas de categorías
-├── middleware/
-│   └── auth.js             # Middleware JWT
-├── seed/                   # Datos de prueba
-│   ├── users.json
-│   ├── products.json
-│   └── categorias.json
-├── data/
-│   ├── images/              # Imágenes de productos
-│   └── uploads/             # Archivos subidos
-├── client/                  # Frontend React
-│   ├── src/
-│   │   ├── components/
-│   │   │   ├── Navbar.tsx
-│   │   │   ├── ProductCard.tsx
-│   │   │   ├── BusinessHeader.tsx
-│   │   │   ├── BusinessMap.tsx
-│   │   │   ├── ImageGallery.tsx
-│   │   │   └── BusinessHours.tsx
-│   │   ├── routes/
-│   │   │   ├── Home.tsx
-│   │   │   ├── Company.tsx       # Landing page de negocio
-│   │   │   ├── Dashboard.tsx
-│   │   │   └── Login.tsx
-│   │   ├── lib/
-│   │   │   └── api.ts
-│   │   ├── App.tsx
-│   │   └── main.tsx
-│   └── package.json
-└── README.md
-```
+| Comando | Qué hace |
+| --- | --- |
+| `npm run dev` | Levanta API + web en http://localhost:3000 |
+| `npm test` | Pruebas de la API (SQLite temporal) |
+| `npm run lint` | Chequeo de tipos (igual que `npm run typecheck`) |
+| `npm run db:seed` | **Borra la base** y carga los datos de ejemplo |
+| `npm run build` | Compila la web en `dist/` |
+| `npm start` | Producción: sirve la API, `/data` y `dist/` |
 
-## API Endpoints
+Usuarios de ejemplo, todos con contraseña `password123`: seis por rubro, con el prefijo del rubro y un número. Por ejemplo `piz1` (pizzería), `alm1` (almacén), `car1` (carnicería), `pan1` (panadería) y `ver1` (verdulería). Los otros prefijos son `die`, `fia`, `kio`, `rot` y `sup`.
 
-### Autenticación
-- `POST /api/auth/login` - Login de vendedor
-- `POST /api/auth/register` - Registro de vendedor
-- `GET /api/auth/me` - Obtener usuario actual
+## Base de datos
 
-### Negocios (Usuarios)
-- `GET /api/usuarios` - Listar negocios activos
-- `GET /api/usuarios/slug/:slug` - Obtener negocio por slug
-- `GET /api/usuarios/:id` - Obtener negocio por ID
-- `GET /api/usuarios/:id/products` - Productos de un negocio
-- `POST /api/usuarios/:id/upload-cover` - Subir portada (protegido)
-- `POST /api/usuarios/:id/upload-gallery` - Subir a galería (protegido)
+El dialecto sale de `DATABASE_URL`:
 
-### Productos
-- `GET /api/productos` - Listar productos (filtros: categoryId, userId, search)
-- `GET /api/productos/:id` - Obtener producto
-- `POST /api/productos` - Crear producto (protegido)
-- `PUT /api/productos/:id` - Actualizar producto (protegido)
-- `DELETE /api/productos/:id` - Eliminar producto (protegido)
+- **Sin `DATABASE_URL`**: SQLite en `./database.sqlite` (otra ruta con `DATABASE_PATH`). Si el archivo no existe se crea solo, vacío: `npm run db:seed` carga los datos de ejemplo. `sync` crea las tablas que faltan pero no modifica las existentes.
+- **`DATABASE_URL=postgres://…`**: Postgres. Ahí `sync` también ajusta columnas (`alter`).
 
-### Categorías
-- `GET /api/categorias` - Listar categorías
+Las tablas (`Users`, `Products`, `Categories`) y sus columnas en camelCase son las de siempre, por eso los modelos no usan `underscored`.
 
-## URLs del Frontend
+## API
 
-- **Inicio**: http://localhost:3002
-- **Login**: http://localhost:3002/login
-- **Dashboard**: http://localhost:3002/dashboard
-- **Negocio (slug)**: http://localhost:3002/negocio/don-juan-pizzeria
-- **Negocio (ID)**: http://localhost:3002/empresa/vendor-1
+| Ruta | Qué hace |
+| --- | --- |
+| `GET /api/health` | Estado del servidor |
+| `POST /api/auth/register`, `POST /api/auth/login` | Devuelven `{ token, user }` |
+| `GET /api/auth/me` 🔒 | Usuario de la sesión |
+| `GET /api/usuarios` | Negocios activos (`?search=`) |
+| `GET /api/usuarios/slug/:slug`, `GET /api/usuarios/:id` | Negocio con sus productos |
+| `GET /api/usuarios/:id/products` | Productos del negocio (`?categoryId=`) |
+| `PUT /api/usuarios/:id` 🔒 | Edita el perfil (dueño o admin) |
+| `POST /api/usuarios/:id/upload-cover` 🔒 | Portada (campo `cover`) |
+| `POST /api/usuarios/:id/upload-gallery` 🔒 | Galería (campo `gallery`, hasta 10) |
+| `GET /api/productos` | Productos disponibles (`?categoryId=`, `?userId=`, `?search=`) |
+| `GET /api/productos/:id` | Un producto |
+| `POST /api/productos` 🔒 | Crea un producto (JSON, o multipart con campo `image`) |
+| `PUT /api/productos/:id`, `DELETE /api/productos/:id` 🔒 | Edita o borra (solo el dueño) |
+| `POST /api/productos/:id/upload-image` 🔒 | Agrega una imagen (campo `image`) |
+| `GET /api/categorias` | Categorías activas |
+| `GET /api/search?q=` | Buscador global de negocios, productos y categorías |
+| `GET /data/...` | Imágenes y archivos subidos |
 
-## Datos de Prueba
+🔒 Pide `Authorization: Bearer <token>`.
 
-### Vendedores
-| Usuario | Contraseña | Negocio | Slug |
-|----------|-------------|---------|------|
-| donjuan | donjuan123 | Don Juan Pizzería | don-juan-pizzeria |
-| verduleria | verduras123 | Verdulería María | verduleria-maria |
-| almacen | almacen123 | Almacén El Ahorro | almacen-el-ahorro |
+## Sesión
 
-### Categorías
-🍕 Comidas | 🛒 Almacén | 🥤 Bebidas | 🍞 Panadería | 🥩 Carnicería | 🥬 Frutas y Verduras | 🧀 Lácteos | 📦 Otros |
-
-## Funcionalidades Pendientes
-
-- [ ] Edición de perfil desde Dashboard
-- [ ] Subida real de imágenes (Multer integrado)
-- [ ] Mapa de todos los negocios en inicio
-- [ ] Búsqueda por ubicación (geolocalización)
-- [ ] Página de directorio de negocios
-- [ ] Sistema de pedidos (más allá de WhatsApp)
-- [ ] Panel de administración
-- [ ] Verificación de negocios
-
-## Licencia
-
-MIT
+Se usa un token JWT (7 días) guardado en el navegador. `JWT_SECRET` es obligatorio en producción.
