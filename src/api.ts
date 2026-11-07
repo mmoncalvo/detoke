@@ -1,62 +1,52 @@
-// API client. Same origin unless VITE_API_URL points to another server.
+// API client. Unwraps { success, data } and throws ApiError with the Spanish message.
 import type { ApiResponse } from '@shared/types';
 
-const BASE: string = import.meta.env.VITE_API_URL ?? '';
-const API_URL = `${BASE}/api`;
-/** Prefix for images on /data. */
-export const BASE_URL = BASE;
+const TOKEN_KEY = 'token';
+export const BASE: string = import.meta.env.VITE_API_URL ?? '';
 
-export const api = {
-  async get(endpoint: string, token?: string): Promise<ApiResponse> {
-    const res = await fetch(`${API_URL}${endpoint}`, {
-      headers: token ? { Authorization: `Bearer ${token}` } : {}
-    });
-    return res.json();
-  },
-
-  async post(endpoint: string, data: any, token?: string): Promise<ApiResponse> {
-    const res = await fetch(`${API_URL}${endpoint}`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` })
-      },
-      body: JSON.stringify(data)
-    });
-    return res.json();
-  },
-
-  async put(endpoint: string, data: any, token?: string): Promise<ApiResponse> {
-    const res = await fetch(`${API_URL}${endpoint}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        ...(token && { Authorization: `Bearer ${token}` })
-      },
-      body: JSON.stringify(data)
-    });
-    return res.json();
-  },
-
-  async delete(endpoint: string, token?: string): Promise<ApiResponse> {
-    const res = await fetch(`${API_URL}${endpoint}`, {
-      method: 'DELETE',
-      headers: token ? { Authorization: `Bearer ${token}` } : {}
-    });
-    return res.json();
-  },
-
-  async upload(endpoint: string, formData: FormData, token?: string): Promise<ApiResponse> {
-    const res = await fetch(`${API_URL}${endpoint}`, {
-      method: 'POST',
-      headers: token ? { Authorization: `Bearer ${token}` } : {},
-      body: formData
-    });
-    return res.json();
+export class ApiError extends Error {
+  constructor(public status: number, message: string) {
+    super(message);
   }
-};
+}
 
-export const whatsappLink = (phone: string, message?: string) => {
-  const base = `https://wa.me/${phone.replace(/\D/g, '')}`;
-  return message ? `${base}?text=${encodeURIComponent(message)}` : base;
-};
+export function getToken() {
+  try {
+    return localStorage.getItem(TOKEN_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setToken(token: string | null) {
+  try {
+    if (token) localStorage.setItem(TOKEN_KEY, token);
+    else localStorage.removeItem(TOKEN_KEY);
+  } catch {
+    /* storage not available */
+  }
+}
+
+export async function api<T>(path: string, options: { method?: string; body?: unknown } = {}): Promise<T> {
+  const token = getToken();
+  const isForm = options.body instanceof FormData;
+
+  let res: Response;
+  try {
+    res = await fetch(`${BASE}/api${path}`, {
+      method: options.method ?? 'GET',
+      headers: {
+        ...(token && { Authorization: `Bearer ${token}` }),
+        ...(options.body !== undefined && !isForm && { 'Content-Type': 'application/json' }),
+      },
+      body: isForm ? (options.body as FormData) : options.body !== undefined ? JSON.stringify(options.body) : undefined,
+    });
+  } catch {
+    throw new ApiError(0, 'No pudimos conectarnos. Revisá tu conexión e intentá de nuevo.');
+  }
+
+  const json = (await res.json().catch(() => null)) as ApiResponse<T> | null;
+  if (!json) throw new ApiError(res.status, 'Algo salió mal. Intentá de nuevo.');
+  if (!json.success) throw new ApiError(res.status, json.error);
+  return json.data;
+}

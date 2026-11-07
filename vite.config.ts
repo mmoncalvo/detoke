@@ -13,5 +13,18 @@ export default defineConfig({
     dedupe: ['react', 'react-dom'],
   },
   server: { watch: { ignored: ['**/data/**', '**/venv/**', '**/database.sqlite*'] } },
-  build: { outDir: 'dist', emptyOutDir: true },
+  build: {
+    outDir: 'dist',
+    emptyOutDir: true,
+    rollupOptions: {
+      output: {
+        manualChunks: {
+          react: ['react', 'react-dom', 'react-router-dom'],
+          ui: ['radix-ui', 'cmdk', 'sonner'],
+          forms: ['react-hook-form', '@hookform/resolvers', 'zod'],
+          map: ['leaflet', 'react-leaflet'],
+        },
+      },
+    },
+  },
 })

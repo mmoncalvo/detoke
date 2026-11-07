@@ -1,147 +1,115 @@
-import { useEffect, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { api, BASE_URL } from '@/api';
-import ProductCard from '@/components/ProductCard';
-import ProductModal from '@/components/ProductModal';
-import { Store, Sparkles } from 'lucide-react';
+import { ArrowRight, Search, Store } from 'lucide-react';
+import { useMemo, useState } from 'react';
+import { Link, useNavigate } from 'react-router-dom';
+import { openStatus } from '@shared/business';
+import type { Business, BusinessCategory, Product } from '@shared/types';
+import { BusinessCard, BusinessCardSkeleton } from '@/components/business/BusinessCard';
+import { ErrorState } from '@/components/common/States';
+import { ProductCard, ProductCardSkeleton } from '@/components/product/ProductCard';
+import { ProductDialog } from '@/components/product/ProductDialog';
+import { Button } from '@/components/ui/button';
+import { useFetch } from '@/hooks/useFetch';
+import { useTitle } from '@/hooks/useTitle';
+import { categoryIcon } from '@/lib/category-icons';
 
-import type { Business, Category, Product } from '@shared/types';
+function SectionHeader({ title, subtitle, to }: { title: string; subtitle?: string; to: string }) {
+  return (
+    <div className="mb-5 flex items-end justify-between gap-4">
+      <div>
+        <h2 className="text-2xl font-bold sm:text-3xl">{title}</h2>
+        {subtitle && <p className="mt-1 text-muted-foreground">{subtitle}</p>}
+      </div>
+      <Button asChild variant="ghost" className="shrink-0 text-primary"><Link to={to}>Ver todo <ArrowRight /></Link></Button>
+    </div>
+  );
+}
 
 export default function Home() {
-  const [businesses, setBusinesses] = useState<Business[]>([]);
-  const [products, setProducts] = useState<Product[]>([]);
-  const [featured, setFeatured] = useState<Product[]>([]);
-  const [nextFeatured, setNextFeatured] = useState<Product[]>([]);
-  const [fade, setFade] = useState(false);
-  const [isPaused, setIsPaused] = useState(false);
-  const [selectedProduct, setSelectedProduct] = useState<Product | null>(null);
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  useTitle();
+  const navigate = useNavigate();
+  const [query, setQuery] = useState('');
+  const categories = useFetch<BusinessCategory[]>('/business-categories');
+  const businesses = useFetch<Business[]>('/businesses');
+  const products = useFetch<Product[]>('/products?featured=true');
+  const [selected, setSelected] = useState<Product | null>(null);
 
-  const getImageUrl = (path: string | undefined | null) => {
-    if (!path) return null;
-    if (path.startsWith('http')) return path;
-    if (path.startsWith('/data/')) return `${BASE_URL}${path}`;
-    return `${BASE_URL}/data/images/${path}`;
-  };
+  const { list, anyOpen } = useMemo(() => {
+    const all = businesses.data ?? [];
+    const open = all.filter((b) => openStatus(b.hours).isOpen);
+    return { list: (open.length >= 3 ? open : all).slice(0, 6), anyOpen: open.length >= 3 };
+  }, [businesses.data]);
 
-  useEffect(() => {
-    api.get('/users').then(res => setBusinesses((res.data || res).sort(() => 0.5 - Math.random())));
-    api.get('/products').then(res => setProducts(res.data || res));
-  }, []);
-
-  useEffect(() => {
-    if (products.length > 0) {
-      const initial = [...products].sort(() => 0.5 - Math.random()).slice(0, 15);
-      setFeatured(initial);
-      setNextFeatured(initial);
-    }
-  }, [products]);
-
-  useEffect(() => {
-    if (isPaused || products.length === 0) return;
-
-    const rotate = () => {
-      const nextBatch = [...products].sort(() => 0.5 - Math.random()).slice(0, 15);
-      setNextFeatured(nextBatch);
-      setFade(true);
-      
-      setTimeout(() => {
-        setFeatured(nextBatch);
-        setFade(false);
-      }, 1500);
-    };
-    
-    const interval = setInterval(rotate, 7000);
-    return () => clearInterval(interval);
-  }, [products, isPaused]);
+  const featured = useMemo(() => {
+    const seen = new Set<string>();
+    return (products.data ?? []).filter((p) => (seen.has(p.businessId) ? false : seen.add(p.businessId))).slice(0, 10);
+  }, [products.data]);
 
   return (
-    <div className="min-h-screen bg-gray-50 dark:bg-gray-950 dark:text-gray-100 pt-16">
-      <header className="bg-white dark:bg-gray-900 border-b dark:border-gray-800">
-        <div className="max-w-7xl mx-auto px-4 py-6">
-          <h1 className="text-3xl font-bold text-gray-900 dark:text-white">Detoke</h1>
-          <p className="text-gray-500 dark:text-gray-400 mt-1">Comida y productos cerca de vos</p>
+    <>
+      <section className="relative overflow-hidden bg-primary text-primary-foreground">
+        <div className="awning" aria-hidden style={{ background: 'repeating-linear-gradient(90deg, var(--mustard) 0 32px, var(--background) 32px 64px)' }} />
+        <div className="mx-auto max-w-6xl px-4 pb-14 pt-10 sm:pb-20 sm:pt-14">
+          <h1 className="max-w-2xl text-4xl font-extrabold leading-[1.05] sm:text-6xl">Todo lo del barrio, de toque.</h1>
+          <p className="mt-4 max-w-xl text-lg opacity-85">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
+          <form
+            className="mt-7 flex max-w-xl items-center gap-2 rounded-xl bg-card p-1.5 shadow-xl shadow-black/15"
+            role="search"
+            onSubmit={(e) => { e.preventDefault(); navigate(`/explorar?search=${encodeURIComponent(query)}`); }}
+          >
+            <Search className="ml-2.5 size-5 shrink-0 text-muted-foreground" />
+            <label htmlFor="home-search" className="sr-only">Buscar negocios</label>
+            <input
+              id="home-search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+              placeholder="¿Qué estás buscando?"
+              className="h-11 min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
+            />
+            <Button type="submit" size="lg">Buscar</Button>
+          </form>
         </div>
-      </header>
+      </section>
 
-      <main className="max-w-7xl mx-auto px-4 py-8 space-y-12">
-        <ProductModal product={selectedProduct} isOpen={isModalOpen} onClose={() => { setIsModalOpen(false); setIsPaused(false); }} />
+      <div className="mx-auto max-w-6xl space-y-14 px-4 pt-8">
+        <nav aria-label="Rubros" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+          {(categories.data ?? []).filter((c) => (c.businessCount ?? 0) > 0).map((category) => {
+            const Icon = categoryIcon(category.icon);
+            return (
+              <Link key={category.id} to={`/explorar?category=${category.slug}`} className="flex shrink-0 items-center gap-2 rounded-full border bg-card px-4 py-2 text-sm font-medium transition-colors hover:border-primary hover:text-primary">
+                <Icon className="size-4" /> {category.name}
+              </Link>
+            );
+          })}
+        </nav>
 
-        {/* Featured businesses */}
-        {businesses.length > 0 && (
-          <section>
-            <div className="flex items-center gap-3 mb-6">
-              <Store className="text-emerald-600 dark:text-emerald-400" size={28} />
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Negocios destacados</h2>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {businesses.slice(0, 9).map(b => (
-                <Link
-                  key={b.id}
-                  to={`/negocio/${b.slug || b.id}`}
-                  className="bg-white dark:bg-gray-900 rounded-2xl shadow-sm border border-gray-100 dark:border-gray-800 overflow-hidden hover:shadow-lg transition-shadow duration-300 group"
-                >
-                  <div className="h-48 overflow-hidden">
-                    <img 
-                      src={getImageUrl(b.coverImage) || ''} 
-                      alt={b.businessName} 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" 
-                    />
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-lg text-gray-900 dark:text-white mb-1">{b.businessName}</h3>
-                    <p className="text-sm text-gray-500 dark:text-gray-400 line-clamp-2">{b.description}</p>
-                    {b.isVerified && (
-                      <span className="text-xs text-emerald-600 dark:text-emerald-400 font-medium mt-2 block">✓ Verificado</span>
-                    )}
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* Featured products */}
         <section>
-          <div className="flex items-center justify-between mb-6">
-            <div className="flex items-center gap-3">
-              <Sparkles className="text-emerald-600 dark:text-emerald-400" size={28} />
-              <h2 className="text-2xl font-bold text-gray-900 dark:text-white">Productos destacados</h2>
+          <SectionHeader title={anyOpen ? 'Abierto ahora' : 'Negocios del barrio'} subtitle={anyOpen ? 'Comercios que te atienden en este momento.' : 'A esta hora casi todos descansan, pero podés mirar sus catálogos.'} to={anyOpen ? '/explorar?open=true' : '/explorar'} />
+          {businesses.error ? <ErrorState message={businesses.error} onRetry={businesses.reload} /> : (
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
+              {businesses.loading ? Array.from({ length: 6 }, (_, i) => <BusinessCardSkeleton key={i} />) : list.map((b) => <BusinessCard key={b.id} business={b} />)}
             </div>
-            <Link to="/explorar?tab=products" className="text-sm font-semibold text-emerald-600 dark:text-emerald-400 hover:text-emerald-700">Ver todos →</Link>
-          </div>
-          <div className="relative min-h-[400px]">
-            {/* Old Grid */}
-            <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 transition-opacity duration-[1500ms] ease-in-out absolute inset-0 ${fade ? 'opacity-0' : 'opacity-100'}`}>
-              {featured.map(product => (
-                <ProductCard 
-                  key={product.id} 
-                  product={product} 
-                  onModalToggle={(isOpen: boolean) => {
-                    setIsPaused(isOpen);
-                    setSelectedProduct(product);
-                    setIsModalOpen(isOpen);
-                  }}
-                />
-              ))}
-            </div>
-            {/* New Grid */}
-            <div className={`grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 transition-opacity duration-[1500ms] ease-in-out absolute inset-0 ${fade ? 'opacity-100' : 'opacity-0'}`}>
-              {nextFeatured.map(product => (
-                <ProductCard 
-                  key={product.id} 
-                  product={product} 
-                  onModalToggle={(isOpen: boolean) => {
-                    setIsPaused(isOpen);
-                    setSelectedProduct(product);
-                    setIsModalOpen(isOpen);
-                  }}
-                />
-              ))}
-            </div>
-          </div>
+          )}
         </section>
-      </main>
-    </div>
+
+        <section>
+          <SectionHeader title="Lo más pedido" subtitle="Una selección de los destacados de cada comercio." to="/explorar?tab=products" />
+          {products.error ? <ErrorState message={products.error} onRetry={products.reload} /> : (
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+              {products.loading ? Array.from({ length: 5 }, (_, i) => <ProductCardSkeleton key={i} />) : featured.map((p) => p.business && <ProductCard key={p.id} product={p} business={p.business} showBusiness onOpen={() => setSelected(p)} />)}
+            </div>
+          )}
+        </section>
+
+        <section className="flex flex-col items-start justify-between gap-5 rounded-3xl bg-accent p-7 text-accent-foreground sm:flex-row sm:items-center sm:p-10">
+          <div>
+            <h2 className="text-2xl font-bold sm:text-3xl">¿Tenés un comercio?</h2>
+            <p className="mt-1 max-w-lg">Publicá tu catálogo gratis en minutos y recibí los pedidos en tu WhatsApp, sin comisiones.</p>
+          </div>
+          <Button asChild size="lg" className="shrink-0"><Link to="/register"><Store /> Sumá tu negocio</Link></Button>
+        </section>
+      </div>
+
+      <ProductDialog product={selected} onClose={() => setSelected(null)} />
+    </>
   );
 }

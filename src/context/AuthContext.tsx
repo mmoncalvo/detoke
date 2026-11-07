@@ -1,62 +1,53 @@
-import { createContext, useContext, useState, useEffect } from 'react';
-import type { User } from '@shared/types';
-import { api } from '@/api';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import type { Business, Session, User } from '@shared/types';
+import { api, ApiError, getToken, setToken } from '@/api';
 
-interface AuthContextType {
+interface AuthState {
   user: User | null;
-  token: string | null;
-  login: (token: string, user: User) => void;
-  logout: () => void;
+  business: Business | null;
   isLoading: boolean;
+  signIn: (session: Session) => void;
+  signOut: () => void;
+  setBusiness: (business: Business) => void;
 }
 
-const AuthContext = createContext<AuthContextType | undefined>(undefined);
+const AuthContext = createContext<AuthState | null>(null);
 
-export function AuthProvider({ children }: { children: React.ReactNode }) {
+export function AuthProvider({ children }: { children: ReactNode }) {
   const [user, setUser] = useState<User | null>(null);
-  const [token, setToken] = useState<string | null>(localStorage.getItem('token'));
-  const [isLoading, setIsLoading] = useState(true);
+  const [business, setBusiness] = useState<Business | null>(null);
+  const [isLoading, setIsLoading] = useState(!!getToken());
 
   useEffect(() => {
-    if (token) {
-      api.get('/auth/me', token)
-        .then(data => {
-          if (data.success) {
-            setUser(data.data);
-          } else {
-            localStorage.removeItem('token');
-            setToken(null);
-          }
-        })
-        .catch(() => {
-          localStorage.removeItem('token');
-          setToken(null);
-        })
-        .finally(() => setIsLoading(false));
-    } else {
-      setIsLoading(false);
-    }
-  }, [token]);
+    if (!getToken()) return;
+    api<Omit<Session, 'token'>>('/auth/me')
+      .then((session) => {
+        setUser(session.user);
+        setBusiness(session.business);
+      })
+      .catch((err) => {
+        if (err instanceof ApiError && err.status === 401) setToken(null);
+      })
+      .finally(() => setIsLoading(false));
+  }, []);
 
-  const login = (newToken: string, userData: User) => {
-    localStorage.setItem('token', newToken);
-    setToken(newToken);
-    setUser(userData);
-  };
+  const signIn = useCallback((session: Session) => {
+    setToken(session.token);
+    setUser(session.user);
+    setBusiness(session.business);
+  }, []);
 
-  const logout = () => {
-    localStorage.removeItem('token');
+  const signOut = useCallback(() => {
     setToken(null);
     setUser(null);
-  };
+    setBusiness(null);
+  }, []);
 
-  return (
-    <AuthContext.Provider value={{ user, token, login, logout, isLoading }}>
-      {children}
-    </AuthContext.Provider>
-  );
+  const value = useMemo(() => ({ user, business, isLoading, signIn, signOut, setBusiness }), [user, business, isLoading, signIn, signOut]);
+  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useAuth() {
   const context = useContext(AuthContext);
   if (!context) throw new Error('useAuth must be used within AuthProvider');

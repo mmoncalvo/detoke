@@ -1,0 +1,63 @@
+import { LocateFixed } from 'lucide-react';
+import { useEffect } from 'react';
+import { MapContainer, Marker, TileLayer, useMap, useMapEvents } from 'react-leaflet';
+import { toast } from 'sonner';
+import { mapPin } from '@/components/business/BusinessMap';
+import { Button } from '@/components/ui/button';
+
+const DEFAULT_CENTER: [number, number] = [-34.6037, -58.4];
+
+interface Point {
+  latitude: number | null;
+  longitude: number | null;
+}
+
+function ClickHandler({ onChange }: { onChange: (point: Point) => void }) {
+  useMapEvents({ click: (e) => onChange({ latitude: e.latlng.lat, longitude: e.latlng.lng }) });
+  return null;
+}
+
+function Recenter({ position }: { position: [number, number] | null }) {
+  const map = useMap();
+  useEffect(() => {
+    if (position) map.panTo(position);
+  }, [map, position?.[0], position?.[1]]); // eslint-disable-line react-hooks/exhaustive-deps
+  return null;
+}
+
+/** Map to mark a business location: tap, drag the pin, or use the device location. */
+export default function LocationPicker({ value, onChange }: { value: Point; onChange: (point: Point) => void }) {
+  const position: [number, number] | null = value.latitude != null && value.longitude != null ? [value.latitude, value.longitude] : null;
+
+  const locate = () => {
+    if (!navigator.geolocation) return toast.error('Tu navegador no permite usar la ubicación');
+    navigator.geolocation.getCurrentPosition(
+      ({ coords }) => onChange({ latitude: coords.latitude, longitude: coords.longitude }),
+      () => toast.error('No pudimos obtener tu ubicación. Marcala tocando el mapa.'),
+    );
+  };
+
+  return (
+    <div className="space-y-2">
+      <div className="overflow-hidden rounded-xl border">
+        <MapContainer center={position ?? DEFAULT_CENTER} zoom={position ? 16 : 12} className="h-64 w-full">
+          <TileLayer attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>' url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png" />
+          <ClickHandler onChange={onChange} />
+          <Recenter position={position} />
+          {position && (
+            <Marker
+              position={position}
+              icon={mapPin}
+              draggable
+              eventHandlers={{ dragend: (e) => { const { lat, lng } = e.target.getLatLng(); onChange({ latitude: lat, longitude: lng }); } }}
+            />
+          )}
+        </MapContainer>
+      </div>
+      <div className="flex items-center justify-between gap-2">
+        <p className="text-sm text-muted-foreground">{position ? 'Podés arrastrar el marcador para ajustarlo.' : 'Tocá el mapa para marcar tu local.'}</p>
+        <Button type="button" variant="outline" size="sm" onClick={locate}><LocateFixed /> Usar mi ubicación</Button>
+      </div>
+    </div>
+  );
+}

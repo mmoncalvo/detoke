@@ -1,95 +1,99 @@
-import { createContext, useContext, useState, useEffect } from 'react';
+import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
+import type { BusinessSummary, Product } from '@shared/types';
 
-interface CartItem {
+const STORAGE_KEY = 'detoke.cart';
+
+export interface CartItem {
   id: string;
-  title: string;
+  name: string;
   price: number;
+  image: string | null;
   quantity: number;
-  images: string;
-  userId: string;
-  businessName: string;
-  whatsapp: string;
-  slug: string;
+  business: BusinessSummary;
 }
 
-interface CartContextType {
+export interface CartGroup {
+  business: BusinessSummary;
   items: CartItem[];
-  addToCart: (product: any) => void;
-  removeFromCart: (id: string) => void;
-  removeBusinessFromCart: (userId: string) => void;
-  updateQuantity: (id: string, quantity: number) => void;
-  clearCart: () => void;
+  subtotal: number;
 }
 
-const CartContext = createContext<CartContextType | undefined>(undefined);
+interface CartState {
+  items: CartItem[];
+  groups: CartGroup[];
+  count: number;
+  isOpen: boolean;
+  setOpen: (open: boolean) => void;
+  add: (product: Product, business: BusinessSummary, quantity?: number) => void;
+  setQuantity: (id: string, quantity: number) => void;
+  removeBusiness: (businessId: string) => void;
+  quantityOf: (id: string) => number;
+}
 
-export function CartProvider({ children }: { children: React.ReactNode }) {
-  const [items, setItems] = useState<CartItem[]>([]);
-  const [isInitialized, setIsInitialized] = useState(false);
+const CartContext = createContext<CartState | null>(null);
 
-  // Load the cart from localStorage
+function readCart(): CartItem[] {
+  try {
+    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]');
+  } catch {
+    return [];
+  }
+}
+
+export function CartProvider({ children }: { children: ReactNode }) {
+  const [items, setItems] = useState<CartItem[]>(readCart);
+  const [isOpen, setOpen] = useState(false);
+
   useEffect(() => {
-    const saved = localStorage.getItem('cart');
-    if (saved) {
-      try {
-        setItems(JSON.parse(saved));
-      } catch (e) {
-        console.error("Error parsing cart data", e);
-        setItems([]);
-      }
+    try {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(items));
+    } catch {
+      /* storage not available */
     }
-    setIsInitialized(true);
+  }, [items]);
+
+  const add = useCallback((product: Product, business: BusinessSummary, quantity = 1) => {
+    setItems((current) => {
+      if (current.some((item) => item.id === product.id)) {
+        return current.map((item) => (item.id === product.id ? { ...item, quantity: item.quantity + quantity } : item));
+      }
+      return [...current, { id: product.id, name: product.name, price: product.price, image: product.images[0] ?? null, quantity, business }];
+    });
   }, []);
 
-  // Save to localStorage only after initialization
-  useEffect(() => {
-    if (isInitialized) {
-      localStorage.setItem('cart', JSON.stringify(items));
+  const setQuantity = useCallback((id: string, quantity: number) => {
+    setItems((current) => (quantity <= 0 ? current.filter((item) => item.id !== id) : current.map((item) => (item.id === id ? { ...item, quantity } : item))));
+  }, []);
+
+  const removeBusiness = useCallback((businessId: string) => {
+    setItems((current) => current.filter((item) => item.business.id !== businessId));
+  }, []);
+
+  const value = useMemo(() => {
+    const byBusiness = new Map<string, CartGroup>();
+    for (const item of items) {
+      const group = byBusiness.get(item.business.id) ?? { business: item.business, items: [], subtotal: 0 };
+      group.items.push(item);
+      group.subtotal += item.price * item.quantity;
+      byBusiness.set(item.business.id, group);
     }
-  }, [items, isInitialized]);
+    return {
+      items,
+      groups: [...byBusiness.values()],
+      count: items.reduce((sum, item) => sum + item.quantity, 0),
+      isOpen,
+      setOpen,
+      add,
+      setQuantity,
+      removeBusiness,
+      quantityOf: (id: string) => items.find((item) => item.id === id)?.quantity ?? 0,
+    };
+  }, [items, isOpen, add, setQuantity, removeBusiness]);
 
-  const addToCart = (product: any) => {
-    setItems(prev => {
-      const existing = prev.find(i => i.id === product.id);
-      if (existing) {
-        return prev.map(i => i.id === product.id ? { ...i, quantity: i.quantity + 1 } : i);
-      }
-      return [...prev, { 
-        ...product, 
-        quantity: 1,
-        userId: product.User?.id || product.userId,
-        businessName: product.User?.businessName || product.businessName,
-        whatsapp: product.User?.whatsapp || product.whatsapp,
-        slug: product.User?.slug || product.slug
-      }];
-    });
-  };
-
-  const removeFromCart = (id: string) => {
-    setItems(prev => prev.filter(i => i.id !== id));
-  };
-
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) {
-      removeFromCart(id);
-    } else {
-      setItems(prev => prev.map(i => i.id === id ? { ...i, quantity } : i));
-    }
-  };
-
-  const removeBusinessFromCart = (userId: string) => {
-    setItems(prev => prev.filter(i => i.userId !== userId));
-  };
-
-  const clearCart = () => setItems([]);
-
-  return (
-    <CartContext.Provider value={{ items, addToCart, removeFromCart, removeBusinessFromCart, updateQuantity, clearCart }}>
-      {children}
-    </CartContext.Provider>
-  );
+  return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }
 
+// eslint-disable-next-line react-refresh/only-export-components
 export function useCart() {
   const context = useContext(CartContext);
   if (!context) throw new Error('useCart must be used within CartProvider');

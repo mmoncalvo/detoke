@@ -1,53 +1,52 @@
-import { useState } from "react";
-import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import { AuthProvider, useAuth } from "@/context/AuthContext";
-import { CartProvider } from "@/context/CartContext";
-import { ThemeProvider } from "@/context/ThemeContext";
-import { Toaster } from "sonner";
-import Navbar from "@/components/Navbar";
-import SearchGlobal from "@/components/SearchGlobal";
-import Home from "@/pages/Home";
-import Explore from "@/pages/Explore";
-import Company from "@/pages/Company";
-import Dashboard from "@/pages/Dashboard";
-import Login from "@/pages/Login";
-import Checkout from "@/pages/Checkout";
+import { lazy, Suspense } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
+import { PageLoader } from '@/components/common/States';
+import { useAuth } from '@/context/AuthContext';
+import PublicLayout from '@/layouts/PublicLayout';
 
-function ProtectedRoute({ children }: { children: React.ReactNode }) {
-  const { token, isLoading } = useAuth();
-  if (isLoading) return <div className="p-8 text-center">Cargando...</div>;
-  return token ? <>{children}</> : <Navigate to="/login" />;
+const Home = lazy(() => import('@/pages/Home'));
+const Explore = lazy(() => import('@/pages/Explore'));
+const BusinessPage = lazy(() => import('@/pages/BusinessPage'));
+const Checkout = lazy(() => import('@/pages/Checkout'));
+const Login = lazy(() => import('@/pages/Login'));
+const Register = lazy(() => import('@/pages/Register'));
+const NotFound = lazy(() => import('@/pages/NotFound'));
+const DashboardLayout = lazy(() => import('@/layouts/DashboardLayout'));
+const Overview = lazy(() => import('@/pages/dashboard/Overview'));
+const Products = lazy(() => import('@/pages/dashboard/Products'));
+const BusinessProfile = lazy(() => import('@/pages/dashboard/BusinessProfile'));
+const Hours = lazy(() => import('@/pages/dashboard/Hours'));
+const Gallery = lazy(() => import('@/pages/dashboard/Gallery'));
+const DeliveryPayments = lazy(() => import('@/pages/dashboard/DeliveryPayments'));
+
+function RequireAuth({ children }: { children: React.ReactNode }) {
+  const { user, isLoading } = useAuth();
+  if (isLoading) return <PageLoader />;
+  return user ? <>{children}</> : <Navigate to="/login" replace />;
 }
 
-function PublicRoute({ children }: { children: React.ReactNode }) {
-  const { token, isLoading } = useAuth();
-  if (isLoading) return <div className="p-8 text-center">Cargando...</div>;
-  return token ? <Navigate to="/dashboard" /> : <>{children}</>;
-}
-
-function App() {
-  const [isSearchOpen, setIsSearchOpen] = useState(false);
-
+export default function App() {
   return (
-    <AuthProvider>
-      <CartProvider>
-        <ThemeProvider>
-          <Toaster position="top-right" richColors />
-          <BrowserRouter>
-            <Navbar onSearchOpen={() => setIsSearchOpen(true)} />
-            <SearchGlobal isOpen={isSearchOpen} setIsOpen={setIsSearchOpen} />
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/explorar" element={<Explore />} />
-              <Route path="/checkout" element={<Checkout />} />
-              <Route path="/negocio/:slug" element={<Company />} />
-              <Route path="/dashboard" element={<ProtectedRoute><Dashboard /></ProtectedRoute>} />
-              <Route path="/login" element={<PublicRoute><Login /></PublicRoute>} />          </Routes>
-          </BrowserRouter>
-        </ThemeProvider>
-      </CartProvider>
-    </AuthProvider>
+    <Suspense fallback={<PageLoader />}>
+      <Routes>
+        <Route element={<PublicLayout />}>
+          <Route index element={<Home />} />
+          <Route path="explorar" element={<Explore />} />
+          <Route path="negocio/:slug" element={<BusinessPage />} />
+          <Route path="checkout" element={<Checkout />} />
+          <Route path="*" element={<NotFound />} />
+        </Route>
+        <Route path="login" element={<Login />} />
+        <Route path="register" element={<Register />} />
+        <Route path="dashboard" element={<RequireAuth><DashboardLayout /></RequireAuth>}>
+          <Route index element={<Overview />} />
+          <Route path="products" element={<Products />} />
+          <Route path="business" element={<BusinessProfile />} />
+          <Route path="hours" element={<Hours />} />
+          <Route path="gallery" element={<Gallery />} />
+          <Route path="delivery" element={<DeliveryPayments />} />
+        </Route>
+      </Routes>
+    </Suspense>
   );
 }
-
-export default App;
