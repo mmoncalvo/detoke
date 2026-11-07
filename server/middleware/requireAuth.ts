@@ -1,37 +1,78 @@
 import type { NextFunction, Request, Response } from 'express';
 import jwt from 'jsonwebtoken';
 import { config } from '../config.js';
-import { Business, User } from '../models/index.js';
+import { AuditLog, Business, User } from '../models/index.js';
 import { HttpError } from './errorHandler.js';
+
+interface Impersonation {
+  admin: User;
+  logId: string;
+}
 
 declare global {
   // eslint-disable-next-line @typescript-eslint/no-namespace
   namespace Express {
     interface Request {
       user?: User;
+      /** Set when an admin is acting on behalf of req.user. */
+      impersonation?: Impersonation;
     }
   }
 }
 
-export function signToken(user: User): string {
-  return jwt.sign({ id: user.id, role: user.role }, config.jwtSecret, { expiresIn: '7d' });
+interface TokenPayload {
+  id: string;
+  role: string;
+  /** Admin acting on behalf of the user, and the log of that session. */
+  actorId?: string;
+  impersonationLogId?: string;
 }
 
-/** Requires the Bearer token and sets req.user. */
-export async function requireAuth(req: Request, _res: Response, next: NextFunction) {
+export const IMPERSONATION_HOURS = 2;
+
+export function signToken(user: User, impersonation?: { actorId: string; logId: string }): string {
+  const payload: TokenPayload = { id: user.id, role: user.role };
+  if (impersonation) Object.assign(payload, { actorId: impersonation.actorId, impersonationLogId: impersonation.logId });
+  return jwt.sign(payload, config.jwtSecret, { expiresIn: impersonation ? `${IMPERSONATION_HOURS}h` : '7d' });
+}
+
+/** Records every write an admin makes on behalf of someone else. */
+function auditWrites(req: Request, res: Response, impersonation: Impersonation, targetUserId: string) {
+  if (['GET', 'HEAD', 'OPTIONS'].includes(req.method)) return;
+  res.on('finish', () => {
+    AuditLog.create({
+      impersonationLogId: impersonation.logId,
+      adminId: impersonation.admin.id,
+      targetUserId,
+      method: req.method,
+      path: req.originalUrl.slice(0, 255),
+      status: res.statusCode,
+    }).catch((err) => console.error('[admin] Could not record an audit entry:', err));
+  });
+}
+
+/** Requires the Bearer token and sets req.user (and req.impersonation for admins acting as someone). */
+export async function requireAuth(req: Request, res: Response, next: NextFunction) {
   try {
     const token = req.headers.authorization?.replace('Bearer ', '');
     if (!token) throw new HttpError(401, 'Iniciá sesión para continuar');
 
-    let id: string;
+    let payload: TokenPayload;
     try {
-      ({ id } = jwt.verify(token, config.jwtSecret) as { id: string });
+      payload = jwt.verify(token, config.jwtSecret) as TokenPayload;
     } catch {
       throw new HttpError(401, 'Tu sesión venció, iniciá sesión de nuevo');
     }
 
-    const user = await User.findByPk(id);
+    const user = await User.findByPk(payload.id);
     if (!user) throw new HttpError(401, 'Tu sesión venció, iniciá sesión de nuevo');
+
+    if (payload.actorId && payload.impersonationLogId) {
+      const admin = await User.findByPk(payload.actorId);
+      if (admin?.role !== 'admin') throw new HttpError(401, 'Tu sesión venció, iniciá sesión de nuevo');
+      req.impersonation = { admin, logId: payload.impersonationLogId };
+      auditWrites(req, res, req.impersonation, user.id);
+    }
 
     req.user = user;
     next();
@@ -40,9 +81,15 @@ export async function requireAuth(req: Request, _res: Response, next: NextFuncti
   }
 }
 
-/** Use after requireAuth on admin-only routes. */
+/** Use after requireAuth on admin-only routes. An admin acting as someone else is not an admin here. */
 export function requireAdmin(req: Request, _res: Response, next: NextFunction) {
-  if (req.user?.role !== 'admin') return next(new HttpError(403, 'No tenés permiso para ver esto'));
+  if (req.user?.role !== 'admin' || req.impersonation) return next(new HttpError(403, 'No tenés permiso para ver esto'));
+  next();
+}
+
+/** For account security changes (email, password, deleting the account): only the owner, never an admin acting as them. */
+export function requireOwnSession(req: Request, _res: Response, next: NextFunction) {
+  if (req.impersonation) return next(new HttpError(403, 'Mientras navegás como otro usuario no podés cambiar su email, su contraseña ni borrar su cuenta'));
   next();
 }
 

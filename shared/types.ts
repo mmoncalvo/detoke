@@ -83,10 +83,29 @@ export interface User {
   role: 'seller' | 'admin';
 }
 
+export type Impersonator = Pick<User, 'id' | 'name' | 'email'>;
+
 export interface Session {
   token: string;
   user: User;
   business: Business | null;
+  /** Set while an admin is acting on behalf of this user. */
+  impersonatedBy?: Impersonator | null;
+}
+
+/** A row of the admin accounts list. */
+export interface AdminAccount {
+  user: User & { createdAt: string };
+  business: (Pick<Business, 'id' | 'name' | 'slug' | 'logo' | 'isActive' | 'isVerified'> & { category: BusinessCategory | null }) | null;
+  productCount: number;
+  profile: { done: number; total: number; complete: boolean };
+}
+
+export interface Page<T> {
+  items: T[];
+  total: number;
+  page: number;
+  pages: number;
 }
 
 export type SearchResult =

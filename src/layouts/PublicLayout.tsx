@@ -4,6 +4,7 @@ import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { BrandMark } from '@/components/common/BrandMark';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { CartSheet } from '@/components/layout/CartSheet';
+import { ImpersonationBanner } from '@/components/layout/ImpersonationBanner';
 import { SearchDialog } from '@/components/layout/SearchDialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
@@ -23,6 +24,7 @@ export default function PublicLayout() {
     <div className="flex min-h-svh flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded-md focus:bg-card focus:px-3 focus:py-2">Saltar al contenido</a>
       <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
+        <ImpersonationBanner />
         <div className="mx-auto flex h-16 max-w-page items-center gap-1 px-4 sm:gap-2">
           <BrandMark compact />
           <nav className="ml-1 block sm:ml-6" aria-label="Principal">

@@ -5,8 +5,8 @@ import { beforeAll, describe, expect, it, vi } from 'vitest';
 import { defaultHours, emptyHours, normalizeWhatsapp, openStatus, slugify } from '../shared/business.js';
 import { initDb } from '../server/db.js';
 import { rateLimit } from '../server/middleware/rateLimit.js';
-import { signToken } from '../server/middleware/requireAuth.js';
-import { Business, ContactMessage, User } from '../server/models/index.js';
+import { requireOwnSession, signToken } from '../server/middleware/requireAuth.js';
+import { AuditLog, Business, ContactMessage, ImpersonationLog, User } from '../server/models/index.js';
 import { app, auth, createCategories, register, request } from './helpers.js';
 
 let categories: Awaited<ReturnType<typeof createCategories>>;
@@ -332,6 +332,80 @@ describe('contact', () => {
     expect((await request(app).patch(`/api/contact/${id}`).set(auth(adminToken)).send({ status: 'nada' })).status).toBe(400);
     const updated = await request(app).patch(`/api/contact/${id}`).set(auth(adminToken)).send({ status: 'read' });
     expect(updated.body.data.status).toBe('read');
+  });
+});
+
+describe('admin', () => {
+  let adminToken: string;
+  let seller: Awaited<ReturnType<typeof register>>;
+
+  beforeAll(async () => {
+    const admin = await User.create({ email: 'jefa@detoke.test', name: 'Jefa', passwordHash: await bcrypt.hash('secreta123', 4), role: 'admin' });
+    adminToken = signToken(admin);
+    seller = await register(categories.bakery.id, 'Panadería del Admin');
+  });
+
+  it('lists accounts with filters only for admins', async () => {
+    expect((await request(app).get('/api/admin/users')).status).toBe(401);
+    expect((await request(app).get('/api/admin/users').set(auth(seller.token))).status).toBe(403);
+
+    const res = await request(app).get('/api/admin/users').query({ search: 'panaderia del admin' }).set(auth(adminToken));
+    expect(res.status).toBe(200);
+    expect(res.body.data.total).toBe(1);
+    const [account] = res.body.data.items;
+    expect(account.business.slug).toBe(seller.business.slug);
+    expect(account.user).not.toHaveProperty('passwordHash');
+    expect(account.profile.complete).toBe(false);
+
+    const byCategory = await request(app).get('/api/admin/users').query({ category: 'pizzeria', limit: 2 }).set(auth(adminToken));
+    expect(byCategory.body.data.items).toHaveLength(2);
+    expect(byCategory.body.data.items.every((a: { business: { category: { slug: string } } }) => a.business.category.slug === 'pizzeria')).toBe(true);
+    expect(byCategory.body.data.pages).toBeGreaterThan(1);
+
+    const all = await request(app).get('/api/admin/users').query({ limit: 100 }).set(auth(adminToken));
+    expect(all.body.data.items.some((a: { user: { role: string } }) => a.user.role === 'admin')).toBe(false);
+  });
+
+  it('acts on behalf of a seller, audits writes and stops', async () => {
+    const start = await request(app).post(`/api/admin/impersonate/${seller.user.id}`).set(auth(adminToken));
+    expect(start.status).toBe(201);
+    expect(start.body.data.business.id).toBe(seller.business.id);
+    const token = start.body.data.token as string;
+
+    const me = await request(app).get('/api/auth/me').set(auth(token));
+    expect(me.body.data.user.id).toBe(seller.user.id);
+    expect(me.body.data.impersonatedBy.email).toBe('jefa@detoke.test');
+
+    const edit = await request(app).put('/api/businesses/me').set(auth(token)).send({ tagline: 'Editado por la admin' });
+    expect(edit.body.data.tagline).toBe('Editado por la admin');
+    await new Promise((resolve) => setTimeout(resolve, 50));
+    const log = await ImpersonationLog.findOne({ where: { targetUserId: seller.user.id } });
+    expect(await AuditLog.count({ where: { impersonationLogId: log!.id, method: 'PUT' } })).toBe(1);
+
+    expect((await request(app).get('/api/admin/users').set(auth(token))).status).toBe(403);
+    expect((await request(app).post(`/api/admin/impersonate/${seller.user.id}`).set(auth(token))).status).toBe(403);
+
+    expect((await request(app).post('/api/admin/impersonate/stop').set(auth(token))).status).toBe(200);
+    await log!.reload();
+    expect(log!.endedAt).not.toBeNull();
+
+    expect((await request(app).get('/api/auth/me').set(auth(seller.token))).body.data.impersonatedBy).toBeNull();
+    expect((await request(app).post('/api/admin/impersonate/stop').set(auth(seller.token))).status).toBe(400);
+  });
+
+  it('does not act on behalf of admins, unknown users, or for sellers', async () => {
+    const other = await User.create({ email: 'otra-admin@detoke.test', name: 'Otra', passwordHash: 'x', role: 'admin' });
+    expect((await request(app).post(`/api/admin/impersonate/${other.id}`).set(auth(adminToken))).status).toBe(400);
+    expect((await request(app).post('/api/admin/impersonate/nadie').set(auth(adminToken))).status).toBe(404);
+    expect((await request(app).post(`/api/admin/impersonate/${seller.user.id}`).set(auth(seller.token))).status).toBe(403);
+  });
+
+  it('blocks account security changes while acting as someone', () => {
+    const next = vi.fn();
+    requireOwnSession({ impersonation: { admin: {}, logId: 'x' } } as unknown as Request, {} as Response, next);
+    expect(next.mock.calls[0][0].status).toBe(403);
+    requireOwnSession({} as Request, {} as Response, next);
+    expect(next.mock.calls[1]).toEqual([]);
   });
 });
 

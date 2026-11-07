@@ -111,6 +111,9 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/contact/info` | Canales de contacto públicos |
 | `POST /api/contact` | Guarda el mensaje del formulario (hasta 5 por hora e IP) y, con SMTP, avisa por email |
 | `GET /api/contact`, `PATCH /api/contact/:id` 🔒 | Solo admin: listado paginado (`?page=`, `?status=`) y cambio de estado |
+| `GET /api/admin/users` 🔒 | Solo admin: cuentas con su negocio (`?search=`, `?category=`, `?status=active\|inactive\|incomplete`, paginado) |
+| `POST /api/admin/impersonate/:userId` 🔒 | Solo admin: sesión de 2 horas en nombre de un vendedor |
+| `POST /api/admin/impersonate/stop` 🔒 | Termina la sesión en nombre de otro |
 | `GET /data/...` | Imágenes y archivos subidos |
 
 🔒 Pide `Authorization: Bearer <token>`.
@@ -118,6 +121,10 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 ## Interfaz
 
 Los componentes de shadcn/ui (estilo new-york) están en `src/components/ui/`; la marca (verde botella, mostaza, papel cálido) son tokens en `src/index.css`. Las tipografías son Bricolage Grotesque y Figtree, instaladas con fontsource.
+
+## Administración
+
+La cuenta admin entra a `/dashboard` y ve el listado de cuentas. Desde ahí puede navegar el sistema en nombre de un vendedor: la web muestra un aviso fijo y "Volver a mi cuenta". El token de esa sesión dura 2 horas, no sirve para las rutas de admin y cada escritura queda registrada en `impersonation_logs` y `audit_logs`.
 
 ## Sesión
 

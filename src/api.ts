@@ -2,6 +2,8 @@
 import type { ApiResponse } from '@shared/types';
 
 const TOKEN_KEY = 'token';
+/** The admin's own session, kept aside while acting on behalf of someone else. */
+const ADMIN_TOKEN_KEY = 'detoke.adminToken';
 export const BASE: string = import.meta.env.VITE_API_URL ?? '';
 
 export class ApiError extends Error {
@@ -27,6 +29,30 @@ export function setToken(token: string | null) {
   }
 }
 
+export function getAdminToken() {
+  try {
+    return localStorage.getItem(ADMIN_TOKEN_KEY);
+  } catch {
+    return null;
+  }
+}
+
+export function setAdminToken(token: string | null) {
+  try {
+    if (token) localStorage.setItem(ADMIN_TOKEN_KEY, token);
+    else localStorage.removeItem(ADMIN_TOKEN_KEY);
+  } catch {
+    /* storage not available */
+  }
+}
+
+let onUnauthorized: (() => void) | null = null;
+
+/** Called when a signed-in request gets a 401, for example an expired session. */
+export function setUnauthorizedHandler(handler: (() => void) | null) {
+  onUnauthorized = handler;
+}
+
 export async function api<T>(path: string, options: { method?: string; body?: unknown } = {}): Promise<T> {
   const token = getToken();
   const isForm = options.body instanceof FormData;
@@ -47,6 +73,9 @@ export async function api<T>(path: string, options: { method?: string; body?: un
 
   const json = (await res.json().catch(() => null)) as ApiResponse<T> | null;
   if (!json) throw new ApiError(res.status, 'Algo salió mal. Intentá de nuevo.');
-  if (!json.success) throw new ApiError(res.status, json.error);
+  if (!json.success) {
+    if (res.status === 401 && token) onUnauthorized?.();
+    throw new ApiError(res.status, json.error);
+  }
   return json.data;
 }

@@ -45,6 +45,7 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - Validation lives in `shared/schemas.ts` and is reused by the API and by react-hook-form.
 - `hours`, `gallery`, `images`, `deliveryOptions` and `paymentMethods` are JSON columns.
 - "Open now" uses `openStatus()` from `shared/business.ts`, in the Buenos Aires time zone. It supports split shifts and overnight ranges.
+- Admin impersonation: `POST /api/admin/impersonate/:userId` returns a 2 h token for the seller with `actorId` and `impersonationLogId`. `requireAuth` sets `req.impersonation`, every write is stored in `audit_logs`, and `requireAdmin` rejects impersonation tokens. Wrap future email, password or account deletion routes in `requireOwnSession`. The web keeps the admin token in `detoke.adminToken` while impersonating.
 - Contact messages live in `contact_messages`. `server/services/mail.ts` emails them only when `SMTP_HOST` is set. There is no inbox screen yet: `GET /api/contact` is admin-only.
 - Search folds accents in JS (`fold()`), so `/api/businesses` and `/api/search` load all rows: revisit if the catalog grows.
 

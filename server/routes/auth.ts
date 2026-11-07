@@ -10,8 +10,8 @@ import { uniqueSlug } from '../services/slug.js';
 
 export const authRoutes = Router();
 
-const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role });
-const businessOf = (user: User) => Business.findOne({ where: { ownerId: user.id }, include: [BusinessCategory] });
+export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role });
+export const businessOf = (user: User) => Business.findOne({ where: { ownerId: user.id }, include: [BusinessCategory] });
 
 authRoutes.post('/register', asyncHandler(async (req, res) => {
   const { business: businessData, password, ...account } = registerSchema.parse(req.body);
@@ -41,5 +41,10 @@ authRoutes.post('/login', asyncHandler(async (req, res) => {
 
 authRoutes.get('/me', requireAuth, asyncHandler(async (req, res) => {
   const user = currentUser(req);
-  ok(res, { user: userData(user), business: await businessOf(user) });
+  const actor = req.impersonation?.admin;
+  ok(res, {
+    user: userData(user),
+    business: await businessOf(user),
+    impersonatedBy: actor ? { id: actor.id, name: actor.name, email: actor.email } : null,
+  });
 }));
