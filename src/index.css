@@ -83,6 +83,10 @@
 }
 
 @theme inline {
+  /* Content widths, as max-w-page, max-w-panel and max-w-form. */
+  --container-page: 80rem;
+  --container-panel: 72rem;
+  --container-form: 48rem;
   --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
   --font-display: 'Bricolage Grotesque Variable', 'Figtree Variable', ui-sans-serif, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);

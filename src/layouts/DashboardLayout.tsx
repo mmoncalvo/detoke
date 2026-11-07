@@ -77,7 +77,7 @@ export default function DashboardLayout() {
             <Button asChild variant="outline" size="sm"><Link to={`/negocio/${business.slug}`} target="_blank"><ExternalLink /> <span className="hidden sm:inline">Ver mi página</span></Link></Button>
           </div>
         </header>
-        <div className="mx-auto w-full max-w-5xl flex-1 p-4 sm:p-6"><Outlet /></div>
+        <div className="mx-auto w-full max-w-panel flex-1 p-4 sm:p-6"><Outlet /></div>
       </SidebarInset>
     </SidebarProvider>
   );

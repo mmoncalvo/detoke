@@ -161,7 +161,7 @@ export default function Checkout() {
   }, [customer]);
 
   return (
-    <div className="mx-auto max-w-2xl px-4 py-8">
+    <div className="mx-auto max-w-form px-4 py-8">
       <h1 className="text-3xl font-bold sm:text-4xl">Tu pedido</h1>
       {groups.length > 1 && <p className="mt-2 text-muted-foreground">Tenés productos de {groups.length} negocios: cada pedido se envía por separado.</p>}
       <div className="mt-6 space-y-6">

@@ -89,7 +89,7 @@ export default function Explore() {
   };
 
   return (
-    <div className="mx-auto max-w-6xl px-4 py-8">
+    <div className="mx-auto max-w-page px-4 py-8">
       <h1 className="text-3xl font-bold sm:text-4xl">Explorar</h1>
 
       <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
@@ -137,8 +137,8 @@ export default function Explore() {
       <div className="mt-2">
         {results.error ? <ErrorState message={results.error} onRetry={results.reload} /> : results.loading && !results.data ? (
           tab === 'businesses'
-            ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{Array.from({ length: 6 }, (_, i) => <BusinessCardSkeleton key={i} />)}</div>
-            : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">{Array.from({ length: 10 }, (_, i) => <ProductCardSkeleton key={i} />)}</div>
+            ? <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{Array.from({ length: 6 }, (_, i) => <BusinessCardSkeleton key={i} />)}</div>
+            : <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">{Array.from({ length: 10 }, (_, i) => <ProductCardSkeleton key={i} />)}</div>
         ) : count === 0 ? (
           <EmptyState
             icon={tab === 'businesses' ? SearchX : PackageSearch}
@@ -147,9 +147,9 @@ export default function Explore() {
             action={hasFilters && <Button variant="outline" onClick={clear}>Limpiar filtros</Button>}
           />
         ) : tab === 'businesses' ? (
-          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">{businesses.data?.slice(0, visible).map((b) => <BusinessCard key={b.id} business={b} />)}</div>
+          <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">{businesses.data?.slice(0, visible).map((b) => <BusinessCard key={b.id} business={b} />)}</div>
         ) : (
-          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
+          <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
             {products.data?.slice(0, visible).map((p) => p.business && <ProductCard key={p.id} product={p} business={p.business} showBusiness onOpen={() => setSelected(p)} />)}
           </div>
         )}

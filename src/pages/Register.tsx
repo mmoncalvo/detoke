@@ -181,7 +181,7 @@ export default function Register() {
   return (
     <div className="flex min-h-svh flex-col">
       <div className="awning" aria-hidden />
-      <div className="mx-auto w-full max-w-xl flex-1 px-4 py-8">
+      <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">
         <div className="flex items-center justify-between">
           <BrandMark />
           <span className="text-sm text-muted-foreground">Paso {step + 1} de {STEPS.length}</span>

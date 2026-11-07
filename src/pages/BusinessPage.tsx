@@ -77,7 +77,7 @@ export default function BusinessPage() {
 
   if (loading && !business) {
     return (
-      <div className="mx-auto max-w-6xl px-4 py-6">
+      <div className="mx-auto max-w-page px-4 py-6">
         <Skeleton className="h-52 w-full rounded-2xl sm:h-72" />
         <Skeleton className="mt-6 h-8 w-1/2" />
         <Skeleton className="mt-3 h-4 w-1/3" />
@@ -100,11 +100,11 @@ export default function BusinessPage() {
       <div className="relative">
         <SafeImage src={business.coverImage} alt="" className="h-52 w-full sm:h-72" />
       </div>
-      <div className="mx-auto max-w-6xl px-0 sm:px-4 sm:pt-6">
+      <div className="mx-auto max-w-page px-0 sm:px-4 sm:pt-6">
 
         <header className="relative px-4 sm:px-6 -mt-6">
           <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:gap-5 my-6">
-            <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative -mt-12 size-36 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
+            <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="relative -mt-16 size-32 shrink-0 rounded-2xl border-4 border-background shadow-sm" />
             <div className="min-w-0 flex-1">
               <h1 className="flex items-start gap-2 text-3xl font-extrabold sm:text-4xl">
                 {business.name}
@@ -143,7 +143,7 @@ export default function BusinessPage() {
             ) : sections.map((section) => (
               <section key={section.id} id={`section-${section.id}`} className="mt-5">
                 <h2 className="mb-3 text-xl font-bold">{section.name}</h2>
-                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3">
+                <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                   {section.products.map((p) => <ProductCard key={p.id} product={p} business={business} onOpen={() => setSelected(p)} />)}
                 </div>
               </section>

@@ -3,7 +3,7 @@ import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
 import { useTheme } from '@/context/ThemeContext';
 
-export function ThemeToggle() {
+export function ThemeToggle({ className }: { className?: string }) {
   const { theme, setTheme } = useTheme();
   const isDark = theme === 'dark';
   const label = isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
@@ -11,7 +11,7 @@ export function ThemeToggle() {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" size="icon" aria-label={label} onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+        <Button variant="ghost" size="icon" className={className} aria-label={label} onClick={() => setTheme(isDark ? 'light' : 'dark')}>
           <Icon className="size-5" />
         </Button>
       </TooltipTrigger>

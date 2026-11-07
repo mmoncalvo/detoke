@@ -62,7 +62,7 @@ export default function Gallery() {
       {business.gallery.length === 0 ? (
         <EmptyState icon={Images} title="Tu galería está vacía" description="Las fotos del local generan confianza." action={addButton} />
       ) : (
-        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5">
           {business.gallery.map((image) => (
             <div key={image} className="relative overflow-hidden rounded-xl border">
               <SafeImage src={image} alt="" className="aspect-square w-full" />

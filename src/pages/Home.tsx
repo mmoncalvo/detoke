@@ -37,7 +37,7 @@ export default function Home() {
   const { list, anyOpen } = useMemo(() => {
     const all = businesses.data ?? [];
     const open = all.filter((b) => openStatus(b.hours).isOpen);
-    return { list: (open.length >= 3 ? open : all).slice(0, 6), anyOpen: open.length >= 3 };
+    return { list: (open.length >= 3 ? open : all).slice(0, 8), anyOpen: open.length >= 3 };
   }, [businesses.data]);
 
   const featured = useMemo(() => {
@@ -45,14 +45,14 @@ export default function Home() {
     const seen = new Set<string>();
     const isNew = (key: string) => !seen.has(key) && !!seen.add(key);
     const shuffled = [...(products.data ?? [])].sort((a, b) => a.id.localeCompare(b.id));
-    return shuffled.filter((p) => !seen.has(p.businessId) && isNew(p.images[0] ?? p.id) && isNew(p.businessId)).slice(0, 10);
+    return shuffled.filter((p) => !seen.has(p.businessId) && isNew(p.images[0] ?? p.id) && isNew(p.businessId)).slice(0, 12);
   }, [products.data]);
 
   return (
     <>
       <section className="relative overflow-hidden bg-hero text-[oklch(0.985_0.01_88)]">
         <div className="awning" aria-hidden style={{ background: 'repeating-linear-gradient(90deg, var(--mustard) 0 32px, var(--background) 32px 64px)' }} />
-        <div className="relative mx-auto max-w-6xl px-4 pb-14 pt-10 sm:pb-20 sm:pt-14">
+        <div className="relative mx-auto max-w-page px-4 pb-14 pt-10 sm:pb-20 sm:pt-14">
           <div className="pointer-events-none absolute -bottom-10 right-4 hidden w-[380px] lg:block" aria-hidden>
             <SafeImage src="pizza_napolitana.jpg" alt="" className="absolute bottom-24 right-40 size-52 -rotate-6 rounded-2xl border-4 border-white/90 shadow-xl" />
             <SafeImage src="panaderia_cover.jpg" alt="" className="absolute bottom-40 right-0 size-44 rotate-3 rounded-2xl border-4 border-white/90 shadow-xl" />
@@ -79,7 +79,7 @@ export default function Home() {
         </div>
       </section>
 
-      <div className="mx-auto max-w-6xl space-y-14 px-4 pt-8">
+      <div className="mx-auto max-w-page space-y-14 px-4 pt-8">
         <nav aria-label="Rubros" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
           {(categories.data ?? []).filter((c) => (c.businessCount ?? 0) > 0).map((category) => {
             const Icon = categoryIcon(category.icon);
@@ -94,8 +94,8 @@ export default function Home() {
         <section>
           <SectionHeader title={anyOpen ? 'Abierto ahora' : 'Negocios del barrio'} subtitle={anyOpen ? 'Comercios que te atienden en este momento.' : 'A esta hora casi todos descansan, pero podés mirar sus catálogos.'} to={anyOpen ? '/explorar?open=true' : '/explorar'} />
           {businesses.error ? <ErrorState message={businesses.error} onRetry={businesses.reload} /> : (
-            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3">
-              {businesses.loading ? Array.from({ length: 6 }, (_, i) => <BusinessCardSkeleton key={i} />) : list.map((b) => <BusinessCard key={b.id} business={b} />)}
+            <div className="grid gap-5 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
+              {businesses.loading ? Array.from({ length: 8 }, (_, i) => <BusinessCardSkeleton key={i} />) : list.map((b) => <BusinessCard key={b.id} business={b} />)}
             </div>
           )}
         </section>
@@ -103,8 +103,8 @@ export default function Home() {
         <section>
           <SectionHeader title="Lo más pedido" subtitle="Una selección de los destacados de cada comercio." to="/explorar?tab=products" />
           {products.error ? <ErrorState message={products.error} onRetry={products.reload} /> : (
-            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5">
-              {products.loading ? Array.from({ length: 5 }, (_, i) => <ProductCardSkeleton key={i} />) : featured.map((p) => p.business && <ProductCard key={p.id} product={p} business={p.business} showBusiness onOpen={() => setSelected(p)} />)}
+            <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-5 xl:grid-cols-6">
+              {products.loading ? Array.from({ length: 6 }, (_, i) => <ProductCardSkeleton key={i} />) : featured.map((p) => p.business && <ProductCard key={p.id} product={p} business={p.business} showBusiness onOpen={() => setSelected(p)} />)}
             </div>
           )}
         </section>

@@ -39,7 +39,7 @@ export default function Login() {
     <div className="flex min-h-svh flex-col bg-background">
       <div className="awning" aria-hidden />
       <div className="flex flex-1 items-center justify-center px-4 py-10">
-        <div className="w-full max-w-sm">
+        <div className="w-full max-w-md">
           <BrandMark />
           <h1 className="mt-6 text-3xl font-bold">Hola de nuevo</h1>
           <p className="mt-1 text-muted-foreground">Entrá para administrar tu negocio.</p>
