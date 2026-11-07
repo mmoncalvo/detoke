@@ -41,6 +41,7 @@ export const config = {
   dataDir: path.resolve('data'),
   /** Upload folder. Tests use a temporary one. */
   uploadsDir: isTest ? path.join(os.tmpdir(), 'detoke-test-uploads') : path.resolve('data/uploads'),
+  maxUploadBytes: 8 * 1024 * 1024,
   /** Origins allowed to call the API in production, besides the same-origin web app. */
   corsOrigins: (process.env.CORS_ORIGINS ?? 'http://localhost,https://localhost').split(',').map((s) => s.trim()).filter(Boolean),
 };

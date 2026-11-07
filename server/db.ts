@@ -10,18 +10,22 @@ if (db.dialect === 'sqlite') fs.mkdirSync(path.dirname(db.storage), { recursive:
 
 export const isPostgres = db.dialect === 'postgres';
 
-// No underscored: the existing database uses Users/Products/Categories tables and camelCase columns.
 export const sequelize =
   db.dialect === 'postgres'
-    ? new Sequelize(db.url, { dialect: 'postgres', logging: false, models })
-    : new Sequelize({ dialect: 'sqlite', storage: db.storage, logging: false, models });
+    ? new Sequelize(db.url, { dialect: 'postgres', logging: false, models, define: { underscored: true } })
+    : new Sequelize({ dialect: 'sqlite', storage: db.storage, logging: false, models, define: { underscored: true } });
 
 /**
  * Creates missing tables. Postgres also adjusts columns (alter); SQLite does not,
- * because alter recreates tables and breaks foreign keys.
+ * because alter recreates tables and breaks foreign keys. While the project is in
+ * test mode a schema change is applied with `npm run db:seed`, which resets everything.
  */
 export async function initDb(opts: { reset?: boolean } = {}) {
   await sequelize.authenticate();
-  if (opts.reset) return void (await sequelize.sync({ force: true }));
+  if (opts.reset) {
+    await sequelize.getQueryInterface().dropAllTables();
+    await sequelize.sync();
+    return;
+  }
   await sequelize.sync(isPostgres ? { alter: true } : {});
 }

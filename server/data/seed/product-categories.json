@@ -1,0 +1,66 @@
+[
+  {
+    "name": "Pizzas y fainá",
+    "slug": "pizzas-y-faina"
+  },
+  {
+    "name": "Empanadas",
+    "slug": "empanadas"
+  },
+  {
+    "name": "Platos",
+    "slug": "platos"
+  },
+  {
+    "name": "Sándwiches",
+    "slug": "sandwiches"
+  },
+  {
+    "name": "Panificados",
+    "slug": "panificados"
+  },
+  {
+    "name": "Pastelería",
+    "slug": "pasteleria"
+  },
+  {
+    "name": "Carnes",
+    "slug": "carnes"
+  },
+  {
+    "name": "Fiambres",
+    "slug": "fiambres"
+  },
+  {
+    "name": "Quesos",
+    "slug": "quesos"
+  },
+  {
+    "name": "Frutas",
+    "slug": "frutas"
+  },
+  {
+    "name": "Verduras",
+    "slug": "verduras"
+  },
+  {
+    "name": "Almacén",
+    "slug": "almacen"
+  },
+  {
+    "name": "Frutos secos y semillas",
+    "slug": "frutos-secos-y-semillas"
+  },
+  {
+    "name": "Bebidas sin alcohol",
+    "slug": "bebidas-sin-alcohol"
+  },
+  {
+    "name": "Bebidas con alcohol",
+    "slug": "bebidas-con-alcohol"
+  },
+  {
+    "name": "Limpieza y perfumería",
+    "slug": "limpieza-y-perfumeria"
+  }
+]

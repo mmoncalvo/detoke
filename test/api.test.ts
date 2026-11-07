@@ -1,33 +1,27 @@
+import sharp from 'sharp';
 import { beforeAll, describe, expect, it } from 'vitest';
+import { defaultHours, emptyHours, normalizeWhatsapp, openStatus, slugify } from '../shared/business.js';
 import { initDb } from '../server/db.js';
-import { Category, Product, User } from '../server/models/index.js';
-import { app, auth, request } from './helpers.js';
+import { Business } from '../server/models/index.js';
+import { app, auth, createCategories, register, request } from './helpers.js';
 
-const register = async (username: string) => {
-  const res = await request(app).post('/api/auth/register').send({
-    username,
-    password: 'secreta123',
-    businessName: `Negocio de ${username}`,
-    whatsapp: '59899123456',
-  });
-  expect(res.status).toBe(201);
-  return res.body.data as { token: string; user: { id: string } };
-};
+let categories: Awaited<ReturnType<typeof createCategories>>;
+const png = () => sharp({ create: { width: 40, height: 40, channels: 3, background: '#c33' } }).png().toBuffer();
 
-const createProduct = async (token: string, title = 'Pizza grande') => {
-  const res = await request(app).post('/api/products').set(auth(token)).send({ title, price: 350, isAvailable: true });
+const createProduct = async (token: string, name = 'Pizza grande', extra: object = {}) => {
+  const res = await request(app).post('/api/products').set(auth(token)).send({ name, price: 14500, ...extra });
   expect(res.status).toBe(201);
-  return res.body.data as { id: string; title: string; images: string };
+  return res.body.data as { id: string; name: string; images: string[]; slug: string };
 };
 
 beforeAll(async () => {
   await initDb({ reset: true });
+  categories = await createCategories();
 });
 
 describe('health', () => {
   it('uses the standard response format', async () => {
     const res = await request(app).get('/api/health');
-    expect(res.status).toBe(200);
     expect(res.body).toEqual({ success: true, data: { status: 'ok', db: 'connected' } });
   });
 
@@ -39,167 +33,256 @@ describe('health', () => {
 });
 
 describe('auth', () => {
-  it('registers, logs in and returns the user without the password', async () => {
-    const { token, user } = await register('ana');
+  it('creates the user and the business, with a normalized whatsapp and a slug', async () => {
+    const { token, user, business } = await register(categories.pizzas.id, 'Lo de Ñoño & Cía');
     expect(token).toBeTruthy();
-    expect(user).not.toHaveProperty('password');
-
-    const login = await request(app).post('/api/auth/login').send({ username: 'ana', password: 'secreta123' });
-    expect(login.status).toBe(200);
-    expect(login.body.data.user).not.toHaveProperty('password');
-
-    const me = await request(app).get('/api/auth/me').set(auth(login.body.data.token));
-    expect(me.status).toBe(200);
-    expect(me.body.data.username).toBe('ana');
-    expect(me.body.data).not.toHaveProperty('password');
+    expect(user).not.toHaveProperty('passwordHash');
+    expect(business.slug).toBe('lo-de-nono-cia');
+    expect(business.whatsapp).toBe('5491123456789');
   });
 
-  it('rejects bad credentials, duplicate users, invalid data and missing tokens', async () => {
-    const bad = await request(app).post('/api/auth/login').send({ username: 'ana', password: 'incorrecta' });
+  it('makes slugs unique', async () => {
+    const first = await register(categories.pizzas.id, 'Pizza Hermanos');
+    const second = await register(categories.pizzas.id, 'Pizza Hermanos');
+    expect(first.business.slug).toBe('pizza-hermanos');
+    expect(second.business.slug).toBe('pizza-hermanos-2');
+  });
+
+  it('logs in by email, ignoring case, and returns the business', async () => {
+    const { user, business } = await register(categories.pizzas.id);
+    const login = await request(app).post('/api/auth/login').send({ email: user.email.toUpperCase(), password: 'secreta123' });
+    expect(login.status).toBe(200);
+    expect(login.body.data.business.id).toBe(business.id);
+
+    const me = await request(app).get('/api/auth/me').set(auth(login.body.data.token));
+    expect(me.body.data.user.email).toBe(user.email);
+    expect(me.body.data.user).not.toHaveProperty('passwordHash');
+    expect(me.body.data.business.category.slug).toBe('pizzeria');
+  });
+
+  it('rejects bad credentials, repeated emails, invalid data and missing tokens', async () => {
+    const { user } = await register(categories.pizzas.id);
+
+    const bad = await request(app).post('/api/auth/login').send({ email: user.email, password: 'incorrecta' });
     expect(bad.status).toBe(401);
-    expect(bad.body).toEqual({ success: false, error: 'Credenciales inválidas' });
+    expect(bad.body.error).toBe('El email o la contraseña no son correctos');
 
-    const repeated = await request(app).post('/api/auth/register').send({ username: 'ana', password: 'secreta123', businessName: 'Otro', whatsapp: '59899123456' });
-    expect(repeated.status).toBe(400);
+    const repeated = await request(app).post('/api/auth/register').send({
+      name: 'Otra', email: user.email, password: 'secreta123', business: { name: 'Otro', businessCategoryId: categories.pizzas.id, whatsapp: '1123456789' },
+    });
+    expect(repeated.status).toBe(409);
 
-    const invalid = await request(app).post('/api/auth/login').send({ username: 'a' });
+    const invalid = await request(app).post('/api/auth/register').send({
+      name: 'Otra', email: 'no-es-email', password: 'corta', business: { name: 'Otro', businessCategoryId: categories.pizzas.id, whatsapp: '12' },
+    });
     expect(invalid.status).toBe(400);
-    expect(invalid.body.error).toBe('Datos inválidos');
+    expect(invalid.body.error).toBe('Ingresá un email válido');
+
+    const noCategory = await request(app).post('/api/auth/register').send({
+      name: 'Otra', email: 'otra@detoke.test', password: 'secreta123', business: { name: 'Otro', businessCategoryId: 'nada', whatsapp: '1123456789' },
+    });
+    expect(noCategory.status).toBe(400);
 
     expect((await request(app).get('/api/auth/me')).status).toBe(401);
     expect((await request(app).get('/api/auth/me').set(auth('malo'))).status).toBe(401);
   });
 });
 
+describe('my business', () => {
+  it('updates sections and validates them', async () => {
+    const { token } = await register(categories.pizzas.id);
+
+    const ok = await request(app).put('/api/businesses/me').set(auth(token)).send({
+      tagline: 'La mejor', website: 'detoke.test', instagram: '@lamejor', deliveryOptions: ['delivery'], paymentMethods: ['cash', 'mercadopago'], deliveryFee: '1500', hours: defaultHours(),
+    });
+    expect(ok.status).toBe(200);
+    expect(ok.body.data.website).toBe('https://detoke.test');
+    expect(ok.body.data.instagram).toBe('lamejor');
+    expect(ok.body.data.deliveryFee).toBe(1500);
+
+    const noPayment = await request(app).put('/api/businesses/me').set(auth(token)).send({ paymentMethods: [] });
+    expect(noPayment.body.error).toBe('Elegí al menos un medio de pago');
+
+    const hours = { ...defaultHours(), monday: { open: true, ranges: [] } };
+    expect((await request(app).put('/api/businesses/me').set(auth(token)).send({ hours })).status).toBe(400);
+
+    expect((await request(app).put('/api/businesses/me').send({ tagline: 'x' })).status).toBe(401);
+  });
+
+  it('accepts images, resizes them and rejects anything else', async () => {
+    const { token } = await register(categories.pizzas.id);
+
+    const logo = await request(app).post('/api/businesses/me/logo').set(auth(token)).attach('image', await png(), 'logo.png');
+    expect(logo.status).toBe(200);
+    expect(logo.body.data.logo).toMatch(/^\/data\/uploads\/logo-.*\.webp$/);
+
+    const gallery = await request(app).post('/api/businesses/me/gallery').set(auth(token)).attach('images', await png(), 'a.png');
+    expect(gallery.body.data.gallery).toHaveLength(1);
+    const removed = await request(app).delete('/api/businesses/me/gallery').set(auth(token)).send({ image: gallery.body.data.gallery[0] });
+    expect(removed.body.data.gallery).toHaveLength(0);
+
+    const text = await request(app).post('/api/businesses/me/logo').set(auth(token)).attach('image', Buffer.from('hola'), { filename: 'a.txt', contentType: 'text/plain' });
+    expect(text.status).toBe(400);
+    expect(text.body.error).toBe('Solo se aceptan imágenes JPG, PNG o WEBP');
+
+    const fake = await request(app).post('/api/businesses/me/logo').set(auth(token)).attach('image', Buffer.from('hola'), { filename: 'a.png', contentType: 'image/png' });
+    expect(fake.status).toBe(400);
+    expect(fake.body.error).toBe('No pudimos leer la imagen, probá con otra');
+  });
+});
+
 describe('products', () => {
   it('creates, edits and deletes an own product', async () => {
-    const { token } = await register('beto');
-    const product = await createProduct(token);
+    const { token, business } = await register(categories.pizzas.id);
+    const product = await createProduct(token, 'Pizza grande', { productCategoryId: categories.food.id, compareAtPrice: 16000 });
+    expect(product.slug).toContain('pizza-grande');
 
-    const edited = await request(app).put(`/api/products/${product.id}`).set(auth(token)).send({ title: 'Pizza familiar', price: 500 });
+    const edited = await request(app).put(`/api/products/${product.id}`).set(auth(token)).send({ name: 'Pizza familiar', isAvailable: false });
     expect(edited.status).toBe(200);
-    expect(edited.body.data.title).toBe('Pizza familiar');
+    expect(edited.body.data.name).toBe('Pizza familiar');
 
-    const removed = await request(app).delete(`/api/products/${product.id}`).set(auth(token));
-    expect(removed.status).toBe(200);
-    expect(removed.body.success).toBe(true);
+    const publicList = await request(app).get('/api/products').query({ businessId: business.id });
+    expect(publicList.body.data).toHaveLength(0);
+    const mine = await request(app).get('/api/products/mine').set(auth(token));
+    expect(mine.body.data).toHaveLength(1);
 
+    expect((await request(app).delete(`/api/products/${product.id}`).set(auth(token))).status).toBe(200);
     expect((await request(app).get(`/api/products/${product.id}`)).status).toBe(404);
   });
 
-  it('keeps images when editing without sending them', async () => {
-    const { token } = await register('nico');
-    const product = await createProduct(token);
-    await Product.update({ images: JSON.stringify(['/data/images/a.jpg']) }, { where: { id: product.id } });
+  it('keeps images when editing without sending them, and uploads new ones', async () => {
+    const { token } = await register(categories.pizzas.id);
+    const upload = await request(app).post('/api/products/images').set(auth(token)).attach('image', await png(), 'a.png');
+    expect(upload.status).toBe(201);
 
-    await request(app).put(`/api/products/${product.id}`).set(auth(token)).send({ title: 'Otro título' });
+    const product = await createProduct(token, 'Con foto', { images: [upload.body.data.path] });
+    await request(app).put(`/api/products/${product.id}`).set(auth(token)).send({ name: 'Otro nombre' });
 
     const res = await request(app).get(`/api/products/${product.id}`);
-    expect(res.body.data.images).toBe(JSON.stringify(['/data/images/a.jpg']));
+    expect(res.body.data.images).toEqual([upload.body.data.path]);
   });
 
-  it('uploads an image to an own product', async () => {
-    const { token } = await register('flor');
-    const product = await createProduct(token);
-
-    const res = await request(app)
-      .post(`/api/products/${product.id}/upload-image`)
-      .set(auth(token))
-      .attach('image', Buffer.from('imagen'), 'foto.jpg');
-    expect(res.status).toBe(200);
-    expect(res.body.data.images[0]).toMatch(/^\/data\/uploads\/image-.*\.jpg$/);
-
-    const wrongField = await request(app)
-      .post(`/api/products/${product.id}/upload-image`)
-      .set(auth(token))
-      .attach('otro', Buffer.from('imagen'), 'foto.jpg');
-    expect(wrongField.status).toBe(400);
-  });
-
-  it('returns 403 on another user\'s product', async () => {
-    const owner = await register('carla');
-    const other = await register('dani');
+  it('returns 403 on another business product', async () => {
+    const owner = await register(categories.pizzas.id);
+    const other = await register(categories.pizzas.id);
     const product = await createProduct(owner.token);
 
-    const edit = await request(app).put(`/api/products/${product.id}`).set(auth(other.token)).send({ title: 'Robado' });
+    const edit = await request(app).put(`/api/products/${product.id}`).set(auth(other.token)).send({ name: 'Robado' });
     expect(edit.status).toBe(403);
-    expect(edit.body).toEqual({ success: false, error: 'No autorizado' });
-
     expect((await request(app).delete(`/api/products/${product.id}`).set(auth(other.token))).status).toBe(403);
     expect((await request(app).get(`/api/products/${product.id}`)).status).toBe(200);
   });
 
-  it('includes User and Category under those keys in the list', async () => {
-    const { token, user } = await register('elsa');
-    const category = await Category.create({ name: 'Pizzas', icon: '🍕' });
-    await request(app).post('/api/products').set(auth(token)).send({ title: 'Muzzarella', price: 300, categoryId: category.id, isAvailable: true });
+  it('validates price and category', async () => {
+    const { token } = await register(categories.pizzas.id);
+    const free = await request(app).post('/api/products').set(auth(token)).send({ name: 'Gratis', price: 0 });
+    expect(free.body.error).toBe('El precio debe ser mayor a cero');
+    expect((await request(app).post('/api/products').set(auth(token)).send({ name: 'Sin rubro', price: 10, productCategoryId: 'nada' })).status).toBe(400);
+  });
 
-    const res = await request(app).get('/api/products').query({ userId: user.id });
-    expect(res.status).toBe(200);
-    expect(res.body.data).toHaveLength(1);
-    expect(res.body.data[0].User.businessName).toBe('Negocio de elsa');
-    expect(res.body.data[0].Category.name).toBe('Pizzas');
+  it('filters the public list by category and search, without accents', async () => {
+    const { token, business } = await register(categories.pizzas.id);
+    await createProduct(token, 'Fainá de la casa', { productCategoryId: categories.food.id });
+    await createProduct(token, 'Empanada');
+
+    const byCategory = await request(app).get('/api/products').query({ businessId: business.id, category: 'platos' });
+    expect(byCategory.body.data).toHaveLength(1);
+    expect(byCategory.body.data[0].business.slug).toBe(business.slug);
+
+    const bySearch = await request(app).get('/api/products').query({ businessId: business.id, search: 'FAINA' });
+    expect(bySearch.body.data).toHaveLength(1);
   });
 });
 
 describe('businesses', () => {
+  let open: { business: { id: string; slug: string } };
+  let closed: { business: { id: string; slug: string } };
+
   beforeAll(async () => {
-    const user = await User.create({ username: 'pizzeria', password: 'x', businessName: 'Pizzería Central', whatsapp: '59899000000', slug: 'pizzeria-central' });
-    await Product.create({ title: 'Fainá', price: 80, userId: user.id });
-    await User.create({ username: 'cerrado', password: 'x', businessName: 'Cerrado', whatsapp: '59899000001', slug: 'cerrado', isActive: false });
+    open = await register(categories.bakery.id, 'Panadería Siempre Abierta');
+    closed = await register(categories.bakery.id, 'Panadería Cerrada');
+    const always = Object.fromEntries(Object.keys(emptyHours()).map((day) => [day, { open: true, ranges: [{ from: '00:00', to: '23:59' }] }]));
+    await Business.update({ hours: always, deliveryOptions: ['delivery', 'pickup'] }, { where: { id: open.business.id } });
+    await createProduct((await register(categories.bakery.id, 'Con producto')).token, 'Bizcochos');
   });
 
-  it('lists active businesses without private data', async () => {
-    const res = await request(app).get('/api/users').query({ search: 'Pizzería' });
+  const slugs = (res: { body: { data: { slug: string }[] } }) => res.body.data.map((b) => b.slug);
+
+  it('filters by category, search, open now and delivery', async () => {
+    const byCategory = await request(app).get('/api/businesses').query({ category: 'panaderia' });
+    expect(slugs(byCategory)).toEqual(expect.arrayContaining([open.business.slug, closed.business.slug]));
+    expect(byCategory.body.data.every((b: { category: { slug: string } }) => b.category.slug === 'panaderia')).toBe(true);
+
+    expect(slugs(await request(app).get('/api/businesses').query({ search: 'panaderia cerrada' }))).toEqual([closed.business.slug]);
+
+    const openNow = slugs(await request(app).get('/api/businesses').query({ category: 'panaderia', open: 'true' }));
+    expect(openNow).toContain(open.business.slug);
+    expect(openNow).not.toContain(closed.business.slug);
+
+    const delivery = slugs(await request(app).get('/api/businesses').query({ category: 'panaderia', delivery: 'true' }));
+    expect(delivery).toEqual([open.business.slug]);
+  });
+
+  it('shows a business with its products and hides inactive ones', async () => {
+    const { token, business } = await register(categories.pizzas.id, 'Con Carta');
+    await createProduct(token, 'Fugazzeta');
+
+    const res = await request(app).get(`/api/businesses/${business.slug}`);
     expect(res.status).toBe(200);
-    expect(res.body.data).toHaveLength(1);
-    expect(res.body.data[0].slug).toBe('pizzeria-central');
-    expect(res.body.data[0].Products).toHaveLength(1);
-    expect(res.body.data[0]).not.toHaveProperty('password');
-    expect(res.body.data[0]).not.toHaveProperty('username');
+    expect(res.body.data.products).toHaveLength(1);
+    expect(res.body.data).not.toHaveProperty('owner');
+
+    await Business.update({ isActive: false }, { where: { id: business.id } });
+    expect((await request(app).get(`/api/businesses/${business.slug}`)).status).toBe(404);
+    expect(slugs(await request(app).get('/api/businesses'))).not.toContain(business.slug);
   });
 
-  it('finds by slug and hides inactive businesses', async () => {
-    const res = await request(app).get('/api/users/slug/pizzeria-central');
-    expect(res.status).toBe(200);
-    expect(res.body.data.businessName).toBe('Pizzería Central');
-    expect(res.body.data.Products[0].title).toBe('Fainá');
-
-    expect((await request(app).get('/api/users/slug/cerrado')).status).toBe(404);
-    expect((await request(app).get('/api/users/slug/no-existe')).status).toBe(404);
-  });
-
-  it('only the owner edits the profile', async () => {
-    const owner = await register('gabi');
-    const other = await register('hugo');
-
-    const edit = await request(app).put(`/api/users/${owner.user.id}`).set(auth(owner.token)).send({ description: 'Hola', hours: '{"monday":"09:00-18:00"}' });
-    expect(edit.status).toBe(200);
-    expect(edit.body.data.description).toBe('Hola');
-
-    const badJson = await request(app).put(`/api/users/${owner.user.id}`).set(auth(owner.token)).send({ hours: 'not json' });
-    expect(badJson.status).toBe(400);
-    expect(badJson.body.error).toBe('Formato de horario inválido');
-
-    expect((await request(app).put(`/api/users/${owner.user.id}`).set(auth(other.token)).send({ description: 'x' })).status).toBe(403);
+  it('counts businesses per category', async () => {
+    const res = await request(app).get('/api/business-categories');
+    const bakery = res.body.data.find((c: { slug: string }) => c.slug === 'panaderia');
+    expect(bakery.businessCount).toBeGreaterThanOrEqual(3);
   });
 });
 
 describe('search', () => {
-  it('finds businesses, products and categories case-insensitively', async () => {
-    const { token } = await register('ines');
-    await createProduct(token, 'Empanada Salteña');
-    await Category.create({ name: 'Empanadas', icon: '🥟' });
-    await User.create({ username: 'empa', password: 'x', businessName: 'Empanadas Doña Rosa', whatsapp: '59899000002', slug: 'dona-rosa' });
+  it('finds businesses, products and categories without accents', async () => {
+    const { token } = await register(categories.bakery.id, 'Pan de Doña Rosa');
+    await createProduct(token, 'Pan de campo');
 
-    const res = await request(app).get('/api/search').query({ q: 'EMPANADA' });
-    expect(res.status).toBe(200);
-    const types = res.body.data.map((r: { type: string }) => r.type);
-    expect(types).toEqual(expect.arrayContaining(['business', 'product', 'category']));
+    const res = await request(app).get('/api/search').query({ q: 'PANADERIA' });
+    expect(res.body.data.map((r: { type: string }) => r.type)).toContain('category');
+
+    const types = (await request(app).get('/api/search').query({ q: 'pan de' })).body.data.map((r: { type: string }) => r.type);
+    expect(types).toEqual(expect.arrayContaining(['business', 'product']));
   });
 
   it('returns an empty list without a term', async () => {
-    const res = await request(app).get('/api/search');
-    expect(res.body).toEqual({ success: true, data: [] });
+    expect((await request(app).get('/api/search')).body).toEqual({ success: true, data: [] });
+  });
+});
+
+describe('shared rules', () => {
+  // 2026-11-09 is a Monday. Buenos Aires is UTC-3.
+  const at = (time: string, day = '09') => new Date(`2026-11-${day}T${time}:00-03:00`);
+
+  it('handles split shifts, closed days and overnight ranges', () => {
+    const hours = {
+      ...emptyHours(),
+      monday: { open: true, ranges: [{ from: '09:00', to: '13:00' }, { from: '17:00', to: '21:00' }] },
+      friday: { open: true, ranges: [{ from: '20:00', to: '02:00' }] },
+    };
+
+    expect(openStatus(hours, at('10:00'))).toEqual({ isOpen: true, label: 'Abierto hasta las 13:00' });
+    expect(openStatus(hours, at('14:00'))).toEqual({ isOpen: false, label: 'Abre hoy a las 17:00' });
+    expect(openStatus(hours, at('22:00')).label).toBe('Abre el viernes a las 20:00');
+    expect(openStatus(hours, at('23:00', '13')).isOpen).toBe(true);
+    expect(openStatus(hours, at('01:00', '14'))).toEqual({ isOpen: true, label: 'Abierto hasta las 02:00' });
+    expect(openStatus(emptyHours()).label).toBe('Sin horarios cargados');
+  });
+
+  it('normalizes text', () => {
+    expect(slugify('Fiambrería & Quesería')).toBe('fiambreria-queseria');
+    expect(normalizeWhatsapp('+54 9 11 2345-6789')).toBe('5491123456789');
+    expect(normalizeWhatsapp('11 2345 6789')).toBe('5491123456789');
   });
 });

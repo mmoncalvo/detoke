@@ -1,53 +1,45 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { z } from 'zod';
+import { loginSchema, registerSchema } from '../../shared/schemas.js';
+import { sequelize } from '../db.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
 import { currentUser, requireAuth, signToken } from '../middleware/requireAuth.js';
-import { User } from '../models/index.js';
+import { Business, BusinessCategory, User } from '../models/index.js';
 import { ok } from '../services/response.js';
+import { uniqueSlug } from '../services/slug.js';
 
 export const authRoutes = Router();
 
-const loginSchema = z.object({
-  username: z.string().min(3),
-  password: z.string().min(6),
-});
-
-const registerSchema = z.object({
-  username: z.string().min(3),
-  password: z.string().min(6),
-  businessName: z.string().min(2),
-  whatsapp: z.string().min(10),
-  fullName: z.string().optional(),
-  email: z.string().email().optional(),
-});
-
-/** Token and user data, without the password. */
-function session(user: User) {
-  const { password: _password, ...data } = user.toJSON();
-  return { token: signToken(user), user: data };
-}
-
-authRoutes.post('/login', asyncHandler(async (req, res) => {
-  const { username, password } = loginSchema.parse(req.body);
-
-  const user = await User.findOne({ where: { username } });
-  if (!user || !(await bcrypt.compare(password, user.password))) throw new HttpError(401, 'Credenciales inválidas');
-
-  ok(res, session(user));
-}));
+const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role });
+const businessOf = (user: User) => Business.findOne({ where: { ownerId: user.id }, include: [BusinessCategory] });
 
 authRoutes.post('/register', asyncHandler(async (req, res) => {
-  const data = registerSchema.parse(req.body);
+  const { business: businessData, password, ...account } = registerSchema.parse(req.body);
 
-  const existing = await User.findOne({ where: { username: data.username } });
-  if (existing) throw new HttpError(400, 'El usuario ya existe');
+  if (await User.findOne({ where: { email: account.email } })) throw new HttpError(409, 'Ya hay una cuenta con ese email');
+  if (!(await BusinessCategory.findByPk(businessData.businessCategoryId))) throw new HttpError(400, 'Elegí un rubro de la lista');
 
-  const user = await User.create({ ...data, password: await bcrypt.hash(data.password, 10) });
-  ok(res, session(user), 201);
+  const passwordHash = await bcrypt.hash(password, 10);
+  const user = await sequelize.transaction(async (transaction) => {
+    const created = await User.create({ ...account, passwordHash }, { transaction });
+    const slug = await uniqueSlug(Business, businessData.name, transaction);
+    await Business.create({ ...businessData, slug, ownerId: created.id }, { transaction });
+    return created;
+  });
+
+  ok(res, { token: signToken(user), user: userData(user), business: await businessOf(user) }, 201);
+}));
+
+authRoutes.post('/login', asyncHandler(async (req, res) => {
+  const { email, password } = loginSchema.parse(req.body);
+
+  const user = await User.unscoped().findOne({ where: { email } });
+  if (!user || !(await bcrypt.compare(password, user.passwordHash))) throw new HttpError(401, 'El email o la contraseña no son correctos');
+
+  ok(res, { token: signToken(user), user: userData(user), business: await businessOf(user) });
 }));
 
 authRoutes.get('/me', requireAuth, asyncHandler(async (req, res) => {
-  const user = await User.findByPk(currentUser(req).id, { attributes: { exclude: ['password'] } });
-  ok(res, user);
+  const user = currentUser(req);
+  ok(res, { user: userData(user), business: await businessOf(user) });
 }));

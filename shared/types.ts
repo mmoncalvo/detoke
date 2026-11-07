@@ -1,64 +1,94 @@
 // Types shared by the server and the web app.
+import type { BusinessHours, DeliveryOption, PaymentMethod } from './business.js';
 
 /** { success: true, data } or { success: false, error }; the error is shown to users, in Spanish. */
-export interface ApiResponse<T = any> {
-  success: boolean;
-  data: T;
-  error?: string;
-  details?: unknown;
-}
+export type ApiResponse<T> = { success: true; data: T } | { success: false; error: string; details?: unknown };
 
-export interface Category {
+export interface BusinessCategory {
   id: string;
   name: string;
+  slug: string;
+  /** Icon key, see src/lib/category-icons.ts. */
   icon: string;
-  isActive?: boolean;
+  businessCount?: number;
 }
 
-/** Public user data: every seller is a business. */
+export interface ProductCategory {
+  id: string;
+  name: string;
+  slug: string;
+}
+
 export interface Business {
   id: string;
+  ownerId: string;
+  name: string;
   slug: string;
-  businessName: string;
-  description?: string;
-  logo?: string;
-  coverImage?: string;
+  businessCategoryId: string;
+  category?: BusinessCategory;
+  tagline: string | null;
+  description: string | null;
+  logo: string | null;
+  coverImage: string | null;
+  gallery: string[];
   whatsapp: string;
-  address?: string;
-  latitude?: number;
-  longitude?: number;
-  /** JSON: {"monday": "09:00-18:00", "sunday": "closed", ...} */
-  hours?: string;
-  /** JSON: list of URLs. */
-  gallery?: string;
-  website?: string;
+  phone: string | null;
+  email: string | null;
+  website: string | null;
+  instagram: string | null;
+  facebook: string | null;
+  address: string | null;
+  neighborhood: string | null;
+  city: string | null;
+  latitude: number | null;
+  longitude: number | null;
+  hours: BusinessHours;
+  deliveryOptions: DeliveryOption[];
+  deliveryFee: number | null;
+  minimumOrder: number | null;
+  deliveryRadiusKm: number | null;
+  paymentMethods: PaymentMethod[];
   isVerified: boolean;
-  Products?: Product[];
+  isActive: boolean;
+  productCount?: number;
+  products?: Product[];
 }
 
-/** Session user. */
-export interface User extends Business {
-  username: string;
-  role: string;
-  fullName?: string;
-  email?: string;
-  isActive?: boolean;
-}
+export type BusinessSummary = Pick<Business, 'id' | 'name' | 'slug' | 'logo' | 'whatsapp' | 'hours' | 'deliveryOptions' | 'deliveryFee' | 'minimumOrder' | 'paymentMethods'>;
 
 export interface Product {
   id: string;
-  title: string;
-  slug?: string;
-  description?: string;
+  businessId: string;
+  name: string;
+  slug: string;
+  description: string | null;
   price: number;
-  /** JSON: list of image paths. */
-  images: string;
-  stock?: number;
-  featured?: boolean;
-  whatsapp?: string;
-  isAvailable?: boolean;
-  categoryId?: string;
-  userId?: string;
-  Category?: Category;
-  User?: Pick<Business, 'id' | 'businessName' | 'slug' | 'whatsapp' | 'logo' | 'description'>;
+  compareAtPrice: number | null;
+  images: string[];
+  /** null means stock is not tracked. */
+  stock: number | null;
+  isAvailable: boolean;
+  featured: boolean;
+  productCategoryId: string | null;
+  category?: ProductCategory | null;
+  business?: BusinessSummary;
 }
+
+export interface User {
+  id: string;
+  email: string;
+  name: string;
+  phone: string | null;
+  role: 'seller' | 'admin';
+}
+
+export interface Session {
+  token: string;
+  user: User;
+  business: Business | null;
+}
+
+export type SearchResult =
+  | { type: 'business'; id: string; title: string; subtitle: string; slug: string; image: string | null }
+  | { type: 'product'; id: string; title: string; subtitle: string; slug: string; image: string | null; price: number }
+  | { type: 'category'; id: string; title: string; subtitle: string; slug: string; icon: string };

@@ -1,0 +1,77 @@
+[
+  {
+    "name": "Pizzería",
+    "slug": "pizzeria",
+    "icon": "pizza"
+  },
+  {
+    "name": "Rotisería",
+    "slug": "rotiseria",
+    "icon": "drumstick"
+  },
+  {
+    "name": "Restaurante",
+    "slug": "restaurante",
+    "icon": "utensils"
+  },
+  {
+    "name": "Panadería",
+    "slug": "panaderia",
+    "icon": "croissant"
+  },
+  {
+    "name": "Almacén",
+    "slug": "almacen",
+    "icon": "store"
+  },
+  {
+    "name": "Supermercado",
+    "slug": "supermercado",
+    "icon": "shopping-cart"
+  },
+  {
+    "name": "Kiosco",
+    "slug": "kiosco",
+    "icon": "candy"
+  },
+  {
+    "name": "Carnicería",
+    "slug": "carniceria",
+    "icon": "beef"
+  },
+  {
+    "name": "Verdulería",
+    "slug": "verduleria",
+    "icon": "carrot"
+  },
+  {
+    "name": "Fiambrería y quesería",
+    "slug": "fiambreria-y-queseria",
+    "icon": "ham"
+  },
+  {
+    "name": "Dietética",
+    "slug": "dietetica",
+    "icon": "leaf"
+  },
+  {
+    "name": "Heladería",
+    "slug": "heladeria",
+    "icon": "ice-cream"
+  },
+  {
+    "name": "Bebidas",
+    "slug": "bebidas",
+    "icon": "wine"
+  },
+  {
+    "name": "Bazar y limpieza",
+    "slug": "bazar-y-limpieza",
+    "icon": "spray-can"
+  },
+  {
+    "name": "Otros",
+    "slug": "otros",
+    "icon": "shopping-bag"
+  }
+]
