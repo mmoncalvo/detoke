@@ -47,7 +47,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange} title="Buscar" description="Buscá negocios, productos o rubros">
       <Command shouldFilter={false}>
-        <CommandInput placeholder="Buscá pizza, panadería, un negocio..." value={query} onValueChange={setQuery} />
+        <CommandInput placeholder="Buscá pizza, panadería, un negocio..." value={query} onValueChange={setQuery} name="detoke-search-query" autoComplete="off" autoCorrect="off" spellCheck={false} />
         <CommandList>
           {query.trim() ? <CommandEmpty>No encontramos resultados para “{query}”.</CommandEmpty> : (
             <div className="flex flex-col items-center gap-2 px-6 py-10 text-center text-sm text-muted-foreground">

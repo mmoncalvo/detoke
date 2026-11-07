@@ -61,18 +61,29 @@ export default function Home() {
           <h1 className="relative max-w-xl text-4xl font-extrabold leading-[1.05] sm:text-6xl">Todo lo del barrio, de toque.</h1>
           <p className="mt-4 max-w-xl text-lg opacity-85">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
           <form
-            className="mt-7 flex max-w-xl items-center gap-2 rounded-xl bg-card p-1.5 shadow-xl shadow-black/15"
+            className="mt-7 flex max-w-xl cursor-text items-center gap-2 rounded-xl bg-card p-1.5 shadow-xl shadow-black/15"
             role="search"
             onSubmit={(e) => { e.preventDefault(); navigate(`/explorar?search=${encodeURIComponent(query)}`); }}
+            onClick={(e) => {
+              // Any empty spot of the box puts the cursor in the field.
+              if (!(e.target as HTMLElement).closest('button')) document.getElementById('home-search')?.focus();
+            }}
           >
-            <Search className="ml-2.5 size-5 shrink-0 text-muted-foreground" />
-            <label htmlFor="home-search" className="sr-only">Buscar negocios</label>
+            <label htmlFor="home-search" className="flex h-11 cursor-pointer items-center pl-2.5 pr-1">
+              <Search className="size-5 shrink-0 text-muted-foreground" />
+              <span className="sr-only">Buscar negocios</span>
+            </label>
             <input
               id="home-search"
+              type="search"
+              name="detoke-home-query"
+              autoComplete="off"
+              autoCorrect="off"
+              spellCheck={false}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="¿Qué estás buscando?"
-              className="h-11 min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground"
+              className="h-11 min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
             />
             <Button type="submit" size="lg">Buscar</Button>
           </form>
