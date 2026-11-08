@@ -75,7 +75,7 @@ export default function Orders() {
   useTitle('Pedidos');
   const { business } = useAuth();
   // Kept in the URL, like the filters of Explorar: reloading or going back keeps them.
-  const [status, setStatus] = useUrlState('status', 'pending');
+  const [status, setStatus] = useUrlState('status', ALL);
   const [period, setPeriod] = useUrlState('period', 'today');
   const [sound, setSound] = useState(readSoundPreference);
   const days = (PERIODS[period] ?? PERIODS.today).days;
@@ -113,7 +113,7 @@ export default function Orders() {
       <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
         <Tabs value={status} onValueChange={setStatus} className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] lg:mx-0 lg:px-0">
           <TabsList>
-            {(['pending', 'confirmed', 'completed', 'cancelled', ALL] as const).map((value) => (
+            {([ALL, 'pending', 'confirmed', 'completed', 'cancelled'] as const).map((value) => (
               <TabsTrigger key={value} value={value} className="gap-1.5">
                 {TAB_LABELS[value]}
                 <span className={`rounded-full px-1.5 text-[11px] tabular-nums ${value === 'pending' && counts.pending ? 'bg-mustard text-[oklch(0.25_0.04_80)]' : 'bg-secondary text-muted-foreground'}`}>{counts[value] ?? 0}</span>
