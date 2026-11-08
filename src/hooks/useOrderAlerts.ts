@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import type { Order } from '@shared/orders';
 import { api } from '@/api';
 import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
+import { formatPrice } from '@/lib/format';
 
 const SOUND_KEY = 'detoke.orderSound';
 
@@ -22,10 +23,28 @@ export function saveSoundPreference(on: boolean) {
   }
 }
 
-/** Two short tones, made in the browser (no audio file). Browsers allow it after the first interaction. */
+// One audio context for the whole app. Browsers only let it play after the user interacts with the
+// page, so the first click or key press unlocks it; a new order later can then be heard anywhere.
+let audio: AudioContext | null = null;
+
+function unlockAudio() {
+  try {
+    audio ??= new AudioContext();
+    if (audio.state === 'suspended') void audio.resume();
+  } catch {
+    /* no audio */
+  }
+}
+
+if (typeof window !== 'undefined') {
+  for (const event of ['pointerdown', 'keydown'] as const) window.addEventListener(event, unlockAudio, { passive: true });
+}
+
+/** Two short tones, made in the browser (no audio file). */
 function chime() {
   try {
-    const context = new AudioContext();
+    unlockAudio();
+    const context = audio!;
     [880, 1320].forEach((frequency, i) => {
       const osc = context.createOscillator();
       const gain = context.createGain();
@@ -37,14 +56,30 @@ function chime() {
       osc.start(context.currentTime + i * 0.18);
       osc.stop(context.currentTime + i * 0.18 + 0.17);
     });
-    setTimeout(() => void context.close(), 800);
   } catch {
     /* no audio */
   }
 }
 
+/** Browser notifications, only when the user turned them on (from Mi cuenta) and the tab is in the background. */
+export const canNotify = () => typeof Notification !== 'undefined';
+
+function notify(title: string, body: string, onClick: () => void) {
+  if (!canNotify() || Notification.permission !== 'granted' || !document.hidden) return;
+  try {
+    const notification = new Notification(title, { body, icon: '/favicon.svg', tag: title });
+    notification.onclick = () => {
+      window.focus();
+      onClick();
+      notification.close();
+    };
+  } catch {
+    /* not supported here */
+  }
+}
+
 /**
- * Seller-wide: joins the business room, counts pending orders, and on a new order shows a
+ * Seller-wide, mounted once for the whole app (OrderAlertsProvider): joins the business room, counts pending orders, and on a new order shows a
  * toast, plays a sound (if enabled) and keeps the count in the tab title.
  */
 export function useOrderAlerts(businessId: string | null | undefined, onOpen: () => void) {
@@ -62,11 +97,11 @@ export function useOrderAlerts(businessId: string | null | undefined, onOpen: ()
     if (order.businessId !== businessId) return;
     setPending((n) => n + 1);
     if (readSoundPreference()) chime();
-    toast.success(`Nuevo pedido #${order.number}`, {
-      description: `${order.customerName} · ${order.items.length} ${order.items.length === 1 ? 'producto' : 'productos'}`,
-      action: { label: 'Ver', onClick: onOpen },
-      duration: 8000,
-    });
+    const title = `Nuevo pedido #${order.number} · ${formatPrice(order.total)}`;
+    const count = order.items.reduce((sum, i) => sum + i.quantity, 0);
+    const description = `${order.customerName} · ${count} ${count === 1 ? 'producto' : 'productos'}`;
+    toast.success(title, { description, action: { label: 'Ver pedido', onClick: onOpen }, duration: 12000 });
+    notify(title, description, onOpen);
   });
   useSocketEvent('order:updated', (order) => {
     if (order.businessId === businessId) refresh();

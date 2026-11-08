@@ -7,7 +7,7 @@ import { NavUser } from '@/components/layout/NavUser';
 import { Button } from '@/components/ui/button';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import { useAuth } from '@/context/AuthContext';
-import { useOrderAlerts } from '@/hooks/useOrderAlerts';
+import { usePendingOrders } from '@/context/OrderAlertsContext';
 
 const AdminAccounts = lazy(() => import('@/pages/dashboard/AdminAccounts'));
 
@@ -64,7 +64,7 @@ export default function DashboardLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isAdmin = user?.role === 'admin';
-  const pendingOrders = useOrderAlerts(isAdmin ? null : business?.id, () => navigate('/dashboard/orders'));
+  const pendingOrders = usePendingOrders();
   const nav = isAdmin ? ADMIN_NAV : SELLER_NAV.map((entry) => (entry.to === '/dashboard/orders' ? { ...entry, badge: pendingOrders } : entry));
   const onAccount = pathname === ACCOUNT_PATH;
   const title = onAccount ? 'Mi cuenta' : isAdmin ? 'Panel de administración' : nav.find((entry) => isCurrent(entry, pathname))?.label;

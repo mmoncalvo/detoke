@@ -9,6 +9,7 @@ import { SearchDialog } from '@/components/layout/SearchDialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
+import { usePendingOrders } from '@/context/OrderAlertsContext';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { isActive } from '@/lib/recentOrders';
 
@@ -23,6 +24,7 @@ export default function PublicLayout() {
   const { count, setOpen } = useCart();
   const [searchOpen, setSearchOpen] = useState(false);
   const recent = useRecentOrders();
+  const pendingOrders = usePendingOrders();
   const activeOrders = recent.filter(isActive).length;
   const { pathname } = useLocation();
 
@@ -68,7 +70,10 @@ export default function PublicLayout() {
             </Button>
             {user ? (
               <Button asChild variant="outline" className="ml-1 size-9 p-0 transition-colors duration-200 hover:border-primary/40 hover:bg-transparent hover:text-primary dark:hover:bg-transparent sm:h-10 sm:w-auto sm:px-4">
-                <Link to="/dashboard" aria-label="Mi panel"><LayoutDashboard /> <span className="hidden sm:inline">Mi panel</span></Link>
+                <Link to={pendingOrders ? '/dashboard/orders' : '/dashboard'} aria-label={pendingOrders ? `Mi panel, ${pendingOrders} pedidos nuevos` : 'Mi panel'} className="relative">
+                  <LayoutDashboard /> <span className="hidden sm:inline">Mi panel</span>
+                  {pendingOrders > 0 && <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-mustard px-1 text-[11px] font-bold text-[oklch(0.25_0.04_80)]">{pendingOrders}</span>}
+                </Link>
               </Button>
             ) : (
               <Button asChild variant="outline" className="ml-1 size-9 p-0 transition-colors duration-200 hover:border-primary/40 hover:bg-transparent hover:text-primary dark:hover:bg-transparent sm:h-10 sm:w-auto sm:px-4"><Link to="/login" aria-label="Ingresar"><LogIn className="sm:hidden" /> <span className="hidden sm:inline">Ingresar</span></Link></Button>

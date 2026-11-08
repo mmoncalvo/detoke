@@ -14,7 +14,7 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme } from '@/context/ThemeContext';
-import { readSoundPreference, saveSoundPreference } from '@/hooks/useOrderAlerts';
+import { canNotify, readSoundPreference, saveSoundPreference } from '@/hooks/useOrderAlerts';
 import { useTitle } from '@/hooks/useTitle';
 
 const MAX_IMAGE_MB = 5;
@@ -194,6 +194,7 @@ function PreferencesCard() {
   const { user } = useAuth();
   const { theme } = useTheme();
   const [sound, setSound] = useState(readSoundPreference);
+  const [permission, setPermission] = useState<NotificationPermission>(() => (canNotify() ? Notification.permission : 'denied'));
   return (
     <Card>
       <CardHeader>
@@ -215,6 +216,17 @@ function PreferencesCard() {
               <span className="block text-sm font-normal text-muted-foreground">Suena cuando entra un pedido mientras tenés el panel abierto.</span>
             </Label>
             <Switch id="order-sound" checked={sound} onCheckedChange={(on) => { saveSoundPreference(on); setSound(on); }} />
+          </div>
+        )}
+        {user?.role !== 'admin' && canNotify() && (
+          <div className="flex items-center justify-between gap-4 pt-4">
+            <div>
+              <p className="text-sm font-medium">Avisos del navegador</p>
+              <p className="text-sm text-muted-foreground">
+                {permission === 'granted' ? 'Activados: te avisamos de pedidos nuevos aunque Detoke esté en otra pestaña.' : permission === 'denied' ? 'Están bloqueados. Podés habilitarlos desde la configuración del navegador para este sitio.' : 'Para enterarte de pedidos nuevos aunque Detoke esté en otra pestaña.'}
+              </p>
+            </div>
+            {permission === 'default' && <Button type="button" variant="outline" size="sm" onClick={() => void Notification.requestPermission().then(setPermission)}>Activar</Button>}
           </div>
         )}
       </CardContent>
