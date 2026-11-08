@@ -136,6 +136,9 @@ export default function OrderPage() {
         )}
       </section>
 
+      {business.isActive === false && !order.canManage && (
+        <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm text-muted-foreground">Este negocio no está disponible en Detoke por ahora. Si tenés dudas sobre el pedido, escribile directamente.</p>
+      )}
       {!order.canManage && (
         <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness}><MessageCircle /> Escribirle a {business.name}</a></Button>
       )}

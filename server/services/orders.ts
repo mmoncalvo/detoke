@@ -23,7 +23,7 @@ export function oneAtATime<T>(task: () => Promise<T>): Promise<T> {
   return run;
 }
 
-export const ORDER_BUSINESS_ATTRIBUTES = ['id', 'name', 'slug', 'logo', 'whatsapp', 'address'];
+export const ORDER_BUSINESS_ATTRIBUTES = ['id', 'name', 'slug', 'logo', 'whatsapp', 'address', 'isActive'];
 
 export const orderJson = (order: Order) => order.toJSON() as OrderDTO;
 

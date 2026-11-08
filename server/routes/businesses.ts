@@ -101,7 +101,11 @@ businessRoutes.get('/:slug', asyncHandler(async (req, res) => {
     ],
     order: [[{ model: Product, as: 'products' }, 'featured', 'DESC'], [{ model: Product, as: 'products' }, 'name', 'ASC']],
   });
-  if (!business) throw new HttpError(404, 'No encontramos ese negocio');
+  if (!business) {
+    // A disabled business is not shown, but it is told apart from a wrong link.
+    const disabled = await Business.count({ where: { slug: req.params.slug, isActive: false } });
+    throw new HttpError(404, disabled ? 'Este negocio no está disponible por ahora' : 'No encontramos ese negocio');
+  }
 
   ok(res, business);
 }));

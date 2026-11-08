@@ -60,6 +60,8 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 
 - Logo: `src/components/brand/LogoMarks.tsx` holds the three explored marks; `LogoMark` is the one in use and `Wordmark` the "detoke" lettering. `npm run brand:icons` writes `public/favicon.svg`, `favicon-32.png` and `apple-touch-icon.png` from it; the brand preview image (`/api/og/site.jpg`) reads the favicon. `/dev/logo` compares the options and exists only in development.
 
+- Disabling a business: admins use `PATCH /api/admin/businesses/:id/status` and `DELETE /api/admin/businesses/:id` (recorded in `admin_actions`). Disabled means `isActive: false` plus `disabledAt` and `disabledReason`; every public query filters `isActive: true`, so a new public query must too. Orders to a disabled business get a 409; the owner can still sign in, sees an alert in the panel and gets `business:status` live. Deleting removes the account, business, products, orders and uploaded files.
+
 ## UI Conventions
 
 - Everything clickable shows the hand cursor. `src/index.css` (`@layer base`) sets `cursor: pointer` on enabled buttons, links with `href`, ARIA roles button/tab/menuitem/option/checkbox/radio/switch, `summary`, `label[for]`, `select` and clickable inputs, and `cursor: not-allowed` on disabled controls (Tailwind v4 leaves buttons with the default cursor). Menu, command and select items use `cursor-pointer`; disabled `Button`s use `disabled:cursor-not-allowed`. Any other clickable element (a `div` or card with `onClick`) needs `cursor-pointer` explicitly, or better, should be a `button` or `Link`.

@@ -68,6 +68,15 @@ export function emitOrderUpdated(order: OrderDTO) {
   io?.to([businessRoom(order.businessId), orderRoom(order.publicCode)]).emit('order:updated', order);
 }
 
+export function emitBusinessStatus(business: { id: string; isActive: boolean; disabledAt: Date | null; disabledReason: string | null }) {
+  io?.to(businessRoom(business.id)).emit('business:status', {
+    businessId: business.id,
+    isActive: business.isActive,
+    disabledAt: business.disabledAt?.toISOString() ?? null,
+    disabledReason: business.disabledReason,
+  });
+}
+
 export function closeRealtime() {
   return new Promise<void>((resolve) => (io ? io.close(() => resolve()) : resolve()));
 }

@@ -78,6 +78,8 @@ export interface OrderBusiness {
   logo: string | null;
   whatsapp: string;
   address: string | null;
+  /** False while an admin keeps the business disabled. */
+  isActive?: boolean;
 }
 
 export interface Order {

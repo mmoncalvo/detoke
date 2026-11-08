@@ -53,6 +53,9 @@ export interface Business {
   paymentMethods: PaymentMethod[];
   isVerified: boolean;
   isActive: boolean;
+  /** Set when an admin disabled the business (then isActive is false). */
+  disabledAt?: string | null;
+  disabledReason?: string | null;
   productCount?: number;
   products?: Product[];
 }

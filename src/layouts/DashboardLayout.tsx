@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, Images, LayoutDashboard, Package, Store, Users } from 'lucide-react';
+import { ArrowLeftRight, Ban, Bike, CalendarClock, ClipboardList, Images, LayoutDashboard, Package, Store, Users } from 'lucide-react';
 import { lazy, useEffect } from 'react';
 import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
@@ -9,6 +9,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupConte
 import { useAuth } from '@/context/AuthContext';
 import { usePendingOrders } from '@/context/OrderAlertsContext';
 import { LogoMark, Wordmark } from '@/components/brand/LogoMarks';
+import { Alert, AlertDescription, AlertTitle } from '@/components/ui/alert';
 
 const AdminAccounts = lazy(() => import('@/pages/dashboard/AdminAccounts'));
 
@@ -91,7 +92,7 @@ export default function DashboardLayout() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="lg" tooltip={isAdmin ? 'Detoke · Administración' : 'Detoke · Ver mi página'}>
                 <Link to={isAdmin ? '/' : `/negocio/${business?.slug}`}>
-                  <LogoMark className="size-8" />
+                  <LogoMark className="size-8!" />
                   <span className="grid flex-1 text-left leading-tight">
                     <Wordmark className="truncate text-lg text-sidebar-accent-foreground" />
                     <span className="truncate text-xs">{isAdmin ? 'Administración' : business?.name}</span>
@@ -132,7 +133,20 @@ export default function DashboardLayout() {
             </div>
           </header>
         </div>
-        <div className="mx-auto w-full max-w-panel flex-1 p-4 sm:p-6">{isAdmin && !onAccount ? <AdminAccounts /> : <Outlet />}</div>
+        <div className="mx-auto w-full max-w-panel flex-1 p-4 sm:p-6">
+          {!isAdmin && business && !business.isActive && (
+            <Alert variant="destructive" className="mb-5 border-destructive/40 bg-destructive/5">
+              <Ban />
+              <AlertTitle>Tu negocio fue deshabilitado por el equipo de Detoke</AlertTitle>
+              <AlertDescription>
+                <p>Mientras siga así, tu página, tus productos y tus datos no aparecen en Detoke y no podés recibir pedidos. Podés seguir viendo y editando tu información.</p>
+                {business.disabledReason && <p><span className="font-medium">Motivo:</span> {business.disabledReason}</p>}
+                <p><Link to="/contact" className="font-medium underline underline-offset-2">Escribinos</Link> si querés revisarlo.</p>
+              </AlertDescription>
+            </Alert>
+          )}
+          {isAdmin && !onAccount ? <AdminAccounts /> : <Outlet />}
+        </div>
       </SidebarInset>
     </SidebarProvider>
   );

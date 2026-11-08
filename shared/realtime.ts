@@ -8,6 +8,8 @@ export interface ServerToClientEvents {
   'order:created': (order: Order) => void;
   /** To business:{id} and order:{code} when the status changes. */
   'order:updated': (order: Order) => void;
+  /** To business:{id} when an admin disables or enables the business. */
+  'business:status': (status: { businessId: string; isActive: boolean; disabledAt: string | null; disabledReason: string | null }) => void;
 }
 
 export interface ClientToServerEvents {

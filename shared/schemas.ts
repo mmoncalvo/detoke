@@ -73,6 +73,12 @@ export const passwordChangeSchema = z
   })
   .refine((data) => data.newPassword === data.confirmPassword, { path: ['confirmPassword'], message: 'Las contraseñas no coinciden' });
 
+/** An admin disabling or enabling a business. */
+export const businessStatusSchema = z.object({
+  disabled: z.boolean({ required_error: 'Indicá si se deshabilita o se habilita' }),
+  reason: optionalText(300),
+});
+
 export const loginSchema = z.object({
   email: z.string({ required_error: 'Completá el email' }).trim().toLowerCase().email('Ingresá un email válido'),
   password: z.string({ required_error: 'Completá la contraseña' }).min(1, 'Completá la contraseña'),

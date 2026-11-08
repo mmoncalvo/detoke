@@ -20,8 +20,9 @@ const limit = rateLimit({ windowMs: 60 * 60 * 1000, max: config.orderRateLimit, 
 orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
   const data = orderCreateSchema.parse(req.body);
 
-  const business = await Business.findOne({ where: { id: data.businessId, isActive: true } });
+  const business = await Business.findByPk(data.businessId);
   if (!business) throw new HttpError(404, 'No encontramos ese negocio');
+  if (!business.isActive) throw new HttpError(409, 'Este negocio no está disponible por ahora y no recibe pedidos');
   if (!business.deliveryOptions.includes(data.fulfillment)) throw new HttpError(400, data.fulfillment === 'delivery' ? 'Este negocio no hace delivery' : 'Este negocio no tiene retiro en el local');
   if (!business.paymentMethods.includes(data.paymentMethod)) throw new HttpError(400, 'Este negocio no acepta ese medio de pago');
 

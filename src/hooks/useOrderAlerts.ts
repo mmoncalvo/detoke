@@ -82,7 +82,7 @@ function notify(title: string, body: string, onClick: () => void) {
  * Seller-wide, mounted once for the whole app (OrderAlertsProvider): joins the business room, counts pending orders, and on a new order shows a
  * toast, plays a sound (if enabled) and keeps the count in the tab title.
  */
-export function useOrderAlerts(businessId: string | null | undefined, onOpen: () => void) {
+export function useOrderAlerts(businessId: string | null | undefined, onOpen: () => void, muted = false) {
   const [pending, setPending] = useState(0);
 
   const refresh = useCallback(() => {
@@ -94,7 +94,7 @@ export function useOrderAlerts(businessId: string | null | undefined, onOpen: ()
   useRoom('business', businessId, refresh);
 
   useSocketEvent('order:created', (order) => {
-    if (order.businessId !== businessId) return;
+    if (order.businessId !== businessId || muted) return;
     setPending((n) => n + 1);
     if (readSoundPreference()) chime();
     const title = `Nuevo pedido #${order.number} · ${formatPrice(order.total)}`;

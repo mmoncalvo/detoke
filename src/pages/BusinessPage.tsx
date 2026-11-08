@@ -1,6 +1,6 @@
 import { AtSign, BadgeCheck, Bike, Clock, CreditCard, Globe, MapPin, MessageCircle, PackageOpen, Search, Share2, Store } from 'lucide-react';
 import { lazy, Suspense, useMemo, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { DAYS, DAY_LABELS, fold, formatDayHours, PAYMENT_LABELS, todayKey } from '@shared/business';
 import type { Business, Product } from '@shared/types';
@@ -84,6 +84,9 @@ export default function BusinessPage() {
         <Skeleton className="mt-3 h-4 w-1/3" />
       </div>
     );
+  }
+  if (error?.includes('no está disponible')) {
+    return <div className="mx-auto max-w-xl px-4 py-16"><EmptyState icon={Store} title="Este negocio no está disponible" description="Por ahora no aparece en Detoke. Mirá otros comercios del barrio." action={<Button asChild><Link to="/explorar">Explorar negocios</Link></Button>} /></div>;
   }
   if (error) return error.includes('No encontramos') ? <NotFound /> : <div className="mx-auto max-w-xl px-4 py-16"><ErrorState message={error} onRetry={reload} /></div>;
   if (!business) return null;

@@ -45,6 +45,9 @@ export class Business extends Model {
 
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: false }) isVerified!: boolean;
   @Column({ type: DataType.BOOLEAN, allowNull: false, defaultValue: true }) isActive!: boolean;
+  /** Set when an admin disables the business: it disappears from the site until enabled again. */
+  @Column(DataType.DATE) disabledAt!: Date | null;
+  @Column(DataType.STRING) disabledReason!: string | null;
 
   @BelongsTo(() => User, 'ownerId') owner?: User;
   @BelongsTo(() => BusinessCategory, 'businessCategoryId') category?: BusinessCategory;
