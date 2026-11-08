@@ -31,6 +31,8 @@ export class Business extends Model {
   @Column(DataType.STRING) address!: string | null;
   @Column(DataType.STRING) neighborhood!: string | null;
   @Column(DataType.STRING) city!: string | null;
+  @Column(DataType.STRING) province!: string | null;
+  @Column(DataType.STRING) postalCode!: string | null;
   @Column(decimalColumn('latitude', 10, 7)) latitude!: number | null;
   @Column(decimalColumn('longitude', 10, 7)) longitude!: number | null;
 

@@ -80,6 +80,10 @@ El dialecto sale de `DATABASE_URL`:
 
 El proyecto está en modo pruebas: no hay migraciones. Si cambia un modelo, se regenera todo con `npm run db:seed`.
 
+## Ubicación del negocio
+
+En el registro y en Mi negocio, la ciudad y la dirección se autocompletan, y al tocar el mapa o arrastrar el marcador se completan dirección, barrio, ciudad, provincia y código postal (con "Deshacer"). El servidor consulta a [Georef](https://datosgobar.github.io/georef-ar-api/) y a [Photon](https://photon.komoot.io) con caché de 24 horas, un pedido por segundo como máximo a cada uno y un User-Agent con `CONTACT_EMAIL`. Si no responden, los campos se pueden completar a mano.
+
 ## Contacto
 
 El formulario de `/contact` guarda cada mensaje en `contact_messages`. Con `SMTP_HOST` en el `.env` también manda un aviso a `CONTACT_EMAIL` y un acuse a quien escribió; sin SMTP solo guarda y lo registra con `[contact]`. Los canales públicos salen de `CONTACT_EMAIL`, `CONTACT_WHATSAPP` y `CONTACT_HOURS`. Todavía no hay pantalla para leer los mensajes: se consultan por la API con la cuenta admin.
@@ -138,6 +142,9 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/admin/users` 🔒 | Solo admin: cuentas con su negocio (`?search=`, `?category=`, `?status=active\|inactive\|incomplete`, paginado) |
 | `POST /api/admin/impersonate/:userId` 🔒 | Solo admin: sesión de 2 horas en nombre de un vendedor |
 | `POST /api/admin/impersonate/stop` 🔒 | Termina la sesión en nombre de otro |
+| `GET /api/geo/cities?q=` | Ciudades: Georef (Argentina) y OpenStreetMap (Uruguay), "Ciudad, Provincia" |
+| `GET /api/geo/addresses?q=&lat=&lng=` | Direcciones cerca de un punto (Photon, OpenStreetMap) |
+| `GET /api/geo/reverse?lat=&lng=` | La dirección de un punto del mapa |
 | `GET /data/...` | Imágenes y archivos subidos |
 
 🔒 Pide `Authorization: Bearer <token>`.

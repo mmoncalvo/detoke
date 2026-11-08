@@ -1,6 +1,6 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Check, Loader2 } from 'lucide-react';
-import { lazy, Suspense, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import type { z } from 'zod';
@@ -12,20 +12,17 @@ import { GoogleSignIn } from '@/components/auth/GoogleButton';
 import { BrandMark } from '@/components/common/BrandMark';
 import { SelectField, TextField } from '@/components/common/FormFields';
 import { HoursEditor } from '@/components/dashboard/HoursEditor';
+import { LocationFields, toLocationValue, type LocationValue } from '@/components/dashboard/LocationFields';
 import { ImageUpload } from '@/components/dashboard/ImageUpload';
 import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
-import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Progress } from '@/components/ui/progress';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/context/AuthContext';
 import { useBusinessSaver } from '@/hooks/useBusinessSaver';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { toast } from 'sonner';
 
-const LocationPicker = lazy(() => import('@/components/dashboard/LocationPicker'));
 
 const STEPS = [
   { title: 'Tu cuenta', subtitle: 'Con estos datos vas a entrar a tu panel.' },
@@ -87,27 +84,19 @@ function BusinessStep({ onBack, onNext }: { onBack?: () => void; onNext: (busine
 
 function LocationStep({ onNext }: { onNext: () => void }) {
   const { save } = useBusinessSaver();
-  const [address, setAddress] = useState('');
-  const [neighborhood, setNeighborhood] = useState('');
-  const [city, setCity] = useState('Buenos Aires');
-  const [point, setPoint] = useState<{ latitude: number | null; longitude: number | null }>({ latitude: null, longitude: null });
+  const [location, setLocation] = useState<LocationValue>(() => toLocationValue({}));
   const [busy, setBusy] = useState(false);
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
-    if (await save({ address, neighborhood, city, ...point }, '')) onNext();
+    if (await save(location, '')) onNext();
     setBusy(false);
   };
 
   return (
     <form onSubmit={submit} className="space-y-4">
-      <div className="space-y-2"><Label htmlFor="address">Dirección</Label><Input id="address" value={address} onChange={(e) => setAddress(e.target.value)} placeholder="Calle y número" autoComplete="street-address" /></div>
-      <div className="grid grid-cols-2 gap-3">
-        <div className="space-y-2"><Label htmlFor="neighborhood">Barrio</Label><Input id="neighborhood" value={neighborhood} onChange={(e) => setNeighborhood(e.target.value)} /></div>
-        <div className="space-y-2"><Label htmlFor="city">Ciudad</Label><Input id="city" value={city} onChange={(e) => setCity(e.target.value)} /></div>
-      </div>
-      <Suspense fallback={<Skeleton className="h-64 w-full rounded-xl" />}><LocationPicker value={point} onChange={setPoint} /></Suspense>
+      <LocationFields value={location} onChange={setLocation} />
       <StepActions onSkip={onNext} busy={busy} />
     </form>
   );

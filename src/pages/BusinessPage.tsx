@@ -179,7 +179,7 @@ export default function BusinessPage() {
             </InfoBlock>
             {(business.address || business.latitude != null) && (
               <InfoBlock icon={MapPin} title="Dónde estamos">
-                <p>{[business.address, business.neighborhood, business.city].filter(Boolean).join(', ')}</p>
+                <p>{[business.address, business.neighborhood, business.city, business.province && !business.province.includes(business.city ?? '\u0000') && !(business.city ?? '').includes('Buenos Aires') ? business.province : null].filter(Boolean).join(', ')}</p>
                 {business.latitude != null && business.longitude != null && (
                   <div className="mt-3">
                     <Suspense fallback={<Skeleton className="h-48 w-full rounded-xl" />}><BusinessMap latitude={business.latitude} longitude={business.longitude} /></Suspense>

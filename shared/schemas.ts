@@ -76,6 +76,8 @@ export const businessUpdateSchema = z
     address: optionalText(160),
     neighborhood: optionalText(80),
     city: optionalText(80),
+    province: optionalText(80),
+    postalCode: optionalText(12),
     latitude: z.number().min(-90).max(90).nullish(),
     longitude: z.number().min(-180).max(180).nullish(),
     hours: hoursSchema,

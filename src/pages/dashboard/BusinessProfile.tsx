@@ -1,27 +1,26 @@
 import { zodResolver } from '@hookform/resolvers/zod';
 import { Loader2 } from 'lucide-react';
-import { lazy, Suspense, useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import type { z } from 'zod';
 import { businessUpdateSchema } from '@shared/schemas';
 import type { Business, BusinessCategory } from '@shared/types';
 import { SelectField, TextAreaField, TextField } from '@/components/common/FormFields';
 import { ImageUpload } from '@/components/dashboard/ImageUpload';
+import { LocationFields, toLocationValue, type LocationValue } from '@/components/dashboard/LocationFields';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form } from '@/components/ui/form';
-import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/context/AuthContext';
 import { useBusinessSaver } from '@/hooks/useBusinessSaver';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 
-const LocationPicker = lazy(() => import('@/components/dashboard/LocationPicker'));
 
 type Input = z.input<typeof businessUpdateSchema>;
 type Output = z.output<typeof businessUpdateSchema>;
 
-const FIELDS = ['name', 'businessCategoryId', 'tagline', 'description', 'whatsapp', 'phone', 'email', 'website', 'instagram', 'facebook', 'address', 'neighborhood', 'city'] as const;
+const FIELDS = ['name', 'businessCategoryId', 'tagline', 'description', 'whatsapp', 'phone', 'email', 'website', 'instagram', 'facebook'] as const;
 
 const toForm = (business: Business): Input => Object.fromEntries(FIELDS.map((field) => [field, business[field] ?? ''])) as Input;
 
@@ -41,10 +40,10 @@ function ProfileForm({ business }: { business: Business }) {
   const { save, uploadImage } = useBusinessSaver();
   const categories = useFetch<BusinessCategory[]>('/business-categories');
   const form = useForm<Input, unknown, Output>({ resolver: zodResolver(businessUpdateSchema), defaultValues: toForm(business) });
-  const [point, setPoint] = useState({ latitude: business.latitude, longitude: business.longitude });
+  const [location, setLocation] = useState<LocationValue>(() => toLocationValue(business));
 
   const onSubmit = form.handleSubmit(async (values) => {
-    await save({ ...values, ...point });
+    await save({ ...values, ...location });
   });
 
   return (
@@ -75,13 +74,8 @@ function ProfileForm({ business }: { business: Business }) {
           </div>
         </Section>
 
-        <Section title="Ubicación">
-          <TextField control={form.control} name="address" label="Dirección" />
-          <div className="grid grid-cols-2 gap-4">
-            <TextField control={form.control} name="neighborhood" label="Barrio" />
-            <TextField control={form.control} name="city" label="Ciudad" />
-          </div>
-          <Suspense fallback={<Skeleton className="h-64 w-full rounded-xl" />}><LocationPicker value={point} onChange={setPoint} /></Suspense>
+        <Section title="Ubicación" description="Elegí la ciudad, buscá la dirección o marcá el punto en el mapa.">
+          <LocationFields value={location} onChange={setLocation} />
         </Section>
 
         <div className="sticky bottom-0 -mx-4 border-t bg-background/90 px-4 py-3 backdrop-blur sm:-mx-6 sm:px-6">

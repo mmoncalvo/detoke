@@ -41,6 +41,8 @@ export interface Business {
   address: string | null;
   neighborhood: string | null;
   city: string | null;
+  province: string | null;
+  postalCode: string | null;
   latitude: number | null;
   longitude: number | null;
   hours: BusinessHours;
