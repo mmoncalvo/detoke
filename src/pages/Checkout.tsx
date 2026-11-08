@@ -61,8 +61,8 @@ function newRequestId() {
 function SentCard({ order }: { order: RecentOrder }) {
   const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
   return (
-    <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido enviado a ${order.businessName}`}>
-      <p className="flex items-center gap-2 font-semibold"><CheckCircle2 className="size-5 text-success" /> Pedido enviado ✓</p>
+    <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido realizado a ${order.businessName}`}>
+      <p className="flex items-center gap-2 font-semibold"><CheckCircle2 className="size-5 text-success" /> Pedido realizado ✓</p>
       <p className="mt-1 text-sm text-muted-foreground">Pedido #{order.number} a {order.businessName} · {formatPrice(order.total)}. Te avisamos acá cuando lo confirmen.</p>
       <div className="mt-3 flex flex-wrap gap-2">
         <Button asChild size="sm"><Link to={`/pedido/${order.publicCode}`}><ExternalLink /> Ver estado</Link></Button>

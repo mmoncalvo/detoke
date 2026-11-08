@@ -26,7 +26,7 @@ describe('recent orders', () => {
     const recent = new Date(now - 1000).toISOString();
     const list = [
       order('active-old', { status: 'confirmed', updatedAt: old }),
-      order('done-old', { status: 'completed', updatedAt: old }),
+      order('done-old', { status: 'sent', updatedAt: old }),
       order('cancelled-recent', { status: 'cancelled', updatedAt: recent }),
       order('gone'),
     ];

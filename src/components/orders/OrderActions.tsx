@@ -43,8 +43,8 @@ export function OrderActions({ order, onChange, compact }: { order: Order; onCha
         </Button>
       )}
       {order.status === 'pending' && (
-        <Button size={compact ? 'sm' : 'default'} variant="outline" onClick={() => move('completed')} disabled={!!busy}>
-          {busy === 'completed' && <Loader2 className="animate-spin" />} Ya lo entregué
+        <Button size={compact ? 'sm' : 'default'} variant="outline" onClick={() => move('sent')} disabled={!!busy}>
+          {busy === 'sent' && <Loader2 className="animate-spin" />} Ya lo envié
         </Button>
       )}
       {canCancel && (

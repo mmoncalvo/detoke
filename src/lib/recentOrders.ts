@@ -42,7 +42,7 @@ export function toRecentOrder(order: Order, business: { id: string; name: string
   };
 }
 
-const FINISHED: OrderStatus[] = ['completed', 'cancelled'];
+const FINISHED: OrderStatus[] = ['sent', 'cancelled'];
 
 export const isActive = (order: Pick<RecentOrder, 'status'>) => !FINISHED.includes(order.status);
 

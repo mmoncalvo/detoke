@@ -87,9 +87,9 @@ En el registro y en Mi negocio, la ciudad y la dirección se autocompletan, y al
 
 ## Pedidos en tiempo real
 
-Al enviar el pedido desde el checkout se crea en el servidor y el mensaje de WhatsApp lleva un link único (`/pedido/{código}`). El cliente sigue ahí el estado en vivo; el dueño lo ve aparecer al instante en **Pedidos** (con aviso, sonido opcional y contador) y lo avanza con pocos pasos: Nuevo (el cliente lo ve como Recibido) → Confirmado → Entregado, o directo de Nuevo a Entregado si lo retiran en el momento. También puede cancelarlo, con un motivo opcional.
+Al enviar el pedido desde el checkout se crea en el servidor y el mensaje de WhatsApp lleva un link único (`/pedido/{código}`). El cliente sigue ahí el estado en vivo; el dueño lo ve aparecer al instante en **Pedidos** (con aviso, sonido opcional y contador) y lo avanza con pocos pasos: Nuevo (el cliente lo ve como Recibido) → Confirmado → Enviado, o directo de Nuevo a Enviado si lo retiran en el momento. También puede cancelarlo, con un motivo opcional.
 
-Cuando un pedido sale, solo los productos de ese negocio se quitan del carrito (los de otros negocios quedan) y su tarjeta del checkout pasa a "Pedido enviado ✓" con **Ver estado**. El navegador guarda los últimos 20 pedidos (`detoke.recentOrders`, sin necesidad de cuenta): aparecen como **Pedidos en curso** en el carrito y el checkout, y en **Mis pedidos** (`/mis-pedidos`, con el ícono del header que cuenta los activos). Cada uno muestra el estado en vivo, permite **Reenviar por WhatsApp** mientras está Recibido (el mismo link, sin crear otro pedido) y **Repetir pedido**, que vuelve a cargar los productos disponibles con los precios de hoy. Los entregados o cancelados se borran a los dos días, y los que ya no existen, al consultarlos.
+Cuando un pedido sale, solo los productos de ese negocio se quitan del carrito (los de otros negocios quedan) y su tarjeta del checkout pasa a "Pedido realizado ✓" con **Ver estado**. El navegador guarda los últimos 20 pedidos (`detoke.recentOrders`, sin necesidad de cuenta): aparecen como **Pedidos en curso** en el carrito y el checkout, y en **Mis pedidos** (`/mis-pedidos`, con el ícono del header que cuenta los activos). Cada uno muestra el estado en vivo, permite **Reenviar por WhatsApp** mientras está Recibido (el mismo link, sin crear otro pedido) y **Repetir pedido**, que vuelve a cargar los productos disponibles con los precios de hoy. Los enviados o cancelados se borran a los dos días, y los que ya no existen, al consultarlos.
 
 Cada intento de envío lleva un `clientRequestId`: si el pedido se reintenta o se toca dos veces el botón, el servidor devuelve el mismo pedido en lugar de crear otro.
 
@@ -166,7 +166,7 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/og/business/:slug.jpg` | Imagen 1200×630 para la vista previa de links (pedidos y negocios) en WhatsApp |
 | `GET /api/orders/public/:code` | El pedido por su código; el dueño o un admin reciben `canManage` |
 | `GET /api/orders/mine` 🔒 | Pedidos de mi negocio (`?status=`, `?since=`) |
-| `PATCH /api/orders/:code/status` 🔒 | Cambia el estado (dueño o admin): `pending` → `confirmed` → `completed`, o `cancelled` (ver `shared/orders.ts`) |
+| `PATCH /api/orders/:code/status` 🔒 | Cambia el estado (dueño o admin): `pending` → `confirmed` → `sent`, o `cancelled` (ver `shared/orders.ts`) |
 | `GET /data/...` | Imágenes y archivos subidos |
 
 🔒 Pide `Authorization: Bearer <token>`.

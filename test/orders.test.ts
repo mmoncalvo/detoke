@@ -130,14 +130,14 @@ describe('orders', () => {
     expect((await move('preparing')).body.error).toBe('Estado inválido');
     expect((await move('confirmed')).status).toBe(200);
     expect((await move('confirmed')).status).toBe(409);
-    const done = await move('completed');
-    expect(done.body.data.status).toBe('completed');
-    expect(done.body.data.statusHistory.map((h: { status: string }) => h.status)).toEqual(['pending', 'confirmed', 'completed']);
+    const done = await move('sent');
+    expect(done.body.data.status).toBe('sent');
+    expect(done.body.data.statusHistory.map((h: { status: string }) => h.status)).toEqual(['pending', 'confirmed', 'sent']);
     expect((await move('cancelled')).status).toBe(409);
 
     const pickedUp = await placeOrder();
-    const direct = await request(app).patch(`/api/orders/${pickedUp.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'completed' });
-    expect(direct.body.data.status).toBe('completed');
+    const direct = await request(app).patch(`/api/orders/${pickedUp.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'sent' });
+    expect(direct.body.data.status).toBe('sent');
 
     const another = await placeOrder();
     const cancelled = await request(app).patch(`/api/orders/${another.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'cancelled', reason: 'Sin muzzarella' });

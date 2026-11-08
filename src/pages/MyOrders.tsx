@@ -64,7 +64,7 @@ export default function MyOrders() {
                   <AlertDialogContent>
                     <AlertDialogHeader>
                       <AlertDialogTitle>¿Eliminar los pedidos finalizados?</AlertDialogTitle>
-                      <AlertDialogDescription>Se quitan {finished.length === 1 ? 'el pedido entregado o cancelado' : `los ${finished.length} pedidos entregados o cancelados`} de la lista de este dispositivo. Los pedidos siguen existiendo para cada negocio.</AlertDialogDescription>
+                      <AlertDialogDescription>Se quitan {finished.length === 1 ? 'el pedido enviado o cancelado' : `los ${finished.length} pedidos enviados o cancelados`} de la lista de este dispositivo. Los pedidos siguen existiendo para cada negocio.</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancelar</AlertDialogCancel>

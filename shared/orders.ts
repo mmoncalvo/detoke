@@ -1,20 +1,20 @@
 // Orders: statuses, the transitions between them and their labels.
 import type { DeliveryOption, PaymentMethod } from './business.js';
 
-export const ORDER_STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'] as const;
+export const ORDER_STATUSES = ['pending', 'confirmed', 'sent', 'cancelled'] as const;
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
 /** Statuses that end the order. */
-export const FINAL_STATUSES: OrderStatus[] = ['completed', 'cancelled'];
+export const FINAL_STATUSES: OrderStatus[] = ['sent', 'cancelled'];
 
 /** Kept short on purpose: new, confirmed, delivered. Cancelling is a way out, not a step. */
 export function nextStatuses(status: OrderStatus): OrderStatus[] {
   switch (status) {
     case 'pending':
       // Straight to delivered too, for orders picked up on the spot.
-      return ['confirmed', 'completed', 'cancelled'];
+      return ['confirmed', 'sent', 'cancelled'];
     case 'confirmed':
-      return ['completed', 'cancelled'];
+      return ['sent', 'cancelled'];
     default:
       return [];
   }
@@ -27,7 +27,7 @@ export function statusLabel(status: OrderStatus, audience: 'customer' | 'busines
   const labels: Record<OrderStatus, string> = {
     pending: audience === 'business' ? 'Nuevo' : 'Recibido',
     confirmed: 'Confirmado',
-    completed: 'Entregado',
+    sent: 'Enviado',
     cancelled: 'Cancelado',
   };
   return labels[status];
@@ -37,7 +37,7 @@ export function statusLabel(status: OrderStatus, audience: 'customer' | 'busines
 export const STATUS_TONES: Record<OrderStatus, 'warning' | 'accent' | 'success' | 'danger'> = {
   pending: 'warning',
   confirmed: 'accent',
-  completed: 'success',
+  sent: 'success',
   cancelled: 'danger',
 };
 
@@ -46,14 +46,14 @@ export function actionLabel(status: OrderStatus) {
   const labels: Record<OrderStatus, string> = {
     pending: 'Nuevo',
     confirmed: 'Confirmar pedido',
-    completed: 'Marcar como entregado',
+    sent: 'Marcar como enviado',
     cancelled: 'Cancelar',
   };
   return labels[status];
 }
 
 /** The steps of the timeline. Cancelled is shown apart. */
-export const STATUS_STEPS: OrderStatus[] = ['pending', 'confirmed', 'completed'];
+export const STATUS_STEPS: OrderStatus[] = ['pending', 'confirmed', 'sent'];
 
 export interface OrderItem {
   productId: string;

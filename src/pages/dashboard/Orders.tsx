@@ -20,14 +20,14 @@ import { formatPrice } from '@/lib/format';
 import { itemsSummary, statusVariant, timeAgo } from '@/lib/orders';
 
 const ALL = 'all';
-const TABS = [ALL, 'pending', 'confirmed', 'completed', 'cancelled'] as const;
+const TABS = [ALL, 'pending', 'confirmed', 'sent', 'cancelled'] as const;
 
 /** Tab labels: plural of each status, same order as the flow. */
 const TAB_LABELS: Record<OrderStatus | typeof ALL, string> = {
   all: 'Todos',
   pending: 'Nuevos',
   confirmed: 'Confirmados',
-  completed: 'Entregados',
+  sent: 'Enviados',
   cancelled: 'Cancelados',
 };
 
