@@ -45,9 +45,9 @@ function since(days: number | null) {
   return date.toISOString();
 }
 
-function OrderCard({ order, onChange }: { order: Order; onChange: (order: Order) => void }) {
+function OrderCard({ order, onChange, dimmed = false }: { order: Order; onChange: (order: Order) => void; dimmed?: boolean }) {
   return (
-    <article className={`rounded-2xl border bg-card p-4 ${order.status === 'pending' ? 'border-warning/70 shadow-sm' : ''}`}>
+    <article className={`rounded-2xl border bg-card p-4 transition-opacity duration-200 ${order.status === 'pending' && !dimmed ? 'border-warning/70 shadow-sm' : ''} ${dimmed ? 'opacity-40 hover:opacity-100 focus-within:opacity-100' : ''}`}>
       <header className="flex flex-wrap items-start justify-between gap-2">
         <div>
           <p className="font-semibold">Pedido #{order.number} · {order.customerName}</p>
@@ -88,7 +88,9 @@ export default function Orders() {
     for (const s of ORDER_STATUSES) result[s] = (orders ?? []).filter((o) => o.status === s).length;
     return result;
   }, [orders]);
-  const visible = useMemo(() => (orders ?? []).filter((o) => status === ALL || o.status === status), [orders, status]);
+  // The tabs do not hide orders: the others stay in place, dimmed, so the whole period is always in view.
+  const matches = (order: Order) => status === ALL || order.status === status;
+  const all = orders ?? [];
 
   // Every change arrives through here: our own clicks and the socket events.
   const upsert = useCallback((order: Order) => {
@@ -132,10 +134,13 @@ export default function Orders() {
 
       {error ? <ErrorState message={error} onRetry={reload} /> : loading && !orders ? (
         <div className="grid gap-3 lg:grid-cols-2">{Array.from({ length: 4 }, (_, i) => <Skeleton key={i} className="h-44 rounded-2xl" />)}</div>
-      ) : visible.length === 0 ? (
-        <EmptyState icon={Inbox} title={status === 'pending' ? 'No hay pedidos nuevos' : 'No hay pedidos en esta vista'} description="Cuando un cliente te haga un pedido, aparece acá al instante." />
+      ) : all.length === 0 ? (
+        <EmptyState icon={Inbox} title="Todavía no hay pedidos en este período" description="Cuando un cliente te haga un pedido, aparece acá al instante." />
       ) : (
-        <div className="grid gap-3 lg:grid-cols-2">{visible.map((order) => <OrderCard key={order.id} order={order} onChange={upsert} />)}</div>
+        <>
+          {counts[status] === 0 && <p className="text-sm text-muted-foreground">{status === 'pending' ? 'No hay pedidos nuevos.' : 'No hay pedidos en esta vista.'} Abajo están los demás del período, atenuados.</p>}
+          <div className="grid gap-3 lg:grid-cols-2">{all.map((order) => <OrderCard key={order.id} order={order} onChange={upsert} dimmed={!matches(order)} />)}</div>
+        </>
       )}
     </div>
   );
