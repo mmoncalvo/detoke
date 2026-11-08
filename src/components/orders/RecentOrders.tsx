@@ -8,6 +8,7 @@ import { api, ApiError } from '@/api';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { useCart } from '@/context/CartContext';
+import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { itemCount, orderMessage, statusVariant, timeAgo } from '@/lib/orders';
@@ -27,6 +28,12 @@ export function useLiveStatus(order: RecentOrder) {
   }, [code, save]);
 
   useEffect(refresh, [refresh]);
+  // Back to the tab after a while: fetch again, in case an update was missed meanwhile.
+  useEffect(() => {
+    const onVisible = () => document.visibilityState === 'visible' && refresh();
+    document.addEventListener('visibilitychange', onVisible);
+    return () => document.removeEventListener('visibilitychange', onVisible);
+  }, [refresh]);
   useRoom('order', isActive(order) ? code : null, refresh);
   useSocketEvent('order:updated', (o) => {
     if (o.publicCode === code) save(o);
@@ -81,7 +88,6 @@ function removeOne(order: RecentOrder) {
 }
 
 function RecentOrderCard({ order, onNavigate, repeat, repeating }: { order: RecentOrder; onNavigate?: () => void; repeat: (o: RecentOrder, after?: () => void) => void; repeating: boolean }) {
-  useLiveStatus(order);
   const count = itemCount(order);
   // Same tab: on a phone it opens the WhatsApp app, and Back returns here.
   const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
@@ -103,6 +109,20 @@ function RecentOrderCard({ order, onNavigate, repeat, repeating }: { order: Rece
       </div>
     </li>
   );
+}
+
+function LiveStatus({ order }: { order: RecentOrder }) {
+  useLiveStatus(order);
+  return null;
+}
+
+/**
+ * Keeps the status of this browser's orders in progress up to date on every page, so the header
+ * count, the cart and the checkout never show an order as pending after it was delivered.
+ */
+export function RecentOrdersWatcher() {
+  const orders = useRecentOrders();
+  return <>{orders.filter(isActive).map((order) => <LiveStatus key={order.publicCode} order={order} />)}</>;
 }
 
 /** List of orders placed from this browser, each with its live status. */

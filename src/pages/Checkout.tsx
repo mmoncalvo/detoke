@@ -15,7 +15,7 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useCart, type CartGroup } from '@/context/CartContext';
 import { useTitle } from '@/hooks/useTitle';
-import { OrdersInProgress, useLiveStatus } from '@/components/orders/RecentOrders';
+import { OrdersInProgress } from '@/components/orders/RecentOrders';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { orderMessage } from '@/lib/orders';
@@ -70,8 +70,6 @@ function newRequestId() {
 
 /** What is left of a business card once its order went out: a confirmation and the link to follow it. */
 function SentCard({ order }: { order: RecentOrder }) {
-  // Live status: once the business delivers or cancels it, the card leaves the checkout.
-  useLiveStatus(order);
   const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
   return (
     <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido enviado a ${order.businessName}`}>

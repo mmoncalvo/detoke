@@ -4,6 +4,7 @@ import { PageLoader } from '@/components/common/States';
 import { useAuth } from '@/context/AuthContext';
 import PublicLayout from '@/layouts/PublicLayout';
 import { OrderAlertsProvider } from '@/context/OrderAlertsContext';
+import { RecentOrdersWatcher } from '@/components/orders/RecentOrders';
 
 const Home = lazy(() => import('@/pages/Home'));
 const Explore = lazy(() => import('@/pages/Explore'));
@@ -35,6 +36,7 @@ function RequireAuth({ children }: { children: React.ReactNode }) {
 export default function App() {
   return (
     <OrderAlertsProvider>
+    <RecentOrdersWatcher />
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<PublicLayout />}>
