@@ -41,6 +41,7 @@ export default function PublicLayout() {
           <BrandMark compact />
           <nav className="ml-1 block sm:ml-6" aria-label="Principal">
             <NavLink to="/explorar" className={({ isActive }) => navLinkClass(isActive)}>Explorar</NavLink>
+            <NavLink to="/nosotros" className={({ isActive }) => `hidden md:inline-block ${navLinkClass(isActive)}`}>Nosotros</NavLink>
             <NavLink to="/contact" className={({ isActive }) => `hidden md:inline-block ${navLinkClass(isActive)}`}>Contacto</NavLink>
           </nav>
 
@@ -94,6 +95,7 @@ export default function PublicLayout() {
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <Link to="/explorar" className="hover:text-sidebar-accent-foreground">Explorar</Link>
             <Link to="/register" className="hover:text-sidebar-accent-foreground">Sumá tu negocio</Link>
+            <Link to="/nosotros" className="hover:text-sidebar-accent-foreground">Nosotros</Link>
             <Link to="/contact" className="hover:text-sidebar-accent-foreground">Contacto</Link>
             <Link to="/login" className="hover:text-sidebar-accent-foreground">Ingresar</Link>
           </div>

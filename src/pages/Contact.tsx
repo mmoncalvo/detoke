@@ -24,7 +24,7 @@ type Output = z.output<typeof contactSchema>;
 const REASONS = CONTACT_REASONS.map((id) => ({ id, name: CONTACT_REASON_LABELS[id] }));
 
 const FAQS = [
-  { question: '¿Cómo funciona el pedido por WhatsApp?', answer: 'Sumás productos de un negocio, elegís entrega y forma de pago, y Detoke arma el mensaje con todo el detalle. Se abre WhatsApp y lo enviás directo al comercio, que confirma el pedido y coordina con vos.' },
+  { question: '¿Cómo funciona el pedido por WhatsApp?', answer: 'Sumás productos de un negocio, elegís entrega y forma de pago, y Detoke arma tu pedido con un link. Se abre WhatsApp y se lo enviás directo al comercio, que lo confirma y coordina con vos; el estado lo seguís en vivo desde ese link.' },
   { question: '¿Cuánto cuesta usar Detoke?', answer: 'Publicar tu negocio es gratis y no cobramos comisión por los pedidos. Los pagos se arreglan directamente entre el cliente y el comercio.' },
   { question: '¿Cómo edito los datos de mi negocio?', answer: 'Entrá a tu panel y abrí Mi negocio. Ahí podés cambiar el nombre, el rubro, la descripción, el logo, la portada, el contacto y la ubicación en el mapa.' },
   { question: '¿Cómo cambio mis horarios?', answer: 'En tu panel, en Horarios, elegís qué días abrís y en qué franjas. Si cortás al mediodía usá Horario cortado. Los clientes ven al instante si estás abierto.' },

@@ -56,7 +56,18 @@ async function businessMeta(slug: string): Promise<PageMeta | null> {
   };
 }
 
+/** Fixed pages that are worth sharing. */
+const STATIC_PAGES: Record<string, Omit<PageMeta, 'url' | 'image'>> = {
+  '/nosotros': {
+    title: 'Sobre Detoke',
+    description: 'Todo el barrio, de toque: los comercios de tu barrio con su catálogo, y los pedidos se cierran por WhatsApp.',
+    imageAlt: 'Detoke',
+  },
+};
+
 export async function metaForPath(pathname: string): Promise<PageMeta | null> {
+  const page = STATIC_PAGES[pathname.replace(/\/$/, '')];
+  if (page) return { ...page, url: `${config.appUrl}${pathname.replace(/\/$/, '')}`, image: `${config.appUrl}/api/og/site.jpg` };
   const order = pathname.match(/^\/pedido\/([^/]+)\/?$/);
   if (order) return orderMeta(decodeURIComponent(order[1]));
   const business = pathname.match(/^\/negocio\/([^/]+)\/?$/);
@@ -134,11 +145,22 @@ export async function businessPreviewImage(business: Business) {
   return image;
 }
 
+let siteImage: Buffer | null = null;
+
+/** The brand's preview image for pages without a business: green with the awning. */
+export async function sitePreviewImage() {
+  siteImage ??= await sharp({ create: { width: OG_WIDTH, height: OG_HEIGHT, channels: 3, background: BRAND_BACKGROUND } })
+    .composite([{ input: AWNING, top: 0, left: 0 }, { input: AWNING, top: OG_HEIGHT - 40, left: 0 }])
+    .jpeg({ quality: 85 })
+    .toBuffer();
+  return siteImage;
+}
+
 // ------------------------------------------------------------------ routes
 /** Serves the web app's HTML with the preview tags of the page, when it has them. */
 export function htmlWithMeta(getHtml: (req: Request) => Promise<string>) {
   const router = Router();
-  router.get(['/pedido/:code', '/negocio/:slug'], asyncHandler(async (req, res) => {
+  router.get(['/pedido/:code', '/negocio/:slug', ...Object.keys(STATIC_PAGES)], asyncHandler(async (req, res) => {
     const html = await getHtml(req);
     const meta = await metaForPath(req.path).catch(() => null);
     res.type('html').set('Cache-Control', 'no-cache').send(meta ? injectMeta(html, meta) : html);

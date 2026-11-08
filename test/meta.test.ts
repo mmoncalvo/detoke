@@ -69,6 +69,13 @@ describe('link previews', () => {
     expect((await request(app).get('/api/og/business/noexiste.jpg')).status).toBe(404);
   });
 
+  it('describes the about page', async () => {
+    const res = await request(site).get('/nosotros');
+    expect(meta(res.text, 'og:title')).toBe('Sobre Detoke');
+    expect(meta(res.text, 'og:image')).toMatch(/\/api\/og\/site\.jpg$/);
+    expect((await request(app).get('/api/og/site.jpg')).type).toBe('image/jpeg');
+  });
+
   it('keeps the rest of the head', () => {
     const html = injectMeta(TEMPLATE, { title: 'T', description: 'D', url: 'https://x.test/a', image: 'https://x.test/i.jpg', imageAlt: 'A' });
     expect(html).toContain('<div id="root"></div>');
