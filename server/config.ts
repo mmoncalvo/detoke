@@ -37,7 +37,9 @@ function database(): DatabaseConfig {
   return { dialect: 'sqlite', storage: path.resolve(sqlitePath || 'database.sqlite') };
 }
 
-const appUrl = (process.env.APP_URL?.trim() || 'http://localhost:3000').replace(/\/$/, '');
+// Render sets RENDER_EXTERNAL_URL to the service's public address: use it when APP_URL is missing.
+const appUrl = (process.env.APP_URL?.trim() || process.env.RENDER_EXTERNAL_URL?.trim() || 'http://localhost:3000').replace(/\/$/, '');
+if (isProduction && appUrl.includes('localhost')) console.warn(`[config] APP_URL is ${appUrl} in production: set it to the public address, or Google sign-in will fail`);
 
 export const config = {
   isProduction,

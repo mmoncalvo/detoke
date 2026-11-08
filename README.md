@@ -106,6 +106,7 @@ Cómo funciona: el servidor manda a Google, recibe el código en `/api/auth/goog
 - **Datos de ejemplo:** la primera vez, desde la Shell del servicio, `npm run db:seed` (borra la base). Las fotos del seed salen del repo (`data/images`).
 - **Archivos subidos:** el disco de Render es efímero, así que `data/uploads` se pierde en cada deploy. Para conservarlos hace falta un Persistent Disk (plan pago) montado, por ejemplo, en `/var/data`, con `UPLOADS_DIR=/var/data/uploads`; más adelante, un almacenamiento externo.
 - En producción sin `DATABASE_URL` el servidor no arranca y lo explica en el log.
+- Si falta `APP_URL`, se usa `RENDER_EXTERNAL_URL`, que Render define solo. Si Google responde `redirect_uri_mismatch`, la URI de redireccionamiento cargada en Google Cloud Console no coincide exactamente con `APP_URL` + `/api/auth/google/callback`.
 
 ## Imágenes
 
