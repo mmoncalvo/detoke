@@ -47,15 +47,15 @@ export default function PublicLayout() {
 
           <button
             onClick={() => setSearchOpen(true)}
-            className="ml-auto hidden h-10 w-72 items-center gap-2 rounded-lg border bg-card px-3 text-sm text-muted-foreground outline-none transition-colors duration-200 hover:border-primary/30 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 md:flex"
+            className="ml-auto hidden h-10 w-72 items-center gap-2 rounded-lg border bg-card px-3 text-sm text-muted-foreground outline-none transition-colors duration-200 hover:border-primary/30 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 lg:flex"
           >
             <Search className="size-4" />
             <span className="flex-1 text-left">Buscar en el barrio</span>
             <kbd className="rounded bg-secondary px-1.5 py-0.5 text-[10px] font-medium">⌘K</kbd>
           </button>
 
-          <div className="ml-auto flex items-center md:ml-2 sm:gap-1">
-            <Button variant="ghost" size="icon" className={`size-9 md:hidden ${NAV_ICON}`} aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
+          <div className="ml-auto flex items-center lg:ml-2 sm:gap-1">
+            <Button variant="ghost" size="icon" className={`size-9 lg:hidden ${NAV_ICON}`} aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
             <ThemeToggle className={`size-9 sm:size-10 ${NAV_ICON}`} />
             {recent.length > 0 && (
               <Button asChild variant="ghost" size="icon" className={`relative size-9 sm:size-10 ${NAV_ICON}`}>
