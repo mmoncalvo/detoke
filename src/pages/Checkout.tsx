@@ -1,4 +1,4 @@
-import { AlertTriangle, MessageCircle, ShoppingBag, Trash2 } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, MessageCircle, ShoppingBag, Store, Trash2, Undo2 } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DELIVERY_LABELS, openStatus, PAYMENT_LABELS, type DeliveryOption, type PaymentMethod } from '@shared/business';
@@ -50,7 +50,7 @@ function buildMessage(group: CartGroup, customer: Customer, method: DeliveryOpti
   return lines.join('\n');
 }
 
-function OrderCard({ group, customer, setCustomer }: { group: CartGroup; customer: Customer; setCustomer: (c: Customer) => void }) {
+function OrderCard({ group, customer, setCustomer, index, count, sent, onSent }: { group: CartGroup; customer: Customer; setCustomer: (c: Customer) => void; index: number; count: number; sent: boolean; onSent: (sent: boolean) => void }) {
   const { business } = group;
   const { setQuantity, removeBusiness } = useCart();
   const [method, setMethod] = useState<DeliveryOption>(business.deliveryOptions[0] ?? 'pickup');
@@ -69,10 +69,17 @@ function OrderCard({ group, customer, setCustomer }: { group: CartGroup; custome
     setShowErrors(true);
     if (!customer.name.trim() || (method === 'delivery' && !customer.address.trim()) || missing > 0) return;
     window.open(whatsappUrl(business.whatsapp, buildMessage(group, customer, method, payment, notes, shipping)), '_blank', 'noopener');
+    onSent(true);
   };
 
   return (
-    <section className="rounded-2xl border bg-card" aria-label={`Pedido a ${business.name}`}>
+    <section id={`order-${business.id}`} className={`scroll-mt-24 rounded-2xl border-2 bg-card ${sent ? 'border-success/60' : count > 1 ? 'border-primary/30' : 'border-border'}`} aria-label={`Pedido ${index + 1} de ${count}: ${business.name}`}>
+      {count > 1 && (
+        <div className="flex items-center justify-between gap-2 rounded-t-[14px] bg-secondary px-4 py-2 text-xs font-semibold uppercase tracking-wide">
+          <span>Pedido {index + 1} de {count}</span>
+          {sent ? <span className="flex items-center gap-1 text-success-foreground"><CheckCircle2 className="size-4" /> Enviado</span> : <span className="text-muted-foreground">Pendiente</span>}
+        </div>
+      )}
       <header className="flex items-center gap-3 border-b p-4">
         <SafeImage src={business.logo} alt="" className="size-11 rounded-lg" />
         <div className="min-w-0 flex-1">
@@ -141,7 +148,16 @@ function OrderCard({ group, customer, setCustomer }: { group: CartGroup; custome
         )}
         {!status.isOpen && <p className="text-sm text-warning-foreground">Ahora está cerrado. Podés mandar el pedido y lo verán cuando abran.</p>}
 
-        <Button size="lg" className="w-full" disabled={missing > 0} onClick={send}><MessageCircle /> Enviar pedido por WhatsApp</Button>
+        <Button size="lg" className="w-full" variant={sent ? 'outline' : 'default'} disabled={missing > 0} onClick={send}><MessageCircle /> {sent ? 'Volver a enviar' : count > 1 ? `Enviar pedido a ${business.name}` : 'Enviar pedido por WhatsApp'}</Button>
+        {sent && (
+          <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
+            <span className="flex items-center gap-1.5 text-success-foreground"><CheckCircle2 className="size-4" /> Abrimos WhatsApp con este pedido.</span>
+            <span className="flex gap-1">
+              <Button variant="ghost" size="sm" onClick={() => onSent(false)}><Undo2 /> Deshacer</Button>
+              <Button variant="ghost" size="sm" onClick={() => removeBusiness(business.id)}><Trash2 /> Quitar del carrito</Button>
+            </span>
+          </div>
+        )}
       </div>
     </section>
   );
@@ -151,6 +167,11 @@ export default function Checkout() {
   useTitle('Tu pedido');
   const { groups } = useCart();
   const [customer, setCustomer] = useState<Customer>(readCustomer);
+  const [sent, setSent] = useState<string[]>([]);
+  const many = groups.length > 1;
+  const sentCount = groups.filter((g) => sent.includes(g.business.id)).length;
+  const grandTotal = groups.reduce((sum, g) => sum + g.subtotal, 0);
+  const markSent = (id: string, value: boolean) => setSent((list) => (value ? [...new Set([...list, id])] : list.filter((x) => x !== id)));
 
   useEffect(() => {
     try {
@@ -163,12 +184,41 @@ export default function Checkout() {
   return (
     <div className="mx-auto max-w-form px-4 py-8">
       <h1 className="text-3xl font-bold sm:text-4xl">Tu pedido</h1>
-      {groups.length > 1 && <p className="mt-2 text-muted-foreground">Tenés productos de {groups.length} negocios: cada pedido se envía por separado.</p>}
+      {many && (
+        <div role="status" className="mt-4 rounded-2xl border-2 border-mustard bg-accent p-4 text-accent-foreground">
+          <p className="flex items-center gap-2 font-semibold"><Store className="size-5 shrink-0" /> Tenés {groups.length} pedidos separados</p>
+          <p className="mt-1 text-sm">Cada negocio recibe su pedido por WhatsApp y se paga por separado. Enviá cada uno con su botón.</p>
+          <ul className="mt-3 flex flex-wrap gap-2">
+            {groups.map((g, i) => (
+              <li key={g.business.id}>
+                <a href={`#order-${g.business.id}`} className="flex items-center gap-2 rounded-full border bg-card px-2 py-1 pr-3 text-sm text-foreground hover:border-primary">
+                  <SafeImage src={g.business.logo} alt="" className="size-6 rounded-full" />
+                  <span className="font-medium">{i + 1}. {g.business.name}</span>
+                  <span className="text-muted-foreground">{formatPrice(g.subtotal)}</span>
+                  {sent.includes(g.business.id) && <CheckCircle2 className="size-4 text-success" aria-label="Enviado" />}
+                </a>
+              </li>
+            ))}
+          </ul>
+          <p className="mt-3 text-sm font-medium">{sentCount} de {groups.length} pedidos enviados</p>
+        </div>
+      )}
       <div className="mt-6 space-y-6">
         {groups.length === 0 ? (
           <EmptyState icon={ShoppingBag} title="Tu pedido está vacío" description="Elegí un negocio del barrio y sumá lo que necesites." action={<Button asChild><Link to="/explorar">Explorar negocios</Link></Button>} />
-        ) : groups.map((group) => <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} />)}
+        ) : groups.map((group, i) => (
+          <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} index={i} count={groups.length} sent={sent.includes(group.business.id)} onSent={(v) => markSent(group.business.id, v)} />
+        ))}
       </div>
+      {many && (
+        <div className="mt-6 flex items-center justify-between rounded-2xl border bg-card p-4">
+          <div>
+            <p className="font-semibold">Total de los {groups.length} pedidos</p>
+            <p className="text-sm text-muted-foreground">Sin envíos. Cada negocio cobra su parte por separado.</p>
+          </div>
+          <p className="font-display text-xl font-semibold">{formatPrice(grandTotal)}</p>
+        </div>
+      )}
     </div>
   );
 }

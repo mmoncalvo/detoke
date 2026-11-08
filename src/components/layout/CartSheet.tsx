@@ -22,6 +22,11 @@ export function CartSheet() {
         </SheetHeader>
 
         <div className="flex-1 space-y-6 overflow-y-auto p-4">
+          {groups.length > 1 && (
+            <p role="status" className="rounded-xl border-2 border-mustard bg-accent px-3 py-2 text-sm text-accent-foreground">
+              Son <strong>{groups.length} pedidos separados</strong>, uno por negocio: cada uno se envía y se paga aparte.
+            </p>
+          )}
           {groups.length === 0 && (
             <EmptyState icon={ShoppingBag} title="Tu pedido está vacío" description="Elegí un negocio del barrio y sumá lo que necesites." action={<Button onClick={() => { setOpen(false); navigate('/explorar'); }}>Explorar negocios</Button>} />
           )}
