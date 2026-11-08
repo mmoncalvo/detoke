@@ -26,6 +26,9 @@
   --accent: oklch(0.92 0.07 92);
   --accent-foreground: oklch(0.33 0.06 75);
   --mustard: oklch(0.78 0.14 82);
+  /* The awning's stripes: the brand colors as they are. */
+  --awning-a: var(--primary);
+  --awning-b: var(--mustard);
   --tomato: oklch(0.56 0.18 31);
   --hero: oklch(0.43 0.085 163);
   --success: oklch(0.55 0.13 155);
@@ -65,6 +68,9 @@
   --accent: oklch(0.36 0.05 90);
   --accent-foreground: oklch(0.93 0.06 90);
   --mustard: oklch(0.8 0.14 82);
+  /* Softer stripes at night: less light and less color, still solid. */
+  --awning-a: oklch(0.64 0.085 160);
+  --awning-b: oklch(0.7 0.1 82);
   --tomato: oklch(0.7 0.17 33);
   --hero: oklch(0.31 0.055 163);
   --success: oklch(0.72 0.14 155);
@@ -137,16 +143,22 @@
   * {
     @apply border-border outline-ring/50;
   }
+
   html {
     scroll-padding-top: 8rem;
   }
+
   body {
     @apply bg-background text-foreground font-sans antialiased;
   }
-  h1, h2, h3 {
+
+  h1,
+  h2,
+  h3 {
     @apply font-display tracking-tight;
     font-optical-sizing: auto;
   }
+
   /* Tailwind v4 leaves buttons with the default cursor: everything clickable gets the hand. */
   button:not(:disabled),
   [role='button']:not([aria-disabled='true']),
@@ -166,6 +178,7 @@
   a[href] {
     cursor: pointer;
   }
+
   :is(button, input, select, textarea):disabled,
   [aria-disabled='true'],
   [data-disabled]:not([data-disabled='false']) {
@@ -176,7 +189,7 @@
 /* The scalloped shop awning used as the brand's signature edge. */
 @utility awning {
   height: 18px;
-  background: repeating-linear-gradient(90deg, var(--primary) 0 32px, var(--mustard) 32px 64px);
+  background: repeating-linear-gradient(90deg, var(--awning-a) 0 32px, var(--awning-b) 32px 64px);
   mask: radial-gradient(16px at 16px 2px, #000 98%, transparent) 0 0 / 32px 100% repeat-x;
 }
 
