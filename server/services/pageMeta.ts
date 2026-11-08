@@ -60,7 +60,7 @@ async function businessMeta(slug: string): Promise<PageMeta | null> {
 const STATIC_PAGES: Record<string, Omit<PageMeta, 'url' | 'image'>> = {
   '/nosotros': {
     title: 'Sobre Detoke',
-    description: 'Todo el barrio, de toque: los comercios de tu barrio con su catálogo, y los pedidos se cierran por WhatsApp.',
+    description: 'Todo el barrio, de toque: los comercios de tu barrio en un solo lugar, con pedidos por WhatsApp.',
     imageAlt: 'Detoke',
   },
 };
