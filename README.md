@@ -58,6 +58,7 @@ Las fotos del seed están en `data/images/`; lo que suben los usuarios va a `dat
 | `npm test` | Pruebas de la API (SQLite temporal) |
 | `npm run lint` | Chequeo de tipos (igual que `npm run typecheck`) |
 | `npm run db:seed` | **Borra la base** y carga los datos de ejemplo |
+| `npm run db:demo` | Recarga solo los datos de ejemplo (cuentas `@detoke.test`, sus negocios, productos y pedidos); las cuentas reales, sus negocios y pedidos quedan intactos |
 | `npm run db:check-images` | Verifica que existan todas las imágenes del seed |
 | `npm run build` | Compila la web en `dist/` |
 | `npm start` | Producción: sirve la API, `/data` y `dist/` |
@@ -152,7 +153,7 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/admin/users` 🔒 | Solo admin: cuentas con su negocio (`?search=`, `?category=`, `?status=active\|inactive\|incomplete`, paginado) |
 | `POST /api/admin/impersonate/:userId` 🔒 | Solo admin: sesión de 2 horas en nombre de un vendedor |
 | `POST /api/admin/impersonate/stop` 🔒 | Termina la sesión en nombre de otro |
-| `GET /api/geo/cities?q=` | Ciudades: Georef (Argentina) y OpenStreetMap (Uruguay), "Ciudad, Provincia" |
+| `GET /api/geo/cities?q=` | Ciudades: OpenStreetMap (Uruguay, primero) y Georef (Argentina, con ", Argentina"), "Ciudad, Departamento" |
 | `GET /api/geo/addresses?q=&lat=&lng=` | Direcciones cerca de un punto (Photon, OpenStreetMap) |
 | `GET /api/geo/reverse?lat=&lng=` | La dirección de un punto del mapa |
 | `POST /api/orders` | Crea un pedido (recalcula precios y reglas del negocio) y devuelve su link `/pedido/{código}`; con el mismo `clientRequestId` devuelve el pedido ya creado |

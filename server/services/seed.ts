@@ -1,4 +1,4 @@
-// Sample data. Drops and recreates every table.
+// Sample data: `seed()` drops and recreates every table; `refreshDemo()` reloads only the demo accounts.
 import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
@@ -21,7 +21,7 @@ interface SeedBusiness {
   [field: string]: unknown;
 }
 
-const CUSTOMERS = ['Lucía Fernández', 'Martín Gómez', 'Sofía Herrera', 'Tomás Ruiz', 'Valentina Díaz', 'Joaquín Romero'];
+const CUSTOMERS = ['Lucía Fernández', 'Martín Pereira', 'Sofía Rodríguez', 'Tomás Silva', 'Valentina Sosa', 'Joaquín Méndez'];
 /** Status, how many minutes ago, delivery or pickup. */
 const SAMPLE_ORDERS: [OrderStatus, number, 'delivery' | 'pickup'][] = [
   ['pending', 4, 'pickup'],
@@ -61,7 +61,7 @@ export async function seedOrders(limit = 8) {
         deliveryFee,
         total: subtotal + deliveryFee,
         fulfillment,
-        deliveryAddress: fulfillment === 'delivery' ? `${['Thames', 'Gurruchaga', 'Malabia', 'Armenia'][n % 4]} ${1200 + n * 37}` : null,
+        deliveryAddress: fulfillment === 'delivery' ? `${['Bulevar Artigas', 'Chucarro', 'Libertad', 'Avenida Brasil'][n % 4]} ${1200 + n * 37}` : null,
         paymentMethod: business.paymentMethods[n % business.paymentMethods.length],
         customerName: CUSTOMERS[(index + n) % CUSTOMERS.length],
         customerPhone: null,
@@ -113,4 +113,60 @@ export async function seed() {
   await seedOrders();
 
   return { businesses: businesses.length, products: productCount, accounts: businesses.map((b) => `${b.owner.email} (${b.name})`) };
+}
+
+/** Creates the missing categories and updates the others by slug, keeping their ids (real businesses use them). */
+async function upsertCategories<M extends typeof BusinessCategory | typeof ProductCategory>(model: M, file: string) {
+  const ids = new Map<string, string>();
+  for (const [position, data] of (readSeed(file) as { slug: string }[]).entries()) {
+    const existing = await (model as typeof BusinessCategory).findOne({ where: { slug: data.slug } });
+    const row = existing ? await existing.update({ ...data, position }) : await (model as typeof BusinessCategory).create({ ...data, position });
+    ids.set(row.slug, row.id);
+  }
+  return ids;
+}
+
+/**
+ * Reloads only the sample data, without touching anything else: demo accounts and their businesses
+ * are updated in place (found by email), their products and orders are recreated, and the sample
+ * contact messages are replaced. Real accounts, their businesses and their orders stay as they are.
+ */
+export async function refreshDemo() {
+  await initDb();
+  const businessCategoryIds = await upsertCategories(BusinessCategory, 'business-categories.json');
+  const productCategoryIds = await upsertCategories(ProductCategory, 'product-categories.json');
+  const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
+
+  const admin = await User.findOne({ where: { email: ADMIN_EMAIL } });
+  if (admin) await admin.update({ role: 'admin', passwordHash });
+  else await User.create({ email: ADMIN_EMAIL, name: 'Administración Detoke', role: 'admin', passwordHash });
+
+  const businesses: SeedBusiness[] = readSeed('businesses.json');
+  let productCount = 0;
+  for (const { owner, category, products, ...data } of businesses) {
+    const existingUser = await User.findOne({ where: { email: owner.email } });
+    const user = existingUser ? await existingUser.update({ ...owner, passwordHash }) : await User.create({ ...owner, passwordHash });
+    const fields = { ...data, ownerId: user.id, businessCategoryId: businessCategoryIds.get(category) };
+    let business = await Business.findOne({ where: { ownerId: user.id } });
+    if (business) {
+      await Order.destroy({ where: { businessId: business.id } });
+      await Product.destroy({ where: { businessId: business.id } });
+      business = await business.update(fields);
+    } else {
+      business = await Business.create(fields);
+    }
+    await Product.bulkCreate(products.map(({ category: productCategory, ...product }) => ({
+      ...product,
+      businessId: business.id,
+      productCategoryId: productCategoryIds.get(productCategory),
+    })));
+    productCount += products.length;
+  }
+
+  const messages: { email: string }[] = readSeed('contact-messages.json');
+  await ContactMessage.destroy({ where: { email: messages.map((m) => m.email) } });
+  await seedContactMessages();
+  const orders = await seedOrders();
+
+  return { businesses: businesses.length, products: productCount, orders, accounts: businesses.map((b) => `${b.owner.email} (${b.name})`) };
 }

@@ -22,13 +22,13 @@
     "website": null,
     "instagram": "lo.de.tito.demo",
     "facebook": null,
-    "address": "Costa Rica 1351",
-    "neighborhood": "Palermo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Miguel Barreiro 3209",
+    "neighborhood": "Pocitos",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.591753,
-    "longitude": -58.434741,
+    "latitude": -34.9085,
+    "longitude": -56.1472,
     "hours": {
       "monday": {
         "open": false,
@@ -98,7 +98,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 8000,
+    "minimumOrder": 400,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -114,7 +114,7 @@
         "name": "Pizza muzzarella",
         "slug": "pizza-muzzarella-lo-de-tito",
         "description": "Salsa de tomate casera, muzzarella y aceitunas. 8 porciones.",
-        "price": 13600,
+        "price": 520,
         "images": [
           "pizza_napolitana_gourmet.jpg"
         ],
@@ -127,7 +127,7 @@
         "name": "Pizza napolitana",
         "slug": "pizza-napolitana-lo-de-tito",
         "description": "Muzzarella, rodajas de tomate fresco, ajo y albahaca. 8 porciones.",
-        "price": 15800,
+        "price": 590,
         "images": [
           "pizza_napolitana.jpg"
         ],
@@ -140,7 +140,7 @@
         "name": "Pizza especial",
         "slug": "pizza-especial-lo-de-tito",
         "description": "Muzzarella, jamón, morrón y huevo duro. 8 porciones.",
-        "price": 17800,
+        "price": 650,
         "images": [
           "pizza_especial.jpg"
         ],
@@ -148,13 +148,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 20500
+        "compareAtPrice": 750
       },
       {
         "name": "Fugazzeta",
         "slug": "fugazzeta-lo-de-tito",
         "description": "Masa alta rellena de muzzarella, con cebolla dorada arriba.",
-        "price": 16400,
+        "price": 560,
         "images": [
           "fugazzeta.jpg"
         ],
@@ -167,7 +167,7 @@
         "name": "Fainá",
         "slug": "faina-lo-de-tito",
         "description": "Porción grande de fainá de garbanzos, crocante por fuera.",
-        "price": 2600,
+        "price": 95,
         "images": [
           "fainá_casera.jpg"
         ],
@@ -180,7 +180,7 @@
         "name": "Calzone de jamón y queso",
         "slug": "calzone-de-jamon-y-queso-lo-de-tito",
         "description": "Masa cerrada al horno con jamón cocido, muzzarella y orégano.",
-        "price": 9200,
+        "price": 380,
         "images": [
           "calzone_artesanal.jpg"
         ],
@@ -193,7 +193,7 @@
         "name": "Focaccia con queso crema",
         "slug": "focaccia-con-queso-crema-lo-de-tito",
         "description": "Masa de larga fermentación, queso crema y hierbas.",
-        "price": 8400,
+        "price": 390,
         "images": [
           "pre-pizza.jpg"
         ],
@@ -206,7 +206,7 @@
         "name": "Empanada de carne",
         "slug": "empanada-de-carne-lo-de-tito",
         "description": "Carne cortada a cuchillo, cebolla, huevo y aceitunas.",
-        "price": 2100,
+        "price": 100,
         "images": [
           "empanadas_de_carne.jpg"
         ],
@@ -219,7 +219,7 @@
         "name": "Empanada de pollo",
         "slug": "empanada-de-pollo-lo-de-tito",
         "description": "Pollo desmenuzado con cebolla y morrón.",
-        "price": 2100,
+        "price": 100,
         "images": [
           "empanadas_de_pollo.jpg"
         ],
@@ -232,7 +232,7 @@
         "name": "Cerveza artesanal 500 ml",
         "slug": "cerveza-artesanal-500-ml-lo-de-tito",
         "description": "Rubia, tirada en botella retornable.",
-        "price": 4500,
+        "price": 190,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -242,10 +242,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-lo-de-tito",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-lo-de-tito",
         "description": "Bien fría.",
-        "price": 3900,
+        "price": 150,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -262,11 +262,11 @@
       "email": "pizzeria2@detoke.test"
     },
     "category": "pizzeria",
-    "name": "La Muzza de Boedo",
-    "slug": "la-muzza-de-boedo",
+    "name": "La Muzza del Cordón",
+    "slug": "la-muzza-del-cordon",
     "tagline": "Media masa, mucha muzza",
-    "description": "La clásica pizzería de esquina: mostrador, porción al paso y delivery rápido por todo Boedo y alrededores.",
-    "logo": "/seed/logos/la-muzza-de-boedo.svg",
+    "description": "La clásica pizzería de esquina: mostrador, porción al paso y delivery rápido por todo el Cordón y alrededores.",
+    "logo": "/seed/logos/la-muzza-del-cordon.svg",
     "coverImage": "pizza_napolitana.jpg",
     "gallery": [
       "pizza_especial.jpg",
@@ -275,17 +275,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@la-muzza-de-boedo.test",
+    "email": "hola@la-muzza-del-cordon.test",
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Boedo 3955",
-    "neighborhood": "Boedo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Gaboto 1380",
+    "neighborhood": "Cordón",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.62917,
-    "longitude": -58.423381,
+    "latitude": -34.9046,
+    "longitude": -56.1766,
     "hours": {
       "monday": {
         "open": true,
@@ -380,7 +380,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 8000,
+    "minimumOrder": 400,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -392,9 +392,9 @@
     "products": [
       {
         "name": "Pizza muzzarella",
-        "slug": "pizza-muzzarella-la-muzza-de-boedo",
+        "slug": "pizza-muzzarella-la-muzza-del-cordon",
         "description": "Salsa de tomate casera, muzzarella y aceitunas. 8 porciones.",
-        "price": 15700,
+        "price": 600,
         "images": [
           "pizza_napolitana_gourmet.jpg"
         ],
@@ -405,9 +405,9 @@
       },
       {
         "name": "Pizza napolitana",
-        "slug": "pizza-napolitana-la-muzza-de-boedo",
+        "slug": "pizza-napolitana-la-muzza-del-cordon",
         "description": "Muzzarella, rodajas de tomate fresco, ajo y albahaca. 8 porciones.",
-        "price": 18100,
+        "price": 680,
         "images": [
           "pizza_napolitana.jpg"
         ],
@@ -418,9 +418,9 @@
       },
       {
         "name": "Pizza especial",
-        "slug": "pizza-especial-la-muzza-de-boedo",
+        "slug": "pizza-especial-la-muzza-del-cordon",
         "description": "Muzzarella, jamón, morrón y huevo duro. 8 porciones.",
-        "price": 20400,
+        "price": 740,
         "images": [
           "pizza_especial.jpg"
         ],
@@ -428,13 +428,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 23500
+        "compareAtPrice": 850
       },
       {
         "name": "Fugazzeta",
-        "slug": "fugazzeta-la-muzza-de-boedo",
+        "slug": "fugazzeta-la-muzza-del-cordon",
         "description": "Masa alta rellena de muzzarella, con cebolla dorada arriba.",
-        "price": 18900,
+        "price": 650,
         "images": [
           "fugazzeta.jpg"
         ],
@@ -445,9 +445,9 @@
       },
       {
         "name": "Fainá",
-        "slug": "faina-la-muzza-de-boedo",
+        "slug": "faina-la-muzza-del-cordon",
         "description": "Porción grande de fainá de garbanzos, crocante por fuera.",
-        "price": 3000,
+        "price": 110,
         "images": [
           "fainá_casera.jpg"
         ],
@@ -458,9 +458,9 @@
       },
       {
         "name": "Calzone de jamón y queso",
-        "slug": "calzone-de-jamon-y-queso-la-muzza-de-boedo",
+        "slug": "calzone-de-jamon-y-queso-la-muzza-del-cordon",
         "description": "Masa cerrada al horno con jamón cocido, muzzarella y orégano.",
-        "price": 10600,
+        "price": 440,
         "images": [
           "calzone_artesanal.jpg"
         ],
@@ -471,9 +471,9 @@
       },
       {
         "name": "Focaccia con queso crema",
-        "slug": "focaccia-con-queso-crema-la-muzza-de-boedo",
+        "slug": "focaccia-con-queso-crema-la-muzza-del-cordon",
         "description": "Masa de larga fermentación, queso crema y hierbas.",
-        "price": 9600,
+        "price": 450,
         "images": [
           "pre-pizza.jpg"
         ],
@@ -484,9 +484,9 @@
       },
       {
         "name": "Empanada de carne",
-        "slug": "empanada-de-carne-la-muzza-de-boedo",
+        "slug": "empanada-de-carne-la-muzza-del-cordon",
         "description": "Carne cortada a cuchillo, cebolla, huevo y aceitunas.",
-        "price": 2400,
+        "price": 110,
         "images": [
           "empanadas_de_carne.jpg"
         ],
@@ -497,9 +497,9 @@
       },
       {
         "name": "Empanada de pollo",
-        "slug": "empanada-de-pollo-la-muzza-de-boedo",
+        "slug": "empanada-de-pollo-la-muzza-del-cordon",
         "description": "Pollo desmenuzado con cebolla y morrón.",
-        "price": 2400,
+        "price": 110,
         "images": [
           "empanadas_de_pollo.jpg"
         ],
@@ -510,9 +510,9 @@
       },
       {
         "name": "Cerveza artesanal 500 ml",
-        "slug": "cerveza-artesanal-500-ml-la-muzza-de-boedo",
+        "slug": "cerveza-artesanal-500-ml-la-muzza-del-cordon",
         "description": "Rubia, tirada en botella retornable.",
-        "price": 5200,
+        "price": 220,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -522,10 +522,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-la-muzza-de-boedo",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-la-muzza-del-cordon",
         "description": "Bien fría.",
-        "price": 4500,
+        "price": 170,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -559,13 +559,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Federico Lacroze 3918",
-    "neighborhood": "Colegiales",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Doctor Pablo de María 986",
+    "neighborhood": "Parque Rodó",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.572897,
-    "longitude": -58.44788,
+    "latitude": -34.9112,
+    "longitude": -56.1702,
     "hours": {
       "monday": {
         "open": true,
@@ -650,7 +650,7 @@
         "name": "Pizza muzzarella",
         "slug": "pizza-muzzarella-fugazza-co",
         "description": "Salsa de tomate casera, muzzarella y aceitunas. 8 porciones.",
-        "price": 14500,
+        "price": 550,
         "images": [
           "pizza_napolitana_gourmet.jpg"
         ],
@@ -663,7 +663,7 @@
         "name": "Pizza napolitana",
         "slug": "pizza-napolitana-fugazza-co",
         "description": "Muzzarella, rodajas de tomate fresco, ajo y albahaca. 8 porciones.",
-        "price": 16800,
+        "price": 630,
         "images": [
           "pizza_napolitana.jpg"
         ],
@@ -676,7 +676,7 @@
         "name": "Pizza especial",
         "slug": "pizza-especial-fugazza-co",
         "description": "Muzzarella, jamón, morrón y huevo duro. 8 porciones.",
-        "price": 18900,
+        "price": 690,
         "images": [
           "pizza_especial.jpg"
         ],
@@ -684,13 +684,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 21700
+        "compareAtPrice": 790
       },
       {
         "name": "Fugazzeta",
         "slug": "fugazzeta-fugazza-co",
         "description": "Masa alta rellena de muzzarella, con cebolla dorada arriba.",
-        "price": 17500,
+        "price": 600,
         "images": [
           "fugazzeta.jpg"
         ],
@@ -703,7 +703,7 @@
         "name": "Fainá",
         "slug": "faina-fugazza-co",
         "description": "Porción grande de fainá de garbanzos, crocante por fuera.",
-        "price": 2800,
+        "price": 100,
         "images": [
           "fainá_casera.jpg"
         ],
@@ -716,7 +716,7 @@
         "name": "Calzone de jamón y queso",
         "slug": "calzone-de-jamon-y-queso-fugazza-co",
         "description": "Masa cerrada al horno con jamón cocido, muzzarella y orégano.",
-        "price": 9800,
+        "price": 400,
         "images": [
           "calzone_artesanal.jpg"
         ],
@@ -729,7 +729,7 @@
         "name": "Focaccia con queso crema",
         "slug": "focaccia-con-queso-crema-fugazza-co",
         "description": "Masa de larga fermentación, queso crema y hierbas.",
-        "price": 8900,
+        "price": 420,
         "images": [
           "pre-pizza.jpg"
         ],
@@ -742,7 +742,7 @@
         "name": "Empanada de carne",
         "slug": "empanada-de-carne-fugazza-co",
         "description": "Carne cortada a cuchillo, cebolla, huevo y aceitunas.",
-        "price": 2200,
+        "price": 100,
         "images": [
           "empanadas_de_carne.jpg"
         ],
@@ -755,7 +755,7 @@
         "name": "Empanada de pollo",
         "slug": "empanada-de-pollo-fugazza-co",
         "description": "Pollo desmenuzado con cebolla y morrón.",
-        "price": 2200,
+        "price": 100,
         "images": [
           "empanadas_de_pollo.jpg"
         ],
@@ -768,7 +768,7 @@
         "name": "Cerveza artesanal 500 ml",
         "slug": "cerveza-artesanal-500-ml-fugazza-co",
         "description": "Rubia, tirada en botella retornable.",
-        "price": 4800,
+        "price": 200,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -778,10 +778,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-fugazza-co",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-fugazza-co",
         "description": "Bien fría.",
-        "price": 4200,
+        "price": 160,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -815,13 +815,13 @@
     "website": null,
     "instagram": "dona.elsa.rotiseria.demo",
     "facebook": null,
-    "address": "Pedro Goyena 4174",
-    "neighborhood": "Caballito",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Ibirapitá 2719",
+    "neighborhood": "La Blanqueada",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.618636,
-    "longitude": -58.440883,
+    "latitude": -34.8902,
+    "longitude": -56.1568,
     "hours": {
       "monday": {
         "open": true,
@@ -915,8 +915,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2500,
-    "minimumOrder": 10000,
+    "deliveryFee": 100,
+    "minimumOrder": 500,
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
@@ -932,7 +932,7 @@
         "name": "Empanada de carne al horno",
         "slug": "empanada-de-carne-al-horno-dona-elsa-rotiseria",
         "description": "Carne cortada a cuchillo, la receta de la casa.",
-        "price": 2200,
+        "price": 100,
         "images": [
           "empanadas_de_carne.jpg"
         ],
@@ -945,7 +945,7 @@
         "name": "Empanada de pollo",
         "slug": "empanada-de-pollo-dona-elsa-rotiseria",
         "description": "Pollo, cebolla y un toque de pimentón.",
-        "price": 2200,
+        "price": 100,
         "images": [
           "empanadas_de_pollo.jpg"
         ],
@@ -958,7 +958,7 @@
         "name": "Tortilla de papas",
         "slug": "tortilla-de-papas-dona-elsa-rotiseria",
         "description": "Jugosa, para dos personas. Con o sin cebolla.",
-        "price": 10200,
+        "price": 350,
         "images": [
           "tortilla_de_papas.jpg"
         ],
@@ -966,13 +966,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 11700
+        "compareAtPrice": 400
       },
       {
         "name": "Costillas con chimichurri",
         "slug": "costillas-con-chimichurri-dona-elsa-rotiseria",
         "description": "Costillas de cerdo glaseadas, con chimichurri casero.",
-        "price": 17300,
+        "price": 580,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -985,7 +985,7 @@
         "name": "Peceto con arroz",
         "slug": "peceto-con-arroz-dona-elsa-rotiseria",
         "description": "Peceto al horno con salsa de cebolla y arroz blanco.",
-        "price": 14500,
+        "price": 510,
         "images": [
           "peceto.jpg"
         ],
@@ -998,7 +998,7 @@
         "name": "Arrollado de pollo con ensalada",
         "slug": "arrollado-de-pollo-con-ensalada-dona-elsa-rotiseria",
         "description": "Arrollado relleno con ensalada de la casa.",
-        "price": 12400,
+        "price": 390,
         "images": [
           "ensalada_rusa.jpg"
         ],
@@ -1011,7 +1011,7 @@
         "name": "Arroz con vegetales",
         "slug": "arroz-con-vegetales-dona-elsa-rotiseria",
         "description": "Arroz salteado con verduras de estación.",
-        "price": 8600,
+        "price": 300,
         "images": [
           "arroz_premium.jpg"
         ],
@@ -1024,7 +1024,7 @@
         "name": "Papas con salsa de ají",
         "slug": "papas-con-salsa-de-aji-dona-elsa-rotiseria",
         "description": "Papas hervidas con salsa cremosa de ají y tomillo.",
-        "price": 7600,
+        "price": 300,
         "images": [
           "papas_blancas.jpg"
         ],
@@ -1037,7 +1037,7 @@
         "name": "Papas fritas con carne desmechada",
         "slug": "papas-fritas-con-carne-desmechada-dona-elsa-rotiseria",
         "description": "Porción abundante para compartir.",
-        "price": 13100,
+        "price": 460,
         "images": [
           "pollo_al_horno.jpg"
         ],
@@ -1047,10 +1047,10 @@
         "stock": null
       },
       {
-        "name": "Sándwich de milanesa completo",
-        "slug": "sandwich-de-milanesa-completo-dona-elsa-rotiseria",
-        "description": "Pan casero, milanesa de ternera, lechuga, tomate y mayonesa.",
-        "price": 11500,
+        "name": "Chivito canadiense",
+        "slug": "chivito-canadiense-dona-elsa-rotiseria",
+        "description": "Lomo, panceta, jamón, muzzarella, huevo y aceitunas, con papas fritas.",
+        "price": 670,
         "images": [
           "sandwich_de_milanesa.jpg"
         ],
@@ -1060,14 +1060,27 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-dona-elsa-rotiseria",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-dona-elsa-rotiseria",
         "description": "Bien fría.",
-        "price": 4100,
+        "price": 160,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
         "category": "bebidas-sin-alcohol",
+        "featured": false,
+        "isAvailable": true,
+        "stock": null
+      },
+      {
+        "name": "Pascualina (porción)",
+        "slug": "pascualina-porcion-dona-elsa-rotiseria",
+        "description": "Tarta de acelga y huevo duro, como la de la abuela.",
+        "price": 190,
+        "images": [
+          "tarta_de_verdura.jpg"
+        ],
+        "category": "platos",
         "featured": false,
         "isAvailable": true,
         "stock": null
@@ -1097,13 +1110,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Díaz Vélez 2739",
-    "neighborhood": "Almagro",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Ingeniero José Serrato 2234",
+    "neighborhood": "Unión",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.610049,
-    "longitude": -58.423165,
+    "latitude": -34.8797,
+    "longitude": -56.1362,
     "hours": {
       "monday": {
         "open": true,
@@ -1193,7 +1206,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 10000,
+    "minimumOrder": 500,
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
@@ -1207,7 +1220,7 @@
         "name": "Empanada de carne al horno",
         "slug": "empanada-de-carne-al-horno-el-repulgue",
         "description": "Carne cortada a cuchillo, la receta de la casa.",
-        "price": 2300,
+        "price": 110,
         "images": [
           "empanadas_de_carne.jpg"
         ],
@@ -1220,7 +1233,7 @@
         "name": "Empanada de pollo",
         "slug": "empanada-de-pollo-el-repulgue",
         "description": "Pollo, cebolla y un toque de pimentón.",
-        "price": 2300,
+        "price": 110,
         "images": [
           "empanadas_de_pollo.jpg"
         ],
@@ -1233,7 +1246,7 @@
         "name": "Tortilla de papas",
         "slug": "tortilla-de-papas-el-repulgue",
         "description": "Jugosa, para dos personas. Con o sin cebolla.",
-        "price": 10500,
+        "price": 360,
         "images": [
           "tortilla_de_papas.jpg"
         ],
@@ -1241,13 +1254,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 12100
+        "compareAtPrice": 410
       },
       {
         "name": "Costillas con chimichurri",
         "slug": "costillas-con-chimichurri-el-repulgue",
         "description": "Costillas de cerdo glaseadas, con chimichurri casero.",
-        "price": 17800,
+        "price": 600,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -1260,7 +1273,7 @@
         "name": "Peceto con arroz",
         "slug": "peceto-con-arroz-el-repulgue",
         "description": "Peceto al horno con salsa de cebolla y arroz blanco.",
-        "price": 14900,
+        "price": 520,
         "images": [
           "peceto.jpg"
         ],
@@ -1273,7 +1286,7 @@
         "name": "Arrollado de pollo con ensalada",
         "slug": "arrollado-de-pollo-con-ensalada-el-repulgue",
         "description": "Arrollado relleno con ensalada de la casa.",
-        "price": 12800,
+        "price": 410,
         "images": [
           "ensalada_rusa.jpg"
         ],
@@ -1286,7 +1299,7 @@
         "name": "Arroz con vegetales",
         "slug": "arroz-con-vegetales-el-repulgue",
         "description": "Arroz salteado con verduras de estación.",
-        "price": 8900,
+        "price": 310,
         "images": [
           "arroz_premium.jpg"
         ],
@@ -1299,7 +1312,7 @@
         "name": "Papas con salsa de ají",
         "slug": "papas-con-salsa-de-aji-el-repulgue",
         "description": "Papas hervidas con salsa cremosa de ají y tomillo.",
-        "price": 7800,
+        "price": 310,
         "images": [
           "papas_blancas.jpg"
         ],
@@ -1312,7 +1325,7 @@
         "name": "Papas fritas con carne desmechada",
         "slug": "papas-fritas-con-carne-desmechada-el-repulgue",
         "description": "Porción abundante para compartir.",
-        "price": 13500,
+        "price": 480,
         "images": [
           "pollo_al_horno.jpg"
         ],
@@ -1322,10 +1335,10 @@
         "stock": null
       },
       {
-        "name": "Sándwich de milanesa completo",
-        "slug": "sandwich-de-milanesa-completo-el-repulgue",
-        "description": "Pan casero, milanesa de ternera, lechuga, tomate y mayonesa.",
-        "price": 11900,
+        "name": "Chivito canadiense",
+        "slug": "chivito-canadiense-el-repulgue",
+        "description": "Lomo, panceta, jamón, muzzarella, huevo y aceitunas, con papas fritas.",
+        "price": 690,
         "images": [
           "sandwich_de_milanesa.jpg"
         ],
@@ -1335,14 +1348,27 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-el-repulgue",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-el-repulgue",
         "description": "Bien fría.",
-        "price": 4200,
+        "price": 160,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
         "category": "bebidas-sin-alcohol",
+        "featured": false,
+        "isAvailable": true,
+        "stock": null
+      },
+      {
+        "name": "Pascualina (porción)",
+        "slug": "pascualina-porcion-el-repulgue",
+        "description": "Tarta de acelga y huevo duro, como la de la abuela.",
+        "price": 190,
+        "images": [
+          "tarta_de_verdura.jpg"
+        ],
+        "category": "platos",
         "featured": false,
         "isAvailable": true,
         "stock": null
@@ -1357,7 +1383,7 @@
     "category": "rotiseria",
     "name": "La Tortilla",
     "slug": "la-tortilla",
-    "tagline": "Sabores de siempre en San Telmo",
+    "tagline": "Sabores de siempre en la Ciudad Vieja",
     "description": "Tortillas jugosas, arrollados y guisos para llevar, en una esquina histórica del barrio.",
     "logo": "/seed/logos/la-tortilla.svg",
     "coverImage": "tortilla_de_papas.jpg",
@@ -1372,13 +1398,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Defensa 1166",
-    "neighborhood": "San Telmo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Ituzaingó 1391",
+    "neighborhood": "Ciudad Vieja",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.6178,
-    "longitude": -58.368653,
+    "latitude": -34.9066,
+    "longitude": -56.2043,
     "hours": {
       "monday": {
         "open": true,
@@ -1463,7 +1489,7 @@
         "name": "Empanada de carne al horno",
         "slug": "empanada-de-carne-al-horno-la-tortilla",
         "description": "Carne cortada a cuchillo, la receta de la casa.",
-        "price": 2200,
+        "price": 100,
         "images": [
           "empanadas_de_carne.jpg"
         ],
@@ -1476,7 +1502,7 @@
         "name": "Empanada de pollo",
         "slug": "empanada-de-pollo-la-tortilla",
         "description": "Pollo, cebolla y un toque de pimentón.",
-        "price": 2200,
+        "price": 100,
         "images": [
           "empanadas_de_pollo.jpg"
         ],
@@ -1489,7 +1515,7 @@
         "name": "Papas fritas con carne desmechada",
         "slug": "papas-fritas-con-carne-desmechada-la-tortilla",
         "description": "Porción abundante para compartir.",
-        "price": 12700,
+        "price": 450,
         "images": [
           "pollo_al_horno.jpg"
         ],
@@ -1497,13 +1523,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 14600
+        "compareAtPrice": 520
       },
       {
         "name": "Arrollado de pollo con ensalada",
         "slug": "arrollado-de-pollo-con-ensalada-la-tortilla",
         "description": "Arrollado relleno con ensalada de la casa.",
-        "price": 12000,
+        "price": 380,
         "images": [
           "ensalada_rusa.jpg"
         ],
@@ -1516,7 +1542,7 @@
         "name": "Tortilla de papas",
         "slug": "tortilla-de-papas-la-tortilla",
         "description": "Jugosa, para dos personas. Con o sin cebolla.",
-        "price": 9900,
+        "price": 340,
         "images": [
           "tortilla_de_papas.jpg"
         ],
@@ -1529,7 +1555,7 @@
         "name": "Papas con salsa de ají",
         "slug": "papas-con-salsa-de-aji-la-tortilla",
         "description": "Papas hervidas con salsa cremosa de ají y tomillo.",
-        "price": 7300,
+        "price": 290,
         "images": [
           "papas_blancas.jpg"
         ],
@@ -1542,7 +1568,7 @@
         "name": "Arroz con vegetales",
         "slug": "arroz-con-vegetales-la-tortilla",
         "description": "Arroz salteado con verduras de estación.",
-        "price": 8400,
+        "price": 290,
         "images": [
           "arroz_premium.jpg"
         ],
@@ -1555,7 +1581,7 @@
         "name": "Costillas con chimichurri",
         "slug": "costillas-con-chimichurri-la-tortilla",
         "description": "Costillas de cerdo glaseadas, con chimichurri casero.",
-        "price": 16700,
+        "price": 560,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -1568,7 +1594,7 @@
         "name": "Peceto con arroz",
         "slug": "peceto-con-arroz-la-tortilla",
         "description": "Peceto al horno con salsa de cebolla y arroz blanco.",
-        "price": 14000,
+        "price": 490,
         "images": [
           "peceto.jpg"
         ],
@@ -1578,16 +1604,29 @@
         "stock": null
       },
       {
-        "name": "Sándwich de milanesa completo",
-        "slug": "sandwich-de-milanesa-completo-la-tortilla",
-        "description": "Pan casero, milanesa de ternera, lechuga, tomate y mayonesa.",
-        "price": 11200,
+        "name": "Chivito canadiense",
+        "slug": "chivito-canadiense-la-tortilla",
+        "description": "Lomo, panceta, jamón, muzzarella, huevo y aceitunas, con papas fritas.",
+        "price": 650,
         "images": [
           "sandwich_de_milanesa.jpg"
         ],
         "category": "sandwiches",
         "featured": false,
         "isAvailable": false,
+        "stock": null
+      },
+      {
+        "name": "Pascualina (porción)",
+        "slug": "pascualina-porcion-la-tortilla",
+        "description": "Tarta de acelga y huevo duro, como la de la abuela.",
+        "price": 190,
+        "images": [
+          "tarta_de_verdura.jpg"
+        ],
+        "category": "platos",
+        "featured": false,
+        "isAvailable": true,
         "stock": null
       }
     ]
@@ -1615,13 +1654,13 @@
     "website": null,
     "instagram": "bodegon.don.ernesto.demo",
     "facebook": null,
-    "address": "Carlos Calvo 4886",
-    "neighborhood": "Boedo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Avenida 18 de Julio 1205",
+    "neighborhood": "Centro",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.626781,
-    "longitude": -58.421154,
+    "latitude": -34.9057,
+    "longitude": -56.1902,
     "hours": {
       "monday": {
         "open": false,
@@ -1707,7 +1746,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 15000,
+    "minimumOrder": 700,
     "deliveryRadiusKm": 3,
     "paymentMethods": [
       "cash",
@@ -1721,7 +1760,7 @@
         "name": "Costillas a la barbacoa",
         "slug": "costillas-a-la-barbacoa-bodegon-don-ernesto",
         "description": "Costillas de cerdo cocidas lento, con chimichurri.",
-        "price": 23200,
+        "price": 740,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -1734,7 +1773,7 @@
         "name": "Peceto al horno",
         "slug": "peceto-al-horno-bodegon-don-ernesto",
         "description": "Con arroz blanco y salsa de la casa.",
-        "price": 20400,
+        "price": 620,
         "images": [
           "peceto.jpg"
         ],
@@ -1747,7 +1786,7 @@
         "name": "Arroz con vegetales",
         "slug": "arroz-con-vegetales-bodegon-don-ernesto",
         "description": "Plato vegetariano del día.",
-        "price": 13400,
+        "price": 460,
         "images": [
           "arroz_premium.jpg"
         ],
@@ -1755,13 +1794,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 15400
+        "compareAtPrice": 530
       },
       {
         "name": "Arrollado de pollo",
         "slug": "arrollado-de-pollo-bodegon-don-ernesto",
         "description": "Con ensalada fresca y aderezo de mostaza.",
-        "price": 17100,
+        "price": 450,
         "images": [
           "ensalada_rusa.jpg"
         ],
@@ -1774,7 +1813,7 @@
         "name": "Papas con salsa de ají",
         "slug": "papas-con-salsa-de-aji-bodegon-don-ernesto",
         "description": "Entrada para compartir.",
-        "price": 10400,
+        "price": 410,
         "images": [
           "papas_blancas.jpg"
         ],
@@ -1787,7 +1826,7 @@
         "name": "Tortilla de papas",
         "slug": "tortilla-de-papas-bodegon-don-ernesto",
         "description": "Clásica, jugosa al centro.",
-        "price": 13800,
+        "price": 470,
         "images": [
           "tortilla_de_papas.jpg"
         ],
@@ -1797,10 +1836,10 @@
         "stock": null
       },
       {
-        "name": "Sándwich de milanesa",
-        "slug": "sandwich-de-milanesa-bodegon-don-ernesto",
-        "description": "Pan de la casa con papas fritas.",
-        "price": 15300,
+        "name": "Chivito al pan",
+        "slug": "chivito-al-pan-bodegon-don-ernesto",
+        "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
+        "price": 600,
         "images": [
           "sandwich_de_milanesa.jpg"
         ],
@@ -1813,7 +1852,7 @@
         "name": "Torta de chocolate",
         "slug": "torta-de-chocolate-bodegon-don-ernesto",
         "description": "Porción de torta húmeda con ganache.",
-        "price": 8000,
+        "price": 310,
         "images": [
           "torta_chocolate.jpg"
         ],
@@ -1826,7 +1865,7 @@
         "name": "Pastafrola de membrillo",
         "slug": "pastafrola-de-membrillo-bodegon-don-ernesto",
         "description": "Porción, hecha todos los días.",
-        "price": 5600,
+        "price": 260,
         "images": [
           "tarta_de_verdura.jpg"
         ],
@@ -1836,10 +1875,10 @@
         "stock": null
       },
       {
-        "name": "Malbec de la casa",
-        "slug": "malbec-de-la-casa-bodegon-don-ernesto",
+        "name": "Tannat de la casa",
+        "slug": "tannat-de-la-casa-bodegon-don-ernesto",
         "description": "Botella de 750 ml.",
-        "price": 16000,
+        "price": 560,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -1852,7 +1891,7 @@
         "name": "Agua mineral 500 ml",
         "slug": "agua-mineral-500-ml-bodegon-don-ernesto",
         "description": "Con o sin gas.",
-        "price": 2800,
+        "price": 80,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -1886,13 +1925,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Cabildo 3346",
-    "neighborhood": "Núñez",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Avenida 18 de Diciembre 1600",
+    "neighborhood": "Malvín",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.547084,
-    "longitude": -58.464622,
+    "latitude": -34.8926,
+    "longitude": -56.104,
     "hours": {
       "monday": {
         "open": true,
@@ -1986,8 +2025,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2000,
-    "minimumOrder": 10000,
+    "deliveryFee": 80,
+    "minimumOrder": 500,
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
@@ -2001,7 +2040,7 @@
         "name": "Arrollado de pollo",
         "slug": "arrollado-de-pollo-costa-brasa",
         "description": "Con ensalada fresca y aderezo de mostaza.",
-        "price": 15800,
+        "price": 420,
         "images": [
           "ensalada_rusa.jpg"
         ],
@@ -2014,7 +2053,7 @@
         "name": "Papas con salsa de ají",
         "slug": "papas-con-salsa-de-aji-costa-brasa",
         "description": "Entrada para compartir.",
-        "price": 9600,
+        "price": 380,
         "images": [
           "papas_blancas.jpg"
         ],
@@ -2027,7 +2066,7 @@
         "name": "Arroz con vegetales",
         "slug": "arroz-con-vegetales-costa-brasa",
         "description": "Plato vegetariano del día.",
-        "price": 12400,
+        "price": 430,
         "images": [
           "arroz_premium.jpg"
         ],
@@ -2035,13 +2074,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 14300
+        "compareAtPrice": 500
       },
       {
         "name": "Agua mineral 500 ml",
         "slug": "agua-mineral-500-ml-costa-brasa",
         "description": "Con o sin gas.",
-        "price": 2600,
+        "price": 75,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -2054,7 +2093,7 @@
         "name": "Torta de chocolate",
         "slug": "torta-de-chocolate-costa-brasa",
         "description": "Porción de torta húmeda con ganache.",
-        "price": 7400,
+        "price": 290,
         "images": [
           "torta_chocolate.jpg"
         ],
@@ -2064,10 +2103,10 @@
         "stock": null
       },
       {
-        "name": "Sándwich de milanesa",
-        "slug": "sandwich-de-milanesa-costa-brasa",
-        "description": "Pan de la casa con papas fritas.",
-        "price": 14200,
+        "name": "Chivito al pan",
+        "slug": "chivito-al-pan-costa-brasa",
+        "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
+        "price": 560,
         "images": [
           "sandwich_de_milanesa.jpg"
         ],
@@ -2080,7 +2119,7 @@
         "name": "Tortilla de papas",
         "slug": "tortilla-de-papas-costa-brasa",
         "description": "Clásica, jugosa al centro.",
-        "price": 12800,
+        "price": 440,
         "images": [
           "tortilla_de_papas.jpg"
         ],
@@ -2093,7 +2132,7 @@
         "name": "Costillas a la barbacoa",
         "slug": "costillas-a-la-barbacoa-costa-brasa",
         "description": "Costillas de cerdo cocidas lento, con chimichurri.",
-        "price": 21500,
+        "price": 690,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -2103,10 +2142,10 @@
         "stock": null
       },
       {
-        "name": "Malbec de la casa",
-        "slug": "malbec-de-la-casa-costa-brasa",
+        "name": "Tannat de la casa",
+        "slug": "tannat-de-la-casa-costa-brasa",
         "description": "Botella de 750 ml.",
-        "price": 14800,
+        "price": 520,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -2140,13 +2179,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Thames 3046",
-    "neighborhood": "Villa Crespo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Juan D. Jackson 1151",
+    "neighborhood": "Parque Rodó",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.599454,
-    "longitude": -58.437302,
+    "latitude": -34.9083,
+    "longitude": -56.1732,
     "hours": {
       "monday": {
         "open": true,
@@ -2256,7 +2295,7 @@
         "name": "Pan de campo",
         "slug": "pan-de-campo-masa-madre",
         "description": "Pieza de 1 kg, miga densa y aireada.",
-        "price": 6600,
+        "price": 150,
         "images": [
           "pan_integral.jpg"
         ],
@@ -2269,7 +2308,7 @@
         "name": "Fainá",
         "slug": "faina-masa-madre",
         "description": "Porción de fainá al horno.",
-        "price": 2500,
+        "price": 90,
         "images": [
           "fainá_casera.jpg"
         ],
@@ -2279,10 +2318,10 @@
         "stock": null
       },
       {
-        "name": "Medialunas de manteca (docena)",
-        "slug": "medialunas-de-manteca-docena-masa-madre",
+        "name": "Croissants de manteca (docena)",
+        "slug": "croissants-de-manteca-docena-masa-madre",
         "description": "Recién horneadas, con almíbar.",
-        "price": 12100,
+        "price": 360,
         "images": [
           "medialunas.jpg"
         ],
@@ -2290,13 +2329,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 13900
+        "compareAtPrice": 410
       },
       {
         "name": "Focaccia con queso crema",
         "slug": "focaccia-con-queso-crema-masa-madre",
         "description": "Porción grande, ideal para la merienda.",
-        "price": 6000,
+        "price": 280,
         "images": [
           "pre-pizza.jpg"
         ],
@@ -2309,7 +2348,7 @@
         "name": "Canasta de bizcochos",
         "slug": "canasta-de-bizcochos-masa-madre",
         "description": "Medio kilo de bizcochos de grasa.",
-        "price": 6200,
+        "price": 190,
         "images": [
           "bizcochos.jpg"
         ],
@@ -2319,10 +2358,10 @@
         "stock": 17
       },
       {
-        "name": "Facturas surtidas (docena)",
-        "slug": "facturas-surtidas-docena-masa-madre",
-        "description": "Vigilantes, cañoncitos y bolas de fraile.",
-        "price": 14400,
+        "name": "Bizcochos surtidos (docena)",
+        "slug": "bizcochos-surtidos-docena-masa-madre",
+        "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
+        "price": 260,
         "images": [
           "facturas_mixtas.jpg"
         ],
@@ -2335,7 +2374,7 @@
         "name": "Pan de masa madre",
         "slug": "pan-de-masa-madre-masa-madre",
         "description": "Hogaza de 800 g, corteza crocante.",
-        "price": 7700,
+        "price": 190,
         "images": [
           "panaderia_cover.jpg"
         ],
@@ -2348,7 +2387,7 @@
         "name": "Donas azucaradas",
         "slug": "donas-azucaradas-masa-madre",
         "description": "Pack de cuatro.",
-        "price": 6700,
+        "price": 240,
         "images": [
           "donas.jpg"
         ],
@@ -2361,11 +2400,24 @@
         "name": "Pastafrola de membrillo",
         "slug": "pastafrola-de-membrillo-masa-madre",
         "description": "Tarta entera, tamaño familiar.",
-        "price": 17900,
+        "price": 830,
         "images": [
           "tarta_de_verdura.jpg"
         ],
         "category": "pasteleria",
+        "featured": false,
+        "isAvailable": true,
+        "stock": null
+      },
+      {
+        "name": "Pan flauta 1 kg",
+        "slug": "pan-flauta-1-kg-masa-madre",
+        "description": "Recién horneado, varias veces por día.",
+        "price": 100,
+        "images": [
+          "pan_francés.jpg"
+        ],
+        "category": "panificados",
         "featured": false,
         "isAvailable": true,
         "stock": null
@@ -2395,13 +2447,13 @@
     "website": null,
     "instagram": "la.medialuna.de.oro.demo",
     "facebook": null,
-    "address": "Mendoza 1289",
-    "neighborhood": "Belgrano",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Costa Rica 1665",
+    "neighborhood": "Carrasco",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.566665,
-    "longitude": -58.455157,
+    "latitude": -34.8866,
+    "longitude": -56.0572,
     "hours": {
       "monday": {
         "open": true,
@@ -2484,10 +2536,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Medialunas de manteca (docena)",
-        "slug": "medialunas-de-manteca-docena-la-medialuna-de-oro",
+        "name": "Croissants de manteca (docena)",
+        "slug": "croissants-de-manteca-docena-la-medialuna-de-oro",
         "description": "Recién horneadas, con almíbar.",
-        "price": 12500,
+        "price": 370,
         "images": [
           "medialunas.jpg"
         ],
@@ -2497,10 +2549,10 @@
         "stock": null
       },
       {
-        "name": "Facturas surtidas (docena)",
-        "slug": "facturas-surtidas-docena-la-medialuna-de-oro",
-        "description": "Vigilantes, cañoncitos y bolas de fraile.",
-        "price": 14800,
+        "name": "Bizcochos surtidos (docena)",
+        "slug": "bizcochos-surtidos-docena-la-medialuna-de-oro",
+        "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
+        "price": 270,
         "images": [
           "facturas_mixtas.jpg"
         ],
@@ -2513,7 +2565,7 @@
         "name": "Pan de masa madre",
         "slug": "pan-de-masa-madre-la-medialuna-de-oro",
         "description": "Hogaza de 800 g, corteza crocante.",
-        "price": 7900,
+        "price": 190,
         "images": [
           "panaderia_cover.jpg"
         ],
@@ -2521,13 +2573,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 9100
+        "compareAtPrice": 220
       },
       {
         "name": "Pan de campo",
         "slug": "pan-de-campo-la-medialuna-de-oro",
         "description": "Pieza de 1 kg, miga densa y aireada.",
-        "price": 6800,
+        "price": 160,
         "images": [
           "pan_integral.jpg"
         ],
@@ -2540,7 +2592,7 @@
         "name": "Canasta de bizcochos",
         "slug": "canasta-de-bizcochos-la-medialuna-de-oro",
         "description": "Medio kilo de bizcochos de grasa.",
-        "price": 6400,
+        "price": 200,
         "images": [
           "bizcochos.jpg"
         ],
@@ -2553,7 +2605,7 @@
         "name": "Donas azucaradas",
         "slug": "donas-azucaradas-la-medialuna-de-oro",
         "description": "Pack de cuatro.",
-        "price": 6900,
+        "price": 250,
         "images": [
           "donas.jpg"
         ],
@@ -2566,7 +2618,7 @@
         "name": "Torta de chocolate",
         "slug": "torta-de-chocolate-la-medialuna-de-oro",
         "description": "Torta entera para ocho personas.",
-        "price": 32000,
+        "price": 1250,
         "images": [
           "torta_chocolate.jpg"
         ],
@@ -2579,7 +2631,7 @@
         "name": "Pastafrola de membrillo",
         "slug": "pastafrola-de-membrillo-la-medialuna-de-oro",
         "description": "Tarta entera, tamaño familiar.",
-        "price": 18500,
+        "price": 860,
         "images": [
           "tarta_de_verdura.jpg"
         ],
@@ -2592,7 +2644,7 @@
         "name": "Focaccia con queso crema",
         "slug": "focaccia-con-queso-crema-la-medialuna-de-oro",
         "description": "Porción grande, ideal para la merienda.",
-        "price": 6200,
+        "price": 290,
         "images": [
           "pre-pizza.jpg"
         ],
@@ -2605,11 +2657,24 @@
         "name": "Fainá",
         "slug": "faina-la-medialuna-de-oro",
         "description": "Porción de fainá al horno.",
-        "price": 2600,
+        "price": 95,
         "images": [
           "fainá_casera.jpg"
         ],
         "category": "pizzas-y-faina",
+        "featured": false,
+        "isAvailable": true,
+        "stock": null
+      },
+      {
+        "name": "Pan flauta 1 kg",
+        "slug": "pan-flauta-1-kg-la-medialuna-de-oro",
+        "description": "Recién horneado, varias veces por día.",
+        "price": 100,
+        "images": [
+          "pan_francés.jpg"
+        ],
+        "category": "panificados",
         "featured": false,
         "isAvailable": true,
         "stock": null
@@ -2639,13 +2704,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Corrientes 1609",
-    "neighborhood": "Chacarita",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Avenida Lucas Obes 1050",
+    "neighborhood": "Prado",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.592174,
-    "longitude": -58.459098,
+    "latitude": -34.8604,
+    "longitude": -56.2079,
     "hours": {
       "monday": {
         "open": true,
@@ -2741,10 +2806,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Medialunas de manteca (docena)",
-        "slug": "medialunas-de-manteca-docena-dulce-esquina",
+        "name": "Croissants de manteca (docena)",
+        "slug": "croissants-de-manteca-docena-dulce-esquina",
         "description": "Recién horneadas, con almíbar.",
-        "price": 13000,
+        "price": 390,
         "images": [
           "medialunas.jpg"
         ],
@@ -2754,10 +2819,10 @@
         "stock": null
       },
       {
-        "name": "Facturas surtidas (docena)",
-        "slug": "facturas-surtidas-docena-dulce-esquina",
-        "description": "Vigilantes, cañoncitos y bolas de fraile.",
-        "price": 15400,
+        "name": "Bizcochos surtidos (docena)",
+        "slug": "bizcochos-surtidos-docena-dulce-esquina",
+        "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
+        "price": 280,
         "images": [
           "facturas_mixtas.jpg"
         ],
@@ -2770,7 +2835,7 @@
         "name": "Pan de masa madre",
         "slug": "pan-de-masa-madre-dulce-esquina",
         "description": "Hogaza de 800 g, corteza crocante.",
-        "price": 8200,
+        "price": 200,
         "images": [
           "panaderia_cover.jpg"
         ],
@@ -2778,13 +2843,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 9400
+        "compareAtPrice": 230
       },
       {
         "name": "Pan de campo",
         "slug": "pan-de-campo-dulce-esquina",
         "description": "Pieza de 1 kg, miga densa y aireada.",
-        "price": 7100,
+        "price": 160,
         "images": [
           "pan_integral.jpg"
         ],
@@ -2797,7 +2862,7 @@
         "name": "Canasta de bizcochos",
         "slug": "canasta-de-bizcochos-dulce-esquina",
         "description": "Medio kilo de bizcochos de grasa.",
-        "price": 6700,
+        "price": 210,
         "images": [
           "bizcochos.jpg"
         ],
@@ -2810,7 +2875,7 @@
         "name": "Donas azucaradas",
         "slug": "donas-azucaradas-dulce-esquina",
         "description": "Pack de cuatro.",
-        "price": 7200,
+        "price": 260,
         "images": [
           "donas.jpg"
         ],
@@ -2823,7 +2888,7 @@
         "name": "Torta de chocolate",
         "slug": "torta-de-chocolate-dulce-esquina",
         "description": "Torta entera para ocho personas.",
-        "price": 33300,
+        "price": 1300,
         "images": [
           "torta_chocolate.jpg"
         ],
@@ -2836,7 +2901,7 @@
         "name": "Pastafrola de membrillo",
         "slug": "pastafrola-de-membrillo-dulce-esquina",
         "description": "Tarta entera, tamaño familiar.",
-        "price": 19200,
+        "price": 890,
         "images": [
           "tarta_de_verdura.jpg"
         ],
@@ -2849,7 +2914,7 @@
         "name": "Focaccia con queso crema",
         "slug": "focaccia-con-queso-crema-dulce-esquina",
         "description": "Porción grande, ideal para la merienda.",
-        "price": 6400,
+        "price": 300,
         "images": [
           "pre-pizza.jpg"
         ],
@@ -2862,13 +2927,26 @@
         "name": "Fainá",
         "slug": "faina-dulce-esquina",
         "description": "Porción de fainá al horno.",
-        "price": 2700,
+        "price": 95,
         "images": [
           "fainá_casera.jpg"
         ],
         "category": "pizzas-y-faina",
         "featured": false,
         "isAvailable": false,
+        "stock": null
+      },
+      {
+        "name": "Pan flauta 1 kg",
+        "slug": "pan-flauta-1-kg-dulce-esquina",
+        "description": "Recién horneado, varias veces por día.",
+        "price": 100,
+        "images": [
+          "pan_francés.jpg"
+        ],
+        "category": "panificados",
+        "featured": false,
+        "isAvailable": true,
         "stock": null
       }
     ]
@@ -2879,11 +2957,11 @@
       "email": "almacen@detoke.test"
     },
     "category": "almacen",
-    "name": "Almacén San Telmo",
-    "slug": "almacen-san-telmo",
+    "name": "Almacén Ciudad Vieja",
+    "slug": "almacen-ciudad-vieja",
     "tagline": "El almacén de toda la vida",
     "description": "Fiado no, pero charla siempre. Productos de almacén, fraccionados y bebidas, con la balanza de siempre en el mostrador.",
-    "logo": "/seed/logos/almacen-san-telmo.svg",
+    "logo": "/seed/logos/almacen-ciudad-vieja.svg",
     "coverImage": "la-selecta_cover.jpg",
     "gallery": [
       "miel_pura.jpg",
@@ -2892,17 +2970,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@almacen-san-telmo.test",
+    "email": "hola@almacen-ciudad-vieja.test",
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Bolívar 3813",
-    "neighborhood": "San Telmo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Bacacay 1320",
+    "neighborhood": "Ciudad Vieja",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.619856,
-    "longitude": -58.368545,
+    "latitude": -34.9071,
+    "longitude": -56.2016,
     "hours": {
       "monday": {
         "open": true,
@@ -2987,8 +3065,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2500,
-    "minimumOrder": 10000,
+    "deliveryFee": 100,
+    "minimumOrder": 500,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -3001,9 +3079,9 @@
     "products": [
       {
         "name": "Yerba mate 1 kg",
-        "slug": "yerba-mate-1-kg-almacen-san-telmo",
+        "slug": "yerba-mate-1-kg-almacen-ciudad-vieja",
         "description": "Con palo, molienda tradicional.",
-        "price": 6700,
+        "price": 280,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -3013,10 +3091,10 @@
         "stock": null
       },
       {
-        "name": "Harina 000 1 kg",
-        "slug": "harina-000-1-kg-almacen-san-telmo",
+        "name": "Harina 0000 1 kg",
+        "slug": "harina-0000-1-kg-almacen-ciudad-vieja",
         "description": "Para pan y masas.",
-        "price": 1400,
+        "price": 60,
         "images": [
           "harina_000.jpg"
         ],
@@ -3027,9 +3105,9 @@
       },
       {
         "name": "Azúcar en cubos 500 g",
-        "slug": "azucar-en-cubos-500-g-almacen-san-telmo",
+        "slug": "azucar-en-cubos-500-g-almacen-ciudad-vieja",
         "description": "Para el café y el té.",
-        "price": 2200,
+        "price": 85,
         "images": [
           "azúcar.jpg"
         ],
@@ -3037,13 +3115,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 2500
+        "compareAtPrice": 95
       },
       {
         "name": "Fideos spaghetti 500 g",
-        "slug": "fideos-spaghetti-500-g-almacen-san-telmo",
+        "slug": "fideos-spaghetti-500-g-almacen-ciudad-vieja",
         "description": "Sémola de trigo candeal.",
-        "price": 2000,
+        "price": 75,
         "images": [
           "fideos_tirabuzón.jpg"
         ],
@@ -3054,9 +3132,9 @@
       },
       {
         "name": "Lentejas 500 g",
-        "slug": "lentejas-500-g-almacen-san-telmo",
+        "slug": "lentejas-500-g-almacen-ciudad-vieja",
         "description": "Secas, de cosecha nueva.",
-        "price": 3300,
+        "price": 110,
         "images": [
           "lentejas.jpg"
         ],
@@ -3067,9 +3145,9 @@
       },
       {
         "name": "Miel pura 500 g",
-        "slug": "miel-pura-500-g-almacen-san-telmo",
+        "slug": "miel-pura-500-g-almacen-ciudad-vieja",
         "description": "Miel de campo, sin agregados.",
-        "price": 8000,
+        "price": 300,
         "images": [
           "miel_pura.jpg"
         ],
@@ -3080,9 +3158,9 @@
       },
       {
         "name": "Especias surtidas",
-        "slug": "especias-surtidas-almacen-san-telmo",
+        "slug": "especias-surtidas-almacen-ciudad-vieja",
         "description": "Pimentón, orégano y comino en frascos.",
-        "price": 5200,
+        "price": 160,
         "images": [
           "stevia.jpg"
         ],
@@ -3092,10 +3170,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-almacen-san-telmo",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-almacen-ciudad-vieja",
         "description": "Botella retornable.",
-        "price": 3800,
+        "price": 140,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -3106,9 +3184,9 @@
       },
       {
         "name": "Agua mineral 1,5 L",
-        "slug": "agua-mineral-1-5-l-almacen-san-telmo",
+        "slug": "agua-mineral-1-5-l-almacen-ciudad-vieja",
         "description": "Sin gas.",
-        "price": 2000,
+        "price": 80,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -3119,9 +3197,9 @@
       },
       {
         "name": "Jugo de naranja 1 L",
-        "slug": "jugo-de-naranja-1-l-almacen-san-telmo",
+        "slug": "jugo-de-naranja-1-l-almacen-ciudad-vieja",
         "description": "Exprimido y envasado en el día.",
-        "price": 4500,
+        "price": 160,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -3132,9 +3210,9 @@
       },
       {
         "name": "Papel higiénico x4",
-        "slug": "papel-higienico-x4-almacen-san-telmo",
+        "slug": "papel-higienico-x4-almacen-ciudad-vieja",
         "description": "Doble hoja, 30 metros.",
-        "price": 4100,
+        "price": 130,
         "images": [
           "papel_higiénico.jpg"
         ],
@@ -3145,9 +3223,9 @@
       },
       {
         "name": "Jabón líquido 500 ml",
-        "slug": "jabon-liquido-500-ml-almacen-san-telmo",
+        "slug": "jabon-liquido-500-ml-almacen-ciudad-vieja",
         "description": "Para manos, con dosificador.",
-        "price": 3700,
+        "price": 150,
         "images": [
           "jabón_líquido.jpg"
         ],
@@ -3181,13 +3259,13 @@
     "website": null,
     "instagram": "la.despensa.de.rosa.demo",
     "facebook": null,
-    "address": "Federico Lacroze 3560",
-    "neighborhood": "Colegiales",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Estivao 1552",
+    "neighborhood": "Buceo",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.569359,
-    "longitude": -58.447119,
+    "latitude": -34.8962,
+    "longitude": -56.133,
     "hours": {
       "monday": {
         "open": true,
@@ -3257,8 +3335,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2500,
-    "minimumOrder": 15000,
+    "deliveryFee": 100,
+    "minimumOrder": 700,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -3273,7 +3351,7 @@
         "name": "Jabón líquido 500 ml",
         "slug": "jabon-liquido-500-ml-la-despensa-de-rosa",
         "description": "Para manos, con dosificador.",
-        "price": 3700,
+        "price": 150,
         "images": [
           "jabón_líquido.jpg"
         ],
@@ -3286,7 +3364,7 @@
         "name": "Miel pura 500 g",
         "slug": "miel-pura-500-g-la-despensa-de-rosa",
         "description": "Miel de campo, sin agregados.",
-        "price": 8000,
+        "price": 300,
         "images": [
           "miel_pura.jpg"
         ],
@@ -3299,7 +3377,7 @@
         "name": "Lentejas 500 g",
         "slug": "lentejas-500-g-la-despensa-de-rosa",
         "description": "Secas, de cosecha nueva.",
-        "price": 3300,
+        "price": 110,
         "images": [
           "lentejas.jpg"
         ],
@@ -3307,13 +3385,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 3800
+        "compareAtPrice": 130
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-la-despensa-de-rosa",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-la-despensa-de-rosa",
         "description": "Botella retornable.",
-        "price": 3800,
+        "price": 140,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -3326,7 +3404,7 @@
         "name": "Azúcar en cubos 500 g",
         "slug": "azucar-en-cubos-500-g-la-despensa-de-rosa",
         "description": "Para el café y el té.",
-        "price": 2200,
+        "price": 85,
         "images": [
           "azúcar.jpg"
         ],
@@ -3339,7 +3417,7 @@
         "name": "Jugo de naranja 1 L",
         "slug": "jugo-de-naranja-1-l-la-despensa-de-rosa",
         "description": "Exprimido y envasado en el día.",
-        "price": 4500,
+        "price": 160,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -3352,7 +3430,7 @@
         "name": "Yerba mate 1 kg",
         "slug": "yerba-mate-1-kg-la-despensa-de-rosa",
         "description": "Con palo, molienda tradicional.",
-        "price": 6700,
+        "price": 280,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -3362,10 +3440,10 @@
         "stock": null
       },
       {
-        "name": "Harina 000 1 kg",
-        "slug": "harina-000-1-kg-la-despensa-de-rosa",
+        "name": "Harina 0000 1 kg",
+        "slug": "harina-0000-1-kg-la-despensa-de-rosa",
         "description": "Para pan y masas.",
-        "price": 1400,
+        "price": 60,
         "images": [
           "harina_000.jpg"
         ],
@@ -3378,7 +3456,7 @@
         "name": "Agua mineral 1,5 L",
         "slug": "agua-mineral-1-5-l-la-despensa-de-rosa",
         "description": "Sin gas.",
-        "price": 2000,
+        "price": 80,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -3412,13 +3490,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Bulnes 3747",
-    "neighborhood": "Almagro",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "General Urquiza 2820",
+    "neighborhood": "Larrañaga",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.60769,
-    "longitude": -58.416704,
+    "latitude": -34.8874,
+    "longitude": -56.1594,
     "hours": {
       "monday": {
         "open": true,
@@ -3518,7 +3596,7 @@
         "name": "Papel higiénico x4",
         "slug": "papel-higienico-x4-don-pepe",
         "description": "Doble hoja, 30 metros.",
-        "price": 4200,
+        "price": 130,
         "images": [
           "papel_higiénico.jpg"
         ],
@@ -3531,7 +3609,7 @@
         "name": "Fideos spaghetti 500 g",
         "slug": "fideos-spaghetti-500-g-don-pepe",
         "description": "Sémola de trigo candeal.",
-        "price": 2100,
+        "price": 80,
         "images": [
           "fideos_tirabuzón.jpg"
         ],
@@ -3544,7 +3622,7 @@
         "name": "Jugo de naranja 1 L",
         "slug": "jugo-de-naranja-1-l-don-pepe",
         "description": "Exprimido y envasado en el día.",
-        "price": 4600,
+        "price": 160,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -3552,13 +3630,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 5300
+        "compareAtPrice": 180
       },
       {
         "name": "Jabón líquido 500 ml",
         "slug": "jabon-liquido-500-ml-don-pepe",
         "description": "Para manos, con dosificador.",
-        "price": 3800,
+        "price": 160,
         "images": [
           "jabón_líquido.jpg"
         ],
@@ -3571,7 +3649,7 @@
         "name": "Agua mineral 1,5 L",
         "slug": "agua-mineral-1-5-l-don-pepe",
         "description": "Sin gas.",
-        "price": 2100,
+        "price": 85,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -3584,7 +3662,7 @@
         "name": "Especias surtidas",
         "slug": "especias-surtidas-don-pepe",
         "description": "Pimentón, orégano y comino en frascos.",
-        "price": 5400,
+        "price": 170,
         "images": [
           "stevia.jpg"
         ],
@@ -3594,10 +3672,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-don-pepe",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-don-pepe",
         "description": "Botella retornable.",
-        "price": 3900,
+        "price": 150,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -3607,10 +3685,10 @@
         "stock": null
       },
       {
-        "name": "Harina 000 1 kg",
-        "slug": "harina-000-1-kg-don-pepe",
+        "name": "Harina 0000 1 kg",
+        "slug": "harina-0000-1-kg-don-pepe",
         "description": "Para pan y masas.",
-        "price": 1400,
+        "price": 60,
         "images": [
           "harina_000.jpg"
         ],
@@ -3623,7 +3701,7 @@
         "name": "Lentejas 500 g",
         "slug": "lentejas-500-g-don-pepe",
         "description": "Secas, de cosecha nueva.",
-        "price": 3400,
+        "price": 120,
         "images": [
           "lentejas.jpg"
         ],
@@ -3636,7 +3714,7 @@
         "name": "Azúcar en cubos 500 g",
         "slug": "azucar-en-cubos-500-g-don-pepe",
         "description": "Para el café y el té.",
-        "price": 2300,
+        "price": 90,
         "images": [
           "azúcar.jpg"
         ],
@@ -3649,7 +3727,7 @@
         "name": "Miel pura 500 g",
         "slug": "miel-pura-500-g-don-pepe",
         "description": "Miel de campo, sin agregados.",
-        "price": 8200,
+        "price": 310,
         "images": [
           "miel_pura.jpg"
         ],
@@ -3666,11 +3744,11 @@
       "email": "supermercado@detoke.test"
     },
     "category": "supermercado",
-    "name": "Súper Caballito",
-    "slug": "super-caballito",
+    "name": "Súper Pocitos",
+    "slug": "super-pocitos",
     "tagline": "Todo en un solo pedido",
     "description": "Supermercado de barrio con frescos, limpieza y perfumería. Hacé la compra de la semana sin salir.",
-    "logo": "/seed/logos/super-caballito.svg",
+    "logo": "/seed/logos/super-pocitos.svg",
     "coverImage": "almacen_cover.jpg",
     "gallery": [
       "fideos_tirabuzón.jpg",
@@ -3679,17 +3757,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@super-caballito.test",
+    "email": "hola@super-pocitos.test",
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Acoyte 3434",
-    "neighborhood": "Caballito",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Cipriano Payán 2988",
+    "neighborhood": "Pocitos",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.61405,
-    "longitude": -58.442554,
+    "latitude": -34.9061,
+    "longitude": -56.1502,
     "hours": {
       "monday": {
         "open": true,
@@ -3759,8 +3837,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2000,
-    "minimumOrder": 8000,
+    "deliveryFee": 80,
+    "minimumOrder": 400,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -3773,9 +3851,9 @@
     "products": [
       {
         "name": "Yerba mate 1 kg",
-        "slug": "yerba-mate-1-kg-super-caballito",
+        "slug": "yerba-mate-1-kg-super-pocitos",
         "description": "Con palo, molienda tradicional.",
-        "price": 6900,
+        "price": 290,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -3785,10 +3863,10 @@
         "stock": null
       },
       {
-        "name": "Harina 000 1 kg",
-        "slug": "harina-000-1-kg-super-caballito",
+        "name": "Harina 0000 1 kg",
+        "slug": "harina-0000-1-kg-super-pocitos",
         "description": "Para pan y masas.",
-        "price": 1400,
+        "price": 60,
         "images": [
           "harina_000.jpg"
         ],
@@ -3799,9 +3877,9 @@
       },
       {
         "name": "Azúcar en cubos 500 g",
-        "slug": "azucar-en-cubos-500-g-super-caballito",
+        "slug": "azucar-en-cubos-500-g-super-pocitos",
         "description": "Para el café y el té.",
-        "price": 2300,
+        "price": 90,
         "images": [
           "azúcar.jpg"
         ],
@@ -3809,13 +3887,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 2600
+        "compareAtPrice": 100
       },
       {
         "name": "Fideos spaghetti 500 g",
-        "slug": "fideos-spaghetti-500-g-super-caballito",
+        "slug": "fideos-spaghetti-500-g-super-pocitos",
         "description": "Sémola de trigo candeal.",
-        "price": 2100,
+        "price": 80,
         "images": [
           "fideos_tirabuzón.jpg"
         ],
@@ -3826,9 +3904,9 @@
       },
       {
         "name": "Lentejas 500 g",
-        "slug": "lentejas-500-g-super-caballito",
+        "slug": "lentejas-500-g-super-pocitos",
         "description": "Secas, de cosecha nueva.",
-        "price": 3400,
+        "price": 120,
         "images": [
           "lentejas.jpg"
         ],
@@ -3839,9 +3917,9 @@
       },
       {
         "name": "Miel pura 500 g",
-        "slug": "miel-pura-500-g-super-caballito",
+        "slug": "miel-pura-500-g-super-pocitos",
         "description": "Miel de campo, sin agregados.",
-        "price": 8200,
+        "price": 310,
         "images": [
           "miel_pura.jpg"
         ],
@@ -3852,9 +3930,9 @@
       },
       {
         "name": "Especias surtidas",
-        "slug": "especias-surtidas-super-caballito",
+        "slug": "especias-surtidas-super-pocitos",
         "description": "Pimentón, orégano y comino en frascos.",
-        "price": 5400,
+        "price": 170,
         "images": [
           "stevia.jpg"
         ],
@@ -3864,10 +3942,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-super-caballito",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-super-pocitos",
         "description": "Botella retornable.",
-        "price": 3900,
+        "price": 150,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -3878,9 +3956,9 @@
       },
       {
         "name": "Agua mineral 1,5 L",
-        "slug": "agua-mineral-1-5-l-super-caballito",
+        "slug": "agua-mineral-1-5-l-super-pocitos",
         "description": "Sin gas.",
-        "price": 2100,
+        "price": 85,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -3891,9 +3969,9 @@
       },
       {
         "name": "Jugo de naranja 1 L",
-        "slug": "jugo-de-naranja-1-l-super-caballito",
+        "slug": "jugo-de-naranja-1-l-super-pocitos",
         "description": "Exprimido y envasado en el día.",
-        "price": 4600,
+        "price": 160,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -3904,9 +3982,9 @@
       },
       {
         "name": "Papel higiénico x4",
-        "slug": "papel-higienico-x4-super-caballito",
+        "slug": "papel-higienico-x4-super-pocitos",
         "description": "Doble hoja, 30 metros.",
-        "price": 4200,
+        "price": 130,
         "images": [
           "papel_higiénico.jpg"
         ],
@@ -3917,9 +3995,9 @@
       },
       {
         "name": "Jabón líquido 500 ml",
-        "slug": "jabon-liquido-500-ml-super-caballito",
+        "slug": "jabon-liquido-500-ml-super-pocitos",
         "description": "Para manos, con dosificador.",
-        "price": 3800,
+        "price": 160,
         "images": [
           "jabón_líquido.jpg"
         ],
@@ -3930,9 +4008,9 @@
       },
       {
         "name": "Pasta dental 90 g",
-        "slug": "pasta-dental-90-g-super-caballito",
+        "slug": "pasta-dental-90-g-super-pocitos",
         "description": "Protección anticaries.",
-        "price": 3100,
+        "price": 130,
         "images": [
           "pasta_dental.jpg"
         ],
@@ -3943,9 +4021,9 @@
       },
       {
         "name": "Shampoo 400 ml",
-        "slug": "shampoo-400-ml-super-caballito",
+        "slug": "shampoo-400-ml-super-pocitos",
         "description": "Para todo tipo de cabello.",
-        "price": 5800,
+        "price": 230,
         "images": [
           "shampoo.jpg"
         ],
@@ -3956,9 +4034,9 @@
       },
       {
         "name": "Manzana roja 1 kg",
-        "slug": "manzana-roja-1-kg-super-caballito",
+        "slug": "manzana-roja-1-kg-super-pocitos",
         "description": "Selección de primera.",
-        "price": 3200,
+        "price": 130,
         "images": [
           "manzanas_rojas.jpg"
         ],
@@ -3969,9 +4047,9 @@
       },
       {
         "name": "Banana 1 kg",
-        "slug": "banana-1-kg-super-caballito",
+        "slug": "banana-1-kg-super-pocitos",
         "description": "Madura justa.",
-        "price": 2800,
+        "price": 100,
         "images": [
           "bananas.jpg"
         ],
@@ -3982,9 +4060,9 @@
       },
       {
         "name": "Cebolla 1 kg",
-        "slug": "cebolla-1-kg-super-caballito",
+        "slug": "cebolla-1-kg-super-pocitos",
         "description": "Bolsa de primera.",
-        "price": 1500,
+        "price": 65,
         "images": [
           "cebollas.jpg"
         ],
@@ -3995,9 +4073,9 @@
       },
       {
         "name": "Zanahoria 1 kg",
-        "slug": "zanahoria-1-kg-super-caballito",
+        "slug": "zanahoria-1-kg-super-pocitos",
         "description": "Lavada.",
-        "price": 1700,
+        "price": 60,
         "images": [
           "zanahorias.jpg"
         ],
@@ -4007,10 +4085,10 @@
         "stock": null
       },
       {
-        "name": "Malbec 750 ml",
-        "slug": "malbec-750-ml-super-caballito",
-        "description": "Vino tinto de Mendoza.",
-        "price": 9800,
+        "name": "Tannat 750 ml",
+        "slug": "tannat-750-ml-super-pocitos",
+        "description": "Vino tinto uruguayo de Canelones.",
+        "price": 420,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -4021,9 +4099,9 @@
       },
       {
         "name": "Cerveza 500 ml",
-        "slug": "cerveza-500-ml-super-caballito",
+        "slug": "cerveza-500-ml-super-pocitos",
         "description": "Rubia, botella.",
-        "price": 3600,
+        "price": 120,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -4040,11 +4118,11 @@
       "email": "supermercado2@detoke.test"
     },
     "category": "supermercado",
-    "name": "Mercado Núñez",
-    "slug": "mercado-nunez",
+    "name": "Mercado Malvín",
+    "slug": "mercado-malvin",
     "tagline": "Tu compra grande, cerca de casa",
-    "description": "Góndolas completas, precios de barrio y envío en el día a todo Núñez y Saavedra.",
-    "logo": "/seed/logos/mercado-nunez.svg",
+    "description": "Góndolas completas, precios de barrio y envío en el día a todo Malvín y el Buceo.",
+    "logo": "/seed/logos/mercado-malvin.svg",
     "coverImage": "don-carnicero_cover.jpg",
     "gallery": [
       "fideos_tirabuzón.jpg",
@@ -4053,17 +4131,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@mercado-nunez.test",
+    "email": "hola@mercado-malvin.test",
     "website": null,
     "instagram": "mercado.nunez.demo",
     "facebook": null,
-    "address": "Manuela Pedraza 1644",
-    "neighborhood": "Núñez",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Avenida General Rivera 4721",
+    "neighborhood": "Malvín",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.549588,
-    "longitude": -58.458351,
+    "latitude": -34.8905,
+    "longitude": -56.108,
     "hours": {
       "monday": {
         "open": true,
@@ -4133,8 +4211,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2000,
-    "minimumOrder": 15000,
+    "deliveryFee": 80,
+    "minimumOrder": 700,
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
@@ -4146,9 +4224,9 @@
     "products": [
       {
         "name": "Jabón líquido 500 ml",
-        "slug": "jabon-liquido-500-ml-mercado-nunez",
+        "slug": "jabon-liquido-500-ml-mercado-malvin",
         "description": "Para manos, con dosificador.",
-        "price": 3600,
+        "price": 150,
         "images": [
           "jabón_líquido.jpg"
         ],
@@ -4159,9 +4237,9 @@
       },
       {
         "name": "Azúcar en cubos 500 g",
-        "slug": "azucar-en-cubos-500-g-mercado-nunez",
+        "slug": "azucar-en-cubos-500-g-mercado-malvin",
         "description": "Para el café y el té.",
-        "price": 2200,
+        "price": 85,
         "images": [
           "azúcar.jpg"
         ],
@@ -4172,9 +4250,9 @@
       },
       {
         "name": "Fideos spaghetti 500 g",
-        "slug": "fideos-spaghetti-500-g-mercado-nunez",
+        "slug": "fideos-spaghetti-500-g-mercado-malvin",
         "description": "Sémola de trigo candeal.",
-        "price": 2000,
+        "price": 75,
         "images": [
           "fideos_tirabuzón.jpg"
         ],
@@ -4182,13 +4260,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 2300
+        "compareAtPrice": 85
       },
       {
         "name": "Pasta dental 90 g",
-        "slug": "pasta-dental-90-g-mercado-nunez",
+        "slug": "pasta-dental-90-g-mercado-malvin",
         "description": "Protección anticaries.",
-        "price": 2900,
+        "price": 120,
         "images": [
           "pasta_dental.jpg"
         ],
@@ -4199,9 +4277,9 @@
       },
       {
         "name": "Especias surtidas",
-        "slug": "especias-surtidas-mercado-nunez",
+        "slug": "especias-surtidas-mercado-malvin",
         "description": "Pimentón, orégano y comino en frascos.",
-        "price": 5100,
+        "price": 160,
         "images": [
           "stevia.jpg"
         ],
@@ -4211,10 +4289,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-mercado-nunez",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-mercado-malvin",
         "description": "Botella retornable.",
-        "price": 3700,
+        "price": 140,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -4224,10 +4302,10 @@
         "stock": null
       },
       {
-        "name": "Malbec 750 ml",
-        "slug": "malbec-750-ml-mercado-nunez",
-        "description": "Vino tinto de Mendoza.",
-        "price": 9200,
+        "name": "Tannat 750 ml",
+        "slug": "tannat-750-ml-mercado-malvin",
+        "description": "Vino tinto uruguayo de Canelones.",
+        "price": 390,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -4238,9 +4316,9 @@
       },
       {
         "name": "Banana 1 kg",
-        "slug": "banana-1-kg-mercado-nunez",
+        "slug": "banana-1-kg-mercado-malvin",
         "description": "Madura justa.",
-        "price": 2600,
+        "price": 100,
         "images": [
           "bananas.jpg"
         ],
@@ -4251,9 +4329,9 @@
       },
       {
         "name": "Papel higiénico x4",
-        "slug": "papel-higienico-x4-mercado-nunez",
+        "slug": "papel-higienico-x4-mercado-malvin",
         "description": "Doble hoja, 30 metros.",
-        "price": 3900,
+        "price": 120,
         "images": [
           "papel_higiénico.jpg"
         ],
@@ -4264,9 +4342,9 @@
       },
       {
         "name": "Miel pura 500 g",
-        "slug": "miel-pura-500-g-mercado-nunez",
+        "slug": "miel-pura-500-g-mercado-malvin",
         "description": "Miel de campo, sin agregados.",
-        "price": 7700,
+        "price": 290,
         "images": [
           "miel_pura.jpg"
         ],
@@ -4276,10 +4354,10 @@
         "stock": null
       },
       {
-        "name": "Harina 000 1 kg",
-        "slug": "harina-000-1-kg-mercado-nunez",
+        "name": "Harina 0000 1 kg",
+        "slug": "harina-0000-1-kg-mercado-malvin",
         "description": "Para pan y masas.",
-        "price": 1300,
+        "price": 55,
         "images": [
           "harina_000.jpg"
         ],
@@ -4290,9 +4368,9 @@
       },
       {
         "name": "Cebolla 1 kg",
-        "slug": "cebolla-1-kg-mercado-nunez",
+        "slug": "cebolla-1-kg-mercado-malvin",
         "description": "Bolsa de primera.",
-        "price": 1400,
+        "price": 60,
         "images": [
           "cebollas.jpg"
         ],
@@ -4303,9 +4381,9 @@
       },
       {
         "name": "Manzana roja 1 kg",
-        "slug": "manzana-roja-1-kg-mercado-nunez",
+        "slug": "manzana-roja-1-kg-mercado-malvin",
         "description": "Selección de primera.",
-        "price": 3000,
+        "price": 120,
         "images": [
           "manzanas_rojas.jpg"
         ],
@@ -4316,9 +4394,9 @@
       },
       {
         "name": "Zanahoria 1 kg",
-        "slug": "zanahoria-1-kg-mercado-nunez",
+        "slug": "zanahoria-1-kg-mercado-malvin",
         "description": "Lavada.",
-        "price": 1600,
+        "price": 60,
         "images": [
           "zanahorias.jpg"
         ],
@@ -4329,9 +4407,9 @@
       },
       {
         "name": "Cerveza 500 ml",
-        "slug": "cerveza-500-ml-mercado-nunez",
+        "slug": "cerveza-500-ml-mercado-malvin",
         "description": "Rubia, botella.",
-        "price": 3400,
+        "price": 110,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -4342,9 +4420,9 @@
       },
       {
         "name": "Yerba mate 1 kg",
-        "slug": "yerba-mate-1-kg-mercado-nunez",
+        "slug": "yerba-mate-1-kg-mercado-malvin",
         "description": "Con palo, molienda tradicional.",
-        "price": 6500,
+        "price": 270,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -4355,9 +4433,9 @@
       },
       {
         "name": "Jugo de naranja 1 L",
-        "slug": "jugo-de-naranja-1-l-mercado-nunez",
+        "slug": "jugo-de-naranja-1-l-mercado-malvin",
         "description": "Exprimido y envasado en el día.",
-        "price": 4300,
+        "price": 150,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -4368,9 +4446,9 @@
       },
       {
         "name": "Lentejas 500 g",
-        "slug": "lentejas-500-g-mercado-nunez",
+        "slug": "lentejas-500-g-mercado-malvin",
         "description": "Secas, de cosecha nueva.",
-        "price": 3200,
+        "price": 110,
         "images": [
           "lentejas.jpg"
         ],
@@ -4381,9 +4459,9 @@
       },
       {
         "name": "Shampoo 400 ml",
-        "slug": "shampoo-400-ml-mercado-nunez",
+        "slug": "shampoo-400-ml-mercado-malvin",
         "description": "Para todo tipo de cabello.",
-        "price": 5500,
+        "price": 220,
         "images": [
           "shampoo.jpg"
         ],
@@ -4400,11 +4478,11 @@
       "email": "kiosco@detoke.test"
     },
     "category": "kiosco",
-    "name": "Kiosco 24 Palermo",
-    "slug": "kiosco-24-palermo",
+    "name": "Kiosco 24 Centro",
+    "slug": "kiosco-24-centro",
     "tagline": "Abierto siempre",
     "description": "Bebidas frías, café y algo rico a cualquier hora, los siete días.",
-    "logo": "/seed/logos/kiosco-24-palermo.svg",
+    "logo": "/seed/logos/kiosco-24-centro.svg",
     "coverImage": "diettica-orgnica_cover.jpg",
     "gallery": [
       "donas.jpg",
@@ -4413,17 +4491,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@kiosco-24-palermo.test",
+    "email": "hola@kiosco-24-centro.test",
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Thames 4645",
-    "neighborhood": "Palermo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Yaguarón 1375",
+    "neighborhood": "Centro",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.592872,
-    "longitude": -58.428105,
+    "latitude": -34.9051,
+    "longitude": -56.1881,
     "hours": {
       "monday": {
         "open": true,
@@ -4504,10 +4582,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-kiosco-24-palermo",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-kiosco-24-centro",
         "description": "Bien fría.",
-        "price": 4200,
+        "price": 160,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -4518,9 +4596,9 @@
       },
       {
         "name": "Agua mineral 500 ml",
-        "slug": "agua-mineral-500-ml-kiosco-24-palermo",
+        "slug": "agua-mineral-500-ml-kiosco-24-centro",
         "description": "Sin gas.",
-        "price": 1700,
+        "price": 50,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -4531,9 +4609,9 @@
       },
       {
         "name": "Agua tónica 500 ml",
-        "slug": "agua-tonica-500-ml-kiosco-24-palermo",
+        "slug": "agua-tonica-500-ml-kiosco-24-centro",
         "description": "Servila con hielo y limón.",
-        "price": 2700,
+        "price": 80,
         "images": [
           "sprite.jpg"
         ],
@@ -4541,13 +4619,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 3100
+        "compareAtPrice": 90
       },
       {
         "name": "Jugo de naranja 500 ml",
-        "slug": "jugo-de-naranja-500-ml-kiosco-24-palermo",
+        "slug": "jugo-de-naranja-500-ml-kiosco-24-centro",
         "description": "Listo para llevar.",
-        "price": 3100,
+        "price": 95,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -4558,9 +4636,9 @@
       },
       {
         "name": "Cerveza 500 ml",
-        "slug": "cerveza-500-ml-kiosco-24-palermo",
+        "slug": "cerveza-500-ml-kiosco-24-centro",
         "description": "Rubia, fría.",
-        "price": 3700,
+        "price": 120,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -4571,9 +4649,9 @@
       },
       {
         "name": "Dona azucarada",
-        "slug": "dona-azucarada-kiosco-24-palermo",
+        "slug": "dona-azucarada-kiosco-24-centro",
         "description": "Del día, por unidad.",
-        "price": 2100,
+        "price": 70,
         "images": [
           "donas.jpg"
         ],
@@ -4583,10 +4661,10 @@
         "stock": null
       },
       {
-        "name": "Medialuna de manteca",
-        "slug": "medialuna-de-manteca-kiosco-24-palermo",
+        "name": "Croissant de manteca",
+        "slug": "croissant-de-manteca-kiosco-24-centro",
         "description": "Por unidad, para acompañar el café.",
-        "price": 1100,
+        "price": 40,
         "images": [
           "medialunas.jpg"
         ],
@@ -4597,9 +4675,9 @@
       },
       {
         "name": "Sándwich de jamón crudo y queso",
-        "slug": "sandwich-de-jamon-crudo-y-queso-kiosco-24-palermo",
+        "slug": "sandwich-de-jamon-crudo-y-queso-kiosco-24-centro",
         "description": "Armado en el momento.",
-        "price": 6000,
+        "price": 290,
         "images": [
           "salame.jpg"
         ],
@@ -4610,9 +4688,9 @@
       },
       {
         "name": "Yerba mate 500 g",
-        "slug": "yerba-mate-500-g-kiosco-24-palermo",
+        "slug": "yerba-mate-500-g-kiosco-24-centro",
         "description": "Para no quedarte sin mate.",
-        "price": 3700,
+        "price": 140,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -4646,13 +4724,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Juramento 3125",
-    "neighborhood": "Belgrano",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Ciudad de Rivera 1703",
+    "neighborhood": "Solymar",
+    "city": "Ciudad de la Costa",
+    "province": "Canelones",
     "postalCode": null,
-    "latitude": -34.562688,
-    "longitude": -58.453863,
+    "latitude": -34.8272,
+    "longitude": -55.9518,
     "hours": {
       "monday": {
         "open": true,
@@ -4733,10 +4811,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-el-paso",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-el-paso",
         "description": "Bien fría.",
-        "price": 4500,
+        "price": 170,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -4749,7 +4827,7 @@
         "name": "Agua mineral 500 ml",
         "slug": "agua-mineral-500-ml-el-paso",
         "description": "Sin gas.",
-        "price": 1800,
+        "price": 55,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -4762,7 +4840,7 @@
         "name": "Agua tónica 500 ml",
         "slug": "agua-tonica-500-ml-el-paso",
         "description": "Servila con hielo y limón.",
-        "price": 2900,
+        "price": 85,
         "images": [
           "sprite.jpg"
         ],
@@ -4770,13 +4848,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 3300
+        "compareAtPrice": 95
       },
       {
         "name": "Jugo de naranja 500 ml",
         "slug": "jugo-de-naranja-500-ml-el-paso",
         "description": "Listo para llevar.",
-        "price": 3300,
+        "price": 100,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -4789,7 +4867,7 @@
         "name": "Cerveza 500 ml",
         "slug": "cerveza-500-ml-el-paso",
         "description": "Rubia, fría.",
-        "price": 3900,
+        "price": 130,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -4802,7 +4880,7 @@
         "name": "Dona azucarada",
         "slug": "dona-azucarada-el-paso",
         "description": "Del día, por unidad.",
-        "price": 2200,
+        "price": 75,
         "images": [
           "donas.jpg"
         ],
@@ -4812,10 +4890,10 @@
         "stock": null
       },
       {
-        "name": "Medialuna de manteca",
-        "slug": "medialuna-de-manteca-el-paso",
+        "name": "Croissant de manteca",
+        "slug": "croissant-de-manteca-el-paso",
         "description": "Por unidad, para acompañar el café.",
-        "price": 1200,
+        "price": 45,
         "images": [
           "medialunas.jpg"
         ],
@@ -4828,7 +4906,7 @@
         "name": "Sándwich de jamón crudo y queso",
         "slug": "sandwich-de-jamon-crudo-y-queso-el-paso",
         "description": "Armado en el momento.",
-        "price": 6400,
+        "price": 310,
         "images": [
           "salame.jpg"
         ],
@@ -4841,7 +4919,7 @@
         "name": "Yerba mate 500 g",
         "slug": "yerba-mate-500-g-el-paso",
         "description": "Para no quedarte sin mate.",
-        "price": 3900,
+        "price": 150,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -4875,13 +4953,13 @@
     "website": null,
     "instagram": "el.buen.corte.demo",
     "facebook": null,
-    "address": "Thames 2070",
-    "neighborhood": "Villa Crespo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Doctor Carlos Martínez Vigil 1096",
+    "neighborhood": "Prado",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.598175,
-    "longitude": -58.43525,
+    "latitude": -34.8641,
+    "longitude": -56.2009,
     "hours": {
       "monday": {
         "open": true,
@@ -4967,7 +5045,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 15000,
+    "minimumOrder": 700,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -4979,10 +5057,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Tira de asado 1 kg",
-        "slug": "tira-de-asado-1-kg-el-buen-corte",
+        "name": "Asado de tira 1 kg",
+        "slug": "asado-de-tira-1-kg-el-buen-corte",
         "description": "Corte fino para la parrilla.",
-        "price": 16800,
+        "price": 630,
         "images": [
           "matambre.jpg"
         ],
@@ -4995,7 +5073,7 @@
         "name": "Chorizo parrillero 1 kg",
         "slug": "chorizo-parrillero-1-kg-el-buen-corte",
         "description": "Elaboración propia, cerdo y vaca.",
-        "price": 11500,
+        "price": 420,
         "images": [
           "chorizo_de_cerdo.jpg"
         ],
@@ -5008,7 +5086,7 @@
         "name": "Vacío 1 kg",
         "slug": "vacio-1-kg-el-buen-corte",
         "description": "Pieza tierna, con su grasita.",
-        "price": 18900,
+        "price": 660,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5016,13 +5094,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 21700
+        "compareAtPrice": 760
       },
       {
-        "name": "Bife de chorizo 1 kg",
-        "slug": "bife-de-chorizo-1-kg-el-buen-corte",
+        "name": "Bife angosto 1 kg",
+        "slug": "bife-angosto-1-kg-el-buen-corte",
         "description": "Corte ancho, madurado.",
-        "price": 21500,
+        "price": 730,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5035,7 +5113,7 @@
         "name": "Entraña 1 kg",
         "slug": "entrana-1-kg-el-buen-corte",
         "description": "Limpia y lista para la parrilla.",
-        "price": 23900,
+        "price": 840,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5048,7 +5126,7 @@
         "name": "Nalga para milanesas 1 kg",
         "slug": "nalga-para-milanesas-1-kg-el-buen-corte",
         "description": "La cortamos fina a pedido.",
-        "price": 17800,
+        "price": 600,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5061,7 +5139,7 @@
         "name": "Costillas de cerdo adobadas 1 kg",
         "slug": "costillas-de-cerdo-adobadas-1-kg-el-buen-corte",
         "description": "Marinadas, listas para el horno.",
-        "price": 13900,
+        "price": 480,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -5074,7 +5152,7 @@
         "name": "Peceto 1 kg",
         "slug": "peceto-1-kg-el-buen-corte",
         "description": "Pieza entera, sin grasa.",
-        "price": 19500,
+        "price": 690,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5087,7 +5165,7 @@
         "name": "Chimichurri casero 250 ml",
         "slug": "chimichurri-casero-250-ml-el-buen-corte",
         "description": "Para acompañar el asado.",
-        "price": 4500,
+        "price": 170,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -5121,13 +5199,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "San Juan 3766",
-    "neighborhood": "Boedo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Azara 3917",
+    "neighborhood": "Unión",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.62724,
-    "longitude": -58.422502,
+    "latitude": -34.8781,
+    "longitude": -56.1331,
     "hours": {
       "monday": {
         "open": false,
@@ -5215,10 +5293,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Tira de asado 1 kg",
-        "slug": "tira-de-asado-1-kg-carniceria-los-hermanos",
+        "name": "Asado de tira 1 kg",
+        "slug": "asado-de-tira-1-kg-carniceria-los-hermanos",
         "description": "Corte fino para la parrilla.",
-        "price": 15800,
+        "price": 590,
         "images": [
           "matambre.jpg"
         ],
@@ -5231,7 +5309,7 @@
         "name": "Chorizo parrillero 1 kg",
         "slug": "chorizo-parrillero-1-kg-carniceria-los-hermanos",
         "description": "Elaboración propia, cerdo y vaca.",
-        "price": 10800,
+        "price": 390,
         "images": [
           "chorizo_de_cerdo.jpg"
         ],
@@ -5244,7 +5322,7 @@
         "name": "Vacío 1 kg",
         "slug": "vacio-1-kg-carniceria-los-hermanos",
         "description": "Pieza tierna, con su grasita.",
-        "price": 17800,
+        "price": 620,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5252,13 +5330,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 20500
+        "compareAtPrice": 710
       },
       {
-        "name": "Bife de chorizo 1 kg",
-        "slug": "bife-de-chorizo-1-kg-carniceria-los-hermanos",
+        "name": "Bife angosto 1 kg",
+        "slug": "bife-angosto-1-kg-carniceria-los-hermanos",
         "description": "Corte ancho, madurado.",
-        "price": 20200,
+        "price": 690,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5271,7 +5349,7 @@
         "name": "Entraña 1 kg",
         "slug": "entrana-1-kg-carniceria-los-hermanos",
         "description": "Limpia y lista para la parrilla.",
-        "price": 22500,
+        "price": 790,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5284,7 +5362,7 @@
         "name": "Nalga para milanesas 1 kg",
         "slug": "nalga-para-milanesas-1-kg-carniceria-los-hermanos",
         "description": "La cortamos fina a pedido.",
-        "price": 16700,
+        "price": 560,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5297,7 +5375,7 @@
         "name": "Costillas de cerdo adobadas 1 kg",
         "slug": "costillas-de-cerdo-adobadas-1-kg-carniceria-los-hermanos",
         "description": "Marinadas, listas para el horno.",
-        "price": 13100,
+        "price": 450,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -5310,7 +5388,7 @@
         "name": "Peceto 1 kg",
         "slug": "peceto-1-kg-carniceria-los-hermanos",
         "description": "Pieza entera, sin grasa.",
-        "price": 18300,
+        "price": 650,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5323,7 +5401,7 @@
         "name": "Chimichurri casero 250 ml",
         "slug": "chimichurri-casero-250-ml-carniceria-los-hermanos",
         "description": "Para acompañar el asado.",
-        "price": 4200,
+        "price": 160,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -5357,13 +5435,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Juramento 3480",
-    "neighborhood": "Belgrano",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Los Muergos 607",
+    "neighborhood": "Península",
+    "city": "Punta del Este",
+    "province": "Maldonado",
     "postalCode": null,
-    "latitude": -34.565215,
-    "longitude": -58.458731,
+    "latitude": -34.9601,
+    "longitude": -54.9448,
     "hours": {
       "monday": {
         "open": true,
@@ -5446,10 +5524,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Tira de asado 1 kg",
-        "slug": "tira-de-asado-1-kg-la-parrillera",
+        "name": "Asado de tira 1 kg",
+        "slug": "asado-de-tira-1-kg-la-parrillera",
         "description": "Corte fino para la parrilla.",
-        "price": 17500,
+        "price": 650,
         "images": [
           "matambre.jpg"
         ],
@@ -5462,7 +5540,7 @@
         "name": "Chorizo parrillero 1 kg",
         "slug": "chorizo-parrillero-1-kg-la-parrillera",
         "description": "Elaboración propia, cerdo y vaca.",
-        "price": 12000,
+        "price": 430,
         "images": [
           "chorizo_de_cerdo.jpg"
         ],
@@ -5475,7 +5553,7 @@
         "name": "Vacío 1 kg",
         "slug": "vacio-1-kg-la-parrillera",
         "description": "Pieza tierna, con su grasita.",
-        "price": 19700,
+        "price": 690,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5483,13 +5561,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 22700
+        "compareAtPrice": 800
       },
       {
-        "name": "Bife de chorizo 1 kg",
-        "slug": "bife-de-chorizo-1-kg-la-parrillera",
+        "name": "Bife angosto 1 kg",
+        "slug": "bife-angosto-1-kg-la-parrillera",
         "description": "Corte ancho, madurado.",
-        "price": 22400,
+        "price": 770,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5502,7 +5580,7 @@
         "name": "Entraña 1 kg",
         "slug": "entrana-1-kg-la-parrillera",
         "description": "Limpia y lista para la parrilla.",
-        "price": 24900,
+        "price": 870,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5515,7 +5593,7 @@
         "name": "Nalga para milanesas 1 kg",
         "slug": "nalga-para-milanesas-1-kg-la-parrillera",
         "description": "La cortamos fina a pedido.",
-        "price": 18500,
+        "price": 620,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5528,7 +5606,7 @@
         "name": "Costillas de cerdo adobadas 1 kg",
         "slug": "costillas-de-cerdo-adobadas-1-kg-la-parrillera",
         "description": "Marinadas, listas para el horno.",
-        "price": 14500,
+        "price": 500,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -5541,7 +5619,7 @@
         "name": "Peceto 1 kg",
         "slug": "peceto-1-kg-la-parrillera",
         "description": "Pieza entera, sin grasa.",
-        "price": 20300,
+        "price": 720,
         "images": [
           "carniceria_cover.jpg"
         ],
@@ -5554,7 +5632,7 @@
         "name": "Chimichurri casero 250 ml",
         "slug": "chimichurri-casero-250-ml-la-parrillera",
         "description": "Para acompañar el asado.",
-        "price": 4700,
+        "price": 180,
         "images": [
           "asado_de_tira.jpg"
         ],
@@ -5571,11 +5649,11 @@
       "email": "verduleria@detoke.test"
     },
     "category": "verduleria",
-    "name": "La Huerta de Colegiales",
-    "slug": "la-huerta-de-colegiales",
+    "name": "La Huerta del Prado",
+    "slug": "la-huerta-del-prado",
     "tagline": "Del Mercado Central a tu mesa",
     "description": "Traemos frutas y verduras todas las madrugadas. Bolsones semanales con lo mejor de la estación.",
-    "logo": "/seed/logos/la-huerta-de-colegiales.svg",
+    "logo": "/seed/logos/la-huerta-del-prado.svg",
     "coverImage": "verduleria_cover.jpg",
     "gallery": [
       "limones.jpg",
@@ -5584,17 +5662,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@la-huerta-de-colegiales.test",
+    "email": "hola@la-huerta-del-prado.test",
     "website": null,
     "instagram": "la.huerta.de.colegiales.demo",
     "facebook": null,
-    "address": "Federico Lacroze 3658",
-    "neighborhood": "Colegiales",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Avenida 19 de Abril 3350",
+    "neighborhood": "Prado",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.575728,
-    "longitude": -58.449618,
+    "latitude": -34.8619,
+    "longitude": -56.2021,
     "hours": {
       "monday": {
         "open": true,
@@ -5689,7 +5767,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 15000,
+    "minimumOrder": 700,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -5703,9 +5781,9 @@
     "products": [
       {
         "name": "Manzana roja 1 kg",
-        "slug": "manzana-roja-1-kg-la-huerta-de-colegiales",
+        "slug": "manzana-roja-1-kg-la-huerta-del-prado",
         "description": "Dulce y crocante.",
-        "price": 3100,
+        "price": 120,
         "images": [
           "manzanas_rojas.jpg"
         ],
@@ -5716,9 +5794,9 @@
       },
       {
         "name": "Banana 1 kg",
-        "slug": "banana-1-kg-la-huerta-de-colegiales",
+        "slug": "banana-1-kg-la-huerta-del-prado",
         "description": "De Ecuador, en su punto.",
-        "price": 2700,
+        "price": 100,
         "images": [
           "bananas.jpg"
         ],
@@ -5729,9 +5807,9 @@
       },
       {
         "name": "Limón 1 kg",
-        "slug": "limon-1-kg-la-huerta-de-colegiales",
+        "slug": "limon-1-kg-la-huerta-del-prado",
         "description": "Jugosos y con mucho aroma.",
-        "price": 2400,
+        "price": 100,
         "images": [
           "limones.jpg"
         ],
@@ -5739,13 +5817,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 2800
+        "compareAtPrice": 120
       },
       {
         "name": "Tomate cherry 500 g",
-        "slug": "tomate-cherry-500-g-la-huerta-de-colegiales",
+        "slug": "tomate-cherry-500-g-la-huerta-del-prado",
         "description": "Dulces, ideales para ensalada.",
-        "price": 3700,
+        "price": 130,
         "images": [
           "tomates_cherry.jpg"
         ],
@@ -5756,9 +5834,9 @@
       },
       {
         "name": "Cebolla 1 kg",
-        "slug": "cebolla-1-kg-la-huerta-de-colegiales",
+        "slug": "cebolla-1-kg-la-huerta-del-prado",
         "description": "Bolsa de primera calidad.",
-        "price": 1400,
+        "price": 60,
         "images": [
           "cebollas.jpg"
         ],
@@ -5769,9 +5847,9 @@
       },
       {
         "name": "Zanahoria 1 kg",
-        "slug": "zanahoria-1-kg-la-huerta-de-colegiales",
+        "slug": "zanahoria-1-kg-la-huerta-del-prado",
         "description": "Frescas, recién llegadas.",
-        "price": 1600,
+        "price": 60,
         "images": [
           "zanahorias.jpg"
         ],
@@ -5782,9 +5860,9 @@
       },
       {
         "name": "Morrón rojo 1 kg",
-        "slug": "morron-rojo-1-kg-la-huerta-de-colegiales",
+        "slug": "morron-rojo-1-kg-la-huerta-del-prado",
         "description": "Carnosos, para horno o parrilla.",
-        "price": 7300,
+        "price": 240,
         "images": [
           "verduleria_cover.jpg"
         ],
@@ -5795,9 +5873,9 @@
       },
       {
         "name": "Acelga (atado)",
-        "slug": "acelga-atado-la-huerta-de-colegiales",
+        "slug": "acelga-atado-la-huerta-del-prado",
         "description": "Hojas tiernas del día.",
-        "price": 1900,
+        "price": 65,
         "images": [
           "verduleria_cover.jpg"
         ],
@@ -5808,9 +5886,9 @@
       },
       {
         "name": "Bolsón de frutas y verduras",
-        "slug": "bolson-de-frutas-y-verduras-la-huerta-de-colegiales",
+        "slug": "bolson-de-frutas-y-verduras-la-huerta-del-prado",
         "description": "Selección de estación para la semana, 5 kg.",
-        "price": 15700,
+        "price": 660,
         "images": [
           "gran-bazar_cover.jpg"
         ],
@@ -5844,13 +5922,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Acoyte 3926",
-    "neighborhood": "Caballito",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Sarandí 836",
+    "neighborhood": "Sarubbi",
+    "city": "Maldonado",
+    "province": "Maldonado",
     "postalCode": null,
-    "latitude": -34.62044,
-    "longitude": -58.439488,
+    "latitude": -34.9085,
+    "longitude": -54.9575,
     "hours": {
       "monday": {
         "open": true,
@@ -5916,7 +5994,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 8000,
+    "minimumOrder": 400,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -5931,7 +6009,7 @@
         "name": "Manzana roja 1 kg",
         "slug": "manzana-roja-1-kg-frutas-don-carlos",
         "description": "Dulce y crocante.",
-        "price": 2900,
+        "price": 110,
         "images": [
           "manzanas_rojas.jpg"
         ],
@@ -5944,7 +6022,7 @@
         "name": "Banana 1 kg",
         "slug": "banana-1-kg-frutas-don-carlos",
         "description": "De Ecuador, en su punto.",
-        "price": 2500,
+        "price": 95,
         "images": [
           "bananas.jpg"
         ],
@@ -5957,7 +6035,7 @@
         "name": "Limón 1 kg",
         "slug": "limon-1-kg-frutas-don-carlos",
         "description": "Jugosos y con mucho aroma.",
-        "price": 2200,
+        "price": 95,
         "images": [
           "limones.jpg"
         ],
@@ -5965,13 +6043,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 2500
+        "compareAtPrice": 110
       },
       {
         "name": "Tomate cherry 500 g",
         "slug": "tomate-cherry-500-g-frutas-don-carlos",
         "description": "Dulces, ideales para ensalada.",
-        "price": 3400,
+        "price": 120,
         "images": [
           "tomates_cherry.jpg"
         ],
@@ -5984,7 +6062,7 @@
         "name": "Cebolla 1 kg",
         "slug": "cebolla-1-kg-frutas-don-carlos",
         "description": "Bolsa de primera calidad.",
-        "price": 1300,
+        "price": 55,
         "images": [
           "cebollas.jpg"
         ],
@@ -5997,7 +6075,7 @@
         "name": "Zanahoria 1 kg",
         "slug": "zanahoria-1-kg-frutas-don-carlos",
         "description": "Frescas, recién llegadas.",
-        "price": 1500,
+        "price": 55,
         "images": [
           "zanahorias.jpg"
         ],
@@ -6010,7 +6088,7 @@
         "name": "Morrón rojo 1 kg",
         "slug": "morron-rojo-1-kg-frutas-don-carlos",
         "description": "Carnosos, para horno o parrilla.",
-        "price": 6800,
+        "price": 230,
         "images": [
           "verduleria_cover.jpg"
         ],
@@ -6023,7 +6101,7 @@
         "name": "Acelga (atado)",
         "slug": "acelga-atado-frutas-don-carlos",
         "description": "Hojas tiernas del día.",
-        "price": 1800,
+        "price": 65,
         "images": [
           "verduleria_cover.jpg"
         ],
@@ -6036,7 +6114,7 @@
         "name": "Bolsón de frutas y verduras",
         "slug": "bolson-de-frutas-y-verduras-frutas-don-carlos",
         "description": "Selección de estación para la semana, 5 kg.",
-        "price": 14500,
+        "price": 610,
         "images": [
           "gran-bazar_cover.jpg"
         ],
@@ -6070,13 +6148,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Dorrego 1120",
-    "neighborhood": "Chacarita",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "18 de Julio 361",
+    "neighborhood": "Barrio Histórico",
+    "city": "Colonia del Sacramento",
+    "province": "Colonia",
     "postalCode": null,
-    "latitude": -34.585233,
-    "longitude": -58.458159,
+    "latitude": -34.4712,
+    "longitude": -57.8468,
     "hours": {
       "monday": {
         "open": true,
@@ -6177,7 +6255,7 @@
         "name": "Manzana roja 1 kg",
         "slug": "manzana-roja-1-kg-raices",
         "description": "Dulce y crocante.",
-        "price": 2800,
+        "price": 110,
         "images": [
           "manzanas_rojas.jpg"
         ],
@@ -6190,7 +6268,7 @@
         "name": "Banana 1 kg",
         "slug": "banana-1-kg-raices",
         "description": "De Ecuador, en su punto.",
-        "price": 2400,
+        "price": 90,
         "images": [
           "bananas.jpg"
         ],
@@ -6203,7 +6281,7 @@
         "name": "Limón 1 kg",
         "slug": "limon-1-kg-raices",
         "description": "Jugosos y con mucho aroma.",
-        "price": 2100,
+        "price": 90,
         "images": [
           "limones.jpg"
         ],
@@ -6211,13 +6289,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 2400
+        "compareAtPrice": 100
       },
       {
         "name": "Tomate cherry 500 g",
         "slug": "tomate-cherry-500-g-raices",
         "description": "Dulces, ideales para ensalada.",
-        "price": 3300,
+        "price": 120,
         "images": [
           "tomates_cherry.jpg"
         ],
@@ -6230,7 +6308,7 @@
         "name": "Cebolla 1 kg",
         "slug": "cebolla-1-kg-raices",
         "description": "Bolsa de primera calidad.",
-        "price": 1300,
+        "price": 55,
         "images": [
           "cebollas.jpg"
         ],
@@ -6243,7 +6321,7 @@
         "name": "Zanahoria 1 kg",
         "slug": "zanahoria-1-kg-raices",
         "description": "Frescas, recién llegadas.",
-        "price": 1500,
+        "price": 55,
         "images": [
           "zanahorias.jpg"
         ],
@@ -6256,7 +6334,7 @@
         "name": "Morrón rojo 1 kg",
         "slug": "morron-rojo-1-kg-raices",
         "description": "Carnosos, para horno o parrilla.",
-        "price": 6600,
+        "price": 220,
         "images": [
           "verduleria_cover.jpg"
         ],
@@ -6269,7 +6347,7 @@
         "name": "Acelga (atado)",
         "slug": "acelga-atado-raices",
         "description": "Hojas tiernas del día.",
-        "price": 1700,
+        "price": 60,
         "images": [
           "verduleria_cover.jpg"
         ],
@@ -6282,7 +6360,7 @@
         "name": "Bolsón de frutas y verduras",
         "slug": "bolson-de-frutas-y-verduras-raices",
         "description": "Selección de estación para la semana, 5 kg.",
-        "price": 14100,
+        "price": 590,
         "images": [
           "gran-bazar_cover.jpg"
         ],
@@ -6299,11 +6377,11 @@
       "email": "fiambreria@detoke.test"
     },
     "category": "fiambreria-y-queseria",
-    "name": "La Quesería de Palermo",
-    "slug": "la-queseria-de-palermo",
+    "name": "La Quesería de Punta Carretas",
+    "slug": "la-queseria-de-punta-carretas",
     "tagline": "Quesos con historia",
     "description": "Más de treinta quesos argentinos para probar antes de llevar. Armamos tablas para tus reuniones.",
-    "logo": "/seed/logos/la-queseria-de-palermo.svg",
+    "logo": "/seed/logos/la-queseria-de-punta-carretas.svg",
     "coverImage": "queso_roquefort.jpg",
     "gallery": [
       "salame.jpg",
@@ -6312,17 +6390,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@la-queseria-de-palermo.test",
+    "email": "hola@la-queseria-de-punta-carretas.test",
     "website": null,
     "instagram": "la.queseria.de.palermo.demo",
     "facebook": null,
-    "address": "Thames 1486",
-    "neighborhood": "Palermo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "José Ellauri 463",
+    "neighborhood": "Punta Carretas",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.589687,
-    "longitude": -58.432034,
+    "latitude": -34.9218,
+    "longitude": -56.1582,
     "hours": {
       "monday": {
         "open": true,
@@ -6420,9 +6498,9 @@
     "products": [
       {
         "name": "Mortadela con pistacho 250 g",
-        "slug": "mortadela-con-pistacho-250-g-la-queseria-de-palermo",
+        "slug": "mortadela-con-pistacho-250-g-la-queseria-de-punta-carretas",
         "description": "Cortada en el momento.",
-        "price": 5900,
+        "price": 230,
         "images": [
           "mortadela.jpg"
         ],
@@ -6433,9 +6511,9 @@
       },
       {
         "name": "Mortadela clásica 250 g",
-        "slug": "mortadela-clasica-250-g-la-queseria-de-palermo",
+        "slug": "mortadela-clasica-250-g-la-queseria-de-punta-carretas",
         "description": "Fetas finas.",
-        "price": 4300,
+        "price": 160,
         "images": [
           "mortadela.jpg"
         ],
@@ -6446,9 +6524,9 @@
       },
       {
         "name": "Sándwich de jamón crudo y queso",
-        "slug": "sandwich-de-jamon-crudo-y-queso-la-queseria-de-palermo",
+        "slug": "sandwich-de-jamon-crudo-y-queso-la-queseria-de-punta-carretas",
         "description": "En pan francés.",
-        "price": 7200,
+        "price": 350,
         "images": [
           "salame.jpg"
         ],
@@ -6456,13 +6534,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 8300
+        "compareAtPrice": 400
       },
       {
         "name": "Jamón crudo y queso (picada)",
-        "slug": "jamon-crudo-y-queso-picada-la-queseria-de-palermo",
+        "slug": "jamon-crudo-y-queso-picada-la-queseria-de-punta-carretas",
         "description": "Bandeja para dos.",
-        "price": 12900,
+        "price": 590,
         "images": [
           "salame.jpg"
         ],
@@ -6473,9 +6551,9 @@
       },
       {
         "name": "Queso azul 250 g",
-        "slug": "queso-azul-250-g-la-queseria-de-palermo",
+        "slug": "queso-azul-250-g-la-queseria-de-punta-carretas",
         "description": "Sabor intenso y textura cremosa.",
-        "price": 7400,
+        "price": 290,
         "images": [
           "queso_roquefort.jpg"
         ],
@@ -6486,9 +6564,9 @@
       },
       {
         "name": "Roquefort 250 g",
-        "slug": "roquefort-250-g-la-queseria-de-palermo",
+        "slug": "roquefort-250-g-la-queseria-de-punta-carretas",
         "description": "Madurado, ideal para salsas.",
-        "price": 8900,
+        "price": 340,
         "images": [
           "queso_roquefort.jpg"
         ],
@@ -6499,9 +6577,9 @@
       },
       {
         "name": "Pan de campo",
-        "slug": "pan-de-campo-la-queseria-de-palermo",
+        "slug": "pan-de-campo-la-queseria-de-punta-carretas",
         "description": "Para acompañar la picada.",
-        "price": 6500,
+        "price": 150,
         "images": [
           "pan_integral.jpg"
         ],
@@ -6512,9 +6590,9 @@
       },
       {
         "name": "Mix de frutos secos 250 g",
-        "slug": "mix-de-frutos-secos-250-g-la-queseria-de-palermo",
+        "slug": "mix-de-frutos-secos-250-g-la-queseria-de-punta-carretas",
         "description": "Nueces y almendras.",
-        "price": 8200,
+        "price": 320,
         "images": [
           "dietetica_cover.jpg"
         ],
@@ -6524,14 +6602,27 @@
         "stock": null
       },
       {
-        "name": "Malbec 750 ml",
-        "slug": "malbec-750-ml-la-queseria-de-palermo",
-        "description": "Maridaje recomendado de la casa.",
-        "price": 11400,
+        "name": "Tannat 750 ml",
+        "slug": "tannat-750-ml-la-queseria-de-punta-carretas",
+        "description": "Vino tinto uruguayo de Canelones.",
+        "price": 480,
         "images": [
           "vino_malbec.jpg"
         ],
         "category": "bebidas-con-alcohol",
+        "featured": false,
+        "isAvailable": true,
+        "stock": null
+      },
+      {
+        "name": "Queso colonia 250 g",
+        "slug": "queso-colonia-250-g-la-queseria-de-punta-carretas",
+        "description": "Semiduro, ideal para picada.",
+        "price": 230,
+        "images": [
+          "queso_tybo.jpg"
+        ],
+        "category": "quesos",
         "featured": false,
         "isAvailable": true,
         "stock": null
@@ -6544,11 +6635,11 @@
       "email": "fiambreria2@detoke.test"
     },
     "category": "fiambreria-y-queseria",
-    "name": "Fiambres Almagro",
-    "slug": "fiambres-almagro",
+    "name": "Fiambres La Blanqueada",
+    "slug": "fiambres-la-blanqueada",
     "tagline": "Picadas listas para compartir",
     "description": "Fiambres cortados en el momento, panes frescos y vinos para acompañar.",
-    "logo": "/seed/logos/fiambres-almagro.svg",
+    "logo": "/seed/logos/fiambres-la-blanqueada.svg",
     "coverImage": "mortadela.jpg",
     "gallery": [
       "salame.jpg",
@@ -6557,17 +6648,17 @@
     ],
     "whatsapp": "59899760994",
     "phone": null,
-    "email": "hola@fiambres-almagro.test",
+    "email": "hola@fiambres-la-blanqueada.test",
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Rivadavia 2703",
-    "neighborhood": "Almagro",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Avenida Italia 2625",
+    "neighborhood": "La Blanqueada",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.611685,
-    "longitude": -58.420361,
+    "latitude": -34.8919,
+    "longitude": -56.1591,
     "hours": {
       "monday": {
         "open": true,
@@ -6650,9 +6741,9 @@
     "products": [
       {
         "name": "Mortadela con pistacho 250 g",
-        "slug": "mortadela-con-pistacho-250-g-fiambres-almagro",
+        "slug": "mortadela-con-pistacho-250-g-fiambres-la-blanqueada",
         "description": "Cortada en el momento.",
-        "price": 5900,
+        "price": 230,
         "images": [
           "mortadela.jpg"
         ],
@@ -6663,9 +6754,9 @@
       },
       {
         "name": "Mortadela clásica 250 g",
-        "slug": "mortadela-clasica-250-g-fiambres-almagro",
+        "slug": "mortadela-clasica-250-g-fiambres-la-blanqueada",
         "description": "Fetas finas.",
-        "price": 4300,
+        "price": 160,
         "images": [
           "mortadela.jpg"
         ],
@@ -6676,9 +6767,9 @@
       },
       {
         "name": "Sándwich de jamón crudo y queso",
-        "slug": "sandwich-de-jamon-crudo-y-queso-fiambres-almagro",
+        "slug": "sandwich-de-jamon-crudo-y-queso-fiambres-la-blanqueada",
         "description": "En pan francés.",
-        "price": 7200,
+        "price": 350,
         "images": [
           "salame.jpg"
         ],
@@ -6686,13 +6777,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 8300
+        "compareAtPrice": 400
       },
       {
         "name": "Jamón crudo y queso (picada)",
-        "slug": "jamon-crudo-y-queso-picada-fiambres-almagro",
+        "slug": "jamon-crudo-y-queso-picada-fiambres-la-blanqueada",
         "description": "Bandeja para dos.",
-        "price": 12900,
+        "price": 590,
         "images": [
           "salame.jpg"
         ],
@@ -6703,9 +6794,9 @@
       },
       {
         "name": "Queso azul 250 g",
-        "slug": "queso-azul-250-g-fiambres-almagro",
+        "slug": "queso-azul-250-g-fiambres-la-blanqueada",
         "description": "Sabor intenso y textura cremosa.",
-        "price": 7400,
+        "price": 290,
         "images": [
           "queso_roquefort.jpg"
         ],
@@ -6716,9 +6807,9 @@
       },
       {
         "name": "Roquefort 250 g",
-        "slug": "roquefort-250-g-fiambres-almagro",
+        "slug": "roquefort-250-g-fiambres-la-blanqueada",
         "description": "Madurado, ideal para salsas.",
-        "price": 8900,
+        "price": 340,
         "images": [
           "queso_roquefort.jpg"
         ],
@@ -6729,9 +6820,9 @@
       },
       {
         "name": "Pan de campo",
-        "slug": "pan-de-campo-fiambres-almagro",
+        "slug": "pan-de-campo-fiambres-la-blanqueada",
         "description": "Para acompañar la picada.",
-        "price": 6500,
+        "price": 150,
         "images": [
           "pan_integral.jpg"
         ],
@@ -6742,9 +6833,9 @@
       },
       {
         "name": "Mix de frutos secos 250 g",
-        "slug": "mix-de-frutos-secos-250-g-fiambres-almagro",
+        "slug": "mix-de-frutos-secos-250-g-fiambres-la-blanqueada",
         "description": "Nueces y almendras.",
-        "price": 8200,
+        "price": 320,
         "images": [
           "dietetica_cover.jpg"
         ],
@@ -6754,16 +6845,29 @@
         "stock": null
       },
       {
-        "name": "Malbec 750 ml",
-        "slug": "malbec-750-ml-fiambres-almagro",
-        "description": "Maridaje recomendado de la casa.",
-        "price": 11400,
+        "name": "Tannat 750 ml",
+        "slug": "tannat-750-ml-fiambres-la-blanqueada",
+        "description": "Vino tinto uruguayo de Canelones.",
+        "price": 480,
         "images": [
           "vino_malbec.jpg"
         ],
         "category": "bebidas-con-alcohol",
         "featured": false,
         "isAvailable": false,
+        "stock": null
+      },
+      {
+        "name": "Queso colonia 250 g",
+        "slug": "queso-colonia-250-g-fiambres-la-blanqueada",
+        "description": "Semiduro, ideal para picada.",
+        "price": 230,
+        "images": [
+          "queso_tybo.jpg"
+        ],
+        "category": "quesos",
+        "featured": false,
+        "isAvailable": true,
         "stock": null
       }
     ]
@@ -6791,13 +6895,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Corrientes 1130",
-    "neighborhood": "Villa Crespo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Bulevar España 2424",
+    "neighborhood": "Parque Rodó",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.595741,
-    "longitude": -58.441584,
+    "latitude": -34.9114,
+    "longitude": -56.1621,
     "hours": {
       "monday": {
         "open": true,
@@ -6862,8 +6966,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2000,
-    "minimumOrder": 10000,
+    "deliveryFee": 80,
+    "minimumOrder": 500,
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
@@ -6877,7 +6981,7 @@
         "name": "Mix de frutos secos 500 g",
         "slug": "mix-de-frutos-secos-500-g-vida-sana",
         "description": "Almendras, nueces, castañas y pasas.",
-        "price": 14900,
+        "price": 590,
         "images": [
           "dietetica_cover.jpg"
         ],
@@ -6890,7 +6994,7 @@
         "name": "Nueces 250 g",
         "slug": "nueces-250-g-vida-sana",
         "description": "Mariposa extra light.",
-        "price": 8400,
+        "price": 340,
         "images": [
           "nueces_peladas.jpg"
         ],
@@ -6903,7 +7007,7 @@
         "name": "Semillas de chía 250 g",
         "slug": "semillas-de-chia-250-g-vida-sana",
         "description": "Fuente natural de omega 3.",
-        "price": 3900,
+        "price": 150,
         "images": [
           "semillas_chía.jpg"
         ],
@@ -6911,13 +7015,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 4500
+        "compareAtPrice": 170
       },
       {
         "name": "Granola 500 g",
         "slug": "granola-500-g-vida-sana",
         "description": "Con avena tostada y miel.",
-        "price": 7100,
+        "price": 290,
         "images": [
           "granola.jpg"
         ],
@@ -6930,7 +7034,7 @@
         "name": "Miel pura 500 g",
         "slug": "miel-pura-500-g-vida-sana",
         "description": "De productores locales.",
-        "price": 8400,
+        "price": 320,
         "images": [
           "miel_pura.jpg"
         ],
@@ -6943,7 +7047,7 @@
         "name": "Lentejas 500 g",
         "slug": "lentejas-500-g-vida-sana",
         "description": "Secas, a granel.",
-        "price": 3400,
+        "price": 120,
         "images": [
           "lentejas.jpg"
         ],
@@ -6956,7 +7060,7 @@
         "name": "Hierbas y especias surtidas",
         "slug": "hierbas-y-especias-surtidas-vida-sana",
         "description": "Frascos de 100 g.",
-        "price": 5500,
+        "price": 180,
         "images": [
           "stevia.jpg"
         ],
@@ -6969,7 +7073,7 @@
         "name": "Harina integral 1 kg",
         "slug": "harina-integral-1-kg-vida-sana",
         "description": "Molienda en piedra.",
-        "price": 2400,
+        "price": 95,
         "images": [
           "harina_000.jpg"
         ],
@@ -6982,7 +7086,7 @@
         "name": "Yerba mate orgánica 500 g",
         "slug": "yerba-mate-organica-500-g-vida-sana",
         "description": "Sin agroquímicos.",
-        "price": 5800,
+        "price": 230,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -7016,13 +7120,13 @@
     "website": null,
     "instagram": "grano.entero.demo",
     "facebook": null,
-    "address": "Mendoza 2920",
-    "neighborhood": "Belgrano",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Arquitecto Carlos Zucchi 4206",
+    "neighborhood": "Lagomar",
+    "city": "Ciudad de la Costa",
+    "province": "Canelones",
     "postalCode": null,
-    "latitude": -34.567125,
-    "longitude": -58.454618,
+    "latitude": -34.8331,
+    "longitude": -55.9852,
     "hours": {
       "monday": {
         "open": true,
@@ -7108,7 +7212,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 8000,
+    "minimumOrder": 400,
     "deliveryRadiusKm": 3,
     "paymentMethods": [
       "cash",
@@ -7124,7 +7228,7 @@
         "name": "Mix de frutos secos 500 g",
         "slug": "mix-de-frutos-secos-500-g-grano-entero",
         "description": "Almendras, nueces, castañas y pasas.",
-        "price": 15800,
+        "price": 630,
         "images": [
           "dietetica_cover.jpg"
         ],
@@ -7137,7 +7241,7 @@
         "name": "Nueces 250 g",
         "slug": "nueces-250-g-grano-entero",
         "description": "Mariposa extra light.",
-        "price": 8900,
+        "price": 360,
         "images": [
           "nueces_peladas.jpg"
         ],
@@ -7150,7 +7254,7 @@
         "name": "Semillas de chía 250 g",
         "slug": "semillas-de-chia-250-g-grano-entero",
         "description": "Fuente natural de omega 3.",
-        "price": 4200,
+        "price": 160,
         "images": [
           "semillas_chía.jpg"
         ],
@@ -7158,13 +7262,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 4800
+        "compareAtPrice": 180
       },
       {
         "name": "Granola 500 g",
         "slug": "granola-500-g-grano-entero",
         "description": "Con avena tostada y miel.",
-        "price": 7600,
+        "price": 310,
         "images": [
           "granola.jpg"
         ],
@@ -7177,7 +7281,7 @@
         "name": "Miel pura 500 g",
         "slug": "miel-pura-500-g-grano-entero",
         "description": "De productores locales.",
-        "price": 8900,
+        "price": 340,
         "images": [
           "miel_pura.jpg"
         ],
@@ -7190,7 +7294,7 @@
         "name": "Lentejas 500 g",
         "slug": "lentejas-500-g-grano-entero",
         "description": "Secas, a granel.",
-        "price": 3600,
+        "price": 120,
         "images": [
           "lentejas.jpg"
         ],
@@ -7203,7 +7307,7 @@
         "name": "Hierbas y especias surtidas",
         "slug": "hierbas-y-especias-surtidas-grano-entero",
         "description": "Frascos de 100 g.",
-        "price": 5800,
+        "price": 190,
         "images": [
           "stevia.jpg"
         ],
@@ -7216,7 +7320,7 @@
         "name": "Harina integral 1 kg",
         "slug": "harina-integral-1-kg-grano-entero",
         "description": "Molienda en piedra.",
-        "price": 2600,
+        "price": 100,
         "images": [
           "harina_000.jpg"
         ],
@@ -7229,7 +7333,7 @@
         "name": "Yerba mate orgánica 500 g",
         "slug": "yerba-mate-organica-500-g-grano-entero",
         "description": "Sin agroquímicos.",
-        "price": 6200,
+        "price": 250,
         "images": [
           "yerba_mate.jpg"
         ],
@@ -7249,7 +7353,7 @@
     "name": "Vinoteca del Barrio",
     "slug": "vinoteca-del-barrio",
     "tagline": "Vinos con buena historia",
-    "description": "Selección de bodegas chicas de Mendoza y Salta. Te ayudamos a elegir según la ocasión.",
+    "description": "Selección de bodegas chicas de Canelones y Colonia. Te ayudamos a elegir según la ocasión.",
     "logo": "/seed/logos/vinoteca-del-barrio.svg",
     "coverImage": "vino_malbec.jpg",
     "gallery": [
@@ -7263,13 +7367,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Defensa 4412",
-    "neighborhood": "San Telmo",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Costa Rica 1644",
+    "neighborhood": "Carrasco",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.626085,
-    "longitude": -58.368157,
+    "latitude": -34.8871,
+    "longitude": -56.0561,
     "hours": {
       "monday": {
         "open": true,
@@ -7340,7 +7444,7 @@
       "pickup"
     ],
     "deliveryFee": 0,
-    "minimumOrder": 10000,
+    "minimumOrder": 500,
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
@@ -7352,10 +7456,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Malbec 750 ml",
-        "slug": "malbec-750-ml-vinoteca-del-barrio",
-        "description": "Mendoza, cosecha reciente.",
-        "price": 10200,
+        "name": "Tannat 750 ml",
+        "slug": "tannat-750-ml-vinoteca-del-barrio",
+        "description": "Vino tinto uruguayo de Canelones.",
+        "price": 430,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -7365,10 +7469,10 @@
         "stock": null
       },
       {
-        "name": "Malbec reserva 750 ml",
-        "slug": "malbec-reserva-750-ml-vinoteca-del-barrio",
+        "name": "Tannat reserva 750 ml",
+        "slug": "tannat-reserva-750-ml-vinoteca-del-barrio",
         "description": "Doce meses en barrica.",
-        "price": 20200,
+        "price": 790,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -7381,7 +7485,7 @@
         "name": "Cerveza artesanal rubia 500 ml",
         "slug": "cerveza-artesanal-rubia-500-ml-vinoteca-del-barrio",
         "description": "Ligera y refrescante.",
-        "price": 4200,
+        "price": 180,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -7389,13 +7493,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 4800
+        "compareAtPrice": 210
       },
       {
         "name": "Cerveza artesanal IPA 500 ml",
         "slug": "cerveza-artesanal-ipa-500-ml-vinoteca-del-barrio",
         "description": "Lupulada, con final amargo.",
-        "price": 4900,
+        "price": 210,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -7405,10 +7509,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-vinoteca-del-barrio",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-vinoteca-del-barrio",
         "description": "Pack individual.",
-        "price": 3700,
+        "price": 140,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -7421,7 +7525,7 @@
         "name": "Agua mineral 1,5 L",
         "slug": "agua-mineral-1-5-l-vinoteca-del-barrio",
         "description": "Sin gas.",
-        "price": 1900,
+        "price": 75,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -7434,7 +7538,7 @@
         "name": "Agua tónica 500 ml",
         "slug": "agua-tonica-500-ml-vinoteca-del-barrio",
         "description": "Para tus tragos.",
-        "price": 2500,
+        "price": 75,
         "images": [
           "sprite.jpg"
         ],
@@ -7447,7 +7551,7 @@
         "name": "Jugo de naranja 1 L",
         "slug": "jugo-de-naranja-1-l-vinoteca-del-barrio",
         "description": "Exprimido.",
-        "price": 4600,
+        "price": 160,
         "images": [
           "jugo_de_naranja.jpg"
         ],
@@ -7481,13 +7585,13 @@
     "website": null,
     "instagram": null,
     "facebook": null,
-    "address": "Jorge Newbery 668",
-    "neighborhood": "Chacarita",
-    "city": "Ciudad de Buenos Aires",
-    "province": "Ciudad Autónoma de Buenos Aires",
+    "address": "Francisco Joaquín Muñoz 3170",
+    "neighborhood": "Pocitos",
+    "city": "Montevideo",
+    "province": "Montevideo",
     "postalCode": null,
-    "latitude": -34.590682,
-    "longitude": -58.45598,
+    "latitude": -34.9052,
+    "longitude": -56.1468,
     "hours": {
       "monday": {
         "open": false,
@@ -7552,8 +7656,8 @@
       "delivery",
       "pickup"
     ],
-    "deliveryFee": 2500,
-    "minimumOrder": 15000,
+    "deliveryFee": 100,
+    "minimumOrder": 700,
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
@@ -7566,10 +7670,10 @@
     "isActive": true,
     "products": [
       {
-        "name": "Malbec 750 ml",
-        "slug": "malbec-750-ml-la-birreria",
-        "description": "Mendoza, cosecha reciente.",
-        "price": 10500,
+        "name": "Tannat 750 ml",
+        "slug": "tannat-750-ml-la-birreria",
+        "description": "Vino tinto uruguayo de Canelones.",
+        "price": 450,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -7579,10 +7683,10 @@
         "stock": null
       },
       {
-        "name": "Malbec reserva 750 ml",
-        "slug": "malbec-reserva-750-ml-la-birreria",
+        "name": "Tannat reserva 750 ml",
+        "slug": "tannat-reserva-750-ml-la-birreria",
         "description": "Doce meses en barrica.",
-        "price": 20900,
+        "price": 820,
         "images": [
           "vino_malbec.jpg"
         ],
@@ -7595,7 +7699,7 @@
         "name": "Cerveza artesanal rubia 500 ml",
         "slug": "cerveza-artesanal-rubia-500-ml-la-birreria",
         "description": "Ligera y refrescante.",
-        "price": 4400,
+        "price": 190,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -7603,13 +7707,13 @@
         "featured": true,
         "isAvailable": true,
         "stock": null,
-        "compareAtPrice": 5100
+        "compareAtPrice": 220
       },
       {
         "name": "Cerveza artesanal IPA 500 ml",
         "slug": "cerveza-artesanal-ipa-500-ml-la-birreria",
         "description": "Lupulada, con final amargo.",
-        "price": 5000,
+        "price": 210,
         "images": [
           "cerveza_lata.jpg"
         ],
@@ -7619,10 +7723,10 @@
         "stock": null
       },
       {
-        "name": "Coca-Cola 1,5 L",
-        "slug": "coca-cola-1-5-l-la-birreria",
+        "name": "Refresco cola 1,5 L",
+        "slug": "refresco-cola-1-5-l-la-birreria",
         "description": "Pack individual.",
-        "price": 3800,
+        "price": 140,
         "images": [
           "coca_cola_1.5l.jpg"
         ],
@@ -7635,7 +7739,7 @@
         "name": "Agua mineral 1,5 L",
         "slug": "agua-mineral-1-5-l-la-birreria",
         "description": "Sin gas.",
-        "price": 1900,
+        "price": 75,
         "images": [
           "agua_mineral.jpg"
         ],
@@ -7648,7 +7752,7 @@
         "name": "Agua tónica 500 ml",
         "slug": "agua-tonica-500-ml-la-birreria",
         "description": "Para tus tragos.",
-        "price": 2600,
+        "price": 80,
         "images": [
           "sprite.jpg"
         ],
@@ -7661,7 +7765,7 @@
         "name": "Jugo de naranja 1 L",
         "slug": "jugo-de-naranja-1-l-la-birreria",
         "description": "Exprimido.",
-        "price": 4800,
+        "price": 170,
         "images": [
           "jugo_de_naranja.jpg"
         ],

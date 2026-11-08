@@ -410,7 +410,7 @@ describe('admin', () => {
 });
 
 describe('shared rules', () => {
-  // 2026-11-09 is a Monday. Buenos Aires is UTC-3.
+  // 2026-11-09 is a Monday. Montevideo is UTC-3.
   const at = (time: string, day = '09') => new Date(`2026-11-${day}T${time}:00-03:00`);
 
   it('handles split shifts, closed days and overnight ranges', () => {

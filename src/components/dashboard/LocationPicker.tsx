@@ -5,7 +5,8 @@ import { toast } from 'sonner';
 import { BaseMap, mapPin } from '@/components/map/BaseMap';
 import { Button } from '@/components/ui/button';
 
-const DEFAULT_CENTER: [number, number] = [-34.6037, -58.4];
+/** Montevideo, until the business sets its place. */
+const DEFAULT_CENTER: [number, number] = [-34.9011, -56.1645];
 
 export interface Point {
   latitude: number | null;

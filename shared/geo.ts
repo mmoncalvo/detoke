@@ -3,7 +3,7 @@
 export interface CityOption {
   /** Stable key for lists. */
   id: string;
-  /** Ready to show: "Córdoba, Córdoba" or "Palermo, Ciudad de Buenos Aires". */
+  /** Ready to show: "Pocitos, Montevideo", "Córdoba, Córdoba, Argentina" or "Palermo, Ciudad de Buenos Aires, Argentina". */
   label: string;
   city: string;
   province: string;

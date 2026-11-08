@@ -16,6 +16,8 @@ Code is in English: file names, variables, types, columns, API routes, JSON keys
 - `npm run lint` — **typecheck only** (`tsc --noEmit`)
 - `npm test` — API tests (vitest + supertest, temporary SQLite)
 - `npm run db:seed` — **wipes the database** and loads `server/data/seed/*.json`
+- `npm run db:demo` — reloads only the demo data (`@detoke.test` accounts, their businesses, products and orders, sample messages); real accounts and categories keep their ids. Prefer it over `db:seed` when the database has real data.
+- Demo data is set in Uruguay: Montevideo barrios plus Canelones, Maldonado and Colonia; prices in pesos uruguayos (`shared/money.ts`, `es-UY`, `$ 450`), time zone `America/Montevideo`.
 - `npm run db:check-images` — fails if the seed references an image that does not exist
 
 Run `npm run lint` and `npm test` before any commit.
@@ -44,7 +46,7 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - A seller `User` owns one `Business`. `POST /api/auth/register` creates both in a transaction.
 - Validation lives in `shared/schemas.ts` and is reused by the API and by react-hook-form.
 - `hours`, `gallery`, `images`, `deliveryOptions` and `paymentMethods` are JSON columns.
-- "Open now" uses `openStatus()` from `shared/business.ts`, in the Buenos Aires time zone. It supports split shifts and overnight ranges.
+- "Open now" uses `openStatus()` from `shared/business.ts`, in the Montevideo time zone (`TIMEZONE`, UTC-3). It supports split shifts and overnight ranges.
 - Admin impersonation: `POST /api/admin/impersonate/:userId` returns a 2 h token for the seller with `actorId` and `impersonationLogId`. `requireAuth` sets `req.impersonation`, every write is stored in `audit_logs`, and `requireAdmin` rejects impersonation tokens. Wrap future email, password or account deletion routes in `requireOwnSession`. The web keeps the admin token in `detoke.adminToken` while impersonating.
 - Google sign-in: server-side OAuth (`server/routes/google.ts`). The callback never puts the JWT in a URL: it redirects to `/auth/callback?code=` with a one-time code (in memory, 60 s) traded at `POST /api/auth/google/exchange`. New Google accounts have no password and no business; the web sends them to `/register?step=business`, which uses `POST /api/businesses/me`. Admins can't sign in with Google.
 - Deploy: Render (`render.yaml`). Every absolute URL comes from `APP_URL`. Production requires `DATABASE_URL` (or an explicit `DATABASE_PATH`).

@@ -1,8 +1,9 @@
+import { LOCALE } from '@shared/money';
 import { formatPrice } from '@/lib/format';
 import { STATUS_TONES, type Order, type OrderStatus } from '@shared/orders';
 
-const relative = new Intl.RelativeTimeFormat('es-AR', { numeric: 'auto' });
-const dateTime = new Intl.DateTimeFormat('es-AR', { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
+const relative = new Intl.RelativeTimeFormat(LOCALE, { numeric: 'auto' });
+const dateTime = new Intl.DateTimeFormat(LOCALE, { day: 'numeric', month: 'short', hour: '2-digit', minute: '2-digit' });
 
 /** "hace 5 minutos", "ayer"... */
 export function timeAgo(iso: string) {

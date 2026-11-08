@@ -8,6 +8,8 @@ import { HttpError } from '../middleware/errorHandler.js';
 const GEOREF = 'https://apis.datos.gob.ar/georef/api';
 const PHOTON = 'https://photon.komoot.io';
 const COUNTRIES = new Set(['Argentina', 'Uruguay']);
+/** Detoke works in Uruguay: its cities come first and their labels skip the country. */
+const HOME_COUNTRY = 'Uruguay';
 const CABA = 'Ciudad Autónoma de Buenos Aires';
 const CABA_CITY = 'Ciudad de Buenos Aires';
 
@@ -77,13 +79,13 @@ interface PhotonFeature {
   properties: Record<string, string | undefined>;
 }
 
-/** Argentine localities from Georef plus Uruguayan cities from Photon, best matches first. */
+/** Uruguayan cities from Photon plus Argentine localities from Georef; Uruguay first among equal matches. */
 export function searchCities(query: string): Promise<CityOption[]> {
   const term = query.trim();
   return cached(`cities:${fold(term)}`, async () => {
     const [georef, photon] = await Promise.allSettled([
       getJson<{ localidades: GeorefLocality[] }>(`${GEOREF}/localidades?${new URLSearchParams({ nombre: term, max: '12', campos: 'nombre,provincia.nombre,centroide' })}`),
-      getJson<{ features: PhotonFeature[] }>(`${PHOTON}/api/?${new URLSearchParams({ q: term, limit: '15', layer: 'city', lat: '-34.7', lon: '-57' })}`),
+      getJson<{ features: PhotonFeature[] }>(`${PHOTON}/api/?${new URLSearchParams({ q: term, limit: '15', layer: 'city', lat: '-34.9', lon: '-56.16' })}`),
     ]);
     if (georef.status === 'rejected' && photon.status === 'rejected') throw unavailable();
 
@@ -112,13 +114,15 @@ export function searchCities(query: string): Promise<CityOption[]> {
     const folded = fold(term);
     const seen = new Set<string>();
     return options
-      .map((o) => ({ ...o, id: [o.neighborhood, o.city, o.province, o.country].join('|'), label: [o.neighborhood ?? o.city, o.neighborhood ? o.city : o.province, o.country === 'Argentina' ? null : o.country].filter(Boolean).join(', ') }))
+      .map((o) => ({ ...o, id: [o.neighborhood, o.city, o.province, o.country].join('|'), label: [o.neighborhood ?? o.city, o.neighborhood ? o.city : o.province, o.country === HOME_COUNTRY ? null : o.country].filter(Boolean).join(', ') }))
       .filter((o) => (seen.has(o.id) ? false : !!seen.add(o.id)))
-      // Names that start with the query first; among them, the shorter (closer) ones.
+      // Names that start with the query first, Uruguay before Argentina, then the shorter (closer) ones.
       .sort((a, b) => {
         const nameA = fold(a.neighborhood ?? a.city);
         const nameB = fold(b.neighborhood ?? b.city);
-        return Number(!nameA.startsWith(folded)) - Number(!nameB.startsWith(folded)) || nameA.length - nameB.length;
+        return Number(!nameA.startsWith(folded)) - Number(!nameB.startsWith(folded))
+          || Number(a.country !== HOME_COUNTRY) - Number(b.country !== HOME_COUNTRY)
+          || nameA.length - nameB.length;
       })
       .slice(0, 8);
   });

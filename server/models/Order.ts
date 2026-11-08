@@ -22,7 +22,7 @@ export class Order extends Model {
   @Column(decimalColumn('subtotal', 12, 2, false)) subtotal!: number;
   @Column(decimalColumn('deliveryFee', 12, 2, false)) deliveryFee!: number;
   @Column(decimalColumn('total', 12, 2, false)) total!: number;
-  @Column({ type: DataType.STRING, allowNull: false, defaultValue: 'ARS' }) currency!: string;
+  @Column({ type: DataType.STRING, allowNull: false, defaultValue: 'UYU' }) currency!: string;
 
   @Column({ type: DataType.STRING, allowNull: false }) fulfillment!: DeliveryOption;
   @Column(DataType.STRING) deliveryAddress!: string | null;

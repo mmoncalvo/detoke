@@ -1,6 +1,6 @@
 // Business rules shared by the server and the web app.
 
-export const TIMEZONE = 'America/Argentina/Buenos_Aires';
+export const TIMEZONE = 'America/Montevideo';
 
 export const DAYS = ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday'] as const;
 export type Day = (typeof DAYS)[number];

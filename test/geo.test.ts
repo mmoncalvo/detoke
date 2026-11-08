@@ -44,17 +44,17 @@ beforeEach(() => {
 afterEach(() => vi.unstubAllGlobals());
 
 describe('geo', () => {
-  it('lists cities with their province, best match first, without duplicates', async () => {
+  it('lists cities with their province, Uruguay first among equal matches, without duplicates', async () => {
     const res = await request(app).get('/api/geo/cities').query({ q: 'cordo' });
     expect(res.status).toBe(200);
     const labels = res.body.data.map((c: { label: string }) => c.label);
-    expect(labels[0]).toBe('Córdoba, Córdoba');
-    expect(labels.filter((l: string) => l === 'Córdoba, Córdoba')).toHaveLength(1);
-    expect(labels).toContain('Córdoba, Montevideo, Uruguay');
+    expect(labels[0]).toBe('Córdoba, Montevideo');
+    expect(labels[1]).toBe('Córdoba, Córdoba, Argentina');
+    expect(labels.filter((l: string) => l === 'Córdoba, Córdoba, Argentina')).toHaveLength(1);
     expect(labels.some((l: string) => l.includes('France'))).toBe(false);
 
     const barrio = res.body.data.find((c: { neighborhood: string | null }) => c.neighborhood === 'Palermo');
-    expect(barrio).toMatchObject({ city: 'Ciudad de Buenos Aires', province: 'Ciudad Autónoma de Buenos Aires', label: 'Palermo, Ciudad de Buenos Aires' });
+    expect(barrio).toMatchObject({ city: 'Ciudad de Buenos Aires', province: 'Ciudad Autónoma de Buenos Aires', label: 'Palermo, Ciudad de Buenos Aires, Argentina' });
 
     const [, init] = fetchMock.mock.calls[0];
     expect(init.headers['User-Agent']).toMatch(/^Detoke\/1\.0 \(/);
@@ -102,6 +102,6 @@ describe('geo', () => {
     fetchMock.mockImplementation((url: string) => (url.includes('georef') ? Promise.reject(new Error('down')) : json(photonCities)));
     const res = await request(app).get('/api/geo/cities').query({ q: 'cordoba' });
     expect(res.status).toBe(200);
-    expect(res.body.data.map((c: { label: string }) => c.label)).toEqual(['Córdoba, Montevideo, Uruguay']);
+    expect(res.body.data.map((c: { label: string }) => c.label)).toEqual(['Córdoba, Montevideo']);
   });
 });
