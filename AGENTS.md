@@ -64,3 +64,4 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - Many files in `data/images` do not show what their name says. Check the picture before using one in the seed, and run `npm run db:check-images`.
 - `.env`, `database.sqlite` and `scripts/legacy/` API keys must never be pushed or published.
 - `scripts/legacy/` is the old image and seed tooling, kept for reference. Its relative paths are not maintained.
+- Account: `/dashboard/account` (`src/pages/dashboard/Account.tsx`, also for admins) edits the session user through `PATCH /api/auth/me`, `POST /api/auth/me/password` (rate limited; a wrong current password is a 400, never a 401, so it does not end the session) and `/api/auth/me/avatar`. Call `setUser` from `useAuth` with the response so the sidebar updates. While impersonating, email and password changes are refused (403) and every write is audited.

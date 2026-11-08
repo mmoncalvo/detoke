@@ -23,6 +23,7 @@ const BusinessProfile = lazy(() => import('@/pages/dashboard/BusinessProfile'));
 const Hours = lazy(() => import('@/pages/dashboard/Hours'));
 const Gallery = lazy(() => import('@/pages/dashboard/Gallery'));
 const DeliveryPayments = lazy(() => import('@/pages/dashboard/DeliveryPayments'));
+const Account = lazy(() => import('@/pages/dashboard/Account'));
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
@@ -55,6 +56,7 @@ export default function App() {
           <Route path="hours" element={<Hours />} />
           <Route path="gallery" element={<Gallery />} />
           <Route path="delivery" element={<DeliveryPayments />} />
+          <Route path="account" element={<Account />} />
         </Route>
       </Routes>
     </Suspense>

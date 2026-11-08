@@ -13,6 +13,8 @@ interface AuthState {
   signIn: (session: Session) => void;
   signOut: () => void;
   setBusiness: (business: Business) => void;
+  /** Replaces the session user after editing the account, so every view updates at once. */
+  setUser: (user: User) => void;
   startImpersonation: (userId: string) => Promise<void>;
   stopImpersonation: () => Promise<void>;
 }
@@ -96,7 +98,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const stopImpersonation = useCallback(() => restoreAdmin(false), [restoreAdmin]);
 
   const value = useMemo(
-    () => ({ user, business, impersonatedBy, isLoading, signIn, signOut, setBusiness, startImpersonation, stopImpersonation }),
+    () => ({ user, business, impersonatedBy, isLoading, signIn, signOut, setBusiness, setUser, startImpersonation, stopImpersonation }),
     [user, business, impersonatedBy, isLoading, signIn, signOut, startImpersonation, stopImpersonation],
   );
   return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;

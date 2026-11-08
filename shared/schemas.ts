@@ -57,6 +57,22 @@ export const newBusinessSchema = z.object({
 
 export const registerSchema = accountSchema.extend({ business: newBusinessSchema });
 
+/** What a user edits in Mi cuenta. */
+export const profileSchema = z.object({
+  name: required('tu nombre'),
+  email: accountSchema.shape.email,
+  phone: optionalPhone,
+});
+
+export const passwordChangeSchema = z
+  .object({
+    /** Not needed by accounts that only sign in with Google and have no password yet. */
+    currentPassword: z.string().optional(),
+    newPassword: accountSchema.shape.password,
+    confirmPassword: z.string({ required_error: 'Repetí la contraseña nueva' }),
+  })
+  .refine((data) => data.newPassword === data.confirmPassword, { path: ['confirmPassword'], message: 'Las contraseñas no coinciden' });
+
 export const loginSchema = z.object({
   email: z.string({ required_error: 'Completá el email' }).trim().toLowerCase().email('Ingresá un email válido'),
   password: z.string({ required_error: 'Completá la contraseña' }).min(1, 'Completá la contraseña'),
@@ -146,6 +162,8 @@ export const orderStatusSchema = z.object({
   reason: optionalText(200),
 });
 
+export type ProfileInput = z.input<typeof profileSchema>;
+export type PasswordChangeInput = z.input<typeof passwordChangeSchema>;
 export type RegisterInput = z.input<typeof registerSchema>;
 export type BusinessUpdate = z.output<typeof businessUpdateSchema>;
 export type ProductInput = z.input<typeof productSchema>;

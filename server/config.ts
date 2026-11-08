@@ -62,6 +62,8 @@ export const config = {
   orderRateLimit: isTest ? 10_000 : 30,
   /** Contact form sends per IP and hour. */
   contactRateLimit: isTest ? 1000 : 5,
+  /** Password changes per IP and 15 minutes. */
+  passwordRateLimit: isTest ? 1000 : 10,
   /** Without a host, contact messages are only stored. */
   smtp: {
     host: process.env.SMTP_HOST?.trim() || null,

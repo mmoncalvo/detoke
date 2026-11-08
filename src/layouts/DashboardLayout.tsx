@@ -2,6 +2,7 @@ import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, ExternalLink, Image
 import { lazy, useEffect } from 'react';
 import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
+import { UserAvatar } from '@/components/common/UserAvatar';
 import { ImpersonationBanner } from '@/components/layout/ImpersonationBanner';
 import { Button } from '@/components/ui/button';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
@@ -55,7 +56,27 @@ function savedSidebarOpen() {
   return match ? match[1] === 'true' : true;
 }
 
-const initials = (name = '') => name.split(/\s+/).filter(Boolean).slice(0, 2).map((word) => word[0]).join('').toUpperCase();
+const ACCOUNT_PATH = '/dashboard/account';
+
+/** The signed-in user at the bottom of the sidebar; faint on purpose, it is there when you look for it. */
+function AccountButton() {
+  const { user } = useAuth();
+  const { pathname } = useLocation();
+  const { setOpenMobile } = useSidebar();
+  return (
+    <SidebarMenuItem>
+      <SidebarMenuButton asChild size="lg" tooltip={`${user?.name ?? ''} · Mi cuenta`} isActive={pathname === ACCOUNT_PATH} className="text-sidebar-foreground/75 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground data-[active=true]:bg-sidebar-accent/50 data-[active=true]:font-normal">
+        <NavLink to={ACCOUNT_PATH} onClick={() => setOpenMobile(false)}>
+          <UserAvatar name={user?.name} src={user?.avatarUrl} className="size-8" />
+          <span className="grid flex-1 text-left text-xs leading-tight">
+            <span className="truncate font-medium"><span className="sr-only">Mi cuenta: </span>{user?.name}</span>
+            <span className="truncate opacity-75">{user?.email}</span>
+          </span>
+        </NavLink>
+      </SidebarMenuButton>
+    </SidebarMenuItem>
+  );
+}
 
 export default function DashboardLayout() {
   const { user, business, impersonatedBy, signOut, stopImpersonation } = useAuth();
@@ -64,11 +85,12 @@ export default function DashboardLayout() {
   const isAdmin = user?.role === 'admin';
   const pendingOrders = useOrderAlerts(isAdmin ? null : business?.id, () => navigate('/dashboard/orders'));
   const nav = isAdmin ? ADMIN_NAV : SELLER_NAV.map((entry) => (entry.to === '/dashboard/orders' ? { ...entry, badge: pendingOrders } : entry));
-  const title = isAdmin ? 'Panel de administración' : nav.find((entry) => isCurrent(entry, pathname))?.label;
+  const onAccount = pathname === ACCOUNT_PATH;
+  const title = onAccount ? 'Mi cuenta' : isAdmin ? 'Panel de administración' : nav.find((entry) => isCurrent(entry, pathname))?.label;
 
-  // The admin panel has a single screen.
+  // The admin panel has a single screen, besides the account.
   useEffect(() => {
-    if (isAdmin && pathname !== '/dashboard') navigate('/dashboard', { replace: true });
+    if (isAdmin && pathname !== '/dashboard' && pathname !== ACCOUNT_PATH) navigate('/dashboard', { replace: true });
   }, [isAdmin, pathname, navigate]);
 
   const exit = () => {
@@ -122,17 +144,7 @@ export default function DashboardLayout() {
             <SidebarMenuItem>
               <SidebarMenuButton tooltip="Cerrar sesión" onClick={exit}><LogOut /> <span>Cerrar sesión</span></SidebarMenuButton>
             </SidebarMenuItem>
-            <SidebarMenuItem>
-              <SidebarMenuButton size="lg" tooltip={user?.email} className="cursor-default hover:bg-transparent active:bg-transparent">
-                {user?.avatarUrl
-                  ? <img src={user.avatarUrl} alt="" referrerPolicy="no-referrer" className="aspect-square size-8 shrink-0 rounded-lg object-cover" />
-                  : <span className="flex aspect-square size-8 shrink-0 items-center justify-center rounded-lg bg-sidebar-accent text-xs font-semibold text-sidebar-accent-foreground">{initials(user?.name)}</span>}
-                <span className="grid flex-1 text-left text-xs leading-tight">
-                  <span className="truncate font-medium text-sidebar-accent-foreground">{user?.name}</span>
-                  <span className="truncate">{user?.email}</span>
-                </span>
-              </SidebarMenuButton>
-            </SidebarMenuItem>
+            <AccountButton />
           </SidebarMenu>
         </SidebarFooter>
         <SidebarRail />
@@ -151,7 +163,7 @@ export default function DashboardLayout() {
             </div>
           </header>
         </div>
-        <div className="mx-auto w-full max-w-panel flex-1 p-4 sm:p-6">{isAdmin ? <AdminAccounts /> : <Outlet />}</div>
+        <div className="mx-auto w-full max-w-panel flex-1 p-4 sm:p-6">{isAdmin && !onAccount ? <AdminAccounts /> : <Outlet />}</div>
       </SidebarInset>
     </SidebarProvider>
   );

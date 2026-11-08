@@ -20,6 +20,7 @@ export const upload = multer({
 
 const PRESETS = {
   logo: { width: 512, height: 512, fit: 'cover' },
+  avatar: { width: 256, height: 256, fit: 'cover' },
   cover: { width: 1600, height: 900, fit: 'cover' },
   product: { width: 1000, height: 1000, fit: 'cover' },
   gallery: { width: 1600, height: 1600, fit: 'inside' },

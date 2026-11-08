@@ -156,6 +156,9 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/geo/addresses?q=&lat=&lng=` | Direcciones cerca de un punto (Photon, OpenStreetMap) |
 | `GET /api/geo/reverse?lat=&lng=` | La dirección de un punto del mapa |
 | `POST /api/orders` | Crea un pedido (recalcula precios y reglas del negocio) y devuelve su link `/pedido/{código}`; con el mismo `clientRequestId` devuelve el pedido ya creado |
+| `PATCH /api/auth/me` 🔒 | Edita nombre, email y teléfono (el email no, si un admin navega en nombre del usuario) |
+| `POST /api/auth/me/password` 🔒 | Cambia la contraseña pidiendo la actual, o la crea si la cuenta es solo de Google; bloqueado en impersonación |
+| `POST /api/auth/me/avatar` · `DELETE` 🔒 | Sube (recorte cuadrado 256 px) o quita la foto de perfil |
 | `GET /api/orders/public/:code` | El pedido por su código; el dueño o un admin reciben `canManage` |
 | `GET /api/orders/mine` 🔒 | Pedidos de mi negocio (`?status=`, `?since=`) |
 | `PATCH /api/orders/:code/status` 🔒 | Cambia el estado (dueño o admin): `pending` → `confirmed` → `completed`, o `cancelled` (ver `shared/orders.ts`) |
