@@ -24,13 +24,13 @@ export const canTransition = (from: OrderStatus, to: OrderStatus) => nextStatuse
 
 /**
  * The customer reads "Recibido" where the business reads "Nuevo". The last step reads "Enviado", or
- * "Listo para retirar" when the customer picks the order up (same status, only the wording changes).
+ * "Retirar" when the customer picks the order up (same status, only the wording changes).
  */
 export function statusLabel(status: OrderStatus, audience: 'customer' | 'business' = 'customer', fulfillment?: DeliveryOption) {
   const labels: Record<OrderStatus, string> = {
     pending: audience === 'business' ? 'Nuevo' : 'Recibido',
     confirmed: 'Confirmado',
-    sent: fulfillment === 'pickup' ? 'Listo para retirar' : 'Enviado',
+    sent: fulfillment === 'pickup' ? 'Retirar' : 'Enviado',
     cancelled: 'Cancelado',
   };
   return labels[status];
@@ -49,7 +49,7 @@ export function actionLabel(status: OrderStatus, fulfillment?: DeliveryOption) {
   const labels: Record<OrderStatus, string> = {
     pending: 'Nuevo',
     confirmed: 'Confirmar pedido',
-    sent: fulfillment === 'pickup' ? 'Marcar como listo para retirar' : 'Marcar como enviado',
+    sent: fulfillment === 'pickup' ? 'Marcar para retirar' : 'Marcar como enviado',
     cancelled: 'Cancelar',
   };
   return labels[status];
