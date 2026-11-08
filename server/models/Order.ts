@@ -15,6 +15,8 @@ export class Order extends Model {
   @Column({ type: DataType.STRING, unique: true }) clientRequestId!: string | null;
   /** The signed-in account that placed it, or that claimed it later from this browser's list. */
   @Column(DataType.STRING) customerUserId!: string | null;
+  /** Set when the buyer removes it from their history; the business keeps it. */
+  @Column(DataType.DATE) customerHiddenAt!: Date | null;
   /** Per business, for people: "Pedido #12". */
   @Column({ type: DataType.INTEGER, allowNull: false }) number!: number;
 

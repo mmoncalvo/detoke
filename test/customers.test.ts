@@ -103,4 +103,27 @@ describe('customer accounts', () => {
     expect(await User.count({ where: { id: c.user.id } })).toBe(0);
     expect((await request(app).delete(`/api/admin/users/${shop.user.id}`).set(auth(adminToken))).status).toBe(400);
   });
+
+  it('hides finished orders from the buyer\'s history, one or all, and never someone else\'s or one in progress', async () => {
+    const c = await customer('historial@detoke.test');
+    const place = async () => (await request(app).post('/api/orders').set(auth(c.token)).send(orderBody())).body.data.order.publicCode as string;
+    const [a, b, open] = [await place(), await place(), await place()];
+    for (const code of [a, b]) await request(app).patch(`/api/orders/${code}/status`).set(auth(shop.token)).send({ status: 'completed' });
+
+    expect((await request(app).delete(`/api/orders/customer/${open}`).set(auth(c.token))).status).toBe(409);
+    const other = await customer('ajena@detoke.test');
+    expect((await request(app).delete(`/api/orders/customer/${a}`).set(auth(other.token))).status).toBe(404);
+
+    expect((await request(app).delete(`/api/orders/customer/${a}`).set(auth(c.token))).status).toBe(200);
+    let history = (await request(app).get('/api/orders/customer').set(auth(c.token))).body.data.map((o: { publicCode: string }) => o.publicCode);
+    expect(history).not.toContain(a);
+    expect((await request(app).post(`/api/orders/customer/${a}/restore`).set(auth(c.token))).status).toBe(200);
+    expect((await request(app).get('/api/orders/customer').set(auth(c.token))).body.data).toHaveLength(3);
+
+    expect((await request(app).delete('/api/orders/customer').set(auth(c.token))).body.data.hidden).toBe(2);
+    history = (await request(app).get('/api/orders/customer').set(auth(c.token))).body.data.map((o: { publicCode: string }) => o.publicCode);
+    expect(history).toEqual([open]);
+    // The business keeps them.
+    expect((await request(app).get(`/api/orders/public/${a}`)).status).toBe(200);
+  });
 });

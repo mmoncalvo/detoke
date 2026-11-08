@@ -87,7 +87,7 @@ function removeOne(order: RecentOrder) {
   toast('Pedido quitado de tu lista', { action: { label: 'Deshacer', onClick: () => writeRecentOrders(() => before) } });
 }
 
-function RecentOrderCard({ order, onNavigate, repeat, repeating, removable }: { order: RecentOrder; onNavigate?: () => void; repeat: (o: RecentOrder, after?: () => void) => void; repeating: boolean; removable: boolean }) {
+function RecentOrderCard({ order, onNavigate, repeat, repeating, removable, onRemove }: { order: RecentOrder; onNavigate?: () => void; repeat: (o: RecentOrder, after?: () => void) => void; repeating: boolean; removable: boolean; onRemove?: (order: RecentOrder) => void }) {
   const count = itemCount(order);
   // Same tab: on a phone it opens the WhatsApp app, and Back returns here.
   const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
@@ -105,7 +105,7 @@ function RecentOrderCard({ order, onNavigate, repeat, repeating, removable }: { 
         <Button asChild variant="ghost" size="sm" className="h-8 px-2"><Link to={`/pedido/${order.publicCode}`} onClick={onNavigate}><ChevronRight /> Ver pedido</Link></Button>
         {order.status === 'pending' && <Button variant="ghost" size="sm" className="h-8 px-2" onClick={resend}><MessageCircle /> Reenviar por WhatsApp</Button>}
         <Button variant="ghost" size="sm" className="h-8 px-2" disabled={repeating} onClick={() => repeat(order)}>{repeating ? <Loader2 className="animate-spin" /> : <RotateCcw />} Repetir pedido</Button>
-        {removable && !isActive(order) && <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground" onClick={() => removeOne(order)}><Trash2 /> Eliminar</Button>}
+        {removable && !isActive(order) && <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground" onClick={() => (onRemove ?? removeOne)(order)}><Trash2 /> Eliminar</Button>}
       </div>
     </li>
   );
@@ -126,11 +126,12 @@ export function RecentOrdersWatcher() {
 }
 
 /** List of orders placed from this browser, each with its live status. */
-export function RecentOrderList({ orders, onNavigate, removable = true }: { orders: RecentOrder[]; onNavigate?: () => void; removable?: boolean }) {
+/** `onRemove` replaces the local removal (a signed-in buyer removes from the account's history). */
+export function RecentOrderList({ orders, onNavigate, removable = true, onRemove }: { orders: RecentOrder[]; onNavigate?: () => void; removable?: boolean; onRemove?: (order: RecentOrder) => void }) {
   const { repeat, repeating } = useRepeatOrder();
   return (
     <ul className="space-y-2">
-      {orders.map((order) => <RecentOrderCard key={order.publicCode} order={order} onNavigate={onNavigate} repeat={repeat} repeating={repeating === order.publicCode} removable={removable} />)}
+      {orders.map((order) => <RecentOrderCard key={order.publicCode} order={order} onNavigate={onNavigate} repeat={repeat} repeating={repeating === order.publicCode} removable={removable} onRemove={onRemove} />)}
     </ul>
   );
 }

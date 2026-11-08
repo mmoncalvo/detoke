@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Op, UniqueConstraintError, type WhereOptions } from 'sequelize';
-import { canTransition, type OrderItem, type OrderStatus } from '../../shared/orders.js';
+import { canTransition, FINAL_STATUSES, type OrderItem, type OrderStatus } from '../../shared/orders.js';
 import { claimOrdersSchema, orderCreateSchema, orderStatusSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
@@ -99,12 +99,34 @@ orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
 // Protected: the orders the session user placed as a customer, newest first (the whole history)
 orderRoutes.get('/customer', requireAuth, asyncHandler(async (req, res) => {
   const orders = await Order.findAll({
-    where: { customerUserId: currentUser(req).id },
+    where: { customerUserId: currentUser(req).id, customerHiddenAt: null },
     include: [{ model: Business, attributes: ORDER_BUSINESS_ATTRIBUTES }],
     order: [['createdAt', 'DESC']],
     limit: 200,
   });
   ok(res, orders.map(orderJson));
+}));
+
+// Protected: remove a finished order from the buyer's history (the business keeps it). Orders in progress stay.
+orderRoutes.delete('/customer/:code', requireAuth, asyncHandler(async (req, res) => {
+  const order = await Order.findOne({ where: { publicCode: req.params.code, customerUserId: currentUser(req).id } });
+  if (!order) throw new HttpError(404, 'No encontramos ese pedido en tu historial');
+  if (!FINAL_STATUSES.includes(order.status)) throw new HttpError(409, 'Los pedidos en curso no se pueden borrar del historial');
+  await order.update({ customerHiddenAt: new Date() }, { silent: true });
+  ok(res, { hidden: 1 });
+}));
+
+// Protected: remove every finished order from the buyer's history
+orderRoutes.delete('/customer', requireAuth, asyncHandler(async (req, res) => {
+  const [hidden] = await Order.update({ customerHiddenAt: new Date() }, { where: { customerUserId: currentUser(req).id, customerHiddenAt: null, status: FINAL_STATUSES }, silent: true });
+  ok(res, { hidden });
+}));
+
+// Protected: undo the removal of an order from the history
+orderRoutes.post('/customer/:code/restore', requireAuth, asyncHandler(async (req, res) => {
+  const [restored] = await Order.update({ customerHiddenAt: null }, { where: { publicCode: req.params.code, customerUserId: currentUser(req).id }, silent: true });
+  if (!restored) throw new HttpError(404, 'No encontramos ese pedido en tu historial');
+  ok(res, { restored });
 }));
 
 const claimLimit = rateLimit({ windowMs: 15 * 60 * 1000, max: config.isTest ? 1000 : 20, message: 'Hiciste muchos intentos seguidos, probá de nuevo en unos minutos' });
