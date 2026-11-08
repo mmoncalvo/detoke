@@ -1,6 +1,7 @@
 // Validation shared by the API and the forms. Messages are shown to users.
 import { z } from 'zod';
 import { CONTACT_REASONS, CONTACT_STATUSES } from './contact.js';
+import { ORDER_STATUSES } from './orders.js';
 import { DAYS, DELIVERY_OPTIONS, normalizeWhatsapp, PAYMENT_METHODS, type BusinessHours } from './business.js';
 
 const required = (label: string, max = 120) => z.string({ required_error: `Completá ${label}` }).trim().min(1, `Completá ${label}`).max(max, `Máximo ${max} caracteres`);
@@ -126,6 +127,23 @@ export const contactSchema = z.object({
 });
 
 export const contactStatusSchema = z.object({ status: z.enum(CONTACT_STATUSES, { errorMap: () => ({ message: 'Estado inválido' }) }) });
+
+export const orderCreateSchema = z.object({
+  businessId: required('el negocio'),
+  items: z.array(z.object({ productId: z.string().min(1), quantity: z.number().int().min(1, 'Cantidad inválida').max(99, 'Máximo 99 por producto') }))
+    .min(1, 'El pedido está vacío').max(60, 'Demasiados productos en un pedido'),
+  fulfillment: z.enum(DELIVERY_OPTIONS, { errorMap: () => ({ message: 'Elegí cómo lo recibís' }) }),
+  paymentMethod: z.enum(PAYMENT_METHODS, { errorMap: () => ({ message: 'Elegí cómo pagás' }) }),
+  customerName: required('tu nombre', 80),
+  customerPhone: optionalPhone,
+  deliveryAddress: optionalText(200),
+  notes: optionalText(500),
+}).refine((o) => o.fulfillment !== 'delivery' || !!o.deliveryAddress, { message: 'Completá la dirección de entrega', path: ['deliveryAddress'] });
+
+export const orderStatusSchema = z.object({
+  status: z.enum(ORDER_STATUSES, { errorMap: () => ({ message: 'Estado inválido' }) }),
+  reason: optionalText(200),
+}).refine((o) => o.status !== 'rejected' || !!o.reason, { message: 'Contale al cliente por qué lo rechazás', path: ['reason'] });
 
 export type RegisterInput = z.input<typeof registerSchema>;
 export type BusinessUpdate = z.output<typeof businessUpdateSchema>;

@@ -1,11 +1,12 @@
-import { ArrowLeftRight, Bike, CalendarClock, ExternalLink, Images, LayoutDashboard, LifeBuoy, LogOut, Package, Store, Users } from 'lucide-react';
+import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, ExternalLink, Images, LayoutDashboard, LifeBuoy, LogOut, Package, Store, Users } from 'lucide-react';
 import { lazy, useEffect } from 'react';
 import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { ImpersonationBanner } from '@/components/layout/ImpersonationBanner';
 import { Button } from '@/components/ui/button';
-import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import { useAuth } from '@/context/AuthContext';
+import { useOrderAlerts } from '@/hooks/useOrderAlerts';
 
 const AdminAccounts = lazy(() => import('@/pages/dashboard/AdminAccounts'));
 
@@ -14,9 +15,11 @@ interface NavEntry {
   label: string;
   icon: typeof Store;
   end?: boolean;
+  badge?: number;
 }
 
 const SELLER_NAV: NavEntry[] = [
+  { to: '/dashboard/orders', label: 'Pedidos', icon: ClipboardList },
   { to: '/dashboard', label: 'Resumen', icon: LayoutDashboard, end: true },
   { to: '/dashboard/products', label: 'Productos', icon: Package },
   { to: '/dashboard/business', label: 'Mi negocio', icon: Store },
@@ -39,6 +42,7 @@ function NavItems({ items }: { items: NavEntry[] }) {
           <SidebarMenuButton asChild tooltip={entry.label} isActive={isCurrent(entry, pathname)}>
             <NavLink to={entry.to} end={entry.end} onClick={() => setOpenMobile(false)}><entry.icon /> <span>{entry.label}</span></NavLink>
           </SidebarMenuButton>
+          {!!entry.badge && <SidebarMenuBadge className="rounded-full bg-mustard px-1.5 text-[11px] font-bold text-[oklch(0.25_0.04_80)] peer-hover/menu-button:text-[oklch(0.25_0.04_80)]" aria-label={`${entry.badge} pedidos nuevos`}>{entry.badge}</SidebarMenuBadge>}
         </SidebarMenuItem>
       ))}
     </SidebarMenu>
@@ -58,7 +62,8 @@ export default function DashboardLayout() {
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isAdmin = user?.role === 'admin';
-  const nav = isAdmin ? ADMIN_NAV : SELLER_NAV;
+  const pendingOrders = useOrderAlerts(isAdmin ? null : business?.id, () => navigate('/dashboard/orders'));
+  const nav = isAdmin ? ADMIN_NAV : SELLER_NAV.map((entry) => (entry.to === '/dashboard/orders' ? { ...entry, badge: pendingOrders } : entry));
   const title = isAdmin ? 'Panel de administración' : nav.find((entry) => isCurrent(entry, pathname))?.label;
 
   // The admin panel has a single screen.

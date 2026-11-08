@@ -93,6 +93,18 @@ export function requireOwnSession(req: Request, _res: Response, next: NextFuncti
   next();
 }
 
+/** The user of an optional Bearer token, or null. For public routes that show more to owners. */
+export async function optionalUser(req: Request): Promise<User | null> {
+  const token = req.headers.authorization?.replace('Bearer ', '');
+  if (!token) return null;
+  try {
+    const { id } = jwt.verify(token, config.jwtSecret) as TokenPayload;
+    return await User.findByPk(id);
+  } catch {
+    return null;
+  }
+}
+
 /** Session user on a route protected by requireAuth. */
 export function currentUser(req: Request): User {
   if (!req.user) throw new HttpError(401, 'Iniciá sesión para continuar');

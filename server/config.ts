@@ -58,6 +58,8 @@ export const config = {
     whatsapp: process.env.CONTACT_WHATSAPP?.trim() || null,
     hours: process.env.CONTACT_HOURS?.trim() || 'Lunes a viernes de 9 a 18',
   },
+  /** Orders per IP and hour. */
+  orderRateLimit: isTest ? 10_000 : 30,
   /** Contact form sends per IP and hour. */
   contactRateLimit: isTest ? 1000 : 5,
   /** Without a host, contact messages are only stored. */

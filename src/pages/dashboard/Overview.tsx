@@ -1,7 +1,9 @@
 import { Check, ChevronRight, Copy, EyeOff, Images, Package, Share2, Star } from 'lucide-react';
+import { useMemo } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
 import { profileChecklist } from '@shared/profile';
+import { FINAL_STATUSES, type Order } from '@shared/orders';
 import type { Product } from '@shared/types';
 import { OpenBadge } from '@/components/business/OpenBadge';
 import { ErrorState } from '@/components/common/States';
@@ -12,6 +14,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useAuth } from '@/context/AuthContext';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
+import { formatPrice } from '@/lib/format';
 
 function Stat({ icon: Icon, label, value }: { icon: typeof Package; label: string; value: number }) {
   return (
@@ -29,6 +32,12 @@ export default function Overview() {
   useTitle('Resumen');
   const { business } = useAuth();
   const { data: products, error, loading, reload } = useFetch<Product[]>('/products/mine');
+  const today = useMemo(() => {
+    const start = new Date();
+    start.setHours(0, 0, 0, 0);
+    return start.toISOString();
+  }, []);
+  const orders = useFetch<Order[]>(`/orders/mine?since=${encodeURIComponent(today)}`);
   if (!business) return null;
 
   if (error) return <ErrorState message={error} onRetry={reload} />;
@@ -58,6 +67,28 @@ export default function Overview() {
         <Stat icon={Star} label="Destacados" value={products.filter((p) => p.featured).length} />
         <Stat icon={Images} label="Fotos en galería" value={business.gallery.length} />
       </div>
+
+      <Card>
+        <CardHeader>
+          <CardTitle className="font-display text-lg">Pedidos de hoy</CardTitle>
+          <CardDescription>Los nuevos aparecen al instante en Pedidos.</CardDescription>
+        </CardHeader>
+        <CardContent className="flex flex-wrap items-center gap-x-8 gap-y-3">
+          {(() => {
+            const list = orders.data ?? [];
+            const valid = list.filter((o) => o.status !== 'rejected' && o.status !== 'cancelled');
+            const open = list.filter((o) => !FINAL_STATUSES.includes(o.status)).length;
+            return (
+              <>
+                <div><p className="font-display text-3xl font-bold tabular-nums">{list.length}</p><p className="text-sm text-muted-foreground">recibidos</p></div>
+                <div><p className="font-display text-3xl font-bold tabular-nums">{open}</p><p className="text-sm text-muted-foreground">por atender</p></div>
+                <div><p className="font-display text-3xl font-bold tabular-nums">{formatPrice(valid.reduce((sum, o) => sum + o.total, 0))}</p><p className="text-sm text-muted-foreground">vendido</p></div>
+                <Button asChild variant="outline" className="sm:ml-auto"><Link to="/dashboard/orders">Ver pedidos</Link></Button>
+              </>
+            );
+          })()}
+        </CardContent>
+      </Card>
 
       <Card>
         <CardHeader>

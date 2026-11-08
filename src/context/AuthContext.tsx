@@ -2,6 +2,7 @@ import { createContext, useCallback, useContext, useEffect, useMemo, useRef, use
 import { toast } from 'sonner';
 import type { Business, Impersonator, Session, User } from '@shared/types';
 import { api, ApiError, getAdminToken, getToken, setAdminToken, setToken, setUnauthorizedHandler } from '@/api';
+import { refreshSocketAuth } from '@/socket';
 
 interface AuthState {
   user: User | null;
@@ -35,6 +36,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     setToken(null);
     setAdminToken(null);
     apply(null);
+    refreshSocketAuth();
   }, [apply]);
 
   /** Goes back to the admin's own session; `expired` skips telling the server. */
@@ -47,6 +49,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
         setAdminToken(null);
         if (!adminToken) return signOut();
         setToken(adminToken);
+        refreshSocketAuth();
         apply(await api<Omit<Session, 'token'>>('/auth/me'));
         if (expired) toast.info('La sesión en nombre del usuario venció. Volviste a tu cuenta.');
       } catch {
@@ -81,6 +84,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signIn = useCallback((session: Session) => {
     setToken(session.token);
     apply(session);
+    refreshSocketAuth();
   }, [apply]);
 
   const startImpersonation = useCallback(async (userId: string) => {

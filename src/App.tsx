@@ -8,6 +8,8 @@ const Home = lazy(() => import('@/pages/Home'));
 const Explore = lazy(() => import('@/pages/Explore'));
 const BusinessPage = lazy(() => import('@/pages/BusinessPage'));
 const Checkout = lazy(() => import('@/pages/Checkout'));
+const OrderPage = lazy(() => import('@/pages/OrderPage'));
+const Orders = lazy(() => import('@/pages/dashboard/Orders'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
@@ -36,6 +38,7 @@ export default function App() {
           <Route path="explorar" element={<Explore />} />
           <Route path="negocio/:slug" element={<BusinessPage />} />
           <Route path="checkout" element={<Checkout />} />
+          <Route path="pedido/:code" element={<OrderPage />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>
@@ -44,6 +47,7 @@ export default function App() {
         <Route path="auth/callback" element={<AuthCallback />} />
         <Route path="dashboard" element={<RequireAuth><DashboardLayout /></RequireAuth>}>
           <Route index element={<Overview />} />
+          <Route path="orders" element={<Orders />} />
           <Route path="products" element={<Products />} />
           <Route path="business" element={<BusinessProfile />} />
           <Route path="hours" element={<Hours />} />
