@@ -1,9 +1,9 @@
-import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, ExternalLink, Images, LayoutDashboard, LifeBuoy, LogOut, Package, Store, Users } from 'lucide-react';
+import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, ExternalLink, Images, LayoutDashboard, Package, Store, Users } from 'lucide-react';
 import { lazy, useEffect } from 'react';
 import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
-import { UserAvatar } from '@/components/common/UserAvatar';
 import { ImpersonationBanner } from '@/components/layout/ImpersonationBanner';
+import { NavUser } from '@/components/layout/NavUser';
 import { Button } from '@/components/ui/button';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import { useAuth } from '@/context/AuthContext';
@@ -58,28 +58,9 @@ function savedSidebarOpen() {
 
 const ACCOUNT_PATH = '/dashboard/account';
 
-/** The signed-in user at the bottom of the sidebar; faint on purpose, it is there when you look for it. */
-function AccountButton() {
-  const { user } = useAuth();
-  const { pathname } = useLocation();
-  const { setOpenMobile } = useSidebar();
-  return (
-    <SidebarMenuItem>
-      <SidebarMenuButton asChild size="lg" tooltip={`${user?.name ?? ''} · Mi cuenta`} isActive={pathname === ACCOUNT_PATH} className="text-sidebar-foreground/75 hover:bg-sidebar-accent/50 hover:text-sidebar-foreground data-[active=true]:bg-sidebar-accent/50 data-[active=true]:font-normal">
-        <NavLink to={ACCOUNT_PATH} onClick={() => setOpenMobile(false)}>
-          <UserAvatar name={user?.name} src={user?.avatarUrl} className="size-8" />
-          <span className="grid flex-1 text-left text-xs leading-tight">
-            <span className="truncate font-medium"><span className="sr-only">Mi cuenta: </span>{user?.name}</span>
-            <span className="truncate opacity-75">{user?.email}</span>
-          </span>
-        </NavLink>
-      </SidebarMenuButton>
-    </SidebarMenuItem>
-  );
-}
 
 export default function DashboardLayout() {
-  const { user, business, impersonatedBy, signOut, stopImpersonation } = useAuth();
+  const { user, business, impersonatedBy, stopImpersonation } = useAuth();
   const { pathname } = useLocation();
   const navigate = useNavigate();
   const isAdmin = user?.role === 'admin';
@@ -92,11 +73,6 @@ export default function DashboardLayout() {
   useEffect(() => {
     if (isAdmin && pathname !== '/dashboard' && pathname !== ACCOUNT_PATH) navigate('/dashboard', { replace: true });
   }, [isAdmin, pathname, navigate]);
-
-  const exit = () => {
-    signOut();
-    navigate('/');
-  };
 
   const backToAdmin = async () => {
     await stopImpersonation();
@@ -136,16 +112,8 @@ export default function DashboardLayout() {
                 </SidebarMenuButton>
               </SidebarMenuItem>
             )}
-            {!isAdmin && (
-              <SidebarMenuItem>
-                <SidebarMenuButton asChild tooltip="Ayuda"><Link to="/contact"><LifeBuoy /> <span>Ayuda</span></Link></SidebarMenuButton>
-              </SidebarMenuItem>
-            )}
-            <SidebarMenuItem>
-              <SidebarMenuButton tooltip="Cerrar sesión" onClick={exit}><LogOut /> <span>Cerrar sesión</span></SidebarMenuButton>
-            </SidebarMenuItem>
-            <AccountButton />
           </SidebarMenu>
+          <NavUser onBackToAdmin={backToAdmin} />
         </SidebarFooter>
         <SidebarRail />
       </Sidebar>
