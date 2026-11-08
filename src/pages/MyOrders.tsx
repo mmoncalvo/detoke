@@ -40,7 +40,7 @@ export default function MyOrders() {
     <div className="mx-auto max-w-form px-4 py-8">
       <h1 className="text-3xl font-bold sm:text-4xl">Mis pedidos</h1>
       <p className="mt-2 text-sm text-muted-foreground">
-        {signedIn ? 'Todos tus pedidos, guardados en tu cuenta.' : <>Los pedidos que hiciste desde este dispositivo. Los entregados o cancelados se borran solos a los dos días. <Link to="/register?type=customer" className="font-medium text-foreground hover:underline">Creá una cuenta</Link> para guardarlos siempre.</>}
+        {signedIn ? 'Todos tus pedidos, guardados en tu cuenta.' : <>Se guardan en este dispositivo por unos días. <Link to="/register?type=customer" className="font-medium text-foreground hover:underline">Creá una cuenta</Link> para no perderlos.</>}
       </p>
       {orders.length === 0 ? (
         <div className="mt-8"><EmptyState icon={ReceiptText} title="Todavía no hiciste pedidos" description="Cuando mandes un pedido, lo vas a poder seguir desde acá." action={<Button asChild><Link to="/explorar">Explorar negocios</Link></Button>} /></div>
