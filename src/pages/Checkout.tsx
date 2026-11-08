@@ -70,7 +70,7 @@ function newRequestId() {
 
 /** What is left of a business card once its order went out: a confirmation and the link to follow it. */
 function SentCard({ order }: { order: RecentOrder }) {
-  const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.businessName, order, order.url)));
+  const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
   return (
     <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido enviado a ${order.businessName}`}>
       <p className="flex items-center gap-2 font-semibold"><CheckCircle2 className="size-5 text-success" /> Pedido enviado ✓</p>
@@ -133,7 +133,7 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
       removeBusiness(business.id);
       onSent(recent);
       // Same tab: a phone opens the WhatsApp app; Back returns here with the confirmation and the rest of the cart.
-      window.location.assign(whatsappUrl(business.whatsapp, orderMessage(business.name, order, url)));
+      window.location.assign(whatsappUrl(business.whatsapp, orderMessage(url)));
     } catch (err) {
       toast.error((err as Error).message);
     } finally {

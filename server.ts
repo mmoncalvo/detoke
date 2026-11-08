@@ -3,10 +3,12 @@
 import { createServer } from 'node:http';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
+import fs from 'node:fs/promises';
 import express from 'express';
 import { config } from './server/config.js';
 import { initDb } from './server/db.js';
 import { createApp } from './server/app.js';
+import { htmlWithMeta } from './server/services/pageMeta.js';
 import { initRealtime } from './server/services/realtime.js';
 
 const root = path.dirname(fileURLToPath(import.meta.url));
@@ -17,11 +19,15 @@ async function main() {
 
   if (config.isProduction) {
     const dist = path.join(root, 'dist');
-    app.use(express.static(dist));
+    const html = await fs.readFile(path.join(dist, 'index.html'), 'utf8');
+    // Order and business pages carry their link preview (WhatsApp does not run JavaScript).
+    app.use(htmlWithMeta(async () => html));
+    app.use(express.static(dist, { index: false }));
     app.get(/^(?!\/(api|data)(\/|$)).*/, (_req, res) => res.sendFile(path.join(dist, 'index.html')));
   } else {
     const { createServer: createViteServer } = await import('vite');
     const vite = await createViteServer({ server: { middlewareMode: true, hmr: { port: config.port + 20000 } }, appType: 'spa' });
+    app.use(htmlWithMeta(async (req) => vite.transformIndexHtml(req.originalUrl, await fs.readFile(path.join(root, 'index.html'), 'utf8'))));
     app.use(vite.middlewares);
   }
 

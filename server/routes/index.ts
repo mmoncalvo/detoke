@@ -10,6 +10,8 @@ import { businessCategoryRoutes, productCategoryRoutes } from './categories.js';
 import { contactRoutes } from './contact.js';
 import { productRoutes } from './products.js';
 import { searchRoutes } from './search.js';
+import { ogRoutes } from './og.js';
+
 
 export const apiRoutes = Router();
 apiRoutes.get('/health', (_req, res) => ok(res, { status: 'ok', db: 'connected' }));
@@ -25,3 +27,4 @@ apiRoutes.use('/search', searchRoutes);
 apiRoutes.use('/geo', geoRoutes);
 apiRoutes.use('/orders', orderRoutes);
 apiRoutes.use('/contact', contactRoutes);
+apiRoutes.use('/og', ogRoutes);

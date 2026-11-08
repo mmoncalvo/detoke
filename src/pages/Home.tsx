@@ -63,7 +63,7 @@ export default function Home() {
             <span className="size-1.5 rounded-full bg-mustard" aria-hidden /> Comercios de cercanía
           </p>
           <h1 className="relative mt-4 max-w-2xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
-            Todo lo del barrio, <span className="text-mustard">de toque.</span>
+            Todo el barrio, <span className="text-mustard">de toque.</span>
           </h1>
           <p className="relative mt-5 max-w-lg text-base text-sidebar-foreground sm:text-lg">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
           <form
