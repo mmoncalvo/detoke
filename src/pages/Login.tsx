@@ -15,6 +15,7 @@ import { Button } from '@/components/ui/button';
 import { Form } from '@/components/ui/form';
 import { useAuth } from '@/context/AuthContext';
 import { useTitle } from '@/hooks/useTitle';
+import { Awning } from '@/components/common/Awning';
 
 export default function Login() {
   useTitle('Ingresar');
@@ -39,7 +40,7 @@ export default function Login() {
 
   return (
     <div className="flex min-h-svh flex-col bg-background">
-      <div className="awning" aria-hidden />
+      <Awning />
       <div className="flex flex-1 items-center justify-center px-4 py-10">
         <div className="w-full max-w-md">
           <BrandMark />

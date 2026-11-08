@@ -22,6 +22,7 @@ import { useBusinessSaver } from '@/hooks/useBusinessSaver';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { toast } from 'sonner';
+import { Awning } from '@/components/common/Awning';
 
 
 const STEPS = [
@@ -182,7 +183,7 @@ export default function Register() {
 
   return (
     <div className="flex min-h-svh flex-col">
-      <div className="awning" aria-hidden />
+      <Awning />
       <div className="mx-auto w-full max-w-2xl flex-1 px-4 py-8">
         <div className="flex items-center justify-between">
           <BrandMark />

@@ -12,6 +12,7 @@ import { Button } from '@/components/ui/button';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { categoryIcon } from '@/lib/category-icons';
+import { Awning } from '@/components/common/Awning';
 
 function SectionHeader({ title, subtitle, to }: { title: string; subtitle?: string; to: string }) {
   return (
@@ -50,18 +51,23 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-hero text-[oklch(0.985_0.01_88)]">
-        <div className="awning" aria-hidden style={{ background: 'repeating-linear-gradient(90deg, var(--mustard) 0 32px, var(--background) 32px 64px)' }} />
-        <div className="relative mx-auto max-w-page px-4 pb-14 pt-10 sm:pb-20 sm:pt-14">
-          <div className="pointer-events-none absolute -bottom-10 right-4 hidden w-[380px] lg:block" aria-hidden>
-            <SafeImage src="pizza_napolitana.jpg" alt="" className="absolute bottom-24 right-40 size-52 -rotate-6 rounded-2xl border-4 border-white/90 shadow-xl" />
-            <SafeImage src="panaderia_cover.jpg" alt="" className="absolute bottom-40 right-0 size-44 rotate-3 rounded-2xl border-4 border-white/90 shadow-xl" />
-            <SafeImage src="verduleria_cover.jpg" alt="" className="absolute bottom-4 right-12 size-44 rotate-[-2deg] rounded-2xl border-4 border-white/90 shadow-xl" />
+      <section className="relative overflow-hidden bg-sidebar text-sidebar-accent-foreground">
+        <Awning />
+        <div className="relative mx-auto max-w-page px-4 pb-16 pt-10 sm:pb-24 sm:pt-16">
+          <div className="pointer-events-none absolute -bottom-6 right-4 hidden w-[400px] lg:block" aria-hidden>
+            <SafeImage src="pizza_napolitana.jpg" alt="" className="absolute bottom-28 right-44 size-52 -rotate-6 rounded-2xl border-4 border-sidebar-accent-foreground/90 shadow-2xl" />
+            <SafeImage src="panaderia_cover.jpg" alt="" className="absolute bottom-44 right-0 size-44 rotate-3 rounded-2xl border-4 border-sidebar-accent-foreground/90 shadow-2xl" />
+            <SafeImage src="verduleria_cover.jpg" alt="" className="absolute bottom-6 right-14 size-44 rotate-[-2deg] rounded-2xl border-4 border-sidebar-accent-foreground/90 shadow-2xl" />
           </div>
-          <h1 className="relative max-w-xl text-4xl font-extrabold leading-[1.05] sm:text-6xl">Todo lo del barrio, de toque.</h1>
-          <p className="mt-4 max-w-xl text-lg opacity-85">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
+          <p className="relative inline-flex items-center gap-2 rounded-full bg-sidebar-accent px-3 py-1 text-sm font-medium text-mustard">
+            <span className="size-1.5 rounded-full bg-mustard" aria-hidden /> Comercios de cercanía
+          </p>
+          <h1 className="relative mt-4 max-w-2xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
+            Todo lo del barrio, <span className="text-mustard">de toque.</span>
+          </h1>
+          <p className="relative mt-5 max-w-lg text-base text-sidebar-foreground sm:text-lg">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
           <form
-            className="mt-7 flex max-w-xl cursor-text items-center gap-2 rounded-xl bg-card p-1.5 shadow-xl shadow-black/15"
+            className="relative mt-8 flex max-w-xl cursor-text items-center gap-2 rounded-xl bg-card p-1.5 shadow-2xl shadow-black/25"
             role="search"
             onSubmit={(e) => { e.preventDefault(); navigate(`/explorar?search=${encodeURIComponent(query)}`); }}
             onClick={(e) => {
@@ -87,6 +93,11 @@ export default function Home() {
             />
             <Button type="submit" size="lg">Buscar</Button>
           </form>
+          <div className="relative mt-4 flex flex-wrap gap-2 text-sm">
+            <Link to="/explorar?open=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Abierto ahora</Link>
+            <Link to="/explorar?delivery=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Con delivery</Link>
+            <Link to="/explorar?tab=products" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Ver productos</Link>
+          </div>
         </div>
       </section>
 
