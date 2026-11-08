@@ -31,7 +31,7 @@ function Timeline({ order }: { order: Order }) {
             {i < shown.length - 1 && <span className={`absolute left-[11px] top-6 h-full w-0.5 ${at && reached.get(shown[i + 1]) ? 'bg-primary' : 'bg-border'}`} aria-hidden />}
             {at ? <CheckCircle2 className={`relative size-6 shrink-0 ${current ? 'text-primary' : 'text-primary/70'}`} /> : <Circle className="relative size-6 shrink-0 text-border" />}
             <div className="min-w-0">
-              <p className={current ? 'font-semibold' : at ? '' : 'text-muted-foreground'}>{statusLabel(step)}</p>
+              <p className={current ? 'font-semibold' : at ? '' : 'text-muted-foreground'}>{statusLabel(step, 'customer', order.fulfillment)}</p>
               {at && <p className="text-xs text-muted-foreground">{formatDateTime(at)}</p>}
             </div>
           </li>
@@ -41,7 +41,7 @@ function Timeline({ order }: { order: Order }) {
         <li className="mt-4 flex gap-3 rounded-xl bg-destructive/10 p-3 text-destructive">
           <XCircle className="size-6 shrink-0" />
           <div>
-            <p className="font-semibold">{statusLabel(order.status)}</p>
+            <p className="font-semibold">{statusLabel(order.status, 'customer', order.fulfillment)}</p>
             {last.reason && <p className="text-sm">{last.reason}</p>}
             <p className="text-xs opacity-80">{formatDateTime(last.at)}</p>
           </div>
@@ -82,7 +82,7 @@ export default function OrderPage() {
 
       <section className="mt-6 rounded-2xl border bg-card p-5" aria-live="polite">
         <div className="flex flex-wrap items-center justify-between gap-2">
-          <h1 className="text-2xl font-bold">{statusLabel(order.status)}</h1>
+          <h1 className="text-2xl font-bold">{statusLabel(order.status, 'customer', order.fulfillment)}</h1>
           <Badge variant={statusVariant(order.status)}>{finished ? 'Finalizado' : 'En curso'}</Badge>
         </div>
         {!finished && !order.canManage && <p className="mt-1 text-sm text-muted-foreground">Esta página se actualiza sola cuando el negocio avanza con tu pedido.</p>}

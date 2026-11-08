@@ -54,7 +54,7 @@ function OrderCard({ order, onChange, dimmed = false }: { order: Order; onChange
           <p className="font-semibold">Pedido #{order.number} · {order.customerName}</p>
           <p className="text-xs text-muted-foreground">{timeAgo(order.createdAt)}</p>
         </div>
-        <Badge variant={statusVariant(order.status)}>{statusLabel(order.status, 'business')}</Badge>
+        <Badge variant={statusVariant(order.status)}>{statusLabel(order.status, 'business', order.fulfillment)}</Badge>
       </header>
       <p className="mt-3 text-sm">{itemsSummary(order)}</p>
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">

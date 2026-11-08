@@ -1,4 +1,5 @@
 // Orders placed from this browser, so the customer can follow them without an account.
+import type { DeliveryOption } from '../../shared/business.js';
 import type { Order, OrderStatus } from '../../shared/orders.js';
 
 export const RECENT_ORDERS_KEY = 'detoke.recentOrders';
@@ -19,6 +20,8 @@ export interface RecentOrder {
   total: number;
   createdAt: string;
   items: { productId: string; name: string; quantity: number }[];
+  /** Pickup or delivery: the last status reads differently for each. Older entries may not have it. */
+  fulfillment?: DeliveryOption;
   /** Last status seen, and when it changed. */
   status: OrderStatus;
   updatedAt: string;
@@ -37,6 +40,7 @@ export function toRecentOrder(order: Order, business: { id: string; name: string
     total: order.total,
     createdAt: order.createdAt,
     items: order.items.map((i) => ({ productId: i.productId, name: i.name, quantity: i.quantity })),
+    fulfillment: order.fulfillment,
     status: order.status,
     updatedAt: order.updatedAt,
   };

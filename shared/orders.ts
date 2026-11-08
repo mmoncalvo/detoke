@@ -22,12 +22,15 @@ export function nextStatuses(status: OrderStatus): OrderStatus[] {
 
 export const canTransition = (from: OrderStatus, to: OrderStatus) => nextStatuses(from).includes(to);
 
-/** The customer reads "Recibido" where the business reads "Nuevo". */
-export function statusLabel(status: OrderStatus, audience: 'customer' | 'business' = 'customer') {
+/**
+ * The customer reads "Recibido" where the business reads "Nuevo". The last step reads "Enviado", or
+ * "Listo para retirar" when the customer picks the order up (same status, only the wording changes).
+ */
+export function statusLabel(status: OrderStatus, audience: 'customer' | 'business' = 'customer', fulfillment?: DeliveryOption) {
   const labels: Record<OrderStatus, string> = {
     pending: audience === 'business' ? 'Nuevo' : 'Recibido',
     confirmed: 'Confirmado',
-    sent: 'Enviado',
+    sent: fulfillment === 'pickup' ? 'Listo para retirar' : 'Enviado',
     cancelled: 'Cancelado',
   };
   return labels[status];
@@ -42,11 +45,11 @@ export const STATUS_TONES: Record<OrderStatus, 'warning' | 'accent' | 'success' 
 };
 
 /** Button text for the business, by the status it moves the order to. */
-export function actionLabel(status: OrderStatus) {
+export function actionLabel(status: OrderStatus, fulfillment?: DeliveryOption) {
   const labels: Record<OrderStatus, string> = {
     pending: 'Nuevo',
     confirmed: 'Confirmar pedido',
-    sent: 'Marcar como enviado',
+    sent: fulfillment === 'pickup' ? 'Marcar como listo para retirar' : 'Marcar como enviado',
     cancelled: 'Cancelar',
   };
   return labels[status];
