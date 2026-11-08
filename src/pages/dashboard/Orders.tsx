@@ -20,6 +20,7 @@ import { formatPrice } from '@/lib/format';
 import { itemsSummary, statusVariant, timeAgo } from '@/lib/orders';
 
 const ALL = 'all';
+const TABS = [ALL, 'pending', 'confirmed', 'completed', 'cancelled'] as const;
 
 /** Tab labels: plural of each status, same order as the flow. */
 const TAB_LABELS: Record<OrderStatus | typeof ALL, string> = {
@@ -74,8 +75,8 @@ function OrderCard({ order, onChange, dimmed = false }: { order: Order; onChange
 export default function Orders() {
   useTitle('Pedidos');
   const { business } = useAuth();
-  // Kept in the URL, like the filters of Explorar: reloading or going back keeps them.
-  const [status, setStatus] = useUrlState('status', ALL);
+  // Kept in the URL, like the filters of Explorar; the tab is also remembered in the browser for the next visit.
+  const [status, setStatus] = useUrlState('status', ALL, { persist: 'detoke.orders.status', allowed: TABS });
   const [period, setPeriod] = useUrlState('period', 'today');
   const [sound, setSound] = useState(readSoundPreference);
   const days = (PERIODS[period] ?? PERIODS.today).days;
@@ -113,7 +114,7 @@ export default function Orders() {
       <div className="flex flex-col gap-2 lg:flex-row lg:items-center">
         <Tabs value={status} onValueChange={setStatus} className="-mx-4 overflow-x-auto px-4 [scrollbar-width:none] lg:mx-0 lg:px-0">
           <TabsList>
-            {([ALL, 'pending', 'confirmed', 'completed', 'cancelled'] as const).map((value) => (
+            {TABS.map((value) => (
               <TabsTrigger key={value} value={value} className="gap-1.5">
                 {TAB_LABELS[value]}
                 <span className={`rounded-full px-1.5 text-[11px] tabular-nums ${value === 'pending' && counts.pending ? 'bg-mustard text-[oklch(0.25_0.04_80)]' : 'bg-secondary text-muted-foreground'}`}>{counts[value] ?? 0}</span>
