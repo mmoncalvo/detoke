@@ -378,9 +378,9 @@ describe('admin', () => {
 
     const edit = await request(app).put('/api/businesses/me').set(auth(token)).send({ tagline: 'Editado por la admin' });
     expect(edit.body.data.tagline).toBe('Editado por la admin');
-    await new Promise((resolve) => setTimeout(resolve, 50));
     const log = await ImpersonationLog.findOne({ where: { targetUserId: seller.user.id } });
-    expect(await AuditLog.count({ where: { impersonationLogId: log!.id, method: 'PUT' } })).toBe(1);
+    // The audit entry is written after the response goes out: wait for it instead of guessing how long it takes.
+    await vi.waitFor(async () => expect(await AuditLog.count({ where: { impersonationLogId: log!.id, method: 'PUT' } })).toBe(1), { timeout: 2000, interval: 20 });
 
     expect((await request(app).get('/api/admin/users').set(auth(token))).status).toBe(403);
     expect((await request(app).post(`/api/admin/impersonate/${seller.user.id}`).set(auth(token))).status).toBe(403);

@@ -33,7 +33,7 @@ export default function PublicLayout() {
   return (
     <div className="flex min-h-svh flex-col">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:z-50 focus:m-2 focus:rounded-md focus:bg-card focus:px-3 focus:py-2">Saltar al contenido</a>
-      <header className="sticky top-0 z-40 border-b bg-background/90 backdrop-blur">
+      <header className="sticky top-0 z-40 border-b bg-navbar/95 backdrop-blur">
         <ImpersonationBanner />
         <div className="mx-auto flex h-16 max-w-page items-center gap-1 px-4 sm:gap-2">
           <BrandMark compact />

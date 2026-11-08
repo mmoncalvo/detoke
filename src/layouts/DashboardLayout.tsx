@@ -19,8 +19,8 @@ interface NavEntry {
 }
 
 const SELLER_NAV: NavEntry[] = [
-  { to: '/dashboard/orders', label: 'Pedidos', icon: ClipboardList },
   { to: '/dashboard', label: 'Resumen', icon: LayoutDashboard, end: true },
+  { to: '/dashboard/orders', label: 'Pedidos', icon: ClipboardList },
   { to: '/dashboard/products', label: 'Productos', icon: Package },
   { to: '/dashboard/business', label: 'Mi negocio', icon: Store },
   { to: '/dashboard/hours', label: 'Horarios', icon: CalendarClock },
