@@ -1,8 +1,8 @@
-import { AlertTriangle, CheckCircle2, ExternalLink, Loader2, MessageCircle, ShoppingBag, Store, Trash2, Undo2 } from 'lucide-react';
+import { AlertTriangle, CheckCircle2, ExternalLink, Loader2, MessageCircle, ShoppingBag, Store, Trash2 } from 'lucide-react';
 import { toast } from 'sonner';
 import type { Order } from '@shared/orders';
 import { api } from '@/api';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { DELIVERY_LABELS, openStatus, PAYMENT_LABELS, type DeliveryOption, type PaymentMethod } from '@shared/business';
 import { QuantityStepper } from '@/components/common/QuantityStepper';
@@ -15,7 +15,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useCart, type CartGroup } from '@/context/CartContext';
 import { useTitle } from '@/hooks/useTitle';
+import { OrdersInProgress } from '@/components/orders/RecentOrders';
+import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { formatPrice, whatsappUrl } from '@/lib/format';
+import { orderMessage } from '@/lib/orders';
+import { addRecentOrder, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 
 const CUSTOMER_KEY = 'detoke.customer';
 
@@ -41,18 +45,32 @@ function OptionButton({ selected, onClick, children }: { selected: boolean; onCl
   );
 }
 
-/** Short WhatsApp message: the order lives at its link. */
-function buildMessage(businessName: string, order: Order, url: string) {
-  const count = order.items.reduce((sum, i) => sum + i.quantity, 0);
-  return [
-    `¡Hola ${businessName}! Te hice un pedido por Detoke.`,
-    `*Pedido #${order.number}* · ${count} ${count === 1 ? 'producto' : 'productos'} · Total ${formatPrice(order.total)}`,
-    '',
-    `Mirá el detalle y confirmalo acá: ${url}`,
-  ].join('\n');
+/** One id per checkout attempt: a retry or a double click must not create a second order. */
+function newRequestId() {
+  if (typeof crypto.randomUUID === 'function') return crypto.randomUUID();
+  const bytes = crypto.getRandomValues(new Uint8Array(16));
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  const hex = [...bytes].map((b) => b.toString(16).padStart(2, '0')).join('');
+  return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
 }
 
-function OrderCard({ group, customer, setCustomer, index, count, sent, onSent }: { group: CartGroup; customer: Customer; setCustomer: (c: Customer) => void; index: number; count: number; sent: string | null; onSent: (link: string | null) => void }) {
+/** What is left of a business card once its order went out: a confirmation and the link to follow it. */
+function SentCard({ order }: { order: RecentOrder }) {
+  const resend = () => window.open(whatsappUrl(order.businessWhatsapp, orderMessage(order.businessName, order, order.url)), '_blank', 'noopener');
+  return (
+    <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido enviado a ${order.businessName}`}>
+      <p className="flex items-center gap-2 font-semibold"><CheckCircle2 className="size-5 text-success" /> Pedido enviado ✓</p>
+      <p className="mt-1 text-sm text-muted-foreground">Pedido #{order.number} a {order.businessName} · {formatPrice(order.total)}. Te avisamos acá cuando lo confirmen.</p>
+      <div className="mt-3 flex flex-wrap gap-2">
+        <Button asChild size="sm"><Link to={`/pedido/${order.publicCode}`}><ExternalLink /> Ver estado</Link></Button>
+        <Button variant="ghost" size="sm" onClick={resend}><MessageCircle /> Reenviar por WhatsApp</Button>
+      </div>
+    </section>
+  );
+}
+
+function OrderCard({ group, customer, setCustomer, index, count, onSent }: { group: CartGroup; customer: Customer; setCustomer: (c: Customer) => void; index: number; count: number; onSent: (order: RecentOrder) => void }) {
   const { business } = group;
   const { setQuantity, removeBusiness } = useCart();
   const [method, setMethod] = useState<DeliveryOption>(business.deliveryOptions[0] ?? 'pickup');
@@ -68,17 +86,25 @@ function OrderCard({ group, customer, setCustomer, index, count, sent, onSent }:
   const addressError = showErrors && method === 'delivery' && !customer.address.trim();
 
   const [sending, setSending] = useState(false);
+  // Kept until the order is created, so a retry after a lost response returns the same order.
+  const requestId = useRef<string | null>(null);
+  const busy = useRef(false);
 
   const send = async () => {
     setShowErrors(true);
     if (!customer.name.trim() || (method === 'delivery' && !customer.address.trim()) || missing > 0) return;
     // Open the tab now, in the click: opening it after the request would be blocked as a popup.
+    // A second click while the first is on its way does nothing.
+    if (busy.current) return;
+    busy.current = true;
     const tab = window.open('', '_blank');
     setSending(true);
+    requestId.current ??= newRequestId();
     try {
       const { order, url } = await api<{ order: Order; url: string }>('/orders', {
         method: 'POST',
         body: {
+          clientRequestId: requestId.current,
           businessId: business.id,
           items: group.items.map((item) => ({ productId: item.id, quantity: item.quantity })),
           fulfillment: method,
@@ -89,24 +115,30 @@ function OrderCard({ group, customer, setCustomer, index, count, sent, onSent }:
           notes,
         },
       });
-      const chat = whatsappUrl(business.whatsapp, buildMessage(business.name, order, url));
+      const chat = whatsappUrl(business.whatsapp, orderMessage(business.name, order, url));
       if (tab) tab.location.href = chat;
       else window.location.href = chat;
-      onSent(`/pedido/${order.publicCode}`);
+      requestId.current = null;
+      const recent = toRecentOrder(order, business, url);
+      writeRecentOrders((list) => addRecentOrder(list, recent));
+      // The order is out: only this business leaves the cart, the others stay as they were.
+      removeBusiness(business.id);
+      onSent(recent);
     } catch (err) {
       tab?.close();
       toast.error((err as Error).message);
     } finally {
+      busy.current = false;
       setSending(false);
     }
   };
 
   return (
-    <section id={`order-${business.id}`} className={`scroll-mt-24 rounded-2xl border-2 bg-card ${sent ? 'border-success/60' : count > 1 ? 'border-primary/30' : 'border-border'}`} aria-label={`Pedido ${index + 1} de ${count}: ${business.name}`}>
+    <section id={`order-${business.id}`} className={`scroll-mt-24 rounded-2xl border-2 bg-card ${count > 1 ? 'border-primary/30' : 'border-border'}`} aria-label={`Pedido ${index + 1} de ${count}: ${business.name}`}>
       {count > 1 && (
         <div className="flex items-center justify-between gap-2 rounded-t-[14px] bg-secondary px-4 py-2 text-xs font-semibold uppercase tracking-wide">
           <span>Pedido {index + 1} de {count}</span>
-          {sent ? <span className="flex items-center gap-1 text-success-foreground"><CheckCircle2 className="size-4" /> Enviado</span> : <span className="text-muted-foreground">Pendiente</span>}
+          <span className="text-muted-foreground">Sin enviar</span>
         </div>
       )}
       <header className="flex items-center gap-3 border-b p-4">
@@ -181,17 +213,7 @@ function OrderCard({ group, customer, setCustomer, index, count, sent, onSent }:
         )}
         {!status.isOpen && <p className="text-sm text-warning-foreground">Ahora está cerrado. Podés mandar el pedido y lo verán cuando abran.</p>}
 
-        <Button size="lg" className="w-full" variant={sent ? 'outline' : 'default'} disabled={missing > 0 || sending} onClick={send}>{sending ? <Loader2 className="animate-spin" /> : <MessageCircle />} {sent ? 'Enviar otro pedido igual' : count > 1 ? `Enviar pedido a ${business.name}` : 'Enviar pedido por WhatsApp'}</Button>
-        {sent && (
-          <div className="flex flex-wrap items-center justify-between gap-2 text-sm">
-            <span className="flex items-center gap-1.5 text-success-foreground"><CheckCircle2 className="size-4" /> Pedido creado y enviado por WhatsApp.</span>
-            <span className="flex gap-1">
-              <Button asChild variant="ghost" size="sm"><Link to={sent} target="_blank"><ExternalLink /> Ver estado</Link></Button>
-              <Button variant="ghost" size="sm" onClick={() => onSent(null)}><Undo2 /> Ocultar</Button>
-              <Button variant="ghost" size="sm" onClick={() => removeBusiness(business.id)}><Trash2 /> Quitar del carrito</Button>
-            </span>
-          </div>
-        )}
+        <Button size="lg" className="w-full" disabled={missing > 0 || sending} onClick={send}>{sending ? <Loader2 className="animate-spin" /> : <MessageCircle />} {sending ? 'Enviando…' : count > 1 ? `Enviar pedido a ${business.name}` : 'Enviar pedido por WhatsApp'}</Button>
       </div>
     </section>
   );
@@ -200,13 +222,15 @@ function OrderCard({ group, customer, setCustomer, index, count, sent, onSent }:
 export default function Checkout() {
   useTitle('Tu pedido');
   const { groups } = useCart();
+  const recent = useRecentOrders();
   const [customer, setCustomer] = useState<Customer>(readCustomer);
-  // Business id → link of the order sent to it.
-  const [sent, setSent] = useState<Record<string, string>>({});
+  // Orders sent from this page: their card stays as a confirmation.
+  const [sent, setSent] = useState<RecentOrder[]>([]);
   const many = groups.length > 1;
-  const sentCount = groups.filter((g) => sent[g.business.id]).length;
   const grandTotal = groups.reduce((sum, g) => sum + g.subtotal, 0);
-  const markSent = (id: string, link: string | null) => setSent(({ [id]: _old, ...rest }) => (link ? { ...rest, [id]: link } : rest));
+  const sentCodes = new Set(sent.map((o) => o.publicCode));
+  // Fresh status for the confirmations, from the shared list.
+  const sentNow = sent.map((o) => recent.find((r) => r.publicCode === o.publicCode) ?? o);
 
   useEffect(() => {
     try {
@@ -218,7 +242,7 @@ export default function Checkout() {
 
   return (
     <div className="mx-auto max-w-form px-4 py-8">
-      <h1 className="text-3xl font-bold sm:text-4xl">Tu pedido</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl">{groups.length === 0 && sent.length > 0 ? '¡Listo!' : 'Tu pedido'}</h1>
       {many && (
         <div role="status" className="mt-4 rounded-2xl border-2 border-mustard bg-accent p-4 text-accent-foreground">
           <p className="flex items-center gap-2 font-semibold"><Store className="size-5 shrink-0" /> Tenés {groups.length} pedidos separados</p>
@@ -230,19 +254,18 @@ export default function Checkout() {
                   <SafeImage src={g.business.logo} alt="" className="size-6 rounded-full" />
                   <span className="font-medium">{i + 1}. {g.business.name}</span>
                   <span className="text-muted-foreground">{formatPrice(g.subtotal)}</span>
-                  {sent[g.business.id] && <CheckCircle2 className="size-4 text-success" aria-label="Enviado" />}
                 </a>
               </li>
             ))}
           </ul>
-          <p className="mt-3 text-sm font-medium">{sentCount} de {groups.length} pedidos enviados</p>
         </div>
       )}
       <div className="mt-6 space-y-6">
-        {groups.length === 0 ? (
+        {sentNow.map((order) => <SentCard key={order.publicCode} order={order} />)}
+        {groups.length === 0 && sent.length === 0 ? (
           <EmptyState icon={ShoppingBag} title="Tu pedido está vacío" description="Elegí un negocio del barrio y sumá lo que necesites." action={<Button asChild><Link to="/explorar">Explorar negocios</Link></Button>} />
         ) : groups.map((group, i) => (
-          <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} index={i} count={groups.length} sent={sent[group.business.id] ?? null} onSent={(link) => markSent(group.business.id, link)} />
+          <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} index={i} count={groups.length} onSent={(order) => setSent((list) => [order, ...list.filter((o) => o.publicCode !== order.publicCode)])} />
         ))}
       </div>
       {many && (
@@ -254,6 +277,7 @@ export default function Checkout() {
           <p className="font-display text-xl font-semibold">{formatPrice(grandTotal)}</p>
         </div>
       )}
+      <OrdersInProgress orders={recent.filter((o) => !sentCodes.has(o.publicCode))} className="mt-10" />
     </div>
   );
 }

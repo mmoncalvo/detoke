@@ -1,4 +1,4 @@
-import { LayoutDashboard, LogIn, Search, ShoppingBag } from 'lucide-react';
+import { LayoutDashboard, LogIn, ReceiptText, Search, ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { BrandMark } from '@/components/common/BrandMark';
@@ -9,6 +9,8 @@ import { SearchDialog } from '@/components/layout/SearchDialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
+import { useRecentOrders } from '@/hooks/useRecentOrders';
+import { isActive } from '@/lib/recentOrders';
 
 /** Navbar items change color softly on hover, with no button box; keyboard focus keeps a discreet ring. */
 const NAV_LINK = 'rounded-md px-2 py-2 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring/40 sm:px-3';
@@ -20,6 +22,8 @@ export default function PublicLayout() {
   const { user } = useAuth();
   const { count, setOpen } = useCart();
   const [searchOpen, setSearchOpen] = useState(false);
+  const recent = useRecentOrders();
+  const activeOrders = recent.filter(isActive).length;
   const { pathname } = useLocation();
 
   useEffect(() => {
@@ -50,6 +54,14 @@ export default function PublicLayout() {
           <div className="ml-auto flex items-center md:ml-2 sm:gap-1">
             <Button variant="ghost" size="icon" className={`size-9 md:hidden ${NAV_ICON}`} aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
             <ThemeToggle className={`size-9 sm:size-10 ${NAV_ICON}`} />
+            {recent.length > 0 && (
+              <Button asChild variant="ghost" size="icon" className={`relative size-9 sm:size-10 ${NAV_ICON}`}>
+                <Link to="/mis-pedidos" aria-label={activeOrders ? `Mis pedidos, ${activeOrders} en curso` : 'Mis pedidos'} title="Mis pedidos">
+                  <ReceiptText className="size-5" />
+                  {activeOrders > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[11px] font-bold text-primary-foreground">{activeOrders}</span>}
+                </Link>
+              </Button>
+            )}
             <Button variant="ghost" size="icon" className={`relative size-9 sm:size-10 ${NAV_ICON}`} aria-label={`Ver pedido, ${count} productos`} onClick={() => setOpen(true)}>
               <ShoppingBag className="size-5" />
               {count > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-tomato px-1 text-[11px] font-bold text-white">{count}</span>}

@@ -9,6 +9,7 @@ const Explore = lazy(() => import('@/pages/Explore'));
 const BusinessPage = lazy(() => import('@/pages/BusinessPage'));
 const Checkout = lazy(() => import('@/pages/Checkout'));
 const OrderPage = lazy(() => import('@/pages/OrderPage'));
+const MyOrders = lazy(() => import('@/pages/MyOrders'));
 const Orders = lazy(() => import('@/pages/dashboard/Orders'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const Login = lazy(() => import('@/pages/Login'));
@@ -39,6 +40,7 @@ export default function App() {
           <Route path="negocio/:slug" element={<BusinessPage />} />
           <Route path="checkout" element={<Checkout />} />
           <Route path="pedido/:code" element={<OrderPage />} />
+          <Route path="mis-pedidos" element={<MyOrders />} />
           <Route path="contact" element={<Contact />} />
           <Route path="*" element={<NotFound />} />
         </Route>

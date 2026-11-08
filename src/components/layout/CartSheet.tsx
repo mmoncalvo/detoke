@@ -5,12 +5,15 @@ import { QuantityStepper } from '@/components/common/QuantityStepper';
 import { SafeImage } from '@/components/common/SafeImage';
 import { Button } from '@/components/ui/button';
 import { Sheet, SheetContent, SheetDescription, SheetFooter, SheetHeader, SheetTitle } from '@/components/ui/sheet';
+import { OrdersInProgress } from '@/components/orders/RecentOrders';
 import { useCart } from '@/context/CartContext';
+import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { formatPrice } from '@/lib/format';
 
 export function CartSheet() {
   const { groups, count, isOpen, setOpen, setQuantity, removeBusiness } = useCart();
   const navigate = useNavigate();
+  const recent = useRecentOrders();
   const total = groups.reduce((sum, g) => sum + g.subtotal, 0);
 
   return (
@@ -50,6 +53,7 @@ export function CartSheet() {
               </ul>
             </section>
           ))}
+          <OrdersInProgress orders={recent} onNavigate={() => setOpen(false)} className={groups.length ? 'border-t pt-5' : ''} />
         </div>
 
         {groups.length > 0 && (

@@ -88,6 +88,10 @@ En el registro y en Mi negocio, la ciudad y la dirección se autocompletan, y al
 
 Al enviar el pedido desde el checkout se crea en el servidor y el mensaje de WhatsApp lleva un link único (`/pedido/{código}`). El cliente sigue ahí el estado en vivo; el dueño lo ve aparecer al instante en **Pedidos** (con aviso, sonido opcional y contador) y lo avanza con pocos pasos: Nuevo (el cliente lo ve como Recibido) → Confirmado → Entregado, o directo de Nuevo a Entregado si lo retiran en el momento. También puede cancelarlo, con un motivo opcional.
 
+Cuando un pedido sale, solo los productos de ese negocio se quitan del carrito (los de otros negocios quedan) y su tarjeta del checkout pasa a "Pedido enviado ✓" con **Ver estado**. El navegador guarda los últimos 20 pedidos (`detoke.recentOrders`, sin necesidad de cuenta): aparecen como **Pedidos en curso** en el carrito y el checkout, y en **Mis pedidos** (`/mis-pedidos`, con el ícono del header que cuenta los activos). Cada uno muestra el estado en vivo, permite **Reenviar por WhatsApp** mientras está Recibido (el mismo link, sin crear otro pedido) y **Repetir pedido**, que vuelve a cargar los productos disponibles con los precios de hoy. Los entregados o cancelados se borran a los dos días, y los que ya no existen, al consultarlos.
+
+Cada intento de envío lleva un `clientRequestId`: si el pedido se reintenta o se toca dos veces el botón, el servidor devuelve el mismo pedido en lugar de crear otro.
+
 El tiempo real usa Socket.IO en el mismo servidor y puerto. El cliente se autentica en el handshake con el mismo JWT de la API; la room `business:{id}` es solo para el dueño (o un admin) y `order:{código}` es de solo lectura para quien tenga el link. Los cambios se hacen por la API REST, que valida permisos y transiciones, y el servidor emite `order:created` y `order:updated` solo a esas rooms.
 
 ## Contacto
@@ -151,7 +155,7 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/geo/cities?q=` | Ciudades: Georef (Argentina) y OpenStreetMap (Uruguay), "Ciudad, Provincia" |
 | `GET /api/geo/addresses?q=&lat=&lng=` | Direcciones cerca de un punto (Photon, OpenStreetMap) |
 | `GET /api/geo/reverse?lat=&lng=` | La dirección de un punto del mapa |
-| `POST /api/orders` | Crea un pedido (recalcula precios y reglas del negocio) y devuelve su link `/pedido/{código}` |
+| `POST /api/orders` | Crea un pedido (recalcula precios y reglas del negocio) y devuelve su link `/pedido/{código}`; con el mismo `clientRequestId` devuelve el pedido ya creado |
 | `GET /api/orders/public/:code` | El pedido por su código; el dueño o un admin reciben `canManage` |
 | `GET /api/orders/mine` 🔒 | Pedidos de mi negocio (`?status=`, `?since=`) |
 | `PATCH /api/orders/:code/status` 🔒 | Cambia el estado (dueño o admin): `pending` → `confirmed` → `completed`, o `cancelled` (ver `shared/orders.ts`) |

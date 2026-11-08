@@ -1,14 +1,13 @@
 import { Router } from 'express';
-import { Op, type WhereOptions } from 'sequelize';
+import { Op, UniqueConstraintError, type WhereOptions } from 'sequelize';
 import { canTransition, type OrderItem, type OrderStatus } from '../../shared/orders.js';
 import { orderCreateSchema, orderStatusSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
-import { sequelize } from '../db.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
 import { rateLimit } from '../middleware/rateLimit.js';
 import { currentBusiness, currentUser, optionalUser, requireAuth } from '../middleware/requireAuth.js';
 import { Business, Order, Product } from '../models/index.js';
-import { newPublicCode, ORDER_BUSINESS_ATTRIBUTES, orderJson, withBusiness } from '../services/orders.js';
+import { newPublicCode, oneAtATime, ORDER_BUSINESS_ATTRIBUTES, orderJson, withBusiness } from '../services/orders.js';
 import { emitOrderCreated, emitOrderUpdated } from '../services/realtime.js';
 import { ok } from '../services/response.js';
 import { formatMoney } from '../services/money.js';
@@ -45,30 +44,49 @@ orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
   }
   const deliveryFee = isDelivery ? business.deliveryFee ?? 0 : 0;
 
-  const order = await sequelize.transaction(async (transaction) => {
-    const last = (await Order.max('number', { where: { businessId: business.id }, transaction })) as number | null;
-    return Order.create({
-      publicCode: newPublicCode(),
-      number: (last ?? 0) + 1,
-      businessId: business.id,
-      items,
-      subtotal,
-      deliveryFee,
-      total: subtotal + deliveryFee,
-      fulfillment: data.fulfillment,
-      deliveryAddress: isDelivery ? data.deliveryAddress : null,
-      paymentMethod: data.paymentMethod,
-      customerName: data.customerName,
-      customerPhone: data.customerPhone,
-      notes: data.notes,
-      status: 'pending',
-      statusHistory: [{ status: 'pending', at: new Date().toISOString(), by: 'customer' }],
-    }, { transaction });
+  // Idempotency: the same checkout attempt (a retry, a double click) gets the order it already created.
+  const previousAttempt = async () => {
+    if (!data.clientRequestId) return null;
+    const existing = await Order.findOne({ where: { clientRequestId: data.clientRequestId } });
+    if (existing && existing.businessId !== business.id) throw new HttpError(409, 'Ese pedido ya se envió a otro negocio');
+    return existing;
+  };
+
+  const { order, created } = await oneAtATime(async () => {
+    const existing = await previousAttempt();
+    if (existing) return { order: existing, created: false };
+    try {
+      const last = (await Order.max('number', { where: { businessId: business.id } })) as number | null;
+      const fresh = await Order.create({
+        publicCode: newPublicCode(),
+        clientRequestId: data.clientRequestId ?? null,
+        number: (last ?? 0) + 1,
+        businessId: business.id,
+        items,
+        subtotal,
+        deliveryFee,
+        total: subtotal + deliveryFee,
+        fulfillment: data.fulfillment,
+        deliveryAddress: isDelivery ? data.deliveryAddress : null,
+        paymentMethod: data.paymentMethod,
+        customerName: data.customerName,
+        customerPhone: data.customerPhone,
+        notes: data.notes,
+        status: 'pending',
+        statusHistory: [{ status: 'pending', at: new Date().toISOString(), by: 'customer' }],
+      });
+      return { order: fresh, created: true };
+    } catch (err) {
+      // Several server processes (Postgres): the loser of the unique index gets the winner's order.
+      const winner = err instanceof UniqueConstraintError ? await previousAttempt() : null;
+      if (winner) return { order: winner, created: false };
+      throw err;
+    }
   });
 
   const saved = orderJson((await withBusiness(order.id))!);
-  emitOrderCreated(saved);
-  ok(res, { order: saved, url: `${config.appUrl}/pedido/${order.publicCode}` }, 201);
+  if (created) emitOrderCreated(saved);
+  ok(res, { order: saved, url: `${config.appUrl}/pedido/${order.publicCode}` }, created ? 201 : 200);
 }));
 
 // Protected: the orders of the session user's business, newest first. Filters: status (comma list), since (ISO date)

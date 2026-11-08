@@ -129,6 +129,7 @@ export const contactSchema = z.object({
 export const contactStatusSchema = z.object({ status: z.enum(CONTACT_STATUSES, { errorMap: () => ({ message: 'Estado inválido' }) }) });
 
 export const orderCreateSchema = z.object({
+  clientRequestId: z.string().uuid().nullish(),
   businessId: required('el negocio'),
   items: z.array(z.object({ productId: z.string().min(1), quantity: z.number().int().min(1, 'Cantidad inválida').max(99, 'Máximo 99 por producto') }))
     .min(1, 'El pedido está vacío').max(60, 'Demasiados productos en un pedido'),

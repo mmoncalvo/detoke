@@ -1,3 +1,4 @@
+import crypto from 'node:crypto';
 import { createServer, type Server } from 'node:http';
 import type { AddressInfo } from 'node:net';
 import { io as connect, type Socket } from 'socket.io-client';
@@ -152,6 +153,38 @@ describe('orders', () => {
     expect(pending.body.data.every((o: Order) => o.status === 'pending')).toBe(true);
     const future = await request(app).get('/api/orders/mine').query({ since: new Date(Date.now() + 60_000).toISOString() }).set(auth(seller.token));
     expect(future.body.data).toHaveLength(0);
+  });
+});
+
+describe('idempotency', () => {
+  it('returns the same order for a repeated checkout attempt', async () => {
+    const clientRequestId = crypto.randomUUID();
+    const first = await request(app).post('/api/orders').send(orderBody({ clientRequestId }));
+    expect(first.status).toBe(201);
+    const again = await request(app).post('/api/orders').send(orderBody({ clientRequestId }));
+    expect(again.status).toBe(200);
+    expect(again.body.data.order.publicCode).toBe(first.body.data.order.publicCode);
+    expect(again.body.data.url).toBe(first.body.data.url);
+
+    const next = await request(app).post('/api/orders').send(orderBody({ clientRequestId: crypto.randomUUID() }));
+    expect(next.body.data.order.number).toBe(first.body.data.order.number + 1);
+  });
+
+  it('creates only one order for simultaneous identical requests', async () => {
+    const clientRequestId = crypto.randomUUID();
+    const results = await Promise.all([1, 2, 3].map(() => request(app).post('/api/orders').send(orderBody({ clientRequestId }))));
+    const codes = new Set(results.map((r) => r.body.data.order.publicCode));
+    expect(codes.size).toBe(1);
+    expect(results.filter((r) => r.status === 201)).toHaveLength(1);
+  });
+
+  it('does not reuse an attempt for another business', async () => {
+    const clientRequestId = crypto.randomUUID();
+    await request(app).post('/api/orders').send(orderBody({ clientRequestId }));
+    const other = await register(categories.pizzas.id, 'Otra para idempotencia');
+    const product = await Product.create({ businessId: other.business.id, name: 'Otra', slug: 'otra-idempotencia', price: 100 });
+    const res = await request(app).post('/api/orders').send({ ...orderBody({ clientRequestId }), businessId: other.business.id, items: [{ productId: product.id, quantity: 1 }] });
+    expect(res.status).toBe(409);
   });
 });
 
