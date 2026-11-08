@@ -101,7 +101,7 @@ orderRoutes.patch('/:code/status', requireAuth, asyncHandler(async (req, res) =>
   const order = await Order.findOne({ where: { publicCode: req.params.code }, include: [{ model: Business, attributes: ['ownerId'] }] });
   if (!order) throw new HttpError(404, 'No encontramos ese pedido');
   if (order.business?.ownerId !== user.id && user.role !== 'admin') throw new HttpError(403, 'Ese pedido no es de tu negocio');
-  if (!canTransition(order.status, status as OrderStatus, order.fulfillment)) throw new HttpError(409, 'Ese cambio de estado no es posible ahora. Actualizá la página.');
+  if (!canTransition(order.status, status as OrderStatus)) throw new HttpError(409, 'Ese cambio de estado no es posible ahora. Actualizá la página.');
 
   const by = req.impersonation || user.role === 'admin' ? 'admin' : 'business';
   await order.update({ status, statusHistory: [...order.statusHistory, { status, at: new Date().toISOString(), by, reason: reason ?? null }] });

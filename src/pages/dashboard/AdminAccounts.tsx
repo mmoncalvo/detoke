@@ -1,5 +1,5 @@
 import { ChevronLeft, ChevronRight, Loader2, LogIn, Search, Users } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
 import type { AdminAccount, BusinessCategory, Page } from '@shared/types';
@@ -18,6 +18,7 @@ import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@
 import { useAuth } from '@/context/AuthContext';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
+import { useUrlState } from '@/hooks/useUrlState';
 
 const ALL = 'all';
 const PAGE_SIZE = 20;
@@ -78,15 +79,23 @@ export default function AdminAccounts() {
   const navigate = useNavigate();
   const { startImpersonation } = useAuth();
   const categories = useFetch<BusinessCategory[]>('/business-categories');
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState(ALL);
-  const [status, setStatus] = useState(ALL);
-  const [page, setPage] = useState(1);
+  const [search, setSearch] = useUrlState('q', '');
+  const [category, setCategory] = useUrlState('category', ALL);
+  const [status, setStatus] = useUrlState('status', ALL);
+  const [pageParam, setPageParam] = useUrlState('page', '1');
+  const page = Math.max(1, Number(pageParam) || 1);
+  const setPage = (next: number | ((current: number) => number)) => setPageParam(String(typeof next === 'function' ? next(page) : next));
   const [picked, setPicked] = useState<AdminAccount | null>(null);
   const [entering, setEntering] = useState(false);
   const term = useDebounced(search);
 
-  useEffect(() => setPage(1), [term, category, status]);
+  // A new filter starts from the first page (not on the first render, which may come with ?page=).
+  const filters = `${term}|${category}|${status}`;
+  const previousFilters = useRef(filters);
+  useEffect(() => {
+    if (previousFilters.current !== filters) setPage(1);
+    previousFilters.current = filters;
+  }, [filters]); // eslint-disable-line react-hooks/exhaustive-deps
 
   const query = useMemo(() => {
     const q = new URLSearchParams({ page: String(page), limit: String(PAGE_SIZE) });

@@ -25,22 +25,17 @@ const CUSTOMERS = ['Lucía Fernández', 'Martín Gómez', 'Sofía Herrera', 'Tom
 /** Status, how many minutes ago, delivery or pickup. */
 const SAMPLE_ORDERS: [OrderStatus, number, 'delivery' | 'pickup'][] = [
   ['pending', 4, 'pickup'],
-  ['accepted', 25, 'delivery'],
-  ['preparing', 50, 'pickup'],
+  ['confirmed', 25, 'delivery'],
+  ['confirmed', 50, 'pickup'],
   ['completed', 60 * 26, 'delivery'],
-  ['rejected', 60 * 30, 'pickup'],
+  ['cancelled', 60 * 30, 'pickup'],
 ];
 const PATHS: Record<OrderStatus, OrderStatus[]> = {
   pending: ['pending'],
-  accepted: ['pending', 'accepted'],
-  preparing: ['pending', 'accepted', 'preparing'],
-  ready: ['pending', 'accepted', 'preparing', 'ready'],
-  out_for_delivery: ['pending', 'accepted', 'preparing', 'ready', 'out_for_delivery'],
-  completed: ['pending', 'accepted', 'preparing', 'ready', 'out_for_delivery', 'completed'],
-  rejected: ['pending', 'rejected'],
+  confirmed: ['pending', 'confirmed'],
+  completed: ['pending', 'confirmed', 'completed'],
   cancelled: ['pending', 'cancelled'],
 };
-
 /** A few orders in different statuses for the first sample businesses (only those without orders). */
 export async function seedOrders(limit = 8) {
   const businesses = await Business.findAll({ where: { slug: readSeed('businesses.json').map((b: { slug: string }) => b.slug) }, include: [Product], order: [['name', 'ASC']], limit });
@@ -56,7 +51,7 @@ export async function seedOrders(limit = 8) {
       const subtotal = items.reduce((sum, i) => sum + i.subtotal, 0);
       const deliveryFee = fulfillment === 'delivery' ? business.deliveryFee ?? 0 : 0;
       const createdAt = new Date(Date.now() - minutesAgo * 60_000);
-      const path = fulfillment === 'pickup' ? PATHS[status].filter((s) => s !== 'out_for_delivery') : PATHS[status];
+      const path = PATHS[status];
       await Order.create({
         publicCode: newPublicCode(),
         number: n + 1,
@@ -76,7 +71,7 @@ export async function seedOrders(limit = 8) {
           status: s,
           at: new Date(createdAt.getTime() + i * 8 * 60_000).toISOString(),
           by: i === 0 ? 'customer' : 'business',
-          ...(s === 'rejected' && { reason: 'Nos quedamos sin stock de uno de los productos.' }),
+          ...(s === 'cancelled' && { reason: 'Nos quedamos sin stock de uno de los productos.' }),
         })),
         // Sequelize keeps a given createdAt; silent keeps the given updatedAt too.
         createdAt,

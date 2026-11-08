@@ -143,7 +143,7 @@ export const orderCreateSchema = z.object({
 export const orderStatusSchema = z.object({
   status: z.enum(ORDER_STATUSES, { errorMap: () => ({ message: 'Estado inválido' }) }),
   reason: optionalText(200),
-}).refine((o) => o.status !== 'rejected' || !!o.reason, { message: 'Contale al cliente por qué lo rechazás', path: ['reason'] });
+});
 
 export type RegisterInput = z.input<typeof registerSchema>;
 export type BusinessUpdate = z.output<typeof businessUpdateSchema>;

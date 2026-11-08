@@ -17,6 +17,7 @@ import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
+import { useUrlState } from '@/hooks/useUrlState';
 import { formatPrice } from '@/lib/format';
 
 const ALL = 'all';
@@ -25,9 +26,9 @@ export default function Products() {
   useTitle('Productos');
   const { data: products, setData, error, loading, reload } = useFetch<Product[]>('/products/mine');
   const categories = useFetch<ProductCategory[]>('/product-categories');
-  const [search, setSearch] = useState('');
-  const [category, setCategory] = useState(ALL);
-  const [availability, setAvailability] = useState(ALL);
+  const [search, setSearch] = useUrlState('q', '');
+  const [category, setCategory] = useUrlState('category', ALL);
+  const [availability, setAvailability] = useUrlState('availability', ALL);
   const [editing, setEditing] = useState<Product | null>(null);
   const [formOpen, setFormOpen] = useState(false);
   const [deleting, setDeleting] = useState<Product | null>(null);

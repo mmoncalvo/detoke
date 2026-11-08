@@ -76,7 +76,7 @@ export default function Overview() {
         <CardContent className="flex flex-wrap items-center gap-x-8 gap-y-3">
           {(() => {
             const list = orders.data ?? [];
-            const valid = list.filter((o) => o.status !== 'rejected' && o.status !== 'cancelled');
+            const valid = list.filter((o) => o.status !== 'cancelled');
             const open = list.filter((o) => !FINAL_STATUSES.includes(o.status)).length;
             return (
               <>

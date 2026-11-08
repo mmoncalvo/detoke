@@ -11,11 +11,12 @@ import { whatsappUrl } from '@/lib/format';
 /** Status buttons for the business: the next step, and reject or cancel with confirmation. */
 export function OrderActions({ order, onChange, compact }: { order: Order; onChange: (order: Order) => void; compact?: boolean }) {
   const [busy, setBusy] = useState<OrderStatus | null>(null);
-  const [closing, setClosing] = useState<'rejected' | 'cancelled' | null>(null);
+  const [cancelling, setCancelling] = useState(false);
   const [reason, setReason] = useState('');
-  const options = nextStatuses(order.status, order.fulfillment);
-  const forward = options.filter((s) => s !== 'rejected' && s !== 'cancelled');
-  const stop = options.find((s): s is 'rejected' | 'cancelled' => s === 'rejected' || s === 'cancelled');
+  const options = nextStatuses(order.status);
+  // One main action: confirm a new order, deliver a confirmed one.
+  const main = options.find((s) => s !== 'cancelled' && (order.status !== 'pending' || s === 'confirmed'));
+  const canCancel = options.includes('cancelled');
 
   const move = async (status: OrderStatus, why?: string) => {
     setBusy(status);
@@ -36,35 +37,39 @@ export function OrderActions({ order, onChange, compact }: { order: Order; onCha
 
   return (
     <div className="flex flex-wrap gap-2">
-      {forward.map((status) => (
-        <Button key={status} size={compact ? 'sm' : 'default'} onClick={() => move(status)} disabled={!!busy}>
-          {busy === status && <Loader2 className="animate-spin" />} {actionLabel(status, order.fulfillment)}
+      {main && (
+        <Button size={compact ? 'sm' : 'default'} onClick={() => move(main)} disabled={!!busy}>
+          {busy === main && <Loader2 className="animate-spin" />} {actionLabel(main)}
         </Button>
-      ))}
-      {stop && (
-        <Button size={compact ? 'sm' : 'default'} variant="outline" className="text-destructive hover:text-destructive" onClick={() => { setReason(''); setClosing(stop); }} disabled={!!busy}>
-          {actionLabel(stop, order.fulfillment)}
+      )}
+      {order.status === 'pending' && (
+        <Button size={compact ? 'sm' : 'default'} variant="outline" onClick={() => move('completed')} disabled={!!busy}>
+          {busy === 'completed' && <Loader2 className="animate-spin" />} Ya lo entregué
+        </Button>
+      )}
+      {canCancel && (
+        <Button size={compact ? 'sm' : 'default'} variant="ghost" className="text-destructive hover:text-destructive" onClick={() => { setReason(''); setCancelling(true); }} disabled={!!busy}>
+          Cancelar
         </Button>
       )}
       {customerChat && (
         <Button asChild size={compact ? 'sm' : 'default'} variant="ghost"><a href={customerChat} target="_blank" rel="noreferrer"><MessageCircle /> Escribirle</a></Button>
       )}
 
-      <AlertDialog open={!!closing} onOpenChange={(open) => !open && setClosing(null)}>
+      <AlertDialog open={cancelling} onOpenChange={setCancelling}>
         <AlertDialogContent>
           <AlertDialogHeader>
-            <AlertDialogTitle>{closing === 'rejected' ? `¿Rechazar el pedido #${order.number}?` : `¿Cancelar el pedido #${order.number}?`}</AlertDialogTitle>
-            <AlertDialogDescription>{order.customerName} lo va a ver en el link del pedido.{closing === 'rejected' && ' Contale el motivo.'}</AlertDialogDescription>
+            <AlertDialogTitle>¿Cancelar el pedido #{order.number}?</AlertDialogTitle>
+            <AlertDialogDescription>{order.customerName} lo va a ver en el link del pedido. Si querés, contale el motivo.</AlertDialogDescription>
           </AlertDialogHeader>
-          <Textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3} maxLength={200} placeholder={closing === 'rejected' ? 'Por ejemplo: nos quedamos sin stock' : 'Motivo (opcional)'} aria-label="Motivo" />
+          <Textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3} maxLength={200} placeholder="Por ejemplo: nos quedamos sin stock (opcional)" aria-label="Motivo" />
           <AlertDialogFooter>
-            <AlertDialogCancel>Volver</AlertDialogCancel>
+            <AlertDialogCancel>No, volver</AlertDialogCancel>
             <AlertDialogAction
               className="bg-destructive text-white hover:bg-destructive/90"
-              disabled={closing === 'rejected' && !reason.trim()}
-              onClick={() => closing && move(closing, reason.trim())}
+              onClick={() => move('cancelled', reason.trim())}
             >
-              {closing && actionLabel(closing, order.fulfillment)}
+              Cancelar pedido
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

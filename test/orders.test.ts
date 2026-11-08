@@ -113,30 +113,36 @@ describe('orders', () => {
     expect((await request(app).get('/api/orders/public/noexiste')).status).toBe(404);
 
     const stranger = await register(categories.bakery.id);
-    expect((await request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(stranger.token)).send({ status: 'accepted' })).status).toBe(403);
-    expect((await request(app).patch(`/api/orders/${order.publicCode}/status`).send({ status: 'accepted' })).status).toBe(401);
+    expect((await request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(stranger.token)).send({ status: 'confirmed' })).status).toBe(403);
+    expect((await request(app).patch(`/api/orders/${order.publicCode}/status`).send({ status: 'confirmed' })).status).toBe(401);
 
     const admin = await User.create({ email: 'admin-pedidos@detoke.test', name: 'Admin', passwordHash: 'x', role: 'admin' });
-    const byAdmin = await request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(signToken(admin))).send({ status: 'accepted' });
-    expect(byAdmin.body.data.statusHistory.at(-1)).toMatchObject({ status: 'accepted', by: 'admin' });
+    const byAdmin = await request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(signToken(admin))).send({ status: 'confirmed' });
+    expect(byAdmin.body.data.statusHistory.at(-1)).toMatchObject({ status: 'confirmed', by: 'admin' });
   });
 
   it('follows the state machine', async () => {
     const { order } = await placeOrder();
     const move = (status: string, reason?: string) => request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(seller.token)).send({ status, reason });
 
-    expect((await move('completed')).status).toBe(409);
-    expect((await move('rejected')).body.error).toBe('Contale al cliente por qué lo rechazás');
-    for (const status of ['accepted', 'preparing', 'ready']) expect((await move(status)).status).toBe(200);
-    expect((await move('out_for_delivery')).status).toBe(409);
+    expect((await move('pending')).status).toBe(409);
+    expect((await move('preparing')).body.error).toBe('Estado inválido');
+    expect((await move('confirmed')).status).toBe(200);
+    expect((await move('confirmed')).status).toBe(409);
     const done = await move('completed');
     expect(done.body.data.status).toBe('completed');
-    expect(done.body.data.statusHistory.map((h: { status: string }) => h.status)).toEqual(['pending', 'accepted', 'preparing', 'ready', 'completed']);
+    expect(done.body.data.statusHistory.map((h: { status: string }) => h.status)).toEqual(['pending', 'confirmed', 'completed']);
     expect((await move('cancelled')).status).toBe(409);
 
+    const pickedUp = await placeOrder();
+    const direct = await request(app).patch(`/api/orders/${pickedUp.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'completed' });
+    expect(direct.body.data.status).toBe('completed');
+
     const another = await placeOrder();
-    const rejected = await request(app).patch(`/api/orders/${another.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'rejected', reason: 'Sin muzzarella' });
-    expect(rejected.body.data.statusHistory.at(-1)).toMatchObject({ status: 'rejected', reason: 'Sin muzzarella', by: 'business' });
+    const cancelled = await request(app).patch(`/api/orders/${another.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'cancelled', reason: 'Sin muzzarella' });
+    expect(cancelled.body.data.statusHistory.at(-1)).toMatchObject({ status: 'cancelled', reason: 'Sin muzzarella', by: 'business' });
+    const noReason = await placeOrder();
+    expect((await request(app).patch(`/api/orders/${noReason.order.publicCode}/status`).set(auth(seller.token)).send({ status: 'cancelled' })).status).toBe(200);
   });
 
   it('lists the orders of my business with filters', async () => {
@@ -176,8 +182,8 @@ describe('realtime', () => {
     expect((await join(customer, 'order:join', 'noexiste')).ok).toBe(false);
 
     const updated = next(customer, 'order:updated');
-    await request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(seller.token)).send({ status: 'accepted' });
-    expect((await updated).status).toBe('accepted');
+    await request(app).patch(`/api/orders/${order.publicCode}/status`).set(auth(seller.token)).send({ status: 'confirmed' });
+    expect((await updated).status).toBe('confirmed');
     customer.disconnect();
   });
 

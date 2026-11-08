@@ -86,7 +86,7 @@ En el registro y en Mi negocio, la ciudad y la dirección se autocompletan, y al
 
 ## Pedidos en tiempo real
 
-Al enviar el pedido desde el checkout se crea en el servidor y el mensaje de WhatsApp lleva un link único (`/pedido/{código}`). El cliente sigue ahí el estado en vivo; el dueño lo ve aparecer al instante en **Pedidos** (con aviso, sonido opcional y contador) y lo avanza: Recibido → Confirmado → En preparación → Listo → En camino (delivery) → Entregado, o lo rechaza con un motivo.
+Al enviar el pedido desde el checkout se crea en el servidor y el mensaje de WhatsApp lleva un link único (`/pedido/{código}`). El cliente sigue ahí el estado en vivo; el dueño lo ve aparecer al instante en **Pedidos** (con aviso, sonido opcional y contador) y lo avanza con pocos pasos: Nuevo (el cliente lo ve como Recibido) → Confirmado → Entregado, o directo de Nuevo a Entregado si lo retiran en el momento. También puede cancelarlo, con un motivo opcional.
 
 El tiempo real usa Socket.IO en el mismo servidor y puerto. El cliente se autentica en el handshake con el mismo JWT de la API; la room `business:{id}` es solo para el dueño (o un admin) y `order:{código}` es de solo lectura para quien tenga el link. Los cambios se hacen por la API REST, que valida permisos y transiciones, y el servidor emite `order:created` y `order:updated` solo a esas rooms.
 
@@ -154,7 +154,7 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `POST /api/orders` | Crea un pedido (recalcula precios y reglas del negocio) y devuelve su link `/pedido/{código}` |
 | `GET /api/orders/public/:code` | El pedido por su código; el dueño o un admin reciben `canManage` |
 | `GET /api/orders/mine` 🔒 | Pedidos de mi negocio (`?status=`, `?since=`) |
-| `PATCH /api/orders/:code/status` 🔒 | Cambia el estado (dueño o admin), según la máquina de estados de `shared/orders.ts` |
+| `PATCH /api/orders/:code/status` 🔒 | Cambia el estado (dueño o admin): `pending` → `confirmed` → `completed`, o `cancelled` (ver `shared/orders.ts`) |
 | `GET /data/...` | Imágenes y archivos subidos |
 
 🔒 Pide `Authorization: Bearer <token>`.
