@@ -14,7 +14,7 @@ import { itemCount, orderMessage, statusVariant, timeAgo } from '@/lib/orders';
 import { isActive, pruneRecentOrders, readRecentOrders, removeRecentOrders, updateRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 
 /** Keeps the stored status in line with the server: on mount, live, and after a reconnection. */
-function useLiveStatus(order: RecentOrder) {
+export function useLiveStatus(order: RecentOrder) {
   const code = order.publicCode;
   const save = useCallback((o: Pick<Order, 'status' | 'updatedAt'>) => writeRecentOrders((list) => updateRecentOrder(list, code, o.status, o.updatedAt)), [code]);
   const refresh = useCallback(() => {

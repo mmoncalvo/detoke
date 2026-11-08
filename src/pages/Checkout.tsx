@@ -15,11 +15,11 @@ import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { useCart, type CartGroup } from '@/context/CartContext';
 import { useTitle } from '@/hooks/useTitle';
-import { OrdersInProgress } from '@/components/orders/RecentOrders';
+import { OrdersInProgress, useLiveStatus } from '@/components/orders/RecentOrders';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { orderMessage } from '@/lib/orders';
-import { addRecentOrder, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
+import { addRecentOrder, isActive, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 
 const CUSTOMER_KEY = 'detoke.customer';
 /** Orders sent in this tab, so their confirmation is still there when the customer comes back from WhatsApp. */
@@ -70,6 +70,8 @@ function newRequestId() {
 
 /** What is left of a business card once its order went out: a confirmation and the link to follow it. */
 function SentCard({ order }: { order: RecentOrder }) {
+  // Live status: once the business delivers or cancels it, the card leaves the checkout.
+  useLiveStatus(order);
   const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
   return (
     <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido enviado a ${order.businessName}`}>
@@ -239,7 +241,9 @@ export default function Checkout() {
   const grandTotal = groups.reduce((sum, g) => sum + g.subtotal, 0);
   const sentCodes = new Set(sent.map((o) => o.publicCode));
   // Fresh status for the confirmations, from the shared list.
-  const sentNow = sent.map((o) => recent.find((r) => r.publicCode === o.publicCode) ?? o);
+  // Only while they are in progress: the checkout is not a history (that is Mis pedidos).
+  const sentNow = sent.map((o) => recent.find((r) => r.publicCode === o.publicCode) ?? o).filter(isActive);
+  const hasFinished = recent.some((o) => !isActive(o));
 
   // Written right away, not in an effect: the page leaves for WhatsApp just after.
   const addSent = (order: RecentOrder) => {
@@ -262,7 +266,7 @@ export default function Checkout() {
 
   return (
     <div className="mx-auto max-w-form px-4 py-8">
-      <h1 className="text-3xl font-bold sm:text-4xl">{groups.length === 0 && sent.length > 0 ? '¡Listo!' : 'Tu pedido'}</h1>
+      <h1 className="text-3xl font-bold sm:text-4xl">{groups.length === 0 && sentNow.length > 0 ? '¡Listo!' : 'Tu pedido'}</h1>
       {many && (
         <div role="status" className="mt-4 rounded-2xl border-2 border-mustard bg-accent p-4 text-accent-foreground">
           <p className="flex items-center gap-2 font-semibold"><Store className="size-5 shrink-0" /> Tenés {groups.length} pedidos separados</p>
@@ -282,7 +286,7 @@ export default function Checkout() {
       )}
       <div className="mt-6 space-y-6">
         {sentNow.map((order) => <SentCard key={order.publicCode} order={order} />)}
-        {groups.length === 0 && sent.length === 0 ? (
+        {groups.length === 0 && sentNow.length === 0 ? (
           <EmptyState icon={ShoppingBag} title="Tu pedido está vacío" description="Elegí un negocio del barrio y sumá lo que necesites." action={<Button asChild><Link to="/explorar">Explorar negocios</Link></Button>} />
         ) : groups.map((group, i) => (
           <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} index={i} count={groups.length} onSent={addSent} />
@@ -298,6 +302,9 @@ export default function Checkout() {
         </div>
       )}
       <OrdersInProgress orders={recent.filter((o) => !sentCodes.has(o.publicCode))} className="mt-10" />
+      {hasFinished && !recent.some((o) => isActive(o) && !sentCodes.has(o.publicCode)) && (
+        <p className="mt-10 text-center text-sm"><Link to="/mis-pedidos" className="text-muted-foreground hover:text-foreground hover:underline">Ver mis pedidos</Link></p>
+      )}
     </div>
   );
 }

@@ -17,6 +17,15 @@ export function getSocket(): AppSocket {
   return socket;
 }
 
+// Coming back with Back (for example from WhatsApp) restores the page from the browser cache with the
+// connection closed: reconnect, and the hooks join their rooms again and refetch what changed meanwhile.
+if (typeof window !== 'undefined') {
+  window.addEventListener('pageshow', (event) => {
+    // The socket may not have noticed the closed connection yet, so start over.
+    if (event.persisted && socket) socket.disconnect().connect();
+  });
+}
+
 /** After signing in or out: reconnect with the new token (rooms are joined again by the hooks). */
 export function refreshSocketAuth() {
   if (!socket) return;
