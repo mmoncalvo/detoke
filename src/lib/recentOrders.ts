@@ -56,6 +56,11 @@ export function updateRecentOrder(list: RecentOrder[], code: string, status: Ord
   return list.map((o) => (o.publicCode === code && (o.status !== status || o.updatedAt !== updatedAt) ? { ...o, status, updatedAt } : o));
 }
 
+/** Takes orders off this device's list (the orders themselves stay on the server). */
+export function removeRecentOrders(list: RecentOrder[], codes: string[]): RecentOrder[] {
+  return list.filter((o) => !codes.includes(o.publicCode));
+}
+
 /** Drops orders the server no longer has and finished ones older than two days. */
 export function pruneRecentOrders(list: RecentOrder[], now = Date.now(), missing: string[] = []): RecentOrder[] {
   return list.filter((o) => !missing.includes(o.publicCode) && (isActive(o) || now - new Date(o.updatedAt).getTime() < KEEP_FINISHED_MS));

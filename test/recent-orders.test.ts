@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { addRecentOrder, KEEP_FINISHED_MS, MAX_RECENT_ORDERS, pruneRecentOrders, updateRecentOrder, type RecentOrder } from '../src/lib/recentOrders.js';
+import { addRecentOrder, KEEP_FINISHED_MS, MAX_RECENT_ORDERS, pruneRecentOrders, removeRecentOrders, updateRecentOrder, type RecentOrder } from '../src/lib/recentOrders.js';
 
 const order = (code: string, extra: Partial<RecentOrder> = {}): RecentOrder => ({
   publicCode: code, number: 1, businessId: 'b', businessName: 'Negocio', businessSlug: 'negocio', businessWhatsapp: '5491100000000', url: 'http://localhost/pedido/x',
@@ -31,5 +31,9 @@ describe('recent orders', () => {
       order('gone'),
     ];
     expect(pruneRecentOrders(list, now, ['gone']).map((o) => o.publicCode)).toEqual(['active-old', 'cancelled-recent']);
+  });
+
+  it('removes only the given orders', () => {
+    expect(removeRecentOrders([order('a'), order('b'), order('c')], ['a', 'c']).map((o) => o.publicCode)).toEqual(['b']);
   });
 });

@@ -1,4 +1,4 @@
-import { ChevronRight, Loader2, MessageCircle, RotateCcw } from 'lucide-react';
+import { ChevronRight, Loader2, MessageCircle, RotateCcw, Trash2 } from 'lucide-react';
 import { useCallback, useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -11,7 +11,7 @@ import { useCart } from '@/context/CartContext';
 import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { itemCount, orderMessage, statusVariant, timeAgo } from '@/lib/orders';
-import { isActive, pruneRecentOrders, updateRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
+import { isActive, pruneRecentOrders, readRecentOrders, removeRecentOrders, updateRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 
 /** Keeps the stored status in line with the server: on mount, live, and after a reconnection. */
 function useLiveStatus(order: RecentOrder) {
@@ -73,6 +73,13 @@ function useRepeatOrder() {
   return { repeat, repeating };
 }
 
+/** Takes a finished order off this device's list, with a way back. */
+function removeOne(order: RecentOrder) {
+  const before = readRecentOrders();
+  writeRecentOrders((list) => removeRecentOrders(list, [order.publicCode]));
+  toast('Pedido quitado de tu lista', { action: { label: 'Deshacer', onClick: () => writeRecentOrders(() => before) } });
+}
+
 function RecentOrderCard({ order, onNavigate, repeat, repeating }: { order: RecentOrder; onNavigate?: () => void; repeat: (o: RecentOrder, after?: () => void) => void; repeating: boolean }) {
   useLiveStatus(order);
   const count = itemCount(order);
@@ -92,6 +99,7 @@ function RecentOrderCard({ order, onNavigate, repeat, repeating }: { order: Rece
         <Button asChild variant="ghost" size="sm" className="h-8 px-2"><Link to={`/pedido/${order.publicCode}`} onClick={onNavigate}><ChevronRight /> Ver pedido</Link></Button>
         {order.status === 'pending' && <Button variant="ghost" size="sm" className="h-8 px-2" onClick={resend}><MessageCircle /> Reenviar por WhatsApp</Button>}
         <Button variant="ghost" size="sm" className="h-8 px-2" disabled={repeating} onClick={() => repeat(order)}>{repeating ? <Loader2 className="animate-spin" /> : <RotateCcw />} Repetir pedido</Button>
+        {!isActive(order) && <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground" onClick={() => removeOne(order)}><Trash2 /> Eliminar</Button>}
       </div>
     </li>
   );

@@ -1,11 +1,12 @@
-import { ReceiptText } from 'lucide-react';
+import { ReceiptText, Trash2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { EmptyState } from '@/components/common/States';
 import { RecentOrderList } from '@/components/orders/RecentOrders';
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from '@/components/ui/alert-dialog';
 import { Button } from '@/components/ui/button';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { useTitle } from '@/hooks/useTitle';
-import { isActive } from '@/lib/recentOrders';
+import { isActive, removeRecentOrders, writeRecentOrders } from '@/lib/recentOrders';
 
 export default function MyOrders() {
   useTitle('Mis pedidos');
@@ -29,7 +30,24 @@ export default function MyOrders() {
           )}
           {finished.length > 0 && (
             <section aria-labelledby="finished-orders">
-              <h2 id="finished-orders" className="mb-3 font-semibold text-muted-foreground">Finalizados</h2>
+              <div className="mb-3 flex items-center justify-between gap-2">
+                <h2 id="finished-orders" className="font-semibold text-muted-foreground">Finalizados</h2>
+                <AlertDialog>
+                  <AlertDialogTrigger asChild>
+                    <Button variant="ghost" size="sm" className="h-8 px-2 text-muted-foreground"><Trash2 /> Eliminar todos</Button>
+                  </AlertDialogTrigger>
+                  <AlertDialogContent>
+                    <AlertDialogHeader>
+                      <AlertDialogTitle>¿Eliminar los pedidos finalizados?</AlertDialogTitle>
+                      <AlertDialogDescription>Se quitan {finished.length === 1 ? 'el pedido entregado o cancelado' : `los ${finished.length} pedidos entregados o cancelados`} de la lista de este dispositivo. Los pedidos siguen existiendo para cada negocio.</AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                      <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                      <AlertDialogAction onClick={() => writeRecentOrders((list) => removeRecentOrders(list, finished.map((o) => o.publicCode)))}>Eliminar todos</AlertDialogAction>
+                    </AlertDialogFooter>
+                  </AlertDialogContent>
+                </AlertDialog>
+              </div>
               <RecentOrderList orders={finished} />
             </section>
           )}
