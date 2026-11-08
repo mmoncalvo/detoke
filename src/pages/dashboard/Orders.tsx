@@ -76,9 +76,9 @@ export default function Orders() {
   const { business } = useAuth();
   // Kept in the URL, like the filters of Explorar: reloading or going back keeps them.
   const [status, setStatus] = useUrlState('status', 'pending');
-  const [period, setPeriod] = useUrlState('period', 'week');
+  const [period, setPeriod] = useUrlState('period', 'today');
   const [sound, setSound] = useState(readSoundPreference);
-  const days = (PERIODS[period] ?? PERIODS.week).days;
+  const days = (PERIODS[period] ?? PERIODS.today).days;
 
   const from = useMemo(() => since(days), [days]);
   const { data: orders, setData, error, loading, reload } = useFetch<Order[]>(`/orders/mine${from ? `?since=${encodeURIComponent(from)}` : ''}`);
