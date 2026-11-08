@@ -156,7 +156,7 @@ export default function Contact() {
           <section className="rounded-2xl bg-accent p-5 text-accent-foreground">
             <h2 className="flex gap-2 mt-2 text-lg font-semibold"><Store className="size-6" />¿Tenés un negocio? Sumalo gratis</h2>
             <p className="mt-1 text-sm">Publicá tu catálogo en minutos y recibí los pedidos en tu WhatsApp.</p>
-            <Button asChild className="mt-3"><Link to="/register">Sumá tu negocio</Link></Button>
+            <Button asChild className="mt-3"><Link to="/register?type=business">Sumá tu negocio</Link></Button>
           </section>
 
           <section className="rounded-2xl border bg-card px-5 py-4">

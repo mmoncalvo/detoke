@@ -29,19 +29,19 @@ function Field({ id, label, error, hint, children }: { id: string; label: string
   );
 }
 
-function ProfileCard() {
+export function ProfileCard() {
   const { user, setUser, impersonatedBy } = useAuth();
-  const [form, setForm] = useState({ name: user?.name ?? '', email: user?.email ?? '', phone: user?.phone ?? '' });
+  const [form, setForm] = useState({ name: user?.name ?? '', email: user?.email ?? '', phone: user?.phone ?? '', address: user?.address ?? '' });
   const [busy, setBusy] = useState(false);
   const [uploading, setUploading] = useState(false);
   const fileInput = useRef<HTMLInputElement>(null);
-  const changed = !!user && (form.name !== user.name || form.email !== user.email || form.phone !== (user.phone ?? ''));
+  const changed = !!user && (form.name !== user.name || form.email !== user.email || form.phone !== (user.phone ?? '') || form.address !== (user.address ?? ''));
 
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     setBusy(true);
     try {
-      setUser(await api<User>('/auth/me', { method: 'PATCH', body: { ...form, phone: form.phone || null } }));
+      setUser(await api<User>('/auth/me', { method: 'PATCH', body: { ...form, phone: form.phone || null, address: form.address || null } }));
       toast.success('Guardamos tus datos');
     } catch (err) {
       toast.error((err as Error).message);
@@ -82,7 +82,7 @@ function ProfileCard() {
     <Card>
       <CardHeader>
         <CardTitle className="font-display text-lg">Perfil</CardTitle>
-        <CardDescription>Así te ven en el panel.</CardDescription>
+        <CardDescription>Tus datos para entrar y para tus pedidos.</CardDescription>
       </CardHeader>
       <CardContent className="space-y-6">
         <div className="flex items-center gap-4">
@@ -106,6 +106,11 @@ function ProfileCard() {
             <Input id="account-phone" type="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
           </Field>
           <div className="sm:col-span-2">
+            <Field id="account-address" label="Dirección de entrega (opcional)" hint="La usamos para completar tus pedidos con delivery.">
+              <Input id="account-address" autoComplete="street-address" placeholder="Calle, número y piso" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+            </Field>
+          </div>
+          <div className="sm:col-span-2">
             <Field id="account-email" label="Email" hint={impersonatedBy ? 'El email lo puede cambiar solo el dueño de la cuenta.' : 'Con este email ingresás a Detoke.'}>
               <Input id="account-email" type="email" autoComplete="email" value={form.email} disabled={!!impersonatedBy} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
             </Field>
@@ -119,7 +124,7 @@ function ProfileCard() {
   );
 }
 
-function SecurityCard() {
+export function SecurityCard() {
   const { impersonatedBy } = useAuth();
   const [security, setSecurity] = useState<{ hasPassword: boolean; hasGoogle: boolean } | null>(null);
   const [form, setForm] = useState({ currentPassword: '', newPassword: '', confirmPassword: '' });
@@ -190,7 +195,7 @@ function SecurityCard() {
   );
 }
 
-function PreferencesCard() {
+export function PreferencesCard() {
   const { user } = useAuth();
   const { theme } = useTheme();
   const [sound, setSound] = useState(readSoundPreference);
@@ -209,7 +214,7 @@ function PreferencesCard() {
           </div>
           <ThemeToggle className="border" />
         </div>
-        {user?.role !== 'admin' && (
+        {user?.role === 'seller' && (
           <div className="flex items-center justify-between gap-4 pt-4">
             <Label htmlFor="order-sound" className="block cursor-pointer">
               <span className="block text-sm font-medium">Sonido de pedidos nuevos</span>
@@ -218,7 +223,7 @@ function PreferencesCard() {
             <Switch id="order-sound" checked={sound} onCheckedChange={(on) => { saveSoundPreference(on); setSound(on); }} />
           </div>
         )}
-        {user?.role !== 'admin' && canNotify() && (
+        {user?.role === 'seller' && canNotify() && (
           <div className="flex items-center justify-between gap-4 pt-4">
             <div>
               <p className="text-sm font-medium">Avisos del navegador</p>

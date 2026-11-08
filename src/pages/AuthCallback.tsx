@@ -27,8 +27,9 @@ export default function AuthCallback() {
     api<Session>('/auth/google/exchange', { method: 'POST', body: { code } })
       .then((session) => {
         signIn(session);
-        const { business } = session;
-        if (!business) navigate('/register?step=business', { replace: true });
+        const { business, user } = session;
+        if (user.role === 'customer') navigate('/', { replace: true });
+        else if (!business) navigate('/register?step=business', { replace: true });
         else if (!business.address && !hasHours(business.hours)) navigate('/register?step=location', { replace: true });
         else navigate('/dashboard', { replace: true });
       })

@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Bell, ChevronsUpDown, LifeBuoy, LogOut, Store, UserRound } from 'lucide-react';
+import { ArrowLeftRight, Bell, ChevronsUpDown, LifeBuoy, LogOut, ReceiptText, Store, UserRound } from 'lucide-react';
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { initials } from '@/components/common/UserAvatar';
@@ -67,6 +67,11 @@ export function NavUser({ onBackToAdmin }: { onBackToAdmin: () => void }) {
               <DropdownMenuItem asChild>
                 <Link to="/dashboard/account" onClick={close}><UserRound /> Mi cuenta</Link>
               </DropdownMenuItem>
+              {isSeller && (
+                <DropdownMenuItem asChild>
+                  <Link to="/mis-pedidos" onClick={close}><ReceiptText /> Mis pedidos (compras)</Link>
+                </DropdownMenuItem>
+              )}
               {isSeller && business && (
                 <DropdownMenuItem asChild>
                   <Link to={`/negocio/${business.slug}`} onClick={close}><Store /> Ver mi negocio</Link>

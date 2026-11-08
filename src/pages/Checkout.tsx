@@ -20,17 +20,13 @@ import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { orderMessage } from '@/lib/orders';
 import { addRecentOrder, isActive, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
+import { readCustomer, writeCustomer, type CustomerDetails } from '@/lib/customer';
+import { useAuth } from '@/context/AuthContext';
 
-const CUSTOMER_KEY = 'detoke.customer';
 /** Orders sent in this tab, so their confirmation is still there when the customer comes back from WhatsApp. */
 const SENT_KEY = 'detoke.checkoutSent';
 const SENT_TTL_MS = 30 * 60 * 1000;
 
-interface Customer {
-  name: string;
-  phone: string;
-  address: string;
-}
 
 function readSent(): RecentOrder[] {
   try {
@@ -42,13 +38,6 @@ function readSent(): RecentOrder[] {
   }
 }
 
-function readCustomer(): Customer {
-  try {
-    return { name: '', phone: '', address: '', ...JSON.parse(localStorage.getItem(CUSTOMER_KEY) ?? '{}') };
-  } catch {
-    return { name: '', phone: '', address: '' };
-  }
-}
 
 function OptionButton({ selected, onClick, children }: { selected: boolean; onClick: () => void; children: React.ReactNode }) {
   return (
@@ -83,7 +72,7 @@ function SentCard({ order }: { order: RecentOrder }) {
   );
 }
 
-function OrderCard({ group, customer, setCustomer, index, count, onSent }: { group: CartGroup; customer: Customer; setCustomer: (c: Customer) => void; index: number; count: number; onSent: (order: RecentOrder) => void }) {
+function OrderCard({ group, customer, setCustomer, index, count, onSent }: { group: CartGroup; customer: CustomerDetails; setCustomer: (c: CustomerDetails) => void; index: number; count: number; onSent: (order: RecentOrder) => void }) {
   const { business } = group;
   const { setQuantity, removeBusiness } = useCart();
   const [method, setMethod] = useState<DeliveryOption>(business.deliveryOptions[0] ?? 'pickup');
@@ -232,7 +221,12 @@ export default function Checkout() {
   useTitle('Tu pedido');
   const { groups } = useCart();
   const recent = useRecentOrders();
-  const [customer, setCustomer] = useState<Customer>(readCustomer);
+  const { user } = useAuth();
+  // Signed in: the profile fills what this browser does not have yet.
+  const [customer, setCustomer] = useState<CustomerDetails>(() => {
+    const local = readCustomer();
+    return user ? { name: local.name || user.name, phone: local.phone || user.phone || '', address: local.address || user.address || '' } : local;
+  });
   // Orders sent from this page: their card stays as a confirmation, also after coming back from WhatsApp.
   const [sent, setSent] = useState<RecentOrder[]>(readSent);
   const many = groups.length > 1;
@@ -256,7 +250,7 @@ export default function Checkout() {
 
   useEffect(() => {
     try {
-      localStorage.setItem(CUSTOMER_KEY, JSON.stringify(customer));
+      writeCustomer(customer);
     } catch {
       /* storage not available */
     }
@@ -298,6 +292,11 @@ export default function Checkout() {
           </div>
           <p className="font-display text-xl font-semibold">{formatPrice(grandTotal)}</p>
         </div>
+      )}
+      {!user && groups.length > 0 && (
+        <p className="mt-6 text-center text-sm text-muted-foreground">
+          <Link to="/register?type=customer" className="font-medium text-foreground hover:underline">Creá una cuenta</Link> para guardar tus pedidos y tu carrito en cualquier dispositivo.
+        </p>
       )}
       <OrdersInProgress orders={recent.filter((o) => !sentCodes.has(o.publicCode))} className="mt-10" />
       {hasFinished && !recent.some((o) => isActive(o) && !sentCodes.has(o.publicCode)) && (

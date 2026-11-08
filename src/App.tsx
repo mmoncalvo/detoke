@@ -1,10 +1,11 @@
 import { lazy, Suspense } from 'react';
-import { Navigate, Route, Routes } from 'react-router-dom';
+import { Navigate, Route, Routes, useLocation } from 'react-router-dom';
 import { PageLoader } from '@/components/common/States';
 import { useAuth } from '@/context/AuthContext';
 import PublicLayout from '@/layouts/PublicLayout';
 import { OrderAlertsProvider } from '@/context/OrderAlertsContext';
 import { RecentOrdersWatcher } from '@/components/orders/RecentOrders';
+import { AccountSync } from '@/components/auth/AccountSync';
 
 const Home = lazy(() => import('@/pages/Home'));
 const Explore = lazy(() => import('@/pages/Explore'));
@@ -15,6 +16,7 @@ const MyOrders = lazy(() => import('@/pages/MyOrders'));
 const Orders = lazy(() => import('@/pages/dashboard/Orders'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const About = lazy(() => import('@/pages/About'));
+const CustomerAccount = lazy(() => import('@/pages/CustomerAccount'));
 // Development only: the dead branch (and the page) is left out of the production build.
 const LogoPreview = import.meta.env.DEV ? lazy(() => import('@/pages/dev/LogoPreview')) : null;
 const Login = lazy(() => import('@/pages/Login'));
@@ -32,14 +34,16 @@ const Account = lazy(() => import('@/pages/dashboard/Account'));
 
 function RequireAuth({ children }: { children: React.ReactNode }) {
   const { user, isLoading } = useAuth();
+  const { pathname } = useLocation();
   if (isLoading) return <PageLoader />;
-  return user ? <>{children}</> : <Navigate to="/login" replace />;
+  return user ? <>{children}</> : <Navigate to={`/login?next=${encodeURIComponent(pathname)}`} replace />;
 }
 
 export default function App() {
   return (
     <OrderAlertsProvider>
     <RecentOrdersWatcher />
+    <AccountSync />
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<PublicLayout />}>
@@ -51,6 +55,7 @@ export default function App() {
           <Route path="mis-pedidos" element={<MyOrders />} />
           <Route path="contact" element={<Contact />} />
           <Route path="nosotros" element={<About />} />
+          <Route path="mi-cuenta" element={<RequireAuth><CustomerAccount /></RequireAuth>} />
           <Route path="about" element={<Navigate to="/nosotros" replace />} />
           {LogoPreview && <Route path="dev/logo" element={<LogoPreview />} />}
           <Route path="*" element={<NotFound />} />

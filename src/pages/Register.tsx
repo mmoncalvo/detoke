@@ -1,11 +1,11 @@
 import { zodResolver } from '@hookform/resolvers/zod';
-import { Check, Loader2 } from 'lucide-react';
+import { Check, Loader2, ShoppingBag, Store } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import type { z } from 'zod';
 import { defaultHours, type BusinessHours } from '@shared/business';
-import { accountSchema, hoursSchema, newBusinessSchema } from '@shared/schemas';
+import { accountSchema, customerRegisterSchema, hoursSchema, newBusinessSchema } from '@shared/schemas';
 import type { Business, BusinessCategory, Session } from '@shared/types';
 import { api, ApiError } from '@/api';
 import { GoogleSignIn } from '@/components/auth/GoogleButton';
@@ -53,7 +53,7 @@ function AccountStep({ initial, emailError, onNext }: { initial?: Account; email
 
   return (
     <Form {...form}>
-      <GoogleSignIn label="Registrarme con Google" />
+      <GoogleSignIn label="Registrarme con Google" as="seller" />
       <form onSubmit={form.handleSubmit(onNext)} className="mt-4 space-y-4" noValidate>
         <TextField control={form.control} name="name" label="Tu nombre" autoComplete="name" autoFocus />
         <TextField control={form.control} name="email" label="Email" type="email" autoComplete="email" />
@@ -137,10 +137,10 @@ function ImagesStep({ onFinish }: { onFinish: () => void }) {
   );
 }
 
-export default function Register() {
+function BusinessRegister() {
   useTitle('Sumá tu negocio');
   const navigate = useNavigate();
-  const { user, business, isLoading, signIn, setBusiness } = useAuth();
+  const { user, business, isLoading, signIn, setBusiness, setUser } = useAuth();
   const [params] = useSearchParams();
   const [step, setStep] = useState(() => ({ business: 1, location: 2 })[params.get('step') ?? ''] ?? 0);
   const [account, setAccount] = useState<Account>();
@@ -159,6 +159,8 @@ export default function Register() {
       if (user) {
         // Account made with Google: only the business is missing.
         setBusiness(await api<Business>('/businesses/me', { method: 'POST', body: data }));
+        // A buyer who adds a business is a seller from now on.
+        if (user.role === 'customer') setUser({ ...user, role: 'seller' });
         setStep(2);
         return;
       }
@@ -199,7 +201,7 @@ export default function Register() {
           ))}
         </ol>
 
-        {user && step === 1 && <p className="mt-8 text-sm text-muted-foreground">Hola, {user.name.split(' ')[0]}. Ya creaste tu cuenta con Google: ahora sumá tu negocio.</p>}
+        {user && step === 1 && <p className="mt-8 text-sm text-muted-foreground">Hola, {user.name.split(' ')[0]}. Ya tenés tu cuenta: ahora sumá tu negocio. Vas a seguir pudiendo comprar como hasta ahora.</p>}
         <h1 className={user && step === 1 ? 'mt-2 text-3xl font-bold' : 'mt-8 text-3xl font-bold'}>{STEPS[step].title}</h1>
         <p className="mb-6 mt-1 text-muted-foreground">{STEPS[step].subtitle}</p>
 
@@ -213,4 +215,94 @@ export default function Register() {
       </div>
     </div>
   );
+}
+
+type CustomerInput = z.input<typeof customerRegisterSchema>;
+type CustomerOutput = z.output<typeof customerRegisterSchema>;
+
+/** A buyer's account: name, email and password (or Google), and the phone if they want. */
+function CustomerRegister() {
+  useTitle('Crear cuenta');
+  const navigate = useNavigate();
+  const { user, isLoading, signIn } = useAuth();
+  const form = useForm<CustomerInput, unknown, CustomerOutput>({ resolver: zodResolver(customerRegisterSchema), defaultValues: { name: '', email: '', password: '', phone: '' } });
+
+  useEffect(() => {
+    if (!isLoading && user) navigate('/', { replace: true });
+  }, [isLoading, user, navigate]);
+
+  const onSubmit = form.handleSubmit(async (values) => {
+    try {
+      signIn(await api<Session>('/auth/register/customer', { method: 'POST', body: values }));
+      toast.success('¡Listo! Tus pedidos y tu carrito ya quedan guardados en tu cuenta');
+    } catch (err) {
+      if (err instanceof ApiError && err.status === 409) form.setError('email', { message: err.message });
+      else toast.error((err as Error).message);
+    }
+  });
+
+  return (
+    <AuthShell title="Creá tu cuenta" subtitle="Guardá tus pedidos, tu carrito y tus datos de entrega, en cualquier dispositivo.">
+      <Form {...form}>
+        <GoogleSignIn label="Registrarme con Google" />
+        <form onSubmit={onSubmit} className="mt-4 space-y-4" noValidate>
+          <TextField control={form.control} name="name" label="Tu nombre" autoComplete="name" autoFocus />
+          <TextField control={form.control} name="email" label="Email" type="email" autoComplete="email" />
+          <TextField control={form.control} name="password" label="Contraseña" type="password" autoComplete="new-password" description="Al menos 8 caracteres." />
+          <TextField control={form.control} name="phone" label="Teléfono (opcional)" type="tel" autoComplete="tel" description="Para que los comercios te puedan avisar." />
+          <Button type="submit" size="lg" className="w-full" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className="animate-spin" />} Crear cuenta</Button>
+        </form>
+      </Form>
+      <p className="mt-6 text-center text-sm text-muted-foreground">¿Ya tenés cuenta? <Link to="/login" className="font-semibold text-primary hover:underline">Ingresá</Link></p>
+    </AuthShell>
+  );
+}
+
+function AuthShell({ title, subtitle, children }: { title: string; subtitle: string; children: React.ReactNode }) {
+  return (
+    <div className="flex min-h-svh flex-col">
+      <Awning />
+      <div className="flex flex-1 items-center justify-center px-4 py-10">
+        <div className="w-full max-w-md">
+          <BrandMark />
+          <h1 className="mt-6 text-3xl font-bold">{title}</h1>
+          <p className="mb-6 mt-1 text-muted-foreground">{subtitle}</p>
+          {children}
+        </div>
+      </div>
+    </div>
+  );
+}
+
+/** First question: buying, or selling too. */
+function ChooseAccount() {
+  useTitle('Crear cuenta');
+  const options = [
+    { to: '/register?type=customer', icon: ShoppingBag, title: 'Quiero comprar', text: 'Guardá tus pedidos, tu carrito y tus datos de entrega.' },
+    { to: '/register?type=business', icon: Store, title: 'Tengo un comercio', text: 'Publicá tu catálogo y recibí pedidos por WhatsApp. También vas a poder comprar.' },
+  ];
+  return (
+    <AuthShell title="Creá tu cuenta" subtitle="¿Cómo vas a usar Detoke?">
+      <div className="grid gap-3">
+        {options.map((o) => (
+          <Link key={o.to} to={o.to} className="flex items-center gap-4 rounded-2xl border bg-card p-4 transition-colors hover:border-primary/50">
+            <span className="flex size-11 shrink-0 items-center justify-center rounded-full bg-secondary text-primary"><o.icon className="size-5" /></span>
+            <span>
+              <span className="block font-semibold">{o.title}</span>
+              <span className="block text-sm text-muted-foreground">{o.text}</span>
+            </span>
+          </Link>
+        ))}
+      </div>
+      <p className="mt-6 text-center text-sm text-muted-foreground">¿Ya tenés cuenta? <Link to="/login" className="font-semibold text-primary hover:underline">Ingresá</Link></p>
+    </AuthShell>
+  );
+}
+
+export default function Register() {
+  const [params] = useSearchParams();
+  const type = params.get('type');
+  if (type === 'customer') return <CustomerRegister />;
+  if (type === 'business' || params.get('step')) return <BusinessRegister />;
+  return <ChooseAccount />;
 }

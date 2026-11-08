@@ -81,7 +81,8 @@ export default function DashboardLayout() {
     navigate('/dashboard');
   };
 
-  // Accounts made with Google start without a business: finish the onboarding first.
+  // A buyer's account has no panel: its place is Mi cuenta. Sellers made with Google finish the onboarding first.
+  if (user?.role === 'customer') return <Navigate to="/mi-cuenta" replace />;
   if (!isAdmin && !business) return <Navigate to="/register?step=business" replace />;
 
   return (

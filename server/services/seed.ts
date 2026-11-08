@@ -83,6 +83,21 @@ export async function seedOrders(limit = 8) {
   return created;
 }
 
+/** Demo buyers, each with the sample orders placed under their name. */
+const DEMO_CUSTOMERS = [
+  { email: 'cliente1@detoke.test', name: 'Lucía Fernández', phone: '099 000 101', address: 'Bulevar Artigas 1200' },
+  { email: 'cliente2@detoke.test', name: 'Martín Pereira', phone: '099 000 102', address: 'Chucarro 1237' },
+];
+
+export async function seedCustomers(passwordHash: string) {
+  for (const data of DEMO_CUSTOMERS) {
+    const existing = await User.findOne({ where: { email: data.email } });
+    const user = existing ? await existing.update({ ...data, role: 'customer', passwordHash, disabledAt: null }) : await User.create({ ...data, role: 'customer', passwordHash });
+    await Order.update({ customerUserId: user.id }, { where: { customerName: data.name, customerUserId: null } });
+  }
+  return DEMO_CUSTOMERS.map((c) => `${c.email} (cliente)`);
+}
+
 export const seedContactMessages = () => ContactMessage.bulkCreate(readSeed('contact-messages.json'));
 
 export async function seed() {
@@ -111,8 +126,9 @@ export async function seed() {
 
   await seedContactMessages();
   await seedOrders();
+  const customers = await seedCustomers(passwordHash);
 
-  return { businesses: businesses.length, products: productCount, accounts: businesses.map((b) => `${b.owner.email} (${b.name})`) };
+  return { businesses: businesses.length, products: productCount, accounts: [...businesses.map((b) => `${b.owner.email} (${b.name})`), ...customers] };
 }
 
 /** Creates the missing categories and updates the others by slug, keeping their ids (real businesses use them). */
@@ -167,6 +183,7 @@ export async function refreshDemo() {
   await ContactMessage.destroy({ where: { email: messages.map((m) => m.email) } });
   await seedContactMessages();
   const orders = await seedOrders();
+  const customers = await seedCustomers(passwordHash);
 
-  return { businesses: businesses.length, products: productCount, orders, accounts: businesses.map((b) => `${b.owner.email} (${b.name})`) };
+  return { businesses: businesses.length, products: productCount, orders, accounts: [...businesses.map((b) => `${b.owner.email} (${b.name})`), ...customers] };
 }

@@ -42,7 +42,7 @@ export default function About() {
 
       <div className="mt-12 flex flex-wrap items-center gap-2">
         <Button asChild><Link to="/explorar">Explorar negocios</Link></Button>
-        <Button asChild variant="outline"><Link to="/register">Sumá tu negocio</Link></Button>
+        <Button asChild variant="outline"><Link to="/register?type=business">Sumá tu negocio</Link></Button>
         <Button asChild variant="ghost" className="text-muted-foreground"><Link to="/contact">Contacto</Link></Button>
       </div>
     </div>

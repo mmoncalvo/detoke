@@ -25,9 +25,12 @@ export default function Login() {
   const [error, setError] = useState(() => GOOGLE_ERRORS[params.get('error') ?? ''] ?? '');
   const form = useForm<z.input<typeof loginSchema>, unknown, z.output<typeof loginSchema>>({ resolver: zodResolver(loginSchema), defaultValues: { email: '', password: '' } });
 
+  // Sellers and admins go to their panel; buyers go back where they were (or home).
   useEffect(() => {
-    if (user) navigate('/dashboard', { replace: true });
-  }, [user, navigate]);
+    if (!user) return;
+    const next = params.get('next');
+    navigate(user.role === 'customer' ? (next?.startsWith('/') ? next : '/') : '/dashboard', { replace: true });
+  }, [user, navigate, params]);
 
   const onSubmit = form.handleSubmit(async (values) => {
     setError('');
@@ -45,7 +48,7 @@ export default function Login() {
         <div className="w-full max-w-md">
           <BrandMark />
           <h1 className="mt-6 text-3xl font-bold">Hola de nuevo</h1>
-          <p className="mt-1 text-muted-foreground">Entrá para administrar tu negocio.</p>
+          <p className="mt-1 text-muted-foreground">Entrá a tu cuenta para ver tus pedidos o administrar tu negocio.</p>
 
           <div className="mt-6 space-y-4">
             {error && <Alert variant="destructive"><AlertDescription>{error}</AlertDescription></Alert>}
@@ -62,7 +65,7 @@ export default function Login() {
           </Form>
 
           <p className="mt-6 text-center text-sm text-muted-foreground">
-            ¿Todavía no estás en Detoke? <Link to="/register" className="font-semibold text-primary hover:underline">Sumá tu negocio</Link>
+            ¿Todavía no tenés cuenta? <Link to="/register" className="font-semibold text-primary hover:underline">Creá una</Link>
           </p>
         </div>
       </div>

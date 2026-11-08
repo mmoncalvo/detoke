@@ -1,4 +1,4 @@
-import { LayoutDashboard, LogIn, ReceiptText, Search, ShoppingBag } from 'lucide-react';
+import { LogIn, ReceiptText, Search, ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { BrandMark } from '@/components/common/BrandMark';
@@ -9,7 +9,6 @@ import { SearchDialog } from '@/components/layout/SearchDialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
-import { usePendingOrders } from '@/context/OrderAlertsContext';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { isActive } from '@/lib/recentOrders';
 
@@ -18,13 +17,13 @@ const NAV_LINK = 'rounded-md px-2 py-2 text-sm font-medium transition-colors dur
 const NAV_ICON = 'text-muted-foreground transition-colors duration-200 hover:bg-transparent hover:text-foreground dark:hover:bg-transparent focus-visible:ring-2 focus-visible:ring-ring/40';
 const navLinkClass = (isActive: boolean) => `${NAV_LINK} ${isActive ? 'text-primary hover:text-primary/80' : 'text-muted-foreground hover:text-foreground'}`;
 import { Awning } from '@/components/common/Awning';
+import { PublicUserMenu } from '@/components/layout/PublicUserMenu';
 
 export default function PublicLayout() {
   const { user } = useAuth();
   const { count, setOpen } = useCart();
   const [searchOpen, setSearchOpen] = useState(false);
   const recent = useRecentOrders();
-  const pendingOrders = usePendingOrders();
   const activeOrders = recent.filter(isActive).length;
   const { pathname } = useLocation();
 
@@ -70,12 +69,7 @@ export default function PublicLayout() {
               {count > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-tomato px-1 text-[11px] font-bold text-white">{count}</span>}
             </Button>
             {user ? (
-              <Button asChild variant="outline" className="ml-1 size-9 p-0 transition-colors duration-200 hover:border-primary/40 hover:bg-transparent hover:text-primary dark:hover:bg-transparent sm:h-10 sm:w-auto sm:px-4">
-                <Link to={pendingOrders ? '/dashboard/orders' : '/dashboard'} aria-label={pendingOrders ? `Mi panel, ${pendingOrders} pedidos nuevos` : 'Mi panel'} className="relative">
-                  <LayoutDashboard /> <span className="hidden sm:inline">Mi panel</span>
-                  {pendingOrders > 0 && <span className="absolute -right-1.5 -top-1.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-mustard px-1 text-[11px] font-bold text-[oklch(0.25_0.04_80)]">{pendingOrders}</span>}
-                </Link>
-              </Button>
+              <PublicUserMenu />
             ) : (
               <Button asChild variant="outline" className="ml-1 size-9 p-0 transition-colors duration-200 hover:border-primary/40 hover:bg-transparent hover:text-primary dark:hover:bg-transparent sm:h-10 sm:w-auto sm:px-4"><Link to="/login" aria-label="Ingresar"><LogIn className="sm:hidden" /> <span className="hidden sm:inline">Ingresar</span></Link></Button>
             )}
@@ -94,7 +88,7 @@ export default function PublicLayout() {
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <Link to="/explorar" className="hover:text-sidebar-accent-foreground">Explorar</Link>
-            <Link to="/register" className="hover:text-sidebar-accent-foreground">Sumá tu negocio</Link>
+            <Link to="/register?type=business" className="hover:text-sidebar-accent-foreground">Sumá tu negocio</Link>
             <Link to="/nosotros" className="hover:text-sidebar-accent-foreground">Nosotros</Link>
             <Link to="/contact" className="hover:text-sidebar-accent-foreground">Contacto</Link>
           </div>

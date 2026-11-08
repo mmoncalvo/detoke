@@ -1,4 +1,4 @@
-import { Ban, ChevronLeft, ChevronRight, CircleCheck, ExternalLink, Loader2, LogIn, MoreVertical, Search, Trash2, Users } from 'lucide-react';
+import { Ban, ChevronLeft, ChevronRight, CircleCheck, ExternalLink, Loader2, LogIn, MoreVertical, Search, Trash2, Users, UserX } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -85,6 +85,7 @@ export default function AdminAccounts() {
   const [search, setSearch] = useUrlState('q', '');
   const [category, setCategory] = useUrlState('category', ALL);
   const [status, setStatus] = useUrlState('status', ALL);
+  const [type, setType] = useUrlState('type', ALL);
   const [pageParam, setPageParam] = useUrlState('page', '1');
   const page = Math.max(1, Number(pageParam) || 1);
   const setPage = (next: number | ((current: number) => number)) => setPageParam(String(typeof next === 'function' ? next(page) : next));
@@ -93,7 +94,7 @@ export default function AdminAccounts() {
   const term = useDebounced(search);
 
   // A new filter starts from the first page (not on the first render, which may come with ?page=).
-  const filters = `${term}|${category}|${status}`;
+  const filters = `${term}|${category}|${status}|${type}`;
   const previousFilters = useRef(filters);
   useEffect(() => {
     if (previousFilters.current !== filters) setPage(1);
@@ -105,8 +106,9 @@ export default function AdminAccounts() {
     if (term) q.set('search', term);
     if (category !== ALL) q.set('category', category);
     if (status !== ALL) q.set('status', status);
+    if (type !== ALL) q.set('type', type);
     return q.toString();
-  }, [term, category, status, page]);
+  }, [term, category, status, type, page]);
   const { data, error, loading, reload } = useFetch<Page<AdminAccount>>(`/admin/users?${query}`);
 
   const [toDisable, setToDisable] = useState<AdminAccount | null>(null);
@@ -123,6 +125,39 @@ export default function AdminAccounts() {
       await api(`/admin/businesses/${account.business.id}/status`, { method: 'PATCH', body: { disabled, reason: disabled ? reason : null } });
       toast.success(disabled ? `${account.business.name} quedó deshabilitado` : `${account.business.name} vuelve a estar visible`);
       setToDisable(null);
+      reload();
+    } catch (err) {
+      toast.error((err as Error).message);
+    } finally {
+      setWorking(false);
+    }
+  };
+
+  const [accountToDisable, setAccountToDisable] = useState<AdminAccount | null>(null);
+  const [accountToDelete, setAccountToDelete] = useState<AdminAccount | null>(null);
+
+  /** The whole account: it can no longer sign in or order (its business, if any, is not touched). */
+  const changeAccountStatus = async (account: AdminAccount, disabled: boolean) => {
+    setWorking(true);
+    try {
+      await api(`/admin/users/${account.user.id}/status`, { method: 'PATCH', body: { disabled, reason: disabled ? reason : null } });
+      toast.success(disabled ? `La cuenta de ${account.user.name} quedó deshabilitada` : `La cuenta de ${account.user.name} vuelve a estar habilitada`);
+      setAccountToDisable(null);
+      reload();
+    } catch (err) {
+      toast.error((err as Error).message);
+    } finally {
+      setWorking(false);
+    }
+  };
+
+  const removeAccount = async () => {
+    if (!accountToDelete) return;
+    setWorking(true);
+    try {
+      await api(`/admin/users/${accountToDelete.user.id}`, { method: 'DELETE' });
+      toast.success(`Eliminamos la cuenta de ${accountToDelete.user.name}`);
+      setAccountToDelete(null);
       reload();
     } catch (err) {
       toast.error((err as Error).message);
@@ -183,6 +218,14 @@ export default function AdminAccounts() {
             {(categories.data ?? []).map((c) => <SelectItem key={c.id} value={c.slug}>{c.name}</SelectItem>)}
           </SelectContent>
         </Select>
+        <Select value={type} onValueChange={setType}>
+          <SelectTrigger className="w-full bg-card sm:w-40" aria-label="Filtrar por tipo de cuenta"><SelectValue /></SelectTrigger>
+          <SelectContent>
+            <SelectItem value={ALL}>Todas las cuentas</SelectItem>
+            <SelectItem value="seller">Comercios</SelectItem>
+            <SelectItem value="customer">Clientes</SelectItem>
+          </SelectContent>
+        </Select>
         <Select value={status} onValueChange={setStatus}>
           <SelectTrigger className="w-full bg-card sm:w-48" aria-label="Filtrar por estado"><SelectValue /></SelectTrigger>
           <SelectContent>
@@ -221,6 +264,8 @@ export default function AdminAccounts() {
                           <p className="max-w-40 truncate text-xs text-muted-foreground sm:max-w-56">{account.user.email}</p>
                         </div>
                         {account.business && !account.business.isActive && <Badge variant="danger">Deshabilitado</Badge>}
+                        {!account.business && <Badge variant="secondary">Cliente</Badge>}
+                        {account.user.disabledAt && <Badge variant="danger">Cuenta deshabilitada</Badge>}
                       </div>
                     </TableCell>
                     <TableCell className="hidden md:table-cell">{account.user.name}</TableCell>
@@ -242,13 +287,22 @@ export default function AdminAccounts() {
                             {account.business?.isActive && (
                               <DropdownMenuItem asChild><Link to={`/negocio/${account.business.slug}`}><ExternalLink /> Ver página</Link></DropdownMenuItem>
                             )}
+                            {account.user.disabledAt
+                              ? <DropdownMenuItem onSelect={() => void changeAccountStatus(account, false)}><CircleCheck /> Habilitar cuenta</DropdownMenuItem>
+                              : <DropdownMenuItem onSelect={() => { setReason(''); setAccountToDisable(account); }}><UserX /> Deshabilitar cuenta</DropdownMenuItem>}
+                            {!account.business && (
+                              <>
+                                <DropdownMenuSeparator />
+                                <DropdownMenuItem variant="destructive" onSelect={() => setAccountToDelete(account)}><Trash2 /> Eliminar cuenta</DropdownMenuItem>
+                              </>
+                            )}
                             {account.business && (
                               <>
                                 {account.business.isActive
-                                  ? <DropdownMenuItem onSelect={() => { setReason(''); setToDisable(account); }}><Ban /> Deshabilitar</DropdownMenuItem>
-                                  : <DropdownMenuItem onSelect={() => void changeStatus(account, false)}><CircleCheck /> Habilitar</DropdownMenuItem>}
+                                  ? <DropdownMenuItem onSelect={() => { setReason(''); setToDisable(account); }}><Ban /> Deshabilitar negocio</DropdownMenuItem>
+                                  : <DropdownMenuItem onSelect={() => void changeStatus(account, false)}><CircleCheck /> Habilitar negocio</DropdownMenuItem>}
                                 <DropdownMenuSeparator />
-                                <DropdownMenuItem variant="destructive" onSelect={() => { setConfirmName(''); setToDelete(account); }}><Trash2 /> Eliminar</DropdownMenuItem>
+                                <DropdownMenuItem variant="destructive" onSelect={() => { setConfirmName(''); setToDelete(account); }}><Trash2 /> Eliminar negocio</DropdownMenuItem>
                               </>
                             )}
                           </DropdownMenuContent>
@@ -324,6 +378,40 @@ export default function AdminAccounts() {
           <AlertDialogFooter>
             <AlertDialogCancel disabled={working}>Cancelar</AlertDialogCancel>
             <AlertDialogAction className="bg-destructive text-white hover:bg-destructive/90" onClick={(e) => { e.preventDefault(); void remove(); }} disabled={working || confirmName.trim() !== toDelete?.business?.name}>
+              {working && <Loader2 className="animate-spin" />} Eliminar para siempre
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={!!accountToDisable} onOpenChange={(open) => !open && !working && setAccountToDisable(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Deshabilitar la cuenta de {accountToDisable?.user.name}?</AlertDialogTitle>
+            <AlertDialogDescription>No va a poder entrar ni hacer pedidos. {accountToDisable?.business ? 'Su negocio no cambia: para ocultarlo, deshabilitá el negocio.' : ''} La podés volver a habilitar cuando quieras.</AlertDialogDescription>
+          </AlertDialogHeader>
+          <div className="space-y-2">
+            <Label htmlFor="account-disable-reason">Motivo (opcional)</Label>
+            <Textarea id="account-disable-reason" rows={2} maxLength={300} value={reason} onChange={(e) => setReason(e.target.value)} />
+          </div>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={working}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction onClick={(e) => { e.preventDefault(); if (accountToDisable) void changeAccountStatus(accountToDisable, true); }} disabled={working}>
+              {working && <Loader2 className="animate-spin" />} Deshabilitar cuenta
+            </AlertDialogAction>
+          </AlertDialogFooter>
+        </AlertDialogContent>
+      </AlertDialog>
+
+      <AlertDialog open={!!accountToDelete} onOpenChange={(open) => !open && !working && setAccountToDelete(null)}>
+        <AlertDialogContent>
+          <AlertDialogHeader>
+            <AlertDialogTitle>¿Eliminar la cuenta de {accountToDelete?.user.name}?</AlertDialogTitle>
+            <AlertDialogDescription>Se borra para siempre la cuenta de {accountToDelete?.user.email}. Sus pedidos siguen existiendo para los negocios. <strong>No se puede deshacer.</strong></AlertDialogDescription>
+          </AlertDialogHeader>
+          <AlertDialogFooter>
+            <AlertDialogCancel disabled={working}>Cancelar</AlertDialogCancel>
+            <AlertDialogAction className="bg-destructive text-white hover:bg-destructive/90" onClick={(e) => { e.preventDefault(); void removeAccount(); }} disabled={working}>
               {working && <Loader2 className="animate-spin" />} Eliminar para siempre
             </AlertDialogAction>
           </AlertDialogFooter>

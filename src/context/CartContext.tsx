@@ -27,6 +27,8 @@ interface CartState {
   add: (product: Product, business: BusinessSummary, quantity?: number) => void;
   setQuantity: (id: string, quantity: number) => void;
   removeBusiness: (businessId: string) => void;
+  /** Replaces the whole cart (account sync, sign-out). */
+  replace: (items: CartItem[]) => void;
   quantityOf: (id: string) => number;
 }
 
@@ -69,6 +71,8 @@ export function CartProvider({ children }: { children: ReactNode }) {
     setItems((current) => current.filter((item) => item.business.id !== businessId));
   }, []);
 
+  const replace = useCallback((next: CartItem[]) => setItems(next), []);
+
   const value = useMemo(() => {
     const byBusiness = new Map<string, CartGroup>();
     for (const item of items) {
@@ -86,9 +90,10 @@ export function CartProvider({ children }: { children: ReactNode }) {
       add,
       setQuantity,
       removeBusiness,
+      replace,
       quantityOf: (id: string) => items.find((item) => item.id === id)?.quantity ?? 0,
     };
-  }, [items, isOpen, add, setQuantity, removeBusiness]);
+  }, [items, isOpen, add, setQuantity, removeBusiness, replace]);
 
   return <CartContext.Provider value={value}>{children}</CartContext.Provider>;
 }

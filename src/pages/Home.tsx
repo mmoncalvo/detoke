@@ -136,7 +136,7 @@ export default function Home() {
             <h2 className="text-2xl font-bold sm:text-3xl">¿Tenés un comercio?</h2>
             <p className="mt-1 max-w-lg">Publicá tu catálogo gratis en minutos y recibí los pedidos en tu WhatsApp, sin comisiones.</p>
           </div>
-          <Button asChild size="lg" className="shrink-0"><Link to="/register"><Store /> Sumá tu negocio</Link></Button>
+          <Button asChild size="lg" className="shrink-0"><Link to="/register?type=business"><Store /> Sumá tu negocio</Link></Button>
         </section>
       </div>
 

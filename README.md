@@ -156,6 +156,9 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 | `GET /api/geo/cities?q=` | Ciudades: OpenStreetMap (Uruguay, primero) y Georef (Argentina, con ", Argentina"), "Ciudad, Departamento" |
 | `GET /api/geo/addresses?q=&lat=&lng=` | Direcciones cerca de un punto (Photon, OpenStreetMap) |
 | `GET /api/geo/reverse?lat=&lng=` | La dirección de un punto del mapa |
+| `POST /api/auth/register/customer` | Crea una cuenta de cliente (sin negocio) |
+| `GET /api/orders/customer` 🔒 · `POST /api/orders/claim` 🔒 | Historial de compras de la cuenta · asocia los pedidos guardados en el navegador |
+| `GET /api/auth/me/cart` · `PUT` 🔒 | Carrito guardado en la cuenta |
 | `POST /api/orders` | Crea un pedido (recalcula precios y reglas del negocio) y devuelve su link `/pedido/{código}`; con el mismo `clientRequestId` devuelve el pedido ya creado |
 | `PATCH /api/auth/me` 🔒 | Edita nombre, email y teléfono (el email no, si un admin navega en nombre del usuario) |
 | `POST /api/auth/me/password` 🔒 | Cambia la contraseña pidiendo la actual, o la crea si la cuenta es solo de Google; bloqueado en impersonación |
