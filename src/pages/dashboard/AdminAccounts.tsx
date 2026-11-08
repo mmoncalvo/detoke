@@ -22,6 +22,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { useUrlState } from '@/hooks/useUrlState';
+import { UserAvatar } from '@/components/common/UserAvatar';
 
 const ALL = 'all';
 const PAGE_SIZE = 20;
@@ -258,9 +259,11 @@ export default function AdminAccounts() {
                   <TableRow key={account.user.id}>
                     <TableCell>
                       <div className="flex min-w-0 items-center gap-3">
-                        <SafeImage src={account.business?.logo} alt="" className="size-10 shrink-0 rounded-md" />
+                        {account.business
+                          ? <SafeImage src={account.business.logo} alt="" className="size-10 shrink-0 rounded-md" />
+                          : <UserAvatar name={account.user.name} src={account.user.avatarUrl} className="size-10 rounded-md bg-secondary text-sm text-secondary-foreground" />}
                         <div className="min-w-0">
-                          <p className="max-w-40 truncate font-medium sm:max-w-56">{account.business?.name ?? 'Sin negocio'}</p>
+                          <p className="max-w-40 truncate font-medium sm:max-w-56">{account.business?.name ?? account.user.name}</p>
                           <p className="max-w-40 truncate text-xs text-muted-foreground sm:max-w-56">{account.user.email}</p>
                         </div>
                         {account.business && !account.business.isActive && <Badge variant="danger">Deshabilitado</Badge>}
