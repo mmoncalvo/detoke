@@ -24,7 +24,7 @@ export default function About() {
   }, [businesses.data]);
 
   return (
-    <div className="mx-auto max-w-form px-4 py-12 sm:py-20">
+    <div className="mx-auto max-w-form px-4 py-12 sm:py-20 sm:pb-6">
       <h1 className="text-4xl font-extrabold leading-tight sm:text-5xl">Todo el barrio, <span className="text-primary">de toque.</span></h1>
       <p className="mt-4 text-lg text-muted-foreground">Los comercios de tu barrio en un solo lugar. Elegís, armás el pedido y lo cerrás por WhatsApp, directo con quien te atiende.</p>
       {stats && <p className="mt-3 text-sm font-medium">{stats}</p>}
