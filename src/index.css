@@ -69,8 +69,8 @@
   --accent-foreground: oklch(0.93 0.06 90);
   --mustard: oklch(0.8 0.14 82);
   /* Softer stripes at night: less light and less color, still solid. */
-  --awning-a: oklch(0.64 0.085 160);
-  --awning-b: oklch(0.7 0.1 82);
+  --awning-a: oklch(0.56 0.065 160);
+  --awning-b: oklch(0.62 0.08 82);
   --tomato: oklch(0.7 0.17 33);
   --hero: oklch(0.31 0.055 163);
   --success: oklch(0.72 0.14 155);
