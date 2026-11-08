@@ -1,4 +1,4 @@
-import { ShoppingBag, X } from 'lucide-react';
+import { Info, ShoppingBag, X } from 'lucide-react';
 import { Link, useNavigate } from 'react-router-dom';
 import { EmptyState } from '@/components/common/States';
 import { QuantityStepper } from '@/components/common/QuantityStepper';
@@ -23,8 +23,8 @@ export function CartSheet() {
 
         <div className="flex-1 space-y-6 overflow-y-auto p-4">
           {groups.length > 1 && (
-            <p role="status" className="rounded-xl border-2 border-mustard bg-accent px-3 py-2 text-sm text-accent-foreground">
-              Son <strong>{groups.length} pedidos separados</strong>, uno por negocio: cada uno se envía y se paga aparte.
+            <p role="status" className="flex items-center gap-1.5 text-sm text-muted-foreground">
+              <Info className="size-3.5 shrink-0" aria-hidden /> {groups.length} pedidos, se envían por separado
             </p>
           )}
           {groups.length === 0 && (

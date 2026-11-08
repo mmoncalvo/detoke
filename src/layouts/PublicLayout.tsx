@@ -9,6 +9,11 @@ import { SearchDialog } from '@/components/layout/SearchDialog';
 import { Button } from '@/components/ui/button';
 import { useAuth } from '@/context/AuthContext';
 import { useCart } from '@/context/CartContext';
+
+/** Navbar items change color softly on hover, with no button box; keyboard focus keeps a discreet ring. */
+const NAV_LINK = 'rounded-md px-2 py-2 text-sm font-medium transition-colors duration-200 outline-none focus-visible:ring-2 focus-visible:ring-ring/40 sm:px-3';
+const NAV_ICON = 'text-muted-foreground transition-colors duration-200 hover:bg-transparent hover:text-foreground dark:hover:bg-transparent focus-visible:ring-2 focus-visible:ring-ring/40';
+const navLinkClass = (isActive: boolean) => `${NAV_LINK} ${isActive ? 'text-primary hover:text-primary/80' : 'text-muted-foreground hover:text-foreground'}`;
 import { Awning } from '@/components/common/Awning';
 
 export default function PublicLayout() {
@@ -29,13 +34,13 @@ export default function PublicLayout() {
         <div className="mx-auto flex h-16 max-w-page items-center gap-1 px-4 sm:gap-2">
           <BrandMark compact />
           <nav className="ml-1 block sm:ml-6" aria-label="Principal">
-            <NavLink to="/explorar" className={({ isActive }) => `rounded-md px-2 py-2 text-sm sm:px-3 font-medium hover:bg-secondary ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>Explorar</NavLink>
-            <NavLink to="/contact" className={({ isActive }) => `hidden rounded-md px-3 py-2 text-sm font-medium hover:bg-secondary md:inline-block ${isActive ? 'text-primary' : 'text-muted-foreground'}`}>Contacto</NavLink>
+            <NavLink to="/explorar" className={({ isActive }) => navLinkClass(isActive)}>Explorar</NavLink>
+            <NavLink to="/contact" className={({ isActive }) => `hidden md:inline-block ${navLinkClass(isActive)}`}>Contacto</NavLink>
           </nav>
 
           <button
             onClick={() => setSearchOpen(true)}
-            className="ml-auto hidden h-10 w-72 items-center gap-2 rounded-lg border bg-card px-3 text-sm text-muted-foreground transition-colors hover:border-primary/40 md:flex"
+            className="ml-auto hidden h-10 w-72 items-center gap-2 rounded-lg border bg-card px-3 text-sm text-muted-foreground outline-none transition-colors duration-200 hover:border-primary/30 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 md:flex"
           >
             <Search className="size-4" />
             <span className="flex-1 text-left">Buscar en el barrio</span>
@@ -43,18 +48,18 @@ export default function PublicLayout() {
           </button>
 
           <div className="ml-auto flex items-center md:ml-2 sm:gap-1">
-            <Button variant="ghost" size="icon" className="size-9 md:hidden" aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
-            <ThemeToggle className="size-9 sm:size-10" />
-            <Button variant="ghost" size="icon" className="relative size-9 sm:size-10" aria-label={`Ver pedido, ${count} productos`} onClick={() => setOpen(true)}>
+            <Button variant="ghost" size="icon" className={`size-9 md:hidden ${NAV_ICON}`} aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
+            <ThemeToggle className={`size-9 sm:size-10 ${NAV_ICON}`} />
+            <Button variant="ghost" size="icon" className={`relative size-9 sm:size-10 ${NAV_ICON}`} aria-label={`Ver pedido, ${count} productos`} onClick={() => setOpen(true)}>
               <ShoppingBag className="size-5" />
               {count > 0 && <span className="absolute -right-0.5 -top-0.5 flex h-5 min-w-5 items-center justify-center rounded-full bg-tomato px-1 text-[11px] font-bold text-white">{count}</span>}
             </Button>
             {user ? (
-              <Button asChild variant="outline" className="ml-1 size-9 p-0 sm:h-10 sm:w-auto sm:px-4">
+              <Button asChild variant="outline" className="ml-1 size-9 p-0 transition-colors duration-200 hover:border-primary/40 hover:bg-transparent hover:text-primary dark:hover:bg-transparent sm:h-10 sm:w-auto sm:px-4">
                 <Link to="/dashboard" aria-label="Mi panel"><LayoutDashboard /> <span className="hidden sm:inline">Mi panel</span></Link>
               </Button>
             ) : (
-              <Button asChild variant="outline" className="ml-1 size-9 p-0 sm:h-10 sm:w-auto sm:px-4"><Link to="/login" aria-label="Ingresar"><LogIn className="sm:hidden" /> <span className="hidden sm:inline">Ingresar</span></Link></Button>
+              <Button asChild variant="outline" className="ml-1 size-9 p-0 transition-colors duration-200 hover:border-primary/40 hover:bg-transparent hover:text-primary dark:hover:bg-transparent sm:h-10 sm:w-auto sm:px-4"><Link to="/login" aria-label="Ingresar"><LogIn className="sm:hidden" /> <span className="hidden sm:inline">Ingresar</span></Link></Button>
             )}
           </div>
         </div>
