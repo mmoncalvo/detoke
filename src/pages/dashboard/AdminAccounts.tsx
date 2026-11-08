@@ -239,7 +239,6 @@ export default function AdminAccounts() {
                             <Button size="icon" variant="ghost" className="size-8" aria-label={`Más opciones de ${account.business?.name ?? account.user.name}`}><MoreVertical className="size-4" /></Button>
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="end" className="min-w-48">
-                            <DropdownMenuItem onSelect={() => setPicked(account)}><LogIn /> Entrar como</DropdownMenuItem>
                             {account.business?.isActive && (
                               <DropdownMenuItem asChild><Link to={`/negocio/${account.business.slug}`}><ExternalLink /> Ver página</Link></DropdownMenuItem>
                             )}
