@@ -2,11 +2,10 @@ import { describe, expect, it } from 'vitest';
 import { actionLabel, statusLabel } from '../shared/orders.js';
 
 describe('status labels', () => {
-  it('reads the last step as sent for delivery and ready for pickup', () => {
-    expect(statusLabel('sent', 'customer', 'delivery')).toBe('Enviado');
-    expect(statusLabel('sent', 'customer', 'pickup')).toBe('Retirar');
-    expect(statusLabel('sent')).toBe('Enviado');
-    expect(actionLabel('sent', 'pickup')).toBe('Marcar para retirar');
-    expect(statusLabel('pending', 'business', 'pickup')).toBe('Nuevo');
+  it('uses one word per status, the same for pickup and delivery', () => {
+    expect(statusLabel('pending')).toBe('Recibido');
+    expect(statusLabel('pending', 'business')).toBe('Nuevo');
+    expect(statusLabel('completed')).toBe('Finalizado');
+    expect(actionLabel('completed')).toBe('Finalizar pedido');
   });
 });

@@ -39,12 +39,12 @@ export function OrderActions({ order, onChange, compact }: { order: Order; onCha
     <div className="flex flex-wrap gap-2">
       {main && (
         <Button size={compact ? 'sm' : 'default'} onClick={() => move(main)} disabled={!!busy}>
-          {busy === main && <Loader2 className="animate-spin" />} {actionLabel(main, order.fulfillment)}
+          {busy === main && <Loader2 className="animate-spin" />} {actionLabel(main)}
         </Button>
       )}
       {order.status === 'pending' && (
-        <Button size={compact ? 'sm' : 'default'} variant="outline" onClick={() => move('sent')} disabled={!!busy}>
-          {busy === 'sent' && <Loader2 className="animate-spin" />} {order.fulfillment === 'pickup' ? 'Ya está listo' : 'Ya lo envié'}
+        <Button size={compact ? 'sm' : 'default'} variant="outline" onClick={() => move('completed')} disabled={!!busy}>
+          {busy === 'completed' && <Loader2 className="animate-spin" />} Finalizar ya
         </Button>
       )}
       {canCancel && (

@@ -36,7 +36,7 @@ async function orderMeta(code: string): Promise<PageMeta | null> {
   const count = order.items.reduce((sum, i) => sum + i.quantity, 0);
   return {
     title: `Pedido #${order.number} · ${order.business.name}`,
-    description: [plural(count, 'producto', 'productos'), `Total ${formatMoney(order.total)}`, DELIVERY_LABELS[order.fulfillment], `Estado: ${statusLabel(order.status, 'customer', order.fulfillment)}`].join(' · '),
+    description: [plural(count, 'producto', 'productos'), `Total ${formatMoney(order.total)}`, DELIVERY_LABELS[order.fulfillment], `Estado: ${statusLabel(order.status)}`].join(' · '),
     url: `${config.appUrl}/pedido/${encodeURIComponent(order.publicCode)}`,
     image: ogImage(order.business.slug, order.business.updatedAt),
     imageAlt: order.business.name,

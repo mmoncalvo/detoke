@@ -55,7 +55,7 @@ export default function MyOrders() {
           {finished.length > 0 && (
             <section aria-labelledby="finished-orders">
               <div className="mb-3 flex items-center justify-between gap-2">
-                <h2 id="finished-orders" className="font-semibold text-muted-foreground">Finalizados</h2>
+                <h2 id="finished-orders" className="font-semibold text-muted-foreground">Historial</h2>
                 {!signedIn && (
                 <AlertDialog>
                   <AlertDialogTrigger asChild>
@@ -63,8 +63,8 @@ export default function MyOrders() {
                   </AlertDialogTrigger>
                   <AlertDialogContent>
                     <AlertDialogHeader>
-                      <AlertDialogTitle>¿Eliminar los pedidos finalizados?</AlertDialogTitle>
-                      <AlertDialogDescription>Se quitan {finished.length === 1 ? 'el pedido enviado o cancelado' : `los ${finished.length} pedidos enviados o cancelados`} de la lista de este dispositivo. Los pedidos siguen existiendo para cada negocio.</AlertDialogDescription>
+                      <AlertDialogTitle>¿Eliminar el historial?</AlertDialogTitle>
+                      <AlertDialogDescription>Se quitan {finished.length === 1 ? 'el pedido finalizado o cancelado' : `los ${finished.length} pedidos finalizados o cancelados`} de la lista de este dispositivo. Los pedidos siguen existiendo para cada negocio.</AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
                       <AlertDialogCancel>Cancelar</AlertDialogCancel>

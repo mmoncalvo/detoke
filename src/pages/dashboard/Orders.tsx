@@ -20,14 +20,14 @@ import { formatPrice } from '@/lib/format';
 import { itemsSummary, statusVariant, timeAgo } from '@/lib/orders';
 
 const ALL = 'all';
-const TABS = [ALL, 'pending', 'confirmed', 'sent', 'cancelled'] as const;
+const TABS = [ALL, 'pending', 'confirmed', 'completed', 'cancelled'] as const;
 
 /** Tab labels: plural of each status, same order as the flow. */
 const TAB_LABELS: Record<OrderStatus | typeof ALL, string> = {
   all: 'Todos',
   pending: 'Nuevos',
   confirmed: 'Confirmados',
-  sent: 'Enviados',
+  completed: 'Finalizados',
   cancelled: 'Cancelados',
 };
 
@@ -54,7 +54,7 @@ function OrderCard({ order, onChange, dimmed = false }: { order: Order; onChange
           <p className="font-semibold">Pedido #{order.number} · {order.customerName}</p>
           <p className="text-xs text-muted-foreground">{timeAgo(order.createdAt)}</p>
         </div>
-        <Badge variant={statusVariant(order.status)}>{statusLabel(order.status, 'business', order.fulfillment)}</Badge>
+        <Badge variant={statusVariant(order.status)}>{statusLabel(order.status, 'business')}</Badge>
       </header>
       <p className="mt-3 text-sm">{itemsSummary(order)}</p>
       <div className="mt-2 flex flex-wrap gap-x-4 gap-y-1 text-sm text-muted-foreground">

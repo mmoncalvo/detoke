@@ -1,20 +1,20 @@
 // Orders: statuses, the transitions between them and their labels.
 import type { DeliveryOption, PaymentMethod } from './business.js';
 
-export const ORDER_STATUSES = ['pending', 'confirmed', 'sent', 'cancelled'] as const;
+export const ORDER_STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'] as const;
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
 
 /** Statuses that end the order. */
-export const FINAL_STATUSES: OrderStatus[] = ['sent', 'cancelled'];
+export const FINAL_STATUSES: OrderStatus[] = ['completed', 'cancelled'];
 
 /** Kept short on purpose: new, confirmed, delivered. Cancelling is a way out, not a step. */
 export function nextStatuses(status: OrderStatus): OrderStatus[] {
   switch (status) {
     case 'pending':
       // Straight to delivered too, for orders picked up on the spot.
-      return ['confirmed', 'sent', 'cancelled'];
+      return ['confirmed', 'completed', 'cancelled'];
     case 'confirmed':
-      return ['sent', 'cancelled'];
+      return ['completed', 'cancelled'];
     default:
       return [];
   }
@@ -22,15 +22,12 @@ export function nextStatuses(status: OrderStatus): OrderStatus[] {
 
 export const canTransition = (from: OrderStatus, to: OrderStatus) => nextStatuses(from).includes(to);
 
-/**
- * The customer reads "Recibido" where the business reads "Nuevo". The last step reads "Enviado", or
- * "Retirar" when the customer picks the order up (same status, only the wording changes).
- */
-export function statusLabel(status: OrderStatus, audience: 'customer' | 'business' = 'customer', fulfillment?: DeliveryOption) {
+/** One word per status. The customer reads "Recibido" where the business reads "Nuevo". */
+export function statusLabel(status: OrderStatus, audience: 'customer' | 'business' = 'customer') {
   const labels: Record<OrderStatus, string> = {
     pending: audience === 'business' ? 'Nuevo' : 'Recibido',
     confirmed: 'Confirmado',
-    sent: fulfillment === 'pickup' ? 'Retirar' : 'Enviado',
+    completed: 'Finalizado',
     cancelled: 'Cancelado',
   };
   return labels[status];
@@ -40,23 +37,23 @@ export function statusLabel(status: OrderStatus, audience: 'customer' | 'busines
 export const STATUS_TONES: Record<OrderStatus, 'warning' | 'accent' | 'success' | 'danger'> = {
   pending: 'warning',
   confirmed: 'accent',
-  sent: 'success',
+  completed: 'success',
   cancelled: 'danger',
 };
 
 /** Button text for the business, by the status it moves the order to. */
-export function actionLabel(status: OrderStatus, fulfillment?: DeliveryOption) {
+export function actionLabel(status: OrderStatus) {
   const labels: Record<OrderStatus, string> = {
     pending: 'Nuevo',
     confirmed: 'Confirmar pedido',
-    sent: fulfillment === 'pickup' ? 'Marcar para retirar' : 'Marcar como enviado',
+    completed: 'Finalizar pedido',
     cancelled: 'Cancelar',
   };
   return labels[status];
 }
 
 /** The steps of the timeline. Cancelled is shown apart. */
-export const STATUS_STEPS: OrderStatus[] = ['pending', 'confirmed', 'sent'];
+export const STATUS_STEPS: OrderStatus[] = ['pending', 'confirmed', 'completed'];
 
 export interface OrderItem {
   productId: string;

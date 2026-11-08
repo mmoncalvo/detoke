@@ -27,13 +27,13 @@ const SAMPLE_ORDERS: [OrderStatus, number, 'delivery' | 'pickup'][] = [
   ['pending', 4, 'pickup'],
   ['confirmed', 25, 'delivery'],
   ['confirmed', 50, 'pickup'],
-  ['sent', 60 * 26, 'delivery'],
+  ['completed', 60 * 26, 'delivery'],
   ['cancelled', 60 * 30, 'pickup'],
 ];
 const PATHS: Record<OrderStatus, OrderStatus[]> = {
   pending: ['pending'],
   confirmed: ['pending', 'confirmed'],
-  sent: ['pending', 'confirmed', 'sent'],
+  completed: ['pending', 'confirmed', 'completed'],
   cancelled: ['pending', 'cancelled'],
 };
 /** A few orders in different statuses for the first sample businesses (only those without orders). */

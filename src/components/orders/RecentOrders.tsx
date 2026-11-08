@@ -99,7 +99,7 @@ function RecentOrderCard({ order, onNavigate, repeat, repeating, removable }: { 
           <p className="truncate text-sm font-semibold">{order.businessName}</p>
           <p className="text-xs text-muted-foreground">Pedido #{order.number} · {count} {count === 1 ? 'producto' : 'productos'} · {formatPrice(order.total)} · {timeAgo(order.createdAt)}</p>
         </div>
-        <Badge variant={statusVariant(order.status)} className="shrink-0">{statusLabel(order.status, 'customer', order.fulfillment)}</Badge>
+        <Badge variant={statusVariant(order.status)} className="shrink-0">{statusLabel(order.status)}</Badge>
       </div>
       <div className="mt-2 flex flex-wrap gap-1">
         <Button asChild variant="ghost" size="sm" className="h-8 px-2"><Link to={`/pedido/${order.publicCode}`} onClick={onNavigate}><ChevronRight /> Ver pedido</Link></Button>
