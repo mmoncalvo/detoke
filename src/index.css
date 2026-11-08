@@ -26,9 +26,6 @@
   --accent: oklch(0.92 0.07 92);
   --accent-foreground: oklch(0.33 0.06 75);
   --mustard: oklch(0.78 0.14 82);
-  /* The awning's stripes: the brand colors as they are. */
-  --awning-a: var(--primary);
-  --awning-b: var(--mustard);
   --tomato: oklch(0.56 0.18 31);
   --hero: oklch(0.43 0.085 163);
   --success: oklch(0.55 0.13 155);
@@ -59,7 +56,7 @@
   --card-foreground: oklch(0.95 0.012 88);
   --popover: oklch(0.25 0.018 155);
   --popover-foreground: oklch(0.95 0.012 88);
-  --primary: oklch(0.76 0.12 160);
+  --primary: oklch(69.162% 0.10519 160.653);
   --primary-foreground: oklch(0.2 0.03 160);
   --secondary: oklch(0.3 0.018 155);
   --secondary-foreground: oklch(0.95 0.012 88);
@@ -67,10 +64,7 @@
   --muted-foreground: oklch(0.74 0.02 120);
   --accent: oklch(0.36 0.05 90);
   --accent-foreground: oklch(0.93 0.06 90);
-  --mustard: oklch(0.8 0.14 82);
-  /* Softer stripes at night: less light and less color, still solid. */
-  --awning-a: oklch(72.858% 0.11245 170.479);
-  --awning-b: oklch(0.7 0.1 82);
+  --mustard: oklch(75.29% 0.12571 81.414);
   --tomato: oklch(0.7 0.17 33);
   --hero: oklch(0.31 0.055 163);
   --success: oklch(0.72 0.14 155);
@@ -189,7 +183,7 @@
 /* The scalloped shop awning used as the brand's signature edge. */
 @utility awning {
   height: 18px;
-  background: repeating-linear-gradient(90deg, var(--awning-a) 0 32px, var(--awning-b) 32px 64px);
+  background: repeating-linear-gradient(90deg, var(--primary) 0 32px, var(--mustard) 32px 64px);
   mask: radial-gradient(16px at 16px 2px, #000 98%, transparent) 0 0 / 32px 100% repeat-x;
 }
 
