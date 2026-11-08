@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button';
 import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarInset, SidebarMenu, SidebarMenuBadge, SidebarMenuButton, SidebarMenuItem, SidebarProvider, SidebarRail, SidebarTrigger, useSidebar } from '@/components/ui/sidebar';
 import { useAuth } from '@/context/AuthContext';
 import { usePendingOrders } from '@/context/OrderAlertsContext';
+import { LogoMark, Wordmark } from '@/components/brand/LogoMarks';
 
 const AdminAccounts = lazy(() => import('@/pages/dashboard/AdminAccounts'));
 
@@ -90,9 +91,9 @@ export default function DashboardLayout() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="lg" tooltip={isAdmin ? 'Detoke · Administración' : 'Detoke · Ver mi página'}>
                 <Link to={isAdmin ? '/' : `/negocio/${business?.slug}`}>
-                  <img src="/favicon.svg" alt="" className="aspect-square size-8 shrink-0 rounded-lg" />
+                  <LogoMark className="size-8" />
                   <span className="grid flex-1 text-left leading-tight">
-                    <span className="truncate font-display text-lg font-bold text-sidebar-accent-foreground">Detoke</span>
+                    <Wordmark className="truncate text-lg text-sidebar-accent-foreground" />
                     <span className="truncate text-xs">{isAdmin ? 'Administración' : business?.name}</span>
                   </span>
                 </Link>

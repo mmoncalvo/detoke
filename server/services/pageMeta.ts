@@ -147,10 +147,18 @@ export async function businessPreviewImage(business: Business) {
 
 let siteImage: Buffer | null = null;
 
-/** The brand's preview image for pages without a business: green with the awning. */
+/** The brand's preview image for pages without a business: green, the awning and the logo in the middle. */
 export async function sitePreviewImage() {
+  const layers: { input: Buffer; top: number; left: number }[] = [{ input: AWNING, top: 0, left: 0 }, { input: AWNING, top: OG_HEIGHT - 40, left: 0 }];
+  try {
+    // The favicon is the logo in use (npm run brand:icons writes it).
+    const logo = await sharp(await fs.readFile(path.resolve('public/favicon.svg')), { density: 1200 }).resize(260, 260).png().toBuffer();
+    layers.push({ input: logo, top: Math.round((OG_HEIGHT - 260) / 2), left: Math.round((OG_WIDTH - 260) / 2) });
+  } catch {
+    /* without the file, the plain brand image */
+  }
   siteImage ??= await sharp({ create: { width: OG_WIDTH, height: OG_HEIGHT, channels: 3, background: BRAND_BACKGROUND } })
-    .composite([{ input: AWNING, top: 0, left: 0 }, { input: AWNING, top: OG_HEIGHT - 40, left: 0 }])
+    .composite(layers)
     .jpeg({ quality: 85 })
     .toBuffer();
   return siteImage;

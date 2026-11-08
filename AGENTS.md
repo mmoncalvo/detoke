@@ -58,6 +58,8 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 
 - Link previews: the WhatsApp message is only the order link. `server/services/pageMeta.ts` writes Open Graph and Twitter tags into index.html for `/pedido/:code` and `/negocio/:slug` (in dev on Vite's HTML, in production on `dist/index.html`), escaping every value and never including customer data. The image is `/api/og/business/:slug.jpg`: the business photo as a 1200×630 JPEG with the awning drawn as shapes (no text, so it needs no fonts on the server). Previews only work from the public URL (`APP_URL`), not localhost.
 
+- Logo: `src/components/brand/LogoMarks.tsx` holds the three explored marks; `LogoMark` is the one in use and `Wordmark` the "detoke" lettering. `npm run brand:icons` writes `public/favicon.svg`, `favicon-32.png` and `apple-touch-icon.png` from it; the brand preview image (`/api/og/site.jpg`) reads the favicon. `/dev/logo` compares the options and exists only in development.
+
 ## UI Conventions
 
 - Everything clickable shows the hand cursor. `src/index.css` (`@layer base`) sets `cursor: pointer` on enabled buttons, links with `href`, ARIA roles button/tab/menuitem/option/checkbox/radio/switch, `summary`, `label[for]`, `select` and clickable inputs, and `cursor: not-allowed` on disabled controls (Tailwind v4 leaves buttons with the default cursor). Menu, command and select items use `cursor-pointer`; disabled `Button`s use `disabled:cursor-not-allowed`. Any other clickable element (a `div` or card with `onClick`) needs `cursor-pointer` explicitly, or better, should be a `button` or `Link`.

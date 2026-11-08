@@ -12,6 +12,7 @@
     "test": "vitest run",
     "db:seed": "tsx scripts/seed.ts",
     "db:demo": "tsx scripts/seed-demo.ts",
+    "brand:icons": "tsx scripts/brand-icons.tsx",
     "db:check-images": "tsx scripts/check-seed-images.ts"
   },
   "dependencies": {

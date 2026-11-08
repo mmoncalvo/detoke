@@ -7,7 +7,12 @@ import tailwindcss from '@tailwindcss/vite'
 const root = path.dirname(fileURLToPath(import.meta.url))
 
 export default defineConfig({
-  plugins: [react(), tailwindcss()],
+  plugins: [
+    // Pages under src/pages/dev (like /dev/logo) are for development: the production build gets an empty component.
+    { name: 'dev-only-pages', apply: 'build', load: (id: string) => (id.includes('/src/pages/dev/') ? 'export default function DevOnly() { return null; }' : null) },
+    react(),
+    tailwindcss(),
+  ],
   resolve: {
     alias: { '@': path.resolve(root, 'src'), '@shared': path.resolve(root, 'shared') },
     dedupe: ['react', 'react-dom'],

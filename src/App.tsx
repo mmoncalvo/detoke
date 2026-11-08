@@ -15,6 +15,8 @@ const MyOrders = lazy(() => import('@/pages/MyOrders'));
 const Orders = lazy(() => import('@/pages/dashboard/Orders'));
 const Contact = lazy(() => import('@/pages/Contact'));
 const About = lazy(() => import('@/pages/About'));
+// Development only: the dead branch (and the page) is left out of the production build.
+const LogoPreview = import.meta.env.DEV ? lazy(() => import('@/pages/dev/LogoPreview')) : null;
 const Login = lazy(() => import('@/pages/Login'));
 const Register = lazy(() => import('@/pages/Register'));
 const AuthCallback = lazy(() => import('@/pages/AuthCallback'));
@@ -50,6 +52,7 @@ export default function App() {
           <Route path="contact" element={<Contact />} />
           <Route path="nosotros" element={<About />} />
           <Route path="about" element={<Navigate to="/nosotros" replace />} />
+          {LogoPreview && <Route path="dev/logo" element={<LogoPreview />} />}
           <Route path="*" element={<NotFound />} />
         </Route>
         <Route path="login" element={<Login />} />
