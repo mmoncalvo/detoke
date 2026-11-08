@@ -97,7 +97,6 @@ export default function PublicLayout() {
             <Link to="/register" className="hover:text-sidebar-accent-foreground">Sumá tu negocio</Link>
             <Link to="/nosotros" className="hover:text-sidebar-accent-foreground">Nosotros</Link>
             <Link to="/contact" className="hover:text-sidebar-accent-foreground">Contacto</Link>
-            <Link to="/login" className="hover:text-sidebar-accent-foreground">Ingresar</Link>
           </div>
         </div>
       </footer>
