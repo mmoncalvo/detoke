@@ -101,7 +101,7 @@ export default function Explore() {
         </Tabs>
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input value={text} onChange={(e) => setText(e.target.value)} placeholder={tab === 'businesses' ? 'Nombre, rubro o barrio' : 'Nombre del producto'} className="bg-card pl-9" aria-label="Buscar" />
+          <Input noAutofill value={text} onChange={(e) => setText(e.target.value)} placeholder={tab === 'businesses' ? 'Nombre, rubro o barrio' : 'Nombre del producto'} className="bg-card pl-9" aria-label="Buscar" />
         </div>
         {tab === 'businesses' && (
           <div className="flex items-center gap-5">

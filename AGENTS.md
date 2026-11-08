@@ -71,6 +71,8 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - Never open new tabs: no `target="_blank"` or `window.open`. In-app navigation uses react-router `Link`; external links (WhatsApp, maps, Instagram, websites) are plain `<a href>` or `window.location.assign`, so on a phone WhatsApp opens its app and Back returns to Detoke. The checkout writes what it sent to `sessionStorage` before leaving for WhatsApp, so the confirmation is still there on return.
 - Surfaces: the page (`--background`) is the muted one; the navbar and the panel header (`--navbar`) and cards are the cleaner surfaces on top.
 
+- Native autofill: fields with their own suggestions or where the browser's get in the way (search boxes, city and address pickers, location fields, delivery address) use `<Input noAutofill>` or spread `NO_AUTOFILL` from `src/components/ui/input.tsx` (an unknown autocomplete token, which Chrome respects, plus password-manager opt-outs). Their ids avoid words like address, city, street or zip. Email, password, name and phone keep native autofill.
+
 ## Gotchas
 
 - Test mode: there are no migrations and `sync` does not alter SQLite tables. After changing a model, run `npm run db:seed`.

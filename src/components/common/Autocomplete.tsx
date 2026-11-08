@@ -86,7 +86,7 @@ export function Autocomplete<T>({ id, value, onInputChange, search, onSelect, ge
         aria-autocomplete="list"
         aria-activedescendant={showList && active >= 0 ? `${listId}-${active}` : undefined}
         aria-invalid={invalid}
-        autoComplete="off"
+        noAutofill
         value={value}
         placeholder={placeholder}
         onChange={(e) => {

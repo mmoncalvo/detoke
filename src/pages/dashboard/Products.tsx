@@ -81,7 +81,7 @@ export default function Products() {
       <div className="flex flex-col gap-2 sm:flex-row sm:flex-wrap">
         <div className="relative min-w-48 flex-1">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar producto" className="bg-card pl-9" aria-label="Buscar producto" />
+          <Input noAutofill value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Buscar producto" className="bg-card pl-9" aria-label="Buscar producto" />
         </div>
         <Select value={category} onValueChange={setCategory}>
           <SelectTrigger className="w-full bg-card sm:w-48" aria-label="Filtrar por categoría"><SelectValue /></SelectTrigger>

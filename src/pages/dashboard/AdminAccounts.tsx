@@ -11,7 +11,7 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuSeparator, DropdownMenuTrigger } from '@/components/ui/dropdown-menu';
 import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
-import { Input } from '@/components/ui/input';
+import { Input, NO_AUTOFILL } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
@@ -55,7 +55,7 @@ function QuickSwitch({ onPick }: { onPick: (account: AdminAccount) => void }) {
       </PopoverTrigger>
       <PopoverContent className="w-[var(--radix-popover-trigger-width)] min-w-72 p-0" align="start">
         <Command shouldFilter={false} value={highlighted} onValueChange={setHighlighted}>
-          <CommandInput placeholder="Negocio, nombre o email" value={query} onValueChange={setQuery} />
+          <CommandInput {...NO_AUTOFILL} placeholder="Negocio, nombre o email" value={query} onValueChange={setQuery} />
           <CommandList>
             <CommandEmpty>No hay cuentas con esa búsqueda.</CommandEmpty>
             {data && data.items.length > 0 && (
@@ -210,7 +210,7 @@ export default function AdminAccounts() {
       <div className="flex flex-col gap-2 sm:flex-row">
         <div className="relative flex-1">
           <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Filtrar por negocio, nombre o email" className="bg-card pl-9" aria-label="Filtrar cuentas" />
+          <Input noAutofill value={search} onChange={(e) => setSearch(e.target.value)} placeholder="Filtrar por negocio, nombre o email" className="bg-card pl-9" aria-label="Filtrar cuentas" />
         </div>
         <Select value={category} onValueChange={setCategory}>
           <SelectTrigger className="w-full bg-card sm:w-48" aria-label="Filtrar por rubro"><SelectValue /></SelectTrigger>

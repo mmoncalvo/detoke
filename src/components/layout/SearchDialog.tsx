@@ -7,6 +7,7 @@ import { SafeImage } from '@/components/common/SafeImage';
 import { Command, CommandDialog, CommandEmpty, CommandGroup, CommandInput, CommandItem, CommandList } from '@/components/ui/command';
 import { categoryIcon } from '@/lib/category-icons';
 import { formatPrice } from '@/lib/format';
+import { NO_AUTOFILL } from '@/components/ui/input';
 
 const GROUPS = [
   { type: 'category', heading: 'Rubros' },
@@ -47,7 +48,7 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
   return (
     <CommandDialog open={open} onOpenChange={onOpenChange} title="Buscar" description="Buscá negocios, productos o rubros">
       <Command shouldFilter={false}>
-        <CommandInput placeholder="Buscá pizza, panadería, un negocio..." value={query} onValueChange={setQuery} name="detoke-search-query" autoComplete="off" autoCorrect="off" spellCheck={false} />
+        <CommandInput placeholder="Buscá pizza, panadería, un negocio..." value={query} onValueChange={setQuery} name="detoke-search-query" {...NO_AUTOFILL} />
         <CommandList>
           {query.trim() ? <CommandEmpty>No encontramos resultados para “{query}”.</CommandEmpty> : (
             <div className="flex flex-col items-center gap-2 px-6 py-10 text-center text-sm text-muted-foreground">

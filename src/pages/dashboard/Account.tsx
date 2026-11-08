@@ -106,8 +106,8 @@ export function ProfileCard() {
             <Input id="account-phone" type="tel" autoComplete="tel" value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} />
           </Field>
           <div className="sm:col-span-2">
-            <Field id="account-address" label="Dirección de entrega (opcional)" hint="La usamos para completar tus pedidos con delivery.">
-              <Input id="account-address" autoComplete="street-address" placeholder="Calle, número y piso" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
+            <Field id="account-delivery" label="Dirección de entrega (opcional)" hint="La usamos para completar tus pedidos con delivery.">
+              <Input id="account-delivery" noAutofill placeholder="Calle, número y piso" value={form.address} onChange={(e) => setForm({ ...form, address: e.target.value })} />
             </Field>
           </div>
           <div className="sm:col-span-2">

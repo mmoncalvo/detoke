@@ -181,8 +181,8 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
           </div>
           {method === 'delivery' && (
             <div className="space-y-1.5">
-              <Label htmlFor={`address-${business.id}`}>Dirección de entrega</Label>
-              <Input id={`address-${business.id}`} autoComplete="street-address" placeholder="Calle, número y piso" value={customer.address} aria-invalid={addressError} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} />
+              <Label htmlFor={`delivery-${business.id}`}>Dirección de entrega</Label>
+              <Input id={`delivery-${business.id}`} noAutofill placeholder="Calle, número y piso" value={customer.address} aria-invalid={addressError} onChange={(e) => setCustomer({ ...customer, address: e.target.value })} />
               {addressError && <p className="text-sm text-destructive">Completá la dirección</p>}
             </div>
           )}

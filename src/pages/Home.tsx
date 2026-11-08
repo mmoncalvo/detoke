@@ -13,6 +13,7 @@ import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { categoryIcon } from '@/lib/category-icons';
 import { Awning } from '@/components/common/Awning';
+import { NO_AUTOFILL } from '@/components/ui/input';
 
 function SectionHeader({ title, subtitle, to }: { title: string; subtitle?: string; to: string }) {
   return (
@@ -83,9 +84,7 @@ export default function Home() {
               id="home-search"
               type="search"
               name="detoke-home-query"
-              autoComplete="off"
-              autoCorrect="off"
-              spellCheck={false}
+              {...NO_AUTOFILL}
               value={query}
               onChange={(e) => setQuery(e.target.value)}
               placeholder="¿Qué estás buscando?"

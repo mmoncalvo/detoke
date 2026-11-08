@@ -138,9 +138,9 @@ export function LocationFields({ value, onChange }: { value: LocationValue; onCh
     <div className="space-y-4">
       <div className="grid gap-4 sm:grid-cols-2">
         <div className="space-y-2">
-          <Label htmlFor="location-city">Ciudad</Label>
+          <Label htmlFor="location-place">Ciudad</Label>
           <Autocomplete<CityOption>
-            id="location-city"
+            id="location-place"
             value={value.city}
             onInputChange={(text) => set('city', text)}
             search={searchCities}
@@ -158,15 +158,15 @@ export function LocationFields({ value, onChange }: { value: LocationValue; onCh
           />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="location-province">Provincia o departamento</Label>
-          <Input id="location-province" value={value.province} onChange={(e) => set('province', e.target.value)} className={highlight('province')} />
+          <Label htmlFor="location-depto">Provincia o departamento</Label>
+          <Input noAutofill id="location-depto" value={value.province} onChange={(e) => set('province', e.target.value)} className={highlight('province')} />
         </div>
       </div>
 
       <div className="space-y-2">
-        <Label htmlFor="location-address">Dirección</Label>
+        <Label htmlFor="location-spot">Dirección</Label>
         <Autocomplete<AddressOption>
-          id="location-address"
+          id="location-spot"
           value={value.address}
           onInputChange={(text) => set('address', text)}
           search={searchAddresses}
@@ -187,12 +187,12 @@ export function LocationFields({ value, onChange }: { value: LocationValue; onCh
 
       <div className="grid grid-cols-2 gap-4">
         <div className="space-y-2">
-          <Label htmlFor="location-neighborhood">Barrio</Label>
-          <Input id="location-neighborhood" value={value.neighborhood} onChange={(e) => set('neighborhood', e.target.value)} className={highlight('neighborhood')} />
+          <Label htmlFor="location-barrio">Barrio</Label>
+          <Input noAutofill id="location-barrio" value={value.neighborhood} onChange={(e) => set('neighborhood', e.target.value)} className={highlight('neighborhood')} />
         </div>
         <div className="space-y-2">
-          <Label htmlFor="location-postal">Código postal</Label>
-          <Input id="location-postal" value={value.postalCode} onChange={(e) => set('postalCode', e.target.value)} className={highlight('postalCode')} />
+          <Label htmlFor="location-cp">Código postal</Label>
+          <Input noAutofill id="location-cp" value={value.postalCode} onChange={(e) => set('postalCode', e.target.value)} className={highlight('postalCode')} />
         </div>
       </div>
 
