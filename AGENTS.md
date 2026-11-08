@@ -56,6 +56,10 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 - Contact messages live in `contact_messages`. `server/services/mail.ts` emails them only when `SMTP_HOST` is set. There is no inbox screen yet: `GET /api/contact` is admin-only.
 - Search folds accents in JS (`fold()`), so `/api/businesses` and `/api/search` load all rows: revisit if the catalog grows.
 
+## UI Conventions
+
+- Everything clickable shows the hand cursor. `src/index.css` (`@layer base`) sets `cursor: pointer` on enabled buttons, links with `href`, ARIA roles button/tab/menuitem/option/checkbox/radio/switch, `summary`, `label[for]`, `select` and clickable inputs, and `cursor: not-allowed` on disabled controls (Tailwind v4 leaves buttons with the default cursor). Menu, command and select items use `cursor-pointer`; disabled `Button`s use `disabled:cursor-not-allowed`. Any other clickable element (a `div` or card with `onClick`) needs `cursor-pointer` explicitly, or better, should be a `button` or `Link`.
+
 ## Gotchas
 
 - Test mode: there are no migrations and `sync` does not alter SQLite tables. After changing a model, run `npm run db:seed`.
