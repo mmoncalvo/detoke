@@ -46,7 +46,7 @@ function Channels({ info }: { info: ContactInfo }) {
         {rows.map(({ icon: Icon, label, href }) => (
           <li key={label} className="flex items-center gap-2.5">
             <Icon className="size-4 shrink-0 text-primary" />
-            {href ? <a href={href} target={href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="min-w-0 break-words hover:underline">{label}</a> : <span>{label}</span>}
+            {href ? <a href={href} className="min-w-0 break-words hover:underline">{label}</a> : <span>{label}</span>}
           </li>
         ))}
       </ul>

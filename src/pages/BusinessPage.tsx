@@ -112,7 +112,7 @@ export default function BusinessPage() {
               <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
             </div>
             <div className="flex gap-2">
-              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} target="_blank" rel="noreferrer"><MessageCircle /> WhatsApp</a></Button>
+              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)}><MessageCircle /> WhatsApp</a></Button>
               <Button variant="outline" size="icon" aria-label="Compartir" onClick={share}><Share2 className="size-4" /></Button>
             </div>
           </div>
@@ -184,7 +184,7 @@ export default function BusinessPage() {
                   <div className="mt-3">
                     <Suspense fallback={<Skeleton className="h-48 w-full rounded-xl" />}><BusinessMap latitude={business.latitude} longitude={business.longitude} /></Suspense>
                     <Button asChild variant="link" className="mt-1 h-auto p-0">
-                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`} target="_blank" rel="noreferrer">Cómo llegar</a>
+                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`} rel="noreferrer">Cómo llegar</a>
                     </Button>
                   </div>
                 )}
@@ -192,8 +192,8 @@ export default function BusinessPage() {
             )}
             {(business.website || business.instagram) && (
               <div className="flex gap-2">
-                {business.website && <Button asChild variant="outline" size="sm"><a href={business.website} target="_blank" rel="noreferrer"><Globe /> Sitio web</a></Button>}
-                {business.instagram && <Button asChild variant="outline" size="sm"><a href={`https://instagram.com/${business.instagram}`} target="_blank" rel="noreferrer"><AtSign /> Instagram</a></Button>}
+                {business.website && <Button asChild variant="outline" size="sm"><a href={business.website} rel="noreferrer"><Globe /> Sitio web</a></Button>}
+                {business.instagram && <Button asChild variant="outline" size="sm"><a href={`https://instagram.com/${business.instagram}`} rel="noreferrer"><AtSign /> Instagram</a></Button>}
               </div>
             )}
           </aside>

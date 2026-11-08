@@ -53,7 +53,7 @@ export function OrderActions({ order, onChange, compact }: { order: Order; onCha
         </Button>
       )}
       {customerChat && (
-        <Button asChild size={compact ? 'sm' : 'default'} variant="ghost"><a href={customerChat} target="_blank" rel="noreferrer"><MessageCircle /> Escribirle</a></Button>
+        <Button asChild size={compact ? 'sm' : 'default'} variant="ghost"><a href={customerChat}><MessageCircle /> Escribirle</a></Button>
       )}
 
       <AlertDialog open={cancelling} onOpenChange={setCancelling}>

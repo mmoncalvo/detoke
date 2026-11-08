@@ -1,4 +1,4 @@
-import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, ExternalLink, Images, LayoutDashboard, Package, Store, Users } from 'lucide-react';
+import { ArrowLeftRight, Bike, CalendarClock, ClipboardList, Images, LayoutDashboard, Package, Store, Users } from 'lucide-react';
 import { lazy, useEffect } from 'react';
 import { Link, Navigate, NavLink, Outlet, useLocation, useNavigate } from 'react-router-dom';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
@@ -89,7 +89,7 @@ export default function DashboardLayout() {
           <SidebarMenu>
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="lg" tooltip={isAdmin ? 'Detoke · Administración' : 'Detoke · Ver mi página'}>
-                <Link to={isAdmin ? '/' : `/negocio/${business?.slug}`} target={isAdmin ? undefined : '_blank'}>
+                <Link to={isAdmin ? '/' : `/negocio/${business?.slug}`}>
                   <img src="/favicon.svg" alt="" className="aspect-square size-8 shrink-0 rounded-lg" />
                   <span className="grid flex-1 text-left leading-tight">
                     <span className="truncate font-display text-lg font-bold text-sidebar-accent-foreground">Detoke</span>
@@ -120,13 +120,13 @@ export default function DashboardLayout() {
       <SidebarInset>
         <div className="sticky top-0 z-30">
           <ImpersonationBanner />
-          <header className="flex h-14 items-center gap-2 border-b bg-background/90 px-4 backdrop-blur">
+          <header className="flex h-14 items-center gap-2 border-b bg-navbar/95 px-4 backdrop-blur">
             <SidebarTrigger />
             <h1 className="truncate font-display text-lg font-semibold">{title}</h1>
             <div className="ml-auto flex items-center gap-1">
               <ThemeToggle />
               {!isAdmin && business && (
-                <Button asChild variant="outline" size="sm"><Link to={`/negocio/${business.slug}`} target="_blank"><ExternalLink /> <span className="hidden sm:inline">Ver mi página</span></Link></Button>
+                <Button asChild variant="outline" size="sm"><Link to={`/negocio/${business.slug}`}><Store /> <span className="hidden sm:inline">Ver mi página</span></Link></Button>
               )}
             </div>
           </header>

@@ -137,7 +137,7 @@ export default function OrderPage() {
       </section>
 
       {!order.canManage && (
-        <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness} target="_blank" rel="noreferrer"><MessageCircle /> Escribirle a {business.name}</a></Button>
+        <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness}><MessageCircle /> Escribirle a {business.name}</a></Button>
       )}
     </div>
   );

@@ -9,9 +9,9 @@
 :root {
   --radius: 0.75rem;
 
-  --background: oklch(0.977 0.012 88);
-  /* Public navbar: a touch darker than the page. */
-  --navbar: oklch(0.951 0.015 88);
+  /* The page is a muted cream; the navbar above it is the cleanest surface. */
+  --background: oklch(0.962 0.009 88);
+  --navbar: oklch(0.99 0.004 88);
   --foreground: oklch(0.255 0.03 155);
   --card: oklch(0.995 0.004 88);
   --card-foreground: oklch(0.255 0.03 155);
@@ -19,9 +19,9 @@
   --popover-foreground: oklch(0.255 0.03 155);
   --primary: oklch(0.43 0.085 163);
   --primary-foreground: oklch(0.985 0.01 88);
-  --secondary: oklch(0.945 0.018 88);
+  --secondary: oklch(0.93 0.018 88);
   --secondary-foreground: oklch(0.3 0.03 155);
-  --muted: oklch(0.945 0.018 88);
+  --muted: oklch(0.93 0.018 88);
   --muted-foreground: oklch(0.47 0.025 140);
   --accent: oklch(0.92 0.07 92);
   --accent-foreground: oklch(0.33 0.06 75);
@@ -48,8 +48,8 @@
 }
 
 .dark {
-  --background: oklch(0.205 0.016 155);
-  /* Public navbar: a touch lighter than the page. */
+  /* The page sits a step deeper; the navbar a step lighter. */
+  --background: oklch(0.188 0.014 155);
   --navbar: oklch(0.235 0.017 155);
   --foreground: oklch(0.95 0.012 88);
   --card: oklch(0.25 0.018 155);
@@ -76,7 +76,7 @@
   --input: oklch(1 0 0 / 17%);
   --ring: oklch(0.76 0.12 160);
 
-  --sidebar: oklch(0.175 0.018 155);
+  --sidebar: oklch(0.16 0.018 155);
   --sidebar-foreground: oklch(0.84 0.02 120);
   --sidebar-primary: oklch(0.8 0.14 82);
   --sidebar-primary-foreground: oklch(0.25 0.04 100);

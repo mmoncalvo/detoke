@@ -22,11 +22,24 @@ import { orderMessage } from '@/lib/orders';
 import { addRecentOrder, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 
 const CUSTOMER_KEY = 'detoke.customer';
+/** Orders sent in this tab, so their confirmation is still there when the customer comes back from WhatsApp. */
+const SENT_KEY = 'detoke.checkoutSent';
+const SENT_TTL_MS = 30 * 60 * 1000;
 
 interface Customer {
   name: string;
   phone: string;
   address: string;
+}
+
+function readSent(): RecentOrder[] {
+  try {
+    const list = JSON.parse(sessionStorage.getItem(SENT_KEY) ?? '[]');
+    // Only recent ones: an old visit to the checkout should start clean.
+    return Array.isArray(list) ? list.filter((o: RecentOrder) => Date.now() - new Date(o.createdAt).getTime() < SENT_TTL_MS) : [];
+  } catch {
+    return [];
+  }
 }
 
 function readCustomer(): Customer {
@@ -57,7 +70,7 @@ function newRequestId() {
 
 /** What is left of a business card once its order went out: a confirmation and the link to follow it. */
 function SentCard({ order }: { order: RecentOrder }) {
-  const resend = () => window.open(whatsappUrl(order.businessWhatsapp, orderMessage(order.businessName, order, order.url)), '_blank', 'noopener');
+  const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.businessName, order, order.url)));
   return (
     <section className="rounded-2xl border-2 border-success/60 bg-card p-4" aria-label={`Pedido enviado a ${order.businessName}`}>
       <p className="flex items-center gap-2 font-semibold"><CheckCircle2 className="size-5 text-success" /> Pedido enviado ✓</p>
@@ -93,11 +106,9 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
   const send = async () => {
     setShowErrors(true);
     if (!customer.name.trim() || (method === 'delivery' && !customer.address.trim()) || missing > 0) return;
-    // Open the tab now, in the click: opening it after the request would be blocked as a popup.
     // A second click while the first is on its way does nothing.
     if (busy.current) return;
     busy.current = true;
-    const tab = window.open('', '_blank');
     setSending(true);
     requestId.current ??= newRequestId();
     try {
@@ -115,17 +126,15 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
           notes,
         },
       });
-      const chat = whatsappUrl(business.whatsapp, orderMessage(business.name, order, url));
-      if (tab) tab.location.href = chat;
-      else window.location.href = chat;
       requestId.current = null;
       const recent = toRecentOrder(order, business, url);
       writeRecentOrders((list) => addRecentOrder(list, recent));
       // The order is out: only this business leaves the cart, the others stay as they were.
       removeBusiness(business.id);
       onSent(recent);
+      // Same tab: a phone opens the WhatsApp app; Back returns here with the confirmation and the rest of the cart.
+      window.location.assign(whatsappUrl(business.whatsapp, orderMessage(business.name, order, url)));
     } catch (err) {
-      tab?.close();
       toast.error((err as Error).message);
     } finally {
       busy.current = false;
@@ -224,13 +233,24 @@ export default function Checkout() {
   const { groups } = useCart();
   const recent = useRecentOrders();
   const [customer, setCustomer] = useState<Customer>(readCustomer);
-  // Orders sent from this page: their card stays as a confirmation.
-  const [sent, setSent] = useState<RecentOrder[]>([]);
+  // Orders sent from this page: their card stays as a confirmation, also after coming back from WhatsApp.
+  const [sent, setSent] = useState<RecentOrder[]>(readSent);
   const many = groups.length > 1;
   const grandTotal = groups.reduce((sum, g) => sum + g.subtotal, 0);
   const sentCodes = new Set(sent.map((o) => o.publicCode));
   // Fresh status for the confirmations, from the shared list.
   const sentNow = sent.map((o) => recent.find((r) => r.publicCode === o.publicCode) ?? o);
+
+  // Written right away, not in an effect: the page leaves for WhatsApp just after.
+  const addSent = (order: RecentOrder) => {
+    const next = [order, ...sent.filter((o) => o.publicCode !== order.publicCode)];
+    try {
+      sessionStorage.setItem(SENT_KEY, JSON.stringify(next));
+    } catch {
+      /* storage not available */
+    }
+    setSent(next);
+  };
 
   useEffect(() => {
     try {
@@ -265,7 +285,7 @@ export default function Checkout() {
         {groups.length === 0 && sent.length === 0 ? (
           <EmptyState icon={ShoppingBag} title="Tu pedido está vacío" description="Elegí un negocio del barrio y sumá lo que necesites." action={<Button asChild><Link to="/explorar">Explorar negocios</Link></Button>} />
         ) : groups.map((group, i) => (
-          <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} index={i} count={groups.length} onSent={(order) => setSent((list) => [order, ...list.filter((o) => o.publicCode !== order.publicCode)])} />
+          <OrderCard key={group.business.id} group={group} customer={customer} setCustomer={setCustomer} index={i} count={groups.length} onSent={addSent} />
         ))}
       </div>
       {many && (

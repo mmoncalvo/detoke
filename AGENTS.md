@@ -60,6 +60,9 @@ src/components/ui/  → shadcn/ui (new-york). Brand tokens live in src/index.css
 
 - Everything clickable shows the hand cursor. `src/index.css` (`@layer base`) sets `cursor: pointer` on enabled buttons, links with `href`, ARIA roles button/tab/menuitem/option/checkbox/radio/switch, `summary`, `label[for]`, `select` and clickable inputs, and `cursor: not-allowed` on disabled controls (Tailwind v4 leaves buttons with the default cursor). Menu, command and select items use `cursor-pointer`; disabled `Button`s use `disabled:cursor-not-allowed`. Any other clickable element (a `div` or card with `onClick`) needs `cursor-pointer` explicitly, or better, should be a `button` or `Link`.
 
+- Never open new tabs: no `target="_blank"` or `window.open`. In-app navigation uses react-router `Link`; external links (WhatsApp, maps, Instagram, websites) are plain `<a href>` or `window.location.assign`, so on a phone WhatsApp opens its app and Back returns to Detoke. The checkout writes what it sent to `sessionStorage` before leaving for WhatsApp, so the confirmation is still there on return.
+- Surfaces: the page (`--background`) is the muted one; the navbar and the panel header (`--navbar`) and cards are the cleaner surfaces on top.
+
 ## Gotchas
 
 - Test mode: there are no migrations and `sync` does not alter SQLite tables. After changing a model, run `npm run db:seed`.

@@ -1,4 +1,4 @@
-import { Bell, BellOff, Bike, ExternalLink, Inbox, Store } from 'lucide-react';
+import { Bell, BellOff, Bike, ChevronRight, Inbox, Store } from 'lucide-react';
 import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { PAYMENT_LABELS } from '@shared/business';
@@ -65,7 +65,7 @@ function OrderCard({ order, onChange }: { order: Order; onChange: (order: Order)
       {order.status === 'cancelled' && order.statusHistory.at(-1)?.reason && <p className="mt-2 text-sm text-destructive">Motivo: {order.statusHistory.at(-1)?.reason}</p>}
       <div className="mt-4 flex flex-wrap items-center justify-between gap-2">
         <OrderActions order={order} onChange={onChange} compact />
-        <Button asChild variant="link" size="sm" className="px-0"><Link to={`/pedido/${order.publicCode}`} target="_blank"><ExternalLink /> Ver pedido</Link></Button>
+        <Button asChild variant="link" size="sm" className="px-0"><Link to={`/pedido/${order.publicCode}`}><ChevronRight /> Ver pedido</Link></Button>
       </div>
     </article>
   );

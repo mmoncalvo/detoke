@@ -76,7 +76,8 @@ function useRepeatOrder() {
 function RecentOrderCard({ order, onNavigate, repeat, repeating }: { order: RecentOrder; onNavigate?: () => void; repeat: (o: RecentOrder, after?: () => void) => void; repeating: boolean }) {
   useLiveStatus(order);
   const count = itemCount(order);
-  const resend = () => window.open(whatsappUrl(order.businessWhatsapp, orderMessage(order.businessName, order, order.url)), '_blank', 'noopener');
+  // Same tab: on a phone it opens the WhatsApp app, and Back returns here.
+  const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.businessName, order, order.url)));
 
   return (
     <li className="rounded-xl border bg-card p-3">
