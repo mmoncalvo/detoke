@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { Op, UniqueConstraintError, type WhereOptions } from 'sequelize';
 import { canTransition, type OrderItem, type OrderStatus } from '../../shared/orders.js';
-import { orderCreateSchema, orderStatusSchema } from '../../shared/schemas.js';
+import { claimOrdersSchema, orderCreateSchema, orderStatusSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
 import { rateLimit } from '../middleware/rateLimit.js';
@@ -19,10 +19,14 @@ const limit = rateLimit({ windowMs: 60 * 60 * 1000, max: config.orderRateLimit, 
 // Public: place an order. Prices, availability and rules come from the database, never from the client.
 orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
   const data = orderCreateSchema.parse(req.body);
+  // A signed-in buyer keeps the order in their account.
+  const buyer = await optionalUser(req);
+  if (buyer?.disabledAt) throw new HttpError(403, 'Tu cuenta fue deshabilitada y no puede hacer pedidos');
 
   const business = await Business.findByPk(data.businessId);
   if (!business) throw new HttpError(404, 'No encontramos ese negocio');
   if (!business.isActive) throw new HttpError(409, 'Este negocio no está disponible por ahora y no recibe pedidos');
+  if (buyer && business.ownerId === buyer.id) throw new HttpError(400, 'No podés hacerle un pedido a tu propio negocio');
   if (!business.deliveryOptions.includes(data.fulfillment)) throw new HttpError(400, data.fulfillment === 'delivery' ? 'Este negocio no hace delivery' : 'Este negocio no tiene retiro en el local');
   if (!business.paymentMethods.includes(data.paymentMethod)) throw new HttpError(400, 'Este negocio no acepta ese medio de pago');
 
@@ -61,6 +65,7 @@ orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
       const fresh = await Order.create({
         publicCode: newPublicCode(),
         clientRequestId: data.clientRequestId ?? null,
+        customerUserId: buyer && buyer.role !== 'admin' ? buyer.id : null,
         number: (last ?? 0) + 1,
         businessId: business.id,
         items,
@@ -91,6 +96,29 @@ orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
 }));
 
 // Protected: the orders of the session user's business, newest first. Filters: status (comma list), since (ISO date)
+// Protected: the orders the session user placed as a customer, newest first (the whole history)
+orderRoutes.get('/customer', requireAuth, asyncHandler(async (req, res) => {
+  const orders = await Order.findAll({
+    where: { customerUserId: currentUser(req).id },
+    include: [{ model: Business, attributes: ORDER_BUSINESS_ATTRIBUTES }],
+    order: [['createdAt', 'DESC']],
+    limit: 200,
+  });
+  ok(res, orders.map(orderJson));
+}));
+
+const claimLimit = rateLimit({ windowMs: 15 * 60 * 1000, max: config.isTest ? 1000 : 20, message: 'Hiciste muchos intentos seguidos, probá de nuevo en unos minutos' });
+
+// Protected: attach to the account the orders this browser placed before signing in. The code is the
+// secret of an order (it is its public link), and orders that already belong to someone are left alone.
+orderRoutes.post('/claim', claimLimit, requireAuth, asyncHandler(async (req, res) => {
+  const { codes } = claimOrdersSchema.parse(req.body);
+  const user = currentUser(req);
+  if (user.role === 'admin' || req.impersonation) throw new HttpError(403, 'Esta cuenta no guarda pedidos de cliente');
+  const [claimed] = codes.length ? await Order.update({ customerUserId: user.id }, { where: { publicCode: codes, customerUserId: null } }) : [0];
+  ok(res, { claimed });
+}));
+
 orderRoutes.get('/mine', requireAuth, asyncHandler(async (req, res) => {
   const business = await currentBusiness(req);
   const where: WhereOptions = { businessId: business.id };

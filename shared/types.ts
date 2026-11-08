@@ -80,12 +80,22 @@ export interface Product {
   business?: BusinessSummary;
 }
 
+/** Sellers have a business; customers only buy; admins manage the platform. */
+export type UserRole = 'seller' | 'customer' | 'admin';
+
+/** A cart line as the server keeps it. */
+export interface CartLine {
+  productId: string;
+  quantity: number;
+}
+
 export interface User {
   id: string;
   email: string;
   name: string;
   phone: string | null;
-  role: 'seller' | 'admin';
+  role: UserRole;
+  address?: string | null;
   avatarUrl?: string | null;
 }
 
@@ -101,8 +111,8 @@ export interface Session {
 
 /** A row of the admin accounts list. */
 export interface AdminAccount {
-  user: User & { createdAt: string };
-  business: (Pick<Business, 'id' | 'name' | 'slug' | 'logo' | 'isActive' | 'isVerified'> & { category: BusinessCategory | null }) | null;
+  user: User & { createdAt: string; disabledAt: string | null; disabledReason: string | null };
+  business: (Pick<Business, 'id' | 'name' | 'slug' | 'logo' | 'isActive' | 'isVerified' | 'disabledAt' | 'disabledReason'> & { category: BusinessCategory | null }) | null;
   productCount: number;
   profile: { done: number; total: number; complete: boolean };
 }

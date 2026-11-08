@@ -50,6 +50,8 @@ businessRoutes.post('/me', requireAuth, asyncHandler(async (req, res) => {
   if (!(await BusinessCategory.findByPk(data.businessCategoryId))) throw new HttpError(400, 'Elegí un rubro de la lista');
 
   const business = await Business.create({ ...data, ownerId: user.id, slug: await uniqueSlug(Business, data.name) });
+  // A customer who adds a business becomes a seller (and keeps their orders).
+  if (user.role === 'customer') await user.update({ role: 'seller' });
   ok(res, await withCategory(business), 201);
 }));
 

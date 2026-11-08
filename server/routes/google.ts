@@ -29,10 +29,13 @@ function finish(res: Response, params: Record<string, string>) {
 }
 
 // Public: address of Google's consent screen. The state is signed and tied to a cookie (CSRF).
-googleRoutes.get('/url', (_req, res) => {
+// `as=seller` when it starts from "Sumá tu negocio": a new account is then a seller (with the business
+// onboarding next); otherwise a new account is a customer, who can add a business later.
+googleRoutes.get('/url', (req, res) => {
   if (!googleEnabled()) throw new HttpError(404, 'El ingreso con Google no está disponible');
   const nonce = crypto.randomBytes(16).toString('base64url');
-  const state = jwt.sign({ nonce }, config.jwtSecret, { expiresIn: `${STATE_MINUTES}m` });
+  const as = req.query.as === 'seller' ? 'seller' : 'customer';
+  const state = jwt.sign({ nonce, as }, config.jwtSecret, { expiresIn: `${STATE_MINUTES}m` });
   res.cookie(STATE_COOKIE, nonce, { httpOnly: true, sameSite: 'lax', secure: config.isProduction, path: '/api/auth/google', maxAge: STATE_MINUTES * 60_000 });
   ok(res, { url: authorizationUrl(state) });
 });
@@ -42,9 +45,11 @@ googleRoutes.get('/callback', asyncHandler(async (req, res) => {
   const { code, state, error } = req.query;
   if (error) return finish(res, { error: error === 'access_denied' ? 'cancelled' : 'failed' });
 
+  let as: 'seller' | 'customer' = 'customer';
   try {
-    const { nonce } = jwt.verify(String(state ?? ''), config.jwtSecret) as { nonce: string };
-    if (!nonce || nonce !== readCookie(req, STATE_COOKIE)) throw new Error('state mismatch');
+    const payload = jwt.verify(String(state ?? ''), config.jwtSecret) as { nonce: string; as?: 'seller' | 'customer' };
+    if (!payload.nonce || payload.nonce !== readCookie(req, STATE_COOKIE)) throw new Error('state mismatch');
+    as = payload.as === 'seller' ? 'seller' : 'customer';
   } catch {
     return finish(res, { error: 'invalid_state' });
   }
@@ -64,11 +69,12 @@ googleRoutes.get('/callback', asyncHandler(async (req, res) => {
 
   // Admins sign in with their password, so a Google account can never act as one.
   if (user?.role === 'admin') return finish(res, { error: 'admin' });
+  if (user?.disabledAt) return finish(res, { error: 'disabled' });
 
   if (user) {
     await user.update({ googleId: profile.sub, avatarUrl: user.avatarUrl ?? profile.picture });
   } else {
-    user = await User.create({ email: profile.email, name: profile.name, googleId: profile.sub, avatarUrl: profile.picture, role: 'seller', passwordHash: null });
+    user = await User.create({ email: profile.email, name: profile.name, googleId: profile.sub, avatarUrl: profile.picture, role: as, passwordHash: null });
   }
 
   finish(res, { code: issueLoginCode(user.id) });

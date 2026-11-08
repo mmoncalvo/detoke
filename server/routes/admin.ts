@@ -22,7 +22,7 @@ adminRoutes.get('/users', requireAuth, requireAdmin, asyncHandler(async (req, re
   const page = Math.max(1, Number(req.query.page) || 1);
   const limit = Math.min(100, Math.max(1, Number(req.query.limit) || 20));
   const term = typeof req.query.search === 'string' ? fold(req.query.search.trim()) : '';
-  const { category, status } = req.query;
+  const { category, status, type } = req.query;
 
   const [users, products] = await Promise.all([
     User.findAll({
@@ -41,7 +41,7 @@ adminRoutes.get('/users', requireAuth, requireAdmin, asyncHandler(async (req, re
     const steps = business ? profileChecklist(business.toJSON() as BusinessDTO, productCount) : [];
     const done = steps.filter((s) => s.done).length;
     return {
-      user: { ...userData(user), createdAt: user.createdAt.toISOString() },
+      user: { ...userData(user), createdAt: user.createdAt.toISOString(), disabledAt: user.disabledAt?.toISOString() ?? null, disabledReason: user.disabledReason },
       business: business
         ? { id: business.id, name: business.name, slug: business.slug, logo: business.logo, isActive: business.isActive, isVerified: business.isVerified, disabledAt: business.disabledAt?.toISOString() ?? null, disabledReason: business.disabledReason, category: business.category ?? null }
         : null,
@@ -53,7 +53,8 @@ adminRoutes.get('/users', requireAuth, requireAdmin, asyncHandler(async (req, re
   const filtered = accounts.filter((a) =>
     (!term || [a.user.name, a.user.email, a.business?.name].some((text) => text && fold(text).includes(term))) &&
     (!category || a.business?.category?.slug === category) &&
-    (!status || (status === 'active' && a.business?.isActive) || (status === 'inactive' && a.business && !a.business.isActive) || (status === 'incomplete' && !a.profile.complete)));
+    (!type || (type === 'seller' && !!a.business) || (type === 'customer' && !a.business)) &&
+    (!status || (status === 'active' && a.business?.isActive && !a.user.disabledAt) || (status === 'inactive' && ((a.business && !a.business.isActive) || !!a.user.disabledAt)) || (status === 'incomplete' && !!a.business && !a.profile.complete)));
 
   ok(res, { items: filtered.slice((page - 1) * limit, page * limit), total: filtered.length, page, pages: Math.max(1, Math.ceil(filtered.length / limit)) });
 }));
@@ -118,6 +119,8 @@ adminRoutes.delete('/businesses/:id', requireAuth, requireAdmin, asyncHandler(as
 
   await sequelize.transaction(async (transaction) => {
     await Order.destroy({ where: { businessId: business.id }, transaction });
+    // What the owner bought elsewhere stays with those businesses.
+    await Order.update({ customerUserId: null }, { where: { customerUserId: ownerId }, transaction });
     await Product.destroy({ where: { businessId: business.id }, transaction });
     await business.destroy({ transaction });
     // The impersonation history of this account goes with it; the deletion itself is recorded below.
@@ -129,5 +132,39 @@ adminRoutes.delete('/businesses/:id', requireAuth, requireAdmin, asyncHandler(as
   await removeUploads(files);
   await AdminAction.create({ adminId: currentUser(req).id, action: 'business.delete', targetUserId: ownerId, targetBusinessId: business.id, details: { name: business.name, slug: business.slug, email: business.owner?.email } });
   console.log(`[admin] ${currentUser(req).email} deleted ${business.slug}`);
+  ok(res, { deleted: true });
+}));
+
+/** The account an admin acts on: never an admin's. */
+async function managedUser(req: Request) {
+  const user = await User.findByPk(req.params.id, { include: [Business] });
+  if (!user) throw new HttpError(404, 'No encontramos esa cuenta');
+  if (user.role === 'admin' || user.id === currentUser(req).id) throw new HttpError(400, 'No podés hacer esto sobre una cuenta de administración');
+  return user;
+}
+
+// Admin: disable an account (it can no longer sign in or order) or enable it again
+adminRoutes.patch('/users/:id/status', requireAuth, requireAdmin, asyncHandler(async (req, res) => {
+  const { disabled, reason } = businessStatusSchema.parse(req.body);
+  const user = await managedUser(req);
+  await user.update(disabled ? { disabledAt: new Date(), disabledReason: reason } : { disabledAt: null, disabledReason: null });
+  await AdminAction.create({ adminId: currentUser(req).id, action: disabled ? 'user.disable' : 'user.enable', targetUserId: user.id, targetBusinessId: user.business?.id ?? null, details: { email: user.email, reason } });
+  console.log(`[admin] ${currentUser(req).email} ${disabled ? 'disabled' : 'enabled'} the account ${user.email}`);
+  ok(res, { id: user.id, disabledAt: user.disabledAt, disabledReason: user.disabledReason });
+}));
+
+// Admin: delete a customer account (accounts with a business are deleted with their business). Its orders stay with the businesses.
+adminRoutes.delete('/users/:id', requireAuth, requireAdmin, asyncHandler(async (req, res) => {
+  const user = await managedUser(req);
+  if (user.business) throw new HttpError(400, 'Esta cuenta tiene un negocio: eliminá el negocio');
+  await sequelize.transaction(async (transaction) => {
+    await Order.update({ customerUserId: null }, { where: { customerUserId: user.id }, transaction });
+    const sessions = await ImpersonationLog.findAll({ where: { targetUserId: user.id }, attributes: ['id'], transaction });
+    await AuditLog.destroy({ where: { targetUserId: user.id }, transaction });
+    await ImpersonationLog.destroy({ where: { id: sessions.map((s) => s.id) }, transaction });
+    await user.destroy({ transaction });
+  });
+  await removeUploads([user.avatarUrl]);
+  await AdminAction.create({ adminId: currentUser(req).id, action: 'user.delete', targetUserId: user.id, targetBusinessId: null, details: { email: user.email } });
   ok(res, { deleted: true });
 }));

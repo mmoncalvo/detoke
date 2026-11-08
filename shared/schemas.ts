@@ -57,11 +57,22 @@ export const newBusinessSchema = z.object({
 
 export const registerSchema = accountSchema.extend({ business: newBusinessSchema });
 
+/** A customer account: just who you are. */
+export const customerRegisterSchema = accountSchema.extend({ phone: optionalPhone });
+
+export const cartSchema = z.object({
+  items: z.array(z.object({ productId: z.string().min(1), quantity: z.number().int().min(1).max(99) })).max(100, 'El carrito tiene demasiados productos'),
+});
+
+/** Order codes saved in this browser, to attach them to the account. */
+export const claimOrdersSchema = z.object({ codes: z.array(z.string().min(6).max(32)).max(50) });
+
 /** What a user edits in Mi cuenta. */
 export const profileSchema = z.object({
   name: required('tu nombre'),
   email: accountSchema.shape.email,
   phone: optionalPhone,
+  address: optionalText(160),
 });
 
 export const passwordChangeSchema = z
@@ -170,6 +181,7 @@ export const orderStatusSchema = z.object({
 
 export type ProfileInput = z.input<typeof profileSchema>;
 export type PasswordChangeInput = z.input<typeof passwordChangeSchema>;
+export type CustomerRegisterInput = z.input<typeof customerRegisterSchema>;
 export type RegisterInput = z.input<typeof registerSchema>;
 export type BusinessUpdate = z.output<typeof businessUpdateSchema>;
 export type ProductInput = z.input<typeof productSchema>;

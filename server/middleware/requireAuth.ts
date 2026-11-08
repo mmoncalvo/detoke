@@ -66,6 +66,8 @@ export async function requireAuth(req: Request, res: Response, next: NextFunctio
 
     const user = await User.findByPk(payload.id);
     if (!user) throw new HttpError(401, 'Tu sesión venció, iniciá sesión de nuevo');
+    // A disabled customer is signed out: 401 ends the session in the web app.
+    if (user.disabledAt && !payload.actorId) throw new HttpError(401, 'Tu cuenta fue deshabilitada por el equipo de Detoke');
 
     if (payload.actorId && payload.impersonationLogId) {
       const admin = await User.findByPk(payload.actorId);
@@ -113,7 +115,10 @@ export function currentUser(req: Request): User {
 
 /** The session user's business. */
 export async function currentBusiness(req: Request): Promise<Business> {
-  const business = await Business.findOne({ where: { ownerId: currentUser(req).id } });
+  const user = currentUser(req);
+  // Seller rights come from owning a business: a customer account gets them once it adds one.
+  if (user.role === 'customer') throw new HttpError(403, 'Tu cuenta todavía no tiene un negocio: sumalo para usar el panel');
+  const business = await Business.findOne({ where: { ownerId: user.id } });
   if (!business) throw new HttpError(404, 'Tu cuenta no tiene un negocio');
   return business;
 }

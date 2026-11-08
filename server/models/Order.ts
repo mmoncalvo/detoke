@@ -13,6 +13,8 @@ export class Order extends Model {
   @Column({ type: DataType.STRING, allowNull: false, unique: true }) publicCode!: string;
   /** Sent by the checkout for each attempt: a retry or a double click returns the same order. */
   @Column({ type: DataType.STRING, unique: true }) clientRequestId!: string | null;
+  /** The signed-in account that placed it, or that claimed it later from this browser's list. */
+  @Column(DataType.STRING) customerUserId!: string | null;
   /** Per business, for people: "Pedido #12". */
   @Column({ type: DataType.INTEGER, allowNull: false }) number!: number;
 

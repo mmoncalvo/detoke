@@ -1,11 +1,11 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { loginSchema, passwordChangeSchema, profileSchema, registerSchema } from '../../shared/schemas.js';
+import { cartSchema, customerRegisterSchema, loginSchema, passwordChangeSchema, profileSchema, registerSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
 import { sequelize } from '../db.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
 import { currentUser, requireAuth, signToken } from '../middleware/requireAuth.js';
-import { Business, BusinessCategory, User } from '../models/index.js';
+import { Business, BusinessCategory, Product, User } from '../models/index.js';
 import { rateLimit } from '../middleware/rateLimit.js';
 import { ok } from '../services/response.js';
 import { saveImage, upload } from '../services/upload.js';
@@ -13,7 +13,9 @@ import { uniqueSlug } from '../services/slug.js';
 
 export const authRoutes = Router();
 
-export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, role: user.role, avatarUrl: user.avatarUrl ?? null });
+export const DISABLED_ACCOUNT = 'Tu cuenta fue deshabilitada por el equipo de Detoke. Escribinos desde Contacto si querés revisarlo.';
+
+export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, address: user.address ?? null, role: user.role, avatarUrl: user.avatarUrl ?? null });
 export const businessOf = (user: User) => Business.findOne({ where: { ownerId: user.id }, include: [BusinessCategory] });
 
 authRoutes.post('/register', asyncHandler(async (req, res) => {
@@ -33,12 +35,21 @@ authRoutes.post('/register', asyncHandler(async (req, res) => {
   ok(res, { token: signToken(user), user: userData(user), business: await businessOf(user) }, 201);
 }));
 
+// Public: a customer account (no business)
+authRoutes.post('/register/customer', asyncHandler(async (req, res) => {
+  const { password, ...account } = customerRegisterSchema.parse(req.body);
+  if (await User.findOne({ where: { email: account.email } })) throw new HttpError(409, 'Ya hay una cuenta con ese email');
+  const user = await User.create({ ...account, role: 'customer', passwordHash: await bcrypt.hash(password, 10) });
+  ok(res, { token: signToken(user), user: userData(user), business: null }, 201);
+}));
+
 authRoutes.post('/login', asyncHandler(async (req, res) => {
   const { email, password } = loginSchema.parse(req.body);
 
   const user = await User.unscoped().findOne({ where: { email } });
   if (user && !user.passwordHash && user.googleId) throw new HttpError(401, 'Esta cuenta usa Google para ingresar');
   if (!user?.passwordHash || !(await bcrypt.compare(password, user.passwordHash))) throw new HttpError(401, 'El email o la contraseña no son correctos');
+  if (user.disabledAt) throw new HttpError(403, DISABLED_ACCOUNT);
 
   ok(res, { token: signToken(user), user: userData(user), business: await businessOf(user) });
 }));
@@ -97,4 +108,27 @@ authRoutes.delete('/me/avatar', requireAuth, asyncHandler(async (req, res) => {
   const user = currentUser(req);
   await user.update({ avatarUrl: null });
   ok(res, userData(user));
+}));
+
+// Protected: the saved cart, with each product as it is today (unavailable ones and disabled businesses are left out)
+authRoutes.get('/me/cart', requireAuth, asyncHandler(async (req, res) => {
+  const lines = currentUser(req).cart ?? [];
+  const products = lines.length ? await Product.findAll({
+    where: { id: lines.map((l) => l.productId), isAvailable: true },
+    include: [{ model: Business, attributes: ['id', 'name', 'slug', 'logo', 'whatsapp', 'hours', 'deliveryOptions', 'paymentMethods', 'deliveryFee', 'minimumOrder'], where: { isActive: true } }],
+  }) : [];
+  const byId = new Map(products.map((p) => [p.id, p]));
+  ok(res, lines.flatMap((line) => {
+    const product = byId.get(line.productId);
+    return product ? [{ product, quantity: line.quantity }] : [];
+  }));
+}));
+
+// Protected: replace the saved cart (the web app sends it after every change)
+authRoutes.put('/me/cart', requireAuth, asyncHandler(async (req, res) => {
+  const { items } = cartSchema.parse(req.body);
+  const merged = new Map<string, number>();
+  for (const item of items) merged.set(item.productId, Math.min(99, (merged.get(item.productId) ?? 0) + item.quantity));
+  await currentUser(req).update({ cart: [...merged].map(([productId, quantity]) => ({ productId, quantity })) });
+  ok(res, { saved: merged.size });
 }));

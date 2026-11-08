@@ -17,9 +17,9 @@ const profile = (extra: Partial<GoogleProfile> = {}): GoogleProfile => ({ sub: '
 let categories: Awaited<ReturnType<typeof createCategories>>;
 
 /** Runs the redirect flow and returns where the browser lands. */
-async function signInWithGoogle(googleProfile: GoogleProfile) {
+async function signInWithGoogle(googleProfile: GoogleProfile, as?: 'seller' | 'customer') {
   vi.mocked(exchangeCode).mockResolvedValueOnce(googleProfile);
-  const start = await request(app).get('/api/auth/google/url');
+  const start = await request(app).get('/api/auth/google/url').query(as ? { as } : {});
   const state = new URL(start.body.data.url).searchParams.get('state');
   const cookie = start.headers['set-cookie'];
   const callback = await request(app).get('/api/auth/google/callback').query({ code: 'abc', state }).set('Cookie', cookie);
@@ -48,8 +48,8 @@ describe('google sign-in', () => {
     expect((await request(app).get('/api/auth/providers')).body.data).toEqual({ google: true });
   });
 
-  it('creates a seller without business and trades the code only once', async () => {
-    const landing = await signInWithGoogle(profile());
+  it('from "Sumá tu negocio", creates a seller without business and trades the code only once', async () => {
+    const landing = await signInWithGoogle(profile(), 'seller');
     expect(landing.origin + landing.pathname).toBe(`${config.appUrl}/auth/callback`);
     const code = landing.searchParams.get('code')!;
 
@@ -63,6 +63,12 @@ describe('google sign-in', () => {
     expect(created.status).toBe(201);
     expect(created.body.data.slug).toBe('heladeria-nueva');
     expect((await request(app).post('/api/businesses/me').set(auth(session.body.data.token)).send({ name: 'Otra', businessCategoryId: categories.bakery.id, whatsapp: '11 2345 6789' })).status).toBe(409);
+  });
+
+  it('otherwise creates a customer', async () => {
+    const landing = await signInWithGoogle(profile({ sub: 'g-cliente', email: 'cliente@gmail.com' }));
+    const session = await exchange(landing.searchParams.get('code')!);
+    expect(session.body.data.user).toMatchObject({ email: 'cliente@gmail.com', role: 'customer' });
   });
 
   it('signs in again by Google id and links existing accounts by email', async () => {

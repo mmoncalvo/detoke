@@ -18,7 +18,7 @@ function GoogleLogo() {
 }
 
 /** "Continuar con Google" plus an "o" divider. Renders nothing when Google is not configured. */
-export function GoogleSignIn({ label = 'Continuar con Google' }: { label?: string }) {
+export function GoogleSignIn({ label = 'Continuar con Google', as = 'customer' }: { label?: string; as?: 'customer' | 'seller' }) {
   const { data } = useFetch<{ google: boolean }>('/auth/providers');
   const [busy, setBusy] = useState(false);
   if (!data?.google) return null;
@@ -26,7 +26,7 @@ export function GoogleSignIn({ label = 'Continuar con Google' }: { label?: strin
   const start = async () => {
     setBusy(true);
     try {
-      const { url } = await api<{ url: string }>('/auth/google/url');
+      const { url } = await api<{ url: string }>(`/auth/google/url?as=${as}`);
       window.location.assign(url);
     } catch (err) {
       toast.error((err as Error).message);
@@ -61,4 +61,5 @@ export const GOOGLE_ERRORS: Record<string, string> = {
   admin: 'Las cuentas de administración ingresan con email y contraseña.',
   invalid_state: 'El ingreso con Google venció. Probá de nuevo.',
   failed: 'No pudimos ingresar con Google. Probá de nuevo.',
+  disabled: 'Tu cuenta fue deshabilitada por el equipo de Detoke. Escribinos desde Contacto si querés revisarlo.',
 };
