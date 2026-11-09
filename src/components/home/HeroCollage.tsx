@@ -68,7 +68,7 @@ export function HeroCollage({ className }: { className?: string }) {
             alt=""
             loading="eager"
             fetchPriority={photo.priority ? 'high' : undefined}
-            className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-300 ease-out group-hover:scale-[1.04] group-hover:shadow-[0_28px_50px_-14px_rgb(0_0_0/0.65)]"
+            className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-300 ease-out group-hover:scale-[1.08] group-hover:shadow-[0_28px_50px_-14px_rgb(0_0_0/0.65)]"
           />
         </div>
       ))}
