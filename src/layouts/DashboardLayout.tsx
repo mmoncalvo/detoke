@@ -93,9 +93,10 @@ export default function DashboardLayout() {
             <SidebarMenuItem>
               <SidebarMenuButton asChild size="lg" tooltip={isAdmin ? 'Detoke · Administración' : 'Detoke · Ver mi página'}>
                 <Link to={isAdmin ? '/' : `/negocio/${business?.slug}`}>
-                  <LogoMark className="size-8!" />
-                  <span className="grid flex-1 text-left leading-tight">
-                    <Wordmark className="truncate text-lg text-sidebar-accent-foreground" />
+                  {/* Collapsed, only the "d!" monogram fits; expanded, the whole word. */}
+                  <LogoMark className="hidden size-8! group-data-[collapsible=icon]:block" />
+                  <span className="grid flex-1 gap-0.5 text-left leading-tight">
+                    <Wordmark className="text-xl text-sidebar-accent-foreground" />
                     <span className="truncate text-xs">{isAdmin ? 'Administración' : business?.name}</span>
                   </span>
                 </Link>

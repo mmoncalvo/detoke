@@ -76,25 +76,42 @@ export function MarkPin({ className, mono, title }: MarkProps) {
   );
 }
 
-export const MARKS = { awning: MarkAwning, letter: MarkLetter, pin: MarkPin };
+/**
+ * The monogram "d!" from the lettering, cream on the green tile: the brand where the whole word does
+ * not fit (favicon, collapsed sidebar, app icon). Readable from 16 px.
+ */
+export function MarkMonogram({ className, mono, title }: MarkProps) {
+  const m = WORDMARKS[WORDMARK].monogram;
+  const [x, y, w, h] = m.viewBox;
+  return (
+    <Svg className={className} title={title}>
+      <rect width="32" height="32" rx="9" fill={mono ? 'currentColor' : BRAND.green} />
+      <svg x="6.5" y="6.5" width="19" height="19" viewBox={`${x} ${y} ${w} ${h}`} preserveAspectRatio="xMidYMid meet">
+        {m.letters.map((l, i) => <path key={i} d={l.d} fill={mono ? 'var(--background, #fff)' : BRAND.cream} />)}
+      </svg>
+    </Svg>
+  );
+}
+
+export const MARKS = { monogram: MarkMonogram, awning: MarkAwning, letter: MarkLetter, pin: MarkPin };
 export type MarkName = keyof typeof MARKS;
 
-/** The one in use across the app. */
-export const LogoMark = MarkAwning;
+/** The one in use where the word does not fit. */
+export const LogoMark = MarkMonogram;
 
 /** The typeface in use for the lettering (see /dev/logo for the others). */
 export const WORDMARK: WordmarkName = 'quicksand';
 
 /**
- * "detoke" drawn from the font's outlines (no font to load), in currentColor; its height follows the
- * text size (1em), in one color (`accent` would paint the "o" mustard; off).
+ * "detoke!" drawn from the font's outlines (no font to load), in currentColor; its height follows the
+ * text size (1em), in one color (`accent` paints the "!" mustard; off by default).
  */
 export function Wordmark({ className, name = WORDMARK, accent = false }: { className?: string; name?: WordmarkName; accent?: boolean }) {
   const w = WORDMARKS[name];
   const [x, y, width, height] = w.viewBox;
   return (
-    <svg viewBox={`${x} ${y} ${width} ${height}`} className={cn('h-[1.05em] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke" xmlns="http://www.w3.org/2000/svg">
-      {w.letters.map((l, i) => <path key={i} d={l.d} fill={accent && l.char === 'o' ? BRAND.mustard : 'currentColor'} />)}
+    <svg viewBox={`${x} ${y} ${width} ${height}`} className={cn('h-[1.05em] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke!" xmlns="http://www.w3.org/2000/svg">
+      {w.letters.map((l, i) => <path key={i} d={l.d} fill={accent && l.char === '!' ? BRAND.mustard : 'currentColor'} />)}
     </svg>
   );
 }
