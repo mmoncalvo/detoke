@@ -15,7 +15,7 @@ interface Photo {
 const PHOTOS: Photo[] = [
   { src: 'panaderia_cover.jpg', place: 'left-10 top-6 h-44 w-52', angle: -7, depth: 0.5 },
   { src: 'verduleria_cover.jpg', place: 'right-8 top-14 h-48 w-56', angle: 5, depth: 0.6 },
-  { src: 'carniceria_cover.jpg', place: 'bottom-4 left-8 h-40 w-48', angle: 4, depth: 0.7 },
+  { src: 'carniceria_cover.jpg', place: 'bottom-12 left-8 h-40 w-48', angle: 4, depth: 0.7 },
   { src: 'pizza_napolitana.jpg', place: 'bottom-6 left-[34%] z-10 h-60 w-60', angle: -3, depth: 1, priority: true },
 ];
 
