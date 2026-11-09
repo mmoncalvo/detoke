@@ -79,9 +79,10 @@ export default function PublicLayout() {
 
       <main id="main" className="flex-1"><Outlet /></main>
 
-      <footer className="noise relative mt-16 bg-sidebar text-sidebar-foreground">
-        <Awning />
-        <div className="mx-auto flex max-w-page flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
+      <footer className="relative mt-16 bg-sidebar text-sidebar-foreground">
+        <div className="noise-layer" aria-hidden />
+        <Awning className="relative" />
+        <div className="relative mx-auto flex max-w-page flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
             <BrandMark inverted />
             <p className="mt-2 max-w-sm text-sm">Los comercios de tu barrio, con su catálogo y pedidos directos por WhatsApp.</p>

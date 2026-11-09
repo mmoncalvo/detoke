@@ -56,8 +56,9 @@ export default function Home() {
 
   return (
     <>
-      <section className="noise relative overflow-hidden bg-sidebar text-sidebar-accent-foreground">
-        <Awning />
+      <section className="relative overflow-hidden bg-sidebar text-sidebar-accent-foreground">
+        <div className="noise-layer" aria-hidden />
+        <Awning className="relative" />
         <div className="relative mx-auto grid max-w-page items-center gap-10 px-4 pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_480px]">
           <div className="min-w-0">
           <p className="relative inline-flex items-center gap-2 rounded-full bg-sidebar-accent px-3 py-1 text-sm font-medium text-mustard">
