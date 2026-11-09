@@ -81,11 +81,11 @@ export function HeroCollage({ className }: { className?: string }) {
                 alt=""
                 loading="eager"
                 fetchPriority={photo.priority ? 'high' : undefined}
-                className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:scale-[1.08] group-hover:shadow-[0_32px_56px_-16px_rgb(0_0_0/0.7)]"
+                className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.08] group-hover:shadow-[0_32px_56px_-16px_rgb(0_0_0/0.7)]"
               />
               {/* A soft light that follows the pointer over the photo under it. */}
               <span
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 mix-blend-soft-light transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:scale-[1.08] group-hover:opacity-100"
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 mix-blend-soft-light transition-[opacity,transform] duration-[1100ms] ease-[cubic-bezier(0.16,1,0.3,1)] group-hover:-translate-y-1 group-hover:scale-[1.08] group-hover:opacity-100"
                 style={{ background: 'radial-gradient(circle at calc(50% + var(--px) * 45%) calc(50% + var(--py) * 45%), rgb(255 255 255 / 0.55), transparent 60%)' }}
               />
             </div>
