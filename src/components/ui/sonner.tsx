@@ -10,6 +10,12 @@ import {
 import { useTheme } from "@/context/ThemeContext"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 
+// Navbars: público h-16 (64 px) y dashboard h-14 (56 px), ambos sticky top-0, más el
+// banner de impersonación opcional encima. En pantallas pequeñas los toasts empiezan
+// justo debajo del navbar para no tapar los contadores de pedidos y carrito.
+const OFFSET_DESKTOP = 12
+const OFFSET_MOBILE = 72
+
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme()
 
@@ -33,6 +39,8 @@ const Toaster = ({ ...props }: ToasterProps) => {
         } as React.CSSProperties
       }
       {...props}
+      offset={{ top: OFFSET_DESKTOP }}
+      mobileOffset={{ top: OFFSET_MOBILE }}
     />
   )
 }
