@@ -14,6 +14,7 @@ import { useTitle } from '@/hooks/useTitle';
 import { categoryIcon } from '@/lib/category-icons';
 import { Awning } from '@/components/common/Awning';
 import { NO_AUTOFILL } from '@/components/ui/input';
+import { HeroCollage } from '@/components/home/HeroCollage';
 
 function SectionHeader({ title, subtitle, to }: { title: string; subtitle?: string; to: string }) {
   return (
@@ -104,13 +105,7 @@ export default function Home() {
           </div>
           </div>
 
-          {/* Photos dropped on a table: different sizes and angles, overlapping, beside the text and never over it. */}
-          <div className="relative hidden h-[440px] lg:block" aria-hidden>
-            <SafeImage src="panaderia_cover.jpg" alt="" loading="eager" className={`${PHOTO} left-2 top-2 h-44 w-52 -rotate-[7deg]`} />
-            <SafeImage src="verduleria_cover.jpg" alt="" loading="eager" className={`${PHOTO} right-0 top-10 h-48 w-56 rotate-[5deg]`} />
-            <SafeImage src="carniceria_cover.jpg" alt="" loading="eager" className={`${PHOTO} bottom-0 left-0 h-40 w-48 rotate-[4deg]`} />
-            <SafeImage src="pizza_napolitana.jpg" alt="" loading="eager" fetchPriority="high" className={`${PHOTO} bottom-6 left-[34%] z-10 h-60 w-60 -rotate-[3deg]`} />
-          </div>
+          <HeroCollage className="hidden h-[440px] lg:block" />
         </div>
       </section>
 
