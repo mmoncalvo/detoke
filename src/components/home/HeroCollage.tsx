@@ -21,7 +21,7 @@ const PHOTOS: Photo[] = [
 
 /**
  * Photos dropped on a table, beside the hero text. With a mouse, they tilt and drift a little toward the
- * pointer (each layer by its own amount) and the one under it lifts; leaving, they settle back. The pointer
+ * pointer (each layer by its own amount) and the one under it lifts a little, keeping its place in the stack; leaving, they settle back. The pointer
  * position goes to two CSS variables in an animation frame, so React does not re-render while it moves.
  * Off on touch screens and with reduced motion.
  */
@@ -58,7 +58,7 @@ export function HeroCollage({ className }: { className?: string }) {
       {PHOTOS.map((photo) => (
         <div
           key={photo.src}
-          className={cn('group absolute transition-transform duration-500 ease-out hover:z-20 motion-reduce:transition-none', photo.place)}
+          className={cn('group absolute transition-transform duration-500 ease-out motion-reduce:transition-none', photo.place)}
           style={{
             transform: `translate3d(calc(var(--px) * ${10 * photo.depth}px), calc(var(--py) * ${8 * photo.depth}px), 0) rotateX(calc(var(--py) * ${-5 * photo.depth}deg)) rotateY(calc(var(--px) * ${6 * photo.depth}deg)) rotate(${photo.angle}deg)`,
           }}
