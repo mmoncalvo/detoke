@@ -173,7 +173,7 @@ Se aceptan JPG, PNG y WEBP de hasta 8 MB. `sharp` las recorta (logo cuadrado, po
 
 ## Interfaz
 
-Los componentes de shadcn/ui (estilo new-york) están en `src/components/ui/`; la marca (verde botella, mostaza, papel cálido) son tokens en `src/index.css`. Las tipografías son Bricolage Grotesque y Figtree, instaladas con fontsource.
+Los componentes de shadcn/ui (estilo new-york) están en `src/components/ui/`; la marca (verde botella, mostaza, papel cálido) son tokens en `src/index.css`. Las tipografías son Quicksand (títulos, la misma del logo) y Figtree (texto), instaladas con fontsource.
 
 ## Administración
 
