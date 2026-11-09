@@ -1,6 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
-@import "@fontsource-variable/bricolage-grotesque/index.css";
+@import "@fontsource-variable/quicksand/index.css";
 @import "@fontsource-variable/figtree/index.css";
 
 @custom-variant dark (&:is(.dark *));
@@ -92,7 +92,8 @@
   --container-panel: 72rem;
   --container-form: 48rem;
   --font-sans: 'Figtree Variable', ui-sans-serif, system-ui, sans-serif;
-  --font-display: 'Bricolage Grotesque Variable', 'Figtree Variable', ui-sans-serif, sans-serif;
+  /* The logo's rounded letter, for titles and highlighted figures; body text stays in Figtree. */
+  --font-display: 'Quicksand Variable', 'Figtree Variable', ui-sans-serif, sans-serif;
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -150,7 +151,6 @@
   h2,
   h3 {
     @apply font-display tracking-tight;
-    font-optical-sizing: auto;
   }
 
   /* Tailwind v4 leaves buttons with the default cursor: everything clickable gets the hand. */

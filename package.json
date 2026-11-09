@@ -16,8 +16,8 @@
     "db:check-images": "tsx scripts/check-seed-images.ts"
   },
   "dependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
     "@fontsource-variable/figtree": "^5.3.0",
+    "@fontsource-variable/quicksand": "^5.3.0",
     "@hookform/resolvers": "^5.1.1",
     "@tailwindcss/vite": "^4.1.14",
     "bcryptjs": "^3.0.3",
