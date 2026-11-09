@@ -1,4 +1,4 @@
-import { ArrowRight, MessageCircle, Search, Store } from 'lucide-react';
+import { ArrowRight, Search, Store } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { openStatus } from '@shared/business';
@@ -26,6 +26,9 @@ function SectionHeader({ title, subtitle, to }: { title: string; subtitle?: stri
     </div>
   );
 }
+
+/** A printed photo on the table: thin cream border, rounded, soft shadow. */
+const PHOTO = 'absolute rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)]';
 
 export default function Home() {
   useTitle();
@@ -93,34 +96,20 @@ export default function Home() {
             <Link to="/explorar?delivery=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Con delivery</Link>
             <Link to="/explorar?tab=products" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Ver productos</Link>
           </div>
-          {/* Smaller screens: the same three photos as a short strip under the search. */}
-          <div className="mt-8 grid grid-cols-3 gap-2 lg:hidden" aria-hidden>
-            {['pizza_napolitana.jpg', 'panaderia_cover.jpg', 'verduleria_cover.jpg'].map((src) => (
-              <SafeImage key={src} src={src} alt="" className="aspect-[4/3] w-full rounded-2xl object-cover ring-1 ring-white/10" />
-            ))}
+          {/* Smaller screens: three photos overlapping, a reduced version of the collage. */}
+          <div className="relative mx-auto mt-10 h-48 max-w-sm lg:hidden" aria-hidden>
+            <SafeImage src="panaderia_cover.jpg" alt="" className={`${PHOTO} left-0 top-4 h-36 w-[42%] -rotate-6`} />
+            <SafeImage src="verduleria_cover.jpg" alt="" className={`${PHOTO} right-0 top-0 h-36 w-[42%] rotate-6`} />
+            <SafeImage src="pizza_napolitana.jpg" alt="" className={`${PHOTO} bottom-0 left-1/2 z-10 h-40 w-[48%] -translate-x-1/2 rotate-[-2deg]`} />
           </div>
           </div>
 
-          {/* A tidy collage of the neighborhood: one tall photo and two stacked, offset for rhythm, with a
-              small order card that tells what Detoke does. Decorative, and only where there is room. */}
-          <div className="relative hidden h-[400px] lg:block" aria-hidden>
-            <div className="grid h-full grid-cols-2 grid-rows-1 gap-3">
-              <SafeImage src="pizza_napolitana.jpg" alt="" loading="eager" fetchPriority="high" className="h-full min-h-0 w-full rounded-3xl object-cover object-[center_80%] shadow-2xl ring-1 ring-white/10" />
-              <div className="grid min-h-0 grid-rows-2 gap-3 pt-10">
-                <SafeImage src="panaderia_cover.jpg" alt="" loading="eager" className="h-full min-h-0 w-full rounded-3xl object-cover shadow-2xl ring-1 ring-white/10" />
-                <SafeImage src="verduleria_cover.jpg" alt="" loading="eager" className="h-full min-h-0 w-full rounded-3xl object-cover shadow-2xl ring-1 ring-white/10" />
-              </div>
-            </div>
-            <div className="absolute -left-8 bottom-10 flex items-center gap-3 rounded-2xl bg-card px-4 py-3 text-foreground shadow-2xl">
-              <span className="flex size-9 items-center justify-center rounded-full bg-success/15 text-success"><MessageCircle className="size-5" /></span>
-              <span className="leading-tight">
-                <span className="block text-sm font-semibold">Pedido #12 · Confirmado</span>
-                <span className="block text-xs text-muted-foreground">Lo de Tito · hace 2 min</span>
-              </span>
-            </div>
-            <span className="absolute -top-3 right-6 inline-flex items-center gap-1.5 rounded-full bg-mustard px-3 py-1 text-xs font-semibold text-[oklch(0.25_0.04_80)] shadow-lg">
-              <span className="size-1.5 rounded-full bg-[oklch(0.25_0.04_80)]" /> Abierto ahora
-            </span>
+          {/* Photos dropped on a table: different sizes and angles, overlapping, beside the text and never over it. */}
+          <div className="relative hidden h-[440px] lg:block" aria-hidden>
+            <SafeImage src="panaderia_cover.jpg" alt="" loading="eager" className={`${PHOTO} left-2 top-2 h-44 w-52 -rotate-[7deg]`} />
+            <SafeImage src="verduleria_cover.jpg" alt="" loading="eager" className={`${PHOTO} right-0 top-10 h-48 w-56 rotate-[5deg]`} />
+            <SafeImage src="carniceria_cover.jpg" alt="" loading="eager" className={`${PHOTO} bottom-0 left-0 h-40 w-48 rotate-[4deg]`} />
+            <SafeImage src="pizza_napolitana.jpg" alt="" loading="eager" fetchPriority="high" className={`${PHOTO} bottom-6 left-[34%] z-10 h-60 w-60 -rotate-[3deg]`} />
           </div>
         </div>
       </section>
