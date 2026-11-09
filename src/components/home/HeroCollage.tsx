@@ -31,19 +31,29 @@ export function HeroCollage({ className }: { className?: string }) {
   useEffect(() => {
     const box = ref.current;
     if (!box || matchMedia('(pointer: coarse), (prefers-reduced-motion: reduce)').matches) return;
+    // The photos chase the pointer with a little inertia: each frame closes part of the gap, so the
+    // movement eases in and out on its own and never restarts mid-way.
+    const target = { x: 0, y: 0 };
+    const current = { x: 0, y: 0 };
     let frame = 0;
-    const set = (x: number, y: number) => {
-      cancelAnimationFrame(frame);
-      frame = requestAnimationFrame(() => {
-        box.style.setProperty('--px', x.toFixed(3));
-        box.style.setProperty('--py', y.toFixed(3));
-      });
+    const tick = () => {
+      current.x += (target.x - current.x) * 0.09;
+      current.y += (target.y - current.y) * 0.09;
+      box.style.setProperty('--px', current.x.toFixed(4));
+      box.style.setProperty('--py', current.y.toFixed(4));
+      const settled = Math.abs(target.x - current.x) < 0.001 && Math.abs(target.y - current.y) < 0.001;
+      frame = settled ? 0 : requestAnimationFrame(tick);
+    };
+    const aim = (x: number, y: number) => {
+      target.x = x;
+      target.y = y;
+      if (!frame) frame = requestAnimationFrame(tick);
     };
     const move = (e: PointerEvent) => {
       const r = box.getBoundingClientRect();
-      set(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
+      aim(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
     };
-    const leave = () => set(0, 0);
+    const leave = () => aim(0, 0);
     box.addEventListener('pointermove', move);
     box.addEventListener('pointerleave', leave);
     return () => {
@@ -55,21 +65,31 @@ export function HeroCollage({ className }: { className?: string }) {
 
   return (
     <div ref={ref} className={cn('relative [--px:0] [--py:0] [perspective:1000px]', className)} aria-hidden>
-      {PHOTOS.map((photo) => (
+      {PHOTOS.map((photo, i) => (
         <div
           key={photo.src}
-          className={cn('group absolute transition-transform duration-500 ease-out motion-reduce:transition-none', photo.place)}
+          className={cn('group absolute', photo.place)}
           style={{
-            transform: `translate3d(calc(var(--px) * ${10 * photo.depth}px), calc(var(--py) * ${8 * photo.depth}px), 0) rotateX(calc(var(--py) * ${-5 * photo.depth}deg)) rotateY(calc(var(--px) * ${6 * photo.depth}deg)) rotate(${photo.angle}deg)`,
+            transform: `translate3d(calc(var(--px) * ${14 * photo.depth}px), calc(var(--py) * ${10 * photo.depth}px), 0) rotateX(calc(var(--py) * ${-7 * photo.depth}deg)) rotateY(calc(var(--px) * ${8 * photo.depth}deg)) rotate(${photo.angle}deg)`,
           }}
         >
-          <SafeImage
-            src={photo.src}
-            alt=""
-            loading="eager"
-            fetchPriority={photo.priority ? 'high' : undefined}
-            className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-500 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-[1.08] group-hover:shadow-[0_28px_50px_-14px_rgb(0_0_0/0.65)]"
-          />
+          {/* Dropped on the table one after another, then floating gently, each at its own pace. */}
+          <div className="hero-drop h-full w-full" style={{ animationDelay: `${120 + i * 110}ms` }}>
+            <div className="hero-float relative h-full w-full" style={{ animationDuration: `${6 + i * 1.3}s`, animationDelay: `${-i * 1.7}s` }}>
+              <SafeImage
+                src={photo.src}
+                alt=""
+                loading="eager"
+                fetchPriority={photo.priority ? 'high' : undefined}
+                className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:scale-[1.08] group-hover:shadow-[0_32px_56px_-16px_rgb(0_0_0/0.7)]"
+              />
+              {/* A soft light that follows the pointer over the photo under it. */}
+              <span
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 mix-blend-soft-light transition-[opacity,transform] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:-translate-y-1 group-hover:scale-[1.08] group-hover:opacity-100"
+                style={{ background: 'radial-gradient(circle at calc(50% + var(--px) * 45%) calc(50% + var(--py) * 45%), rgb(255 255 255 / 0.55), transparent 60%)' }}
+              />
+            </div>
+          </div>
         </div>
       ))}
     </div>

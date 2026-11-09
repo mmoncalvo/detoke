@@ -197,6 +197,26 @@
   }
 }
 
+/* Hero photos: they drop onto the table on load, then float gently (each photo sets its own pace). */
+@keyframes hero-drop {
+  from { transform: translateY(36px) scale(0.86) rotate(-6deg); }
+  to { transform: none; }
+}
+@keyframes hero-float {
+  0%, 100% { transform: translateY(0) rotate(0deg); }
+  50% { transform: translateY(-7px) rotate(0.9deg); }
+}
+.hero-drop {
+  /* backwards, not both: once landed, no animated style is left on the photo (a filled 3D layer stopped painting in Chrome). */
+  animation: hero-drop 900ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+.hero-float {
+  animation: hero-float 7s ease-in-out infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .hero-drop, .hero-float { animation: none; }
+}
+
 /* The scalloped shop awning used as the brand's signature edge. */
 @utility awning {
   height: 18px;
