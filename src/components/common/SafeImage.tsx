@@ -4,7 +4,7 @@ import { imageUrl } from '@/lib/images';
 import { cn } from '@/lib/utils';
 
 /** Image with a neutral placeholder when it is missing or fails to load. */
-export function SafeImage({ src, alt, className }: { src?: string | null; alt: string; className?: string }) {
+export function SafeImage({ src, alt, className, loading = 'lazy', fetchPriority }: { src?: string | null; alt: string; className?: string; loading?: 'lazy' | 'eager'; fetchPriority?: 'high' | 'low' | 'auto' }) {
   const [failed, setFailed] = useState(false);
   const url = imageUrl(src);
   if (!url || failed) {
@@ -14,5 +14,5 @@ export function SafeImage({ src, alt, className }: { src?: string | null; alt: s
       </div>
     );
   }
-  return <img src={url} alt={alt} loading="lazy" onError={() => setFailed(true)} className={cn('object-cover', className)} />;
+  return <img src={url} alt={alt} loading={loading} fetchPriority={fetchPriority} decoding="async" onError={() => setFailed(true)} className={cn('object-cover', className)} />;
 }

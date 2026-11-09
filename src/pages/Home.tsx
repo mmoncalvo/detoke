@@ -1,4 +1,4 @@
-import { ArrowRight, Search, Store } from 'lucide-react';
+import { ArrowRight, MessageCircle, Search, Store } from 'lucide-react';
 import { useMemo, useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { openStatus } from '@shared/business';
@@ -52,14 +52,10 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-sidebar text-sidebar-accent-foreground">
+      <section className="noise relative overflow-hidden bg-sidebar text-sidebar-accent-foreground">
         <Awning />
-        <div className="relative mx-auto max-w-page px-4 pb-16 pt-10 sm:pb-24 sm:pt-16">
-          <div className="pointer-events-none absolute -bottom-6 right-4 hidden w-[400px] lg:block" aria-hidden>
-            <SafeImage src="pizza_napolitana.jpg" alt="" className="absolute bottom-28 right-44 size-52 -rotate-6 rounded-2xl border-4 border-sidebar-accent-foreground/90 shadow-2xl" />
-            <SafeImage src="panaderia_cover.jpg" alt="" className="absolute bottom-44 right-0 size-44 rotate-3 rounded-2xl border-4 border-sidebar-accent-foreground/90 shadow-2xl" />
-            <SafeImage src="verduleria_cover.jpg" alt="" className="absolute bottom-6 right-14 size-44 rotate-[-2deg] rounded-2xl border-4 border-sidebar-accent-foreground/90 shadow-2xl" />
-          </div>
+        <div className="relative mx-auto grid max-w-page items-center gap-10 px-4 pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_480px]">
+          <div className="min-w-0">
           <p className="relative inline-flex items-center gap-2 rounded-full bg-sidebar-accent px-3 py-1 text-sm font-medium text-mustard">
             <span className="size-1.5 rounded-full bg-mustard" aria-hidden /> Comercios de cercanía
           </p>
@@ -96,6 +92,35 @@ export default function Home() {
             <Link to="/explorar?open=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Abierto ahora</Link>
             <Link to="/explorar?delivery=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Con delivery</Link>
             <Link to="/explorar?tab=products" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Ver productos</Link>
+          </div>
+          {/* Smaller screens: the same three photos as a short strip under the search. */}
+          <div className="mt-8 grid grid-cols-3 gap-2 lg:hidden" aria-hidden>
+            {['pizza_napolitana.jpg', 'panaderia_cover.jpg', 'verduleria_cover.jpg'].map((src) => (
+              <SafeImage key={src} src={src} alt="" className="aspect-[4/3] w-full rounded-2xl object-cover ring-1 ring-white/10" />
+            ))}
+          </div>
+          </div>
+
+          {/* A tidy collage of the neighborhood: one tall photo and two stacked, offset for rhythm, with a
+              small order card that tells what Detoke does. Decorative, and only where there is room. */}
+          <div className="relative hidden h-[400px] lg:block" aria-hidden>
+            <div className="grid h-full grid-cols-2 grid-rows-1 gap-3">
+              <SafeImage src="pizza_napolitana.jpg" alt="" loading="eager" fetchPriority="high" className="h-full min-h-0 w-full rounded-3xl object-cover object-[center_80%] shadow-2xl ring-1 ring-white/10" />
+              <div className="grid min-h-0 grid-rows-2 gap-3 pt-10">
+                <SafeImage src="panaderia_cover.jpg" alt="" loading="eager" className="h-full min-h-0 w-full rounded-3xl object-cover shadow-2xl ring-1 ring-white/10" />
+                <SafeImage src="verduleria_cover.jpg" alt="" loading="eager" className="h-full min-h-0 w-full rounded-3xl object-cover shadow-2xl ring-1 ring-white/10" />
+              </div>
+            </div>
+            <div className="absolute -left-8 bottom-10 flex items-center gap-3 rounded-2xl bg-card px-4 py-3 text-foreground shadow-2xl">
+              <span className="flex size-9 items-center justify-center rounded-full bg-success/15 text-success"><MessageCircle className="size-5" /></span>
+              <span className="leading-tight">
+                <span className="block text-sm font-semibold">Pedido #12 · Confirmado</span>
+                <span className="block text-xs text-muted-foreground">Lo de Tito · hace 2 min</span>
+              </span>
+            </div>
+            <span className="absolute -top-3 right-6 inline-flex items-center gap-1.5 rounded-full bg-mustard px-3 py-1 text-xs font-semibold text-[oklch(0.25_0.04_80)] shadow-lg">
+              <span className="size-1.5 rounded-full bg-[oklch(0.25_0.04_80)]" /> Abierto ahora
+            </span>
           </div>
         </div>
       </section>

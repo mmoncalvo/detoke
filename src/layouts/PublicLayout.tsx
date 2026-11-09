@@ -79,7 +79,7 @@ export default function PublicLayout() {
 
       <main id="main" className="flex-1"><Outlet /></main>
 
-      <footer className="mt-16 bg-sidebar text-sidebar-foreground">
+      <footer className="noise relative mt-16 bg-sidebar text-sidebar-foreground">
         <Awning />
         <div className="mx-auto flex max-w-page flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
