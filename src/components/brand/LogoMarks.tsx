@@ -106,11 +106,17 @@ export const WORDMARK: WordmarkName = 'quicksand';
  * "detoke!" drawn from the font's outlines (no font to load), in currentColor; its height follows the
  * text size (1em), in one color (`accent` paints the "!" mustard; off by default).
  */
-export function Wordmark({ className, name = WORDMARK, accent = false }: { className?: string; name?: WordmarkName; accent?: boolean }) {
+export type WordmarkDepth = 'flat' | 'extrude' | 'shadow';
+
+export function Wordmark({ className, name = WORDMARK, accent = false, depth = 'extrude' }: { className?: string; name?: WordmarkName; accent?: boolean; depth?: WordmarkDepth }) {
   const w = WORDMARKS[name];
   const [x, y, width, height] = w.viewBox;
+  // A hint of volume: the same letters a little lower, in a darker tone of the text color (so it
+  // works in both themes), or a soft shadow. Small sizes and the monogram stay flat.
+  const under = depth === 'extrude' ? { fill: 'color-mix(in oklch, currentColor 62%, black)', dy: 3.2 } : depth === 'shadow' ? { fill: 'rgb(0 0 0 / 0.22)', dy: 4 } : null;
   return (
-    <svg viewBox={`${x} ${y} ${width} ${height}`} className={cn('h-[1.05em] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke!" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox={`${x} ${y} ${width} ${height + (under?.dy ?? 0)}`} className={cn('h-[1.05em] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke!" xmlns="http://www.w3.org/2000/svg">
+      {under && <g transform={`translate(0 ${under.dy})`} style={{ fill: under.fill }}>{w.letters.map((l, i) => <path key={i} d={l.d} />)}</g>}
       {w.letters.map((l, i) => <path key={i} d={l.d} fill={accent && l.char === '!' ? BRAND.mustard : 'currentColor'} />)}
     </svg>
   );

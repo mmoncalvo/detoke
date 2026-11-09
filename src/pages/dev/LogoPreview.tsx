@@ -1,12 +1,13 @@
 // Development only (/dev/logo): the logo "detoke!" (one color and with a mustard "!"), and the "d!" monogram.
-import { LogoMark, Wordmark } from '@/components/brand/LogoMarks';
+import { LogoMark, Wordmark, type WordmarkDepth } from '@/components/brand/LogoMarks';
 
-function Contexts({ accent, dark }: { accent: boolean; dark: boolean }) {
+function Contexts({ depth, dark }: { depth: WordmarkDepth; dark: boolean }) {
+  const accent = false;
   return (
     <div className={`${dark ? 'dark' : ''} rounded-2xl border`}>
       <div className="space-y-4 rounded-2xl bg-background p-4 text-foreground">
         <div className="flex h-14 items-center gap-6 rounded-xl border bg-navbar px-4">
-          <Wordmark accent={accent} className="text-[1.6rem] text-primary" />
+          <Wordmark depth={depth} accent={accent} className="text-[1.6rem] text-primary" />
           <span className="text-sm text-muted-foreground">Explorar · Nosotros · Contacto</span>
         </div>
         <div className="flex items-end gap-6">
@@ -25,9 +26,9 @@ function Contexts({ accent, dark }: { accent: boolean; dark: boolean }) {
           </div>
         </div>
         <div className="flex items-center rounded-xl bg-sidebar p-4 text-sidebar-accent-foreground">
-          <Wordmark accent={accent} className="text-[1.6rem]" />
+          <Wordmark depth={depth} accent={accent} className="text-[1.6rem]" />
         </div>
-        <Wordmark accent={accent} className="text-6xl text-primary" />
+        <Wordmark depth={depth} accent={accent} className="text-6xl text-primary" />
       </div>
     </div>
   );
@@ -38,14 +39,14 @@ export default function LogoPreview() {
     <div className="mx-auto max-w-page space-y-10 px-4 py-10">
       <div>
         <h1 className="text-3xl font-bold">Logo: detoke!</h1>
-        <p className="text-muted-foreground">Solo en desarrollo. Arriba, la versión en uso (un color); abajo, la alternativa con el “!” en mostaza. El monograma “d!” va donde no entra la palabra.</p>
+        <p className="text-muted-foreground">Solo en desarrollo. Tres tratamientos de volumen para la palabra. El monograma “d!” va donde no entra la palabra.</p>
       </div>
-      {[false, true].map((accent) => (
-        <section key={String(accent)} className="space-y-3">
-          <h2 className="text-xl font-semibold">{accent ? 'Alternativa: “!” en mostaza' : 'En uso: un solo color'}</h2>
+      {([['extrude', 'En uso: volumen sutil (relieve en un tono más oscuro)'], ['shadow', 'Alternativa: sombra suave'], ['flat', 'Plano']] as const).map(([depth, label]) => (
+        <section key={depth} className="space-y-3">
+          <h2 className="text-xl font-semibold">{label}</h2>
           <div className="grid gap-4 lg:grid-cols-2">
-            <Contexts accent={accent} dark={false} />
-            <Contexts accent={accent} dark />
+            <Contexts depth={depth} dark={false} />
+            <Contexts depth={depth} dark />
           </div>
         </section>
       ))}

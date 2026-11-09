@@ -2,7 +2,7 @@
 // Google Fonts and writes src/components/brand/wordmarks.ts with their outlines. No font ships with the app.
 const opentype=require('opentype.js');const fs=require('fs');const os=require('os');const path=require('path');const {execFileSync}=require('child_process');
 const S=fs.mkdtempSync(path.join(os.tmpdir(),'detoke-fonts-'));fs.mkdirSync(`${S}/fonts`);
-const SPECS={'Quicksand.ttf':'Quicksand:wght@600','Nunito.ttf':'Nunito:wght@600','Fredoka.ttf':'Fredoka:wght@500','VarelaRound.ttf':'Varela+Round'};
+const SPECS={'Quicksand.ttf':'Quicksand:wght@700','Nunito.ttf':'Nunito:wght@600','Fredoka.ttf':'Fredoka:wght@500','VarelaRound.ttf':'Varela+Round'};
 for(const [file,spec] of Object.entries(SPECS)){
   const css=execFileSync('curl',['-s',`https://fonts.googleapis.com/css2?family=${spec}&text=detok!`]).toString();
   execFileSync('curl',['-s','-o',`${S}/fonts/${file}`,css.match(/url\((https:[^)]+)\)/)[1]]);
