@@ -2,6 +2,7 @@
 // they still read at 16 px. Brand colors are fixed (a logo looks the same in both themes); `mono`
 // draws everything with currentColor, for one-color uses.
 import { cn } from '@/lib/utils';
+import { WORDMARKS, type WordmarkName } from './wordmarks';
 
 export const BRAND = { green: '#1D5C45', cream: '#FBF7EE', mustard: '#E3A82B' };
 
@@ -16,23 +17,26 @@ function Svg({ className, title, children }: { className?: string; title?: strin
   );
 }
 
-/** Four scalloped stripes between x=5 and x=27, centered in the square. */
+/**
+ * The awning seen slightly from below: four stripes that widen from the valance (x 7–25) to the hem
+ * (x 5–27), each ending in a half-circle scallop of the stripe's width, so the edge is exactly even.
+ */
 const STRIPES = [0, 1, 2, 3].map((i) => {
-  const x0 = 5 + i * 5.5;
-  const x1 = x0 + 5.5;
-  return `M${x0} 11.5H${x1}V19.6A2.75 2.75 0 0 1 ${x0} 19.6Z`;
+  const top = [7 + i * 4.5, 7 + (i + 1) * 4.5];
+  const hem = [5 + i * 5.5, 5 + (i + 1) * 5.5];
+  return `M${top[0]} 10.4L${top[1]} 10.4L${hem[1]} 19.4A2.75 2.75 0 0 1 ${hem[0]} 19.4Z`;
 });
 
-/** A: the shop awning, alone and centered: the brand's signature, readable from 16 px. */
+/** A: the shop awning, alone and centered on the green tile: the brand's signature, readable from 16 px. */
 export function MarkAwning({ className, mono, title }: MarkProps) {
   const bg = mono ? 'currentColor' : BRAND.green;
   const a = mono ? 'var(--background, #fff)' : BRAND.cream;
   const b = mono ? 'var(--background, #fff)' : BRAND.mustard;
   return (
     <Svg className={className} title={title}>
-      <rect width="32" height="32" rx="8" fill={bg} />
-      <rect x="4" y="9" width="24" height="3.2" rx="1.6" fill={a} />
+      <rect width="32" height="32" rx="7.5" fill={bg} />
       {STRIPES.map((d, i) => <path key={d} d={d} fill={i % 2 ? b : a} opacity={mono && i % 2 ? 0.55 : 1} />)}
+      <rect x="6" y="8" width="20" height="3" rx="1.5" fill={a} />
     </Svg>
   );
 }
@@ -78,7 +82,19 @@ export type MarkName = keyof typeof MARKS;
 /** The one in use across the app. */
 export const LogoMark = MarkAwning;
 
-/** "detoke" set in the display font: lowercase, heavy and tight, like a shop sign. */
-export function Wordmark({ className }: { className?: string }) {
-  return <span className={cn('font-display text-[1.35rem] font-extrabold lowercase leading-none tracking-[-0.035em]', className)}>detoke</span>;
+/** The typeface in use for the lettering (see /dev/logo for the others). */
+export const WORDMARK: WordmarkName = 'fraunces';
+
+/**
+ * "detoke" drawn from the font's outlines (no font to load), in currentColor; its height follows the
+ * text size (1em). `accent` paints the "o" mustard: the shop's light in the middle of the name.
+ */
+export function Wordmark({ className, name = WORDMARK, accent = true }: { className?: string; name?: WordmarkName; accent?: boolean }) {
+  const w = WORDMARKS[name];
+  const [x, y, width, height] = w.viewBox;
+  return (
+    <svg viewBox={`${x} ${y} ${width} ${height}`} className={cn('h-[1.05em] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke" xmlns="http://www.w3.org/2000/svg">
+      {w.letters.map((l, i) => <path key={i} d={l.d} fill={accent && l.char === 'o' ? BRAND.mustard : 'currentColor'} />)}
+    </svg>
+  );
 }
