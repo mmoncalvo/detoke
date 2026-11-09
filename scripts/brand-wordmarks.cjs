@@ -1,18 +1,18 @@
-// node scripts/brand-wordmarks.cjs — downloads the four candidate fonts (only the letters of "detoke") from
+// node scripts/brand-wordmarks.cjs — downloads the four candidate fonts (rounded, light) (only the letters of "detoke") from
 // Google Fonts and writes src/components/brand/wordmarks.ts with their outlines. No font ships with the app.
 const opentype=require('opentype.js');const fs=require('fs');const os=require('os');const path=require('path');const {execFileSync}=require('child_process');
 const S=fs.mkdtempSync(path.join(os.tmpdir(),'detoke-fonts-'));fs.mkdirSync(`${S}/fonts`);
-const SPECS={'BricolageGrotesque.ttf':'Bricolage+Grotesque:wght@800','Fraunces.ttf':'Fraunces:opsz,wght@72,800','DMSerifDisplay.ttf':'DM+Serif+Display','Outfit.ttf':'Outfit:wght@800'};
+const SPECS={'Quicksand.ttf':'Quicksand:wght@600','Nunito.ttf':'Nunito:wght@600','Fredoka.ttf':'Fredoka:wght@500','VarelaRound.ttf':'Varela+Round'};
 for(const [file,spec] of Object.entries(SPECS)){
   const css=execFileSync('curl',['-s',`https://fonts.googleapis.com/css2?family=${spec}&text=detok`]).toString();
   execFileSync('curl',['-s','-o',`${S}/fonts/${file}`,css.match(/url\((https:[^)]+)\)/)[1]]);
 }
 // Per font: extra tracking in em and hand tweaks per pair (em), tuned for a heavy lowercase sign.
 const FONTS={
-  bricolage:{file:'BricolageGrotesque.ttf',name:'Bricolage Grotesque',tracking:-0.035,pairs:{to:-0.02,ok:-0.01}},
-  fraunces:{file:'Fraunces.ttf',name:'Fraunces',tracking:-0.02,pairs:{et:-0.01,to:-0.02}},
-  dmserif:{file:'DMSerifDisplay.ttf',name:'DM Serif Display',tracking:0.0,pairs:{to:-0.015}},
-  outfit:{file:'Outfit.ttf',name:'Outfit',tracking:-0.03,pairs:{to:-0.015,ke:-0.01}},
+  quicksand:{file:'Quicksand.ttf',name:'Quicksand',tracking:-0.01,pairs:{to:-0.01}},
+  nunito:{file:'Nunito.ttf',name:'Nunito',tracking:-0.015,pairs:{to:-0.01}},
+  fredoka:{file:'Fredoka.ttf',name:'Fredoka',tracking:-0.01,pairs:{}},
+  varela:{file:'VarelaRound.ttf',name:'Varela Round',tracking:-0.015,pairs:{to:-0.01}},
 };
 const out={};
 for(const [key,f] of Object.entries(FONTS)){

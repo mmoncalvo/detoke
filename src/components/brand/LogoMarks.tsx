@@ -18,13 +18,13 @@ function Svg({ className, title, children }: { className?: string; title?: strin
 }
 
 /**
- * The awning seen slightly from below: four stripes that widen from the valance (x 7–25) to the hem
- * (x 5–27), each ending in a half-circle scallop of the stripe's width, so the edge is exactly even.
+ * Four even stripes (x 6–26) hanging from the valance, each ending in a half-circle scallop of its
+ * width: a friendly, rounded awning that matches the rounded lettering.
  */
 const STRIPES = [0, 1, 2, 3].map((i) => {
-  const top = [7 + i * 4.5, 7 + (i + 1) * 4.5];
-  const hem = [5 + i * 5.5, 5 + (i + 1) * 5.5];
-  return `M${top[0]} 10.4L${top[1]} 10.4L${hem[1]} 19.4A2.75 2.75 0 0 1 ${hem[0]} 19.4Z`;
+  const x0 = 6 + i * 5;
+  const x1 = x0 + 5;
+  return `M${x0} 12H${x1}V19.25A2.5 2.5 0 0 1 ${x0} 19.25Z`;
 });
 
 /** A: the shop awning, alone and centered on the green tile: the brand's signature, readable from 16 px. */
@@ -34,9 +34,9 @@ export function MarkAwning({ className, mono, title }: MarkProps) {
   const b = mono ? 'var(--background, #fff)' : BRAND.mustard;
   return (
     <Svg className={className} title={title}>
-      <rect width="32" height="32" rx="7.5" fill={bg} />
+      <rect width="32" height="32" rx="9" fill={bg} />
       {STRIPES.map((d, i) => <path key={d} d={d} fill={i % 2 ? b : a} opacity={mono && i % 2 ? 0.55 : 1} />)}
-      <rect x="6" y="8" width="20" height="3" rx="1.5" fill={a} />
+      <rect x="5" y="9.25" width="22" height="3.5" rx="1.75" fill={a} />
     </Svg>
   );
 }
@@ -83,13 +83,13 @@ export type MarkName = keyof typeof MARKS;
 export const LogoMark = MarkAwning;
 
 /** The typeface in use for the lettering (see /dev/logo for the others). */
-export const WORDMARK: WordmarkName = 'fraunces';
+export const WORDMARK: WordmarkName = 'quicksand';
 
 /**
  * "detoke" drawn from the font's outlines (no font to load), in currentColor; its height follows the
- * text size (1em). `accent` paints the "o" mustard: the shop's light in the middle of the name.
+ * text size (1em), in one color (`accent` would paint the "o" mustard; off).
  */
-export function Wordmark({ className, name = WORDMARK, accent = true }: { className?: string; name?: WordmarkName; accent?: boolean }) {
+export function Wordmark({ className, name = WORDMARK, accent = false }: { className?: string; name?: WordmarkName; accent?: boolean }) {
   const w = WORDMARKS[name];
   const [x, y, width, height] = w.viewBox;
   return (
