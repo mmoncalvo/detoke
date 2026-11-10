@@ -190,6 +190,7 @@
   background-size: 200px 200px;
   mix-blend-mode: overlay;
   opacity: 0.5;
+
   /* On the near-black green of dark mode overlay does nothing: the grain lightens instead. */
   .dark & {
     mix-blend-mode: screen;
@@ -199,28 +200,48 @@
 
 /* Hero photos: they drop onto the table on load, then float gently (each photo sets its own pace). */
 @keyframes hero-drop {
-  from { transform: translateY(36px) scale(0.86) rotate(-6deg); }
-  to { transform: none; }
+  from {
+    transform: translateY(36px) scale(0.86) rotate(-6deg);
+  }
+
+  to {
+    transform: none;
+  }
 }
+
 @keyframes hero-float {
-  0%, 100% { transform: translateY(0) rotate(0deg); }
-  50% { transform: translateY(-7px) rotate(0.9deg); }
+
+  0%,
+  100% {
+    transform: translateY(0) rotate(0deg);
+  }
+
+  50% {
+    transform: translateY(-7px) rotate(0.9deg);
+  }
 }
+
 .hero-drop {
   /* backwards, not both: once landed, no animated style is left on the photo (a filled 3D layer stopped painting in Chrome). */
   animation: hero-drop 900ms cubic-bezier(0.22, 1, 0.36, 1) backwards;
 }
+
 .hero-float {
   animation: hero-float 7s ease-in-out infinite;
 }
+
 @media (prefers-reduced-motion: reduce) {
-  .hero-drop, .hero-float { animation: none; }
+
+  .hero-drop,
+  .hero-float {
+    animation: none;
+  }
 }
 
 /* The scalloped shop awning used as the brand's signature edge. */
 @utility awning {
   height: 18px;
-  background: repeating-linear-gradient(90deg, var(--primary) 0 32px, var(--mustard) 32px 64px);
+  background: repeating-linear-gradient(90deg, #5ab086 0 32px, #d7a646 32px 64px);
   mask: radial-gradient(16px at 16px 2px, #000 98%, transparent) 0 0 / 32px 100% repeat-x;
 }
 

@@ -56,54 +56,55 @@ export default function Home() {
 
   return (
     <>
-      <section className="relative overflow-hidden bg-sidebar text-sidebar-accent-foreground">
+      <section className="relative overflow-hidden bg-sidebar dark:bg-hero text-sidebar-accent-foreground dark:border dark:border-sidebar-border/60 dark:shadow-[0_24px_60px_-16px_rgb(0_0_0/0.4)]">
         <div className="noise-layer" aria-hidden />
         <Awning className="relative" />
         <div className="relative mx-auto grid max-w-page items-center gap-10 px-4 pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_480px]">
           <div className="min-w-0">
-          <p className="relative inline-flex items-center gap-2 rounded-full bg-sidebar-accent px-3 py-1 text-sm font-medium text-mustard">
-            <span className="size-1.5 rounded-full bg-mustard" aria-hidden /> Comercios de cercanía
-          </p>
-          <h1 className="relative mt-4 max-w-2xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
-            Todo el barrio, <span className="text-mustard block">de toque.</span>
-          </h1>
-          <p className="relative mt-5 max-w-lg text-base text-sidebar-foreground sm:text-lg">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
-          <form
-            className="relative mt-8 flex max-w-xl cursor-text items-center gap-2 rounded-xl bg-card p-1.5 shadow-2xl shadow-black/25"
-            role="search"
-            onSubmit={(e) => { e.preventDefault(); navigate(`/explorar?search=${encodeURIComponent(query)}`); }}
-            onClick={(e) => {
-              // Any empty spot of the box puts the cursor in the field.
-              if (!(e.target as HTMLElement).closest('button')) document.getElementById('home-search')?.focus();
-            }}
-          >
-            <label htmlFor="home-search" className="flex h-11 cursor-pointer items-center pl-2.5 pr-1">
-              <Search className="size-5 shrink-0 text-muted-foreground" />
-              <span className="sr-only">Buscar negocios</span>
-            </label>
-            <input
-              id="home-search"
-              type="search"
-              name="detoke-home-query"
-              {...NO_AUTOFILL}
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              placeholder="¿Qué estás buscando?"
-              className="h-11 min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
-            />
-            <Button type="submit" size="lg">Buscar</Button>
-          </form>
-          <div className="relative mt-4 flex flex-wrap gap-2 text-sm">
-            <Link to="/explorar?open=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Abierto ahora</Link>
-            <Link to="/explorar?delivery=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Con delivery</Link>
-            <Link to="/explorar?tab=products" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Ver productos</Link>
-          </div>
-          {/* Smaller screens: three photos overlapping, a reduced version of the collage. */}
-          <div className="relative mx-auto mt-10 h-48 max-w-sm lg:hidden" aria-hidden>
-            <SafeImage src="panaderia_cover.jpg" alt="" className={`${PHOTO} left-0 top-4 h-36 w-[42%] -rotate-6`} />
-            <SafeImage src="verduleria_cover.jpg" alt="" className={`${PHOTO} right-0 top-0 h-36 w-[42%] rotate-6`} />
-            <SafeImage src="pizza_napolitana.jpg" alt="" className={`${PHOTO} bottom-0 left-1/2 z-10 h-40 w-[48%] -translate-x-1/2 rotate-[-2deg]`} />
-          </div>
+            <p className="relative inline-flex items-center gap-2 rounded-full bg-sidebar-accent px-3 py-1 text-sm font-medium text-mustard">
+              <span className="size-1.5 rounded-full bg-mustard" aria-hidden /> Comercios de cercanía
+            </p>
+            <h1 className="relative mt-4 max-w-2xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
+              Todo el barrio, <span className="text-mustard block">de toque.</span>
+            </h1>
+            <p className="relative mt-5 max-w-lg text-base text-sidebar-foreground sm:text-lg">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
+            <form
+              className="relative mt-8 flex max-w-xl cursor-text items-center gap-2 rounded-xl bg-card border-2 border-input p-1.5 shadow-2xl shadow-black/25 "
+              role="search"
+              onSubmit={(e) => { e.preventDefault(); navigate(`/explorar?search=${encodeURIComponent(query)}`); }}
+              onClick={(e) => {
+                // Any empty spot of the box puts the cursor in the field.
+                if (!(e.target as HTMLElement).closest('button')) document.getElementById('home-search')?.focus();
+              }}
+            >
+              <label htmlFor="home-search" className="flex h-11 cursor-pointer items-center pl-2.5 pr-1">
+                <Search className="size-5 shrink-0 text-muted-foreground" />
+                <span className="sr-only">Buscar negocios</span>
+              </label>
+              <input
+                id="home-search"
+                type="text"
+                name="detoke-home-query"
+                {...NO_AUTOFILL}
+                autoComplete="off"
+                value={query}
+                onChange={(e) => setQuery(e.target.value)}
+                placeholder="¿Qué estás buscando?"
+                className="h-11 min-w-0 flex-1 bg-transparent text-base text-foreground outline-none placeholder:text-muted-foreground [&::-webkit-search-cancel-button]:hidden"
+              />
+              <Button type="submit" size="lg">Buscar</Button>
+            </form>
+            <div className="relative mt-4 flex flex-wrap gap-2 text-sm">
+              <Link to="/explorar?open=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Abierto ahora</Link>
+              <Link to="/explorar?delivery=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Con delivery</Link>
+              <Link to="/explorar?tab=products" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Ver productos</Link>
+            </div>
+            {/* Smaller screens: three photos overlapping, a reduced version of the collage. */}
+            <div className="relative mx-auto mt-10 h-48 max-w-sm lg:hidden" aria-hidden>
+              <SafeImage src="panaderia_cover.jpg" alt="" className={`${PHOTO} left-0 top-4 h-36 w-[42%] -rotate-6`} />
+              <SafeImage src="verduleria_cover.jpg" alt="" className={`${PHOTO} right-0 top-0 h-36 w-[42%] rotate-6`} />
+              <SafeImage src="pizza_napolitana.jpg" alt="" className={`${PHOTO} bottom-0 left-1/2 z-10 h-40 w-[48%] -translate-x-1/2 rotate-[-2deg]`} />
+            </div>
           </div>
 
           <HeroCollage className="hidden h-[440px] lg:block" />

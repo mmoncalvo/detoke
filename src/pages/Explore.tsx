@@ -1,5 +1,5 @@
 import { PackageSearch, Search, SearchX, X } from 'lucide-react';
-import { useEffect, useMemo, useState } from 'react';
+import { useEffect, useMemo, useRef, useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
 import type { Business, BusinessCategory, Product, ProductCategory } from '@shared/types';
 import { BusinessCard, BusinessCardSkeleton } from '@/components/business/BusinessCard';
@@ -41,6 +41,7 @@ export default function Explore() {
   const [text, setText] = useState(search);
   const [visible, setVisible] = useState(PAGE_SIZE);
   const [selected, setSelected] = useState<Product | null>(null);
+  const chipContainer = useRef<HTMLDivElement>(null);
 
   const update = (changes: Record<string, string | null>) => {
     setParams((current) => {
@@ -65,6 +66,14 @@ export default function Explore() {
 
   const businessCategories = useFetch<BusinessCategory[]>('/business-categories');
   const productCategories = useFetch<ProductCategory[]>('/product-categories');
+
+  // Cuando se elige una categoría (incluido al llegar desde un tag de la home), la lleva al área
+  // visible del listado horizontal para que el usuario vea qué filtro está activo.
+  useEffect(() => {
+    if (!chipContainer.current || !category) return;
+    const active = chipContainer.current.querySelector<HTMLElement>('[aria-pressed="true"]');
+    if (active) active.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+  }, [category, tab, businessCategories.data, productCategories.data]);
 
   const query = useMemo(() => {
     const q = new URLSearchParams();
@@ -92,19 +101,36 @@ export default function Explore() {
     <div className="mx-auto max-w-page px-4 py-8">
       <h1 className="text-3xl font-bold sm:text-4xl">Explorar</h1>
 
-      <div className="mt-5 flex flex-col gap-3 sm:flex-row sm:items-center">
+      <div className="mt-5 flex flex-col gap-4 md:flex-row md:items-center bg-card p-2 rounded-xl">
         <Tabs value={tab} onValueChange={(value) => update({ tab: value === 'products' ? 'products' : null, category: null })}>
-          <TabsList>
-            <TabsTrigger value="businesses">Negocios</TabsTrigger>
-            <TabsTrigger value="products">Productos</TabsTrigger>
+          <TabsList className='size-full gap-2 min-h-10'>
+            <TabsTrigger className='size-full' value="businesses">Negocios</TabsTrigger>
+            <TabsTrigger className='size-full' value="products">Productos</TabsTrigger>
           </TabsList>
         </Tabs>
         <div className="relative flex-1">
-          <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-          <Input noAutofill value={text} onChange={(e) => setText(e.target.value)} placeholder={tab === 'businesses' ? 'Nombre, rubro o barrio' : 'Nombre del producto'} className="bg-card pl-9" aria-label="Buscar" />
+          <Search className="absolute left-4 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+          <Input
+            noAutofill
+            value={text}
+            onChange={(e) => setText(e.target.value)}
+            placeholder={tab === 'businesses' ? 'Nombre, rubro o barrio' : 'Nombre del producto'}
+            className="bg-background p-4 py-2 pl-10 pr-10 focus-visible:ring-0 focus-visible:border-border"
+            aria-label="Buscar"
+          />
+          {text && (
+            <button
+              type="button"
+              onClick={() => { setText(''); setParams((p) => { p.delete('search'); return p; }, { replace: true }); }}
+              className="absolute right-4 top-1/2 -translate-y-1/2 size-5 p-0.5 text-muted-foreground hover:text-foreground hover:bg-accent rounded-full transition-colors"
+              aria-label="Borrar búsqueda"
+            >
+              <X className="size-4" />
+            </button>
+          )}
         </div>
         {tab === 'businesses' && (
-          <div className="flex items-center gap-5">
+          <div className="flex items-center md:justify-end gap-8 min-w-[300px] p-4 md:py-0">
             <div className="flex items-center gap-2">
               <Switch id="open-now" checked={open} onCheckedChange={(v) => update({ open: v ? 'true' : null })} />
               <Label htmlFor="open-now">Abierto ahora</Label>
@@ -117,13 +143,13 @@ export default function Explore() {
         )}
       </div>
 
-      <div className="-mx-4 mt-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+      <div ref={chipContainer} className="-mx-4 my-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
         <Chip active={!category} onClick={() => update({ category: null })}>Todos</Chip>
         {tab === 'businesses'
           ? (businessCategories.data ?? []).filter((c) => (c.businessCount ?? 0) > 0).map((c) => {
-              const Icon = categoryIcon(c.icon);
-              return <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}><Icon className="size-4" /> {c.name}</Chip>;
-            })
+            const Icon = categoryIcon(c.icon);
+            return <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}><Icon className="size-4" /> {c.name}</Chip>;
+          })
           : (productCategories.data ?? []).map((c) => <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}>{c.name}</Chip>)}
       </div>
 
