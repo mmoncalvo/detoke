@@ -115,7 +115,7 @@ export default function Explore() {
             value={text}
             onChange={(e) => setText(e.target.value)}
             placeholder={tab === 'businesses' ? 'Nombre, rubro o barrio' : 'Nombre del producto'}
-            className="bg-background p-4 py-2 pl-10 pr-10 focus-visible:ring-0 focus-visible:border-border"
+            className="bg-background p-4 py-2 pl-10 pr-10"
             aria-label="Buscar"
           />
           {text && (

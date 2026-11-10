@@ -38,8 +38,8 @@ export function ProductCard({ product, business, showBusiness, onOpen }: { produ
           <h3 className="line-clamp-2 font-sans text-sm font-semibold leading-snug">{product.name}</h3>
         </button>
         {showBusiness && <Link to={`/negocio/${business.slug}`} className="mt-0.5 truncate text-xs text-muted-foreground hover:underline">{business.name}</Link>}
-        <div className="mt-auto flex items-center justify-between gap-2 pt-2">
-          <ProductPrice product={product} className="min-w-0 text-[15px]" />
+        <div className="mt-auto flex items-center justify-between gap-2 pt-2 min-h-14">
+          <ProductPrice product={product} className="min-w-0 text-[15px] flex-nowrap" />
           {quantity === 0 && (
             <Button
               size="icon"
@@ -50,8 +50,8 @@ export function ProductCard({ product, business, showBusiness, onOpen }: { produ
               <Plus className="size-5" />
             </Button>
           )}
+          {quantity > 0 && <div><QuantityStepper quantity={quantity} name={product.name} onChange={(q) => setQuantity(product.id, q)} /></div>}
         </div>
-        {quantity > 0 && <div className="mt-2"><QuantityStepper quantity={quantity} name={product.name} onChange={(q) => setQuantity(product.id, q)} /></div>}
       </div>
     </article>
   );

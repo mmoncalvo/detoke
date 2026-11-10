@@ -1,5 +1,5 @@
 import { AtSign, BadgeCheck, Bike, Clock, CreditCard, Globe, MapPin, MessageCircle, PackageOpen, Search, Share2, Store } from 'lucide-react';
-import { lazy, Suspense, useMemo, useState } from 'react';
+import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { DAYS, DAY_LABELS, fold, formatDayHours, PAYMENT_LABELS, todayKey } from '@shared/business';
@@ -61,6 +61,9 @@ export default function BusinessPage() {
   const [selected, setSelected] = useState<Product | null>(null);
   const [search, setSearch] = useState('');
   const [photo, setPhoto] = useState<string | null>(null);
+  const [activeSection, setActiveSection] = useState<string | null>(null);
+  const [stickyHeight, setStickyHeight] = useState(0);
+  const stickyRef = useRef<HTMLDivElement>(null);
   useTitle(business?.name);
 
   const sections = useMemo(() => {
@@ -75,6 +78,54 @@ export default function BusinessPage() {
     }
     return [...groups.values()].sort((a, b) => a.position - b.position);
   }, [business, search]);
+
+  // Marca el tag de la sección activa según la posición de scroll. Usa offsetTop de cada sección
+  // (monotónico) en lugar de distancia al centro, así el tag no parpadea al llegar al límite
+  // entre dos secciones: cambia solo cuando el scroll entra claramente en la siguiente.
+  useEffect(() => {
+    let raf = 0;
+    let current: string | null = null;
+
+    const update = () => {
+      raf = 0;
+      const trigger = window.scrollY + window.innerHeight * 0.35;
+      let next: string | null = null;
+      for (const s of sections) {
+        const el = document.getElementById(`section-${s.id}`);
+        if (!el) continue;
+        if (el.offsetTop <= trigger) next = s.id;
+        else break;
+      }
+      if (next && next !== current) {
+        current = next;
+        setActiveSection(next);
+      }
+    };
+
+    const onScroll = () => {
+      if (!raf) raf = requestAnimationFrame(update);
+    };
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    update();
+    return () => {
+      if (raf) cancelAnimationFrame(raf);
+      window.removeEventListener('scroll', onScroll);
+    };
+  }, [sections]);
+
+  // Mide el alto del nav sticky (buscador + tags) para que las secciones queden justo por
+  // debajo de su borde inferior al hacer scroll o al saltar desde un tag.
+  useEffect(() => {
+    const el = stickyRef.current;
+    if (!el) return;
+    const measure = () => setStickyHeight(el.offsetHeight);
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
+  const scrollMargin = `calc(64px + ${stickyHeight}px)`;
 
   if (loading && !business) {
     return (
@@ -128,14 +179,28 @@ export default function BusinessPage() {
 
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0">
-            <div className="sticky top-16 z-20 -mx-4 bg-background/95 px-4 pb-3 pt-3 backdrop-blur sm:mx-0 sm:px-0">
+            <div className="sticky top-16 z-20 -mx-4 bg-background/95 px-4 pb-3 pt-3 backdrop-blur sm:mx-0 sm:px-0" ref={stickyRef}>
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
                 <Input noAutofill value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Buscar en ${business.name}`} className="bg-card pl-9" aria-label="Buscar productos" />
               </div>
               {sections.length > 1 && (
                 <nav aria-label="Categorías de productos" className="mt-2 flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
-                  {sections.map((s) => <a key={s.id} href={`#section-${s.id}`} className="shrink-0 rounded-full bg-secondary px-3 py-1 text-sm font-medium hover:bg-accent">{s.name}</a>)}
+                  {sections.map((s) => (
+                    <a
+                      key={s.id}
+                      href={`#section-${s.id}`}
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setActiveSection(s.id);
+                        const el = document.getElementById(`section-${s.id}`);
+                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                      }}
+                      className={`shrink-0 rounded-full px-3 py-1 text-sm font-medium transition-colors ${activeSection === s.id ? 'bg-primary text-primary-foreground hover:bg-primary' : 'bg-secondary hover:bg-accent'}`}
+                    >
+                      {s.name}
+                    </a>
+                  ))}
                 </nav>
               )}
             </div>
@@ -143,8 +208,8 @@ export default function BusinessPage() {
             {sections.length === 0 ? (
               <EmptyState icon={PackageOpen} title={search ? 'No encontramos ese producto' : 'Todavía no hay productos publicados'} description={search ? 'Probá con otra palabra.' : 'Podés consultar por WhatsApp.'} />
             ) : sections.map((section) => (
-              <section key={section.id} id={`section-${section.id}`} className="mt-5">
-                <h2 className="mb-3 text-xl font-bold">{section.name}</h2>
+              <section key={section.id} id={`section-${section.id}`} className="mt-8" style={{ scrollMarginTop: scrollMargin }}>
+                <h2 className="mb-4 mt-6 text-xl font-bold border-b border-foreground/20 dark:border-foreground/8 pb-2">{section.name}</h2>
                 <div className="grid grid-cols-2 gap-4 sm:grid-cols-3 xl:grid-cols-4">
                   {section.products.map((p) => <ProductCard key={p.id} product={p} business={business} onOpen={() => setSelected(p)} />)}
                 </div>
@@ -152,8 +217,8 @@ export default function BusinessPage() {
             ))}
 
             {business.gallery.length > 0 && (
-              <section className="mt-10">
-                <h2 className="mb-3 text-xl font-bold">Galería</h2>
+              <section className="mt-12">
+                <h2 className="mb-4 mt-6 text-xl font-bold border-b border-foreground/20 dark:border-foreground/8 pb-2">Galería</h2>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {business.gallery.map((src) => (
                     <button key={src} onClick={() => setPhoto(src)} className="overflow-hidden rounded-xl" aria-label="Ampliar foto">

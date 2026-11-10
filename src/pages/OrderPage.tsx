@@ -21,17 +21,27 @@ function Timeline({ order }: { order: Order }) {
   const stopped = order.status === 'cancelled';
   const last = order.statusHistory.at(-1);
 
+  // Si el pedido saltó directamente a completed (o confirmed) sin pasar por los
+  // estados intermedios, se muestra como si hubiera atravesado todo el flujo.
+  const currentStepIndex = steps.indexOf(order.status);
+  const effectiveSteps = new Set(reached.keys());
+  if (currentStepIndex > 0) {
+    for (let i = 0; i < currentStepIndex; i++) effectiveSteps.add(steps[i]);
+  }
+
   return (
     <ol className="space-y-0">
       {steps.filter((step) => !stopped || reached.has(step)).map((step, i, shown) => {
         const at = reached.get(step);
         const current = order.status === step;
+        const reachedStep = effectiveSteps.has(step);
+        const nextReached = i < shown.length - 1 ? effectiveSteps.has(shown[i + 1]) : false;
         return (
           <li key={step} className="relative flex gap-3 pb-5 last:pb-0">
-            {i < shown.length - 1 && <span className={`absolute left-[11px] top-6 h-full w-0.5 ${at && reached.get(shown[i + 1]) ? 'bg-primary' : 'bg-border'}`} aria-hidden />}
-            {at ? <CheckCircle2 className={`relative size-6 shrink-0 ${current ? 'text-primary' : 'text-primary/70'}`} /> : <Circle className="relative size-6 shrink-0 text-border" />}
+            {i < shown.length - 1 && <span className={`absolute left-[11px] top-6 h-full w-0.5 ${reachedStep && nextReached ? 'bg-primary' : 'bg-border'}`} aria-hidden />}
+            {reachedStep ? <CheckCircle2 className={`relative size-6 shrink-0 ${current ? 'text-primary' : 'text-primary/70'}`} /> : <Circle className="relative size-6 shrink-0 text-border" />}
             <div className="min-w-0">
-              <p className={current ? 'font-semibold' : at ? '' : 'text-muted-foreground'}>{statusLabel(step)}</p>
+              <p className={current ? 'font-semibold' : reachedStep ? '' : 'text-muted-foreground'}>{statusLabel(step)}</p>
               {at && <p className="text-xs text-muted-foreground">{formatDateTime(at)}</p>}
             </div>
           </li>

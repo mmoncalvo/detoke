@@ -77,7 +77,7 @@ export default function Orders() {
   const { business } = useAuth();
   // Kept in the URL, like the filters of Explorar; the tab is also remembered in the browser for the next visit.
   const [status, setStatus] = useUrlState('status', ALL, { persist: 'detoke.orders.status', allowed: TABS });
-  const [period, setPeriod] = useUrlState('period', 'today');
+  const [period, setPeriod] = useUrlState('period', 'week');
   const [sound, setSound] = useState(readSoundPreference);
   const days = (PERIODS[period] ?? PERIODS.today).days;
 
