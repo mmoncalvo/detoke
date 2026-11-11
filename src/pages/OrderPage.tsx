@@ -40,7 +40,15 @@ function Timeline({ order }: { order: Order }) {
         return (
           <li key={step} className="relative flex gap-3 pb-5 last:pb-0">
             {i < shown.length - 1 && <span className={`absolute left-[11px] top-6 h-full w-0.5 ${reachedStep && nextReached ? 'bg-primary' : 'bg-border'}`} aria-hidden />}
-            {reachedStep ? <CheckCircle2 className={`relative size-6 shrink-0 ${current ? 'text-primary' : 'text-primary/70'}`} /> : <Circle className="relative size-6 shrink-0 text-border" />}
+            {reachedStep ? (
+              <span className="relative size-6 shrink-0 rounded-full bg-card flex items-center justify-center z-10">
+                <CheckCircle2 className={`size-4 ${current ? 'text-primary' : 'text-primary/70'}`} />
+              </span>
+            ) : (
+              <span className="relative size-6 shrink-0 rounded-full bg-card flex items-center justify-center z-10">
+                <Circle className="size-4 text-border" />
+              </span>
+            )}
             <div className="min-w-0">
               <p className={current ? 'font-semibold' : reachedStep ? '' : 'text-muted-foreground'}>{statusLabel(step)}</p>
               {at && <p className="text-xs text-muted-foreground">{formatDateTime(at)}</p>}
