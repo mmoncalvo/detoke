@@ -18,6 +18,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { formatPrice, whatsappUrl } from '@/lib/format';
+import { isMobile } from '@/lib/whatsapp';
 import { imageUrl } from '@/lib/images';
 import NotFound from './NotFound';
 
@@ -166,7 +167,7 @@ export default function BusinessPage() {
               <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
             </div>
             <div className="flex gap-2">
-              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)}><MessageCircle /> WhatsApp</a></Button>
+              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} target={isMobile() ? undefined : '_blank'} rel={isMobile() ? undefined : 'noreferrer'}><MessageCircle /> WhatsApp</a></Button>
               <Button variant="outline" size="icon" aria-label="Compartir" onClick={share}><Share2 className="size-4" /></Button>
             </div>
           </div>

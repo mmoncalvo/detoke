@@ -14,6 +14,7 @@ import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
 import { useTitle } from '@/hooks/useTitle';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { formatDateTime, statusVariant } from '@/lib/orders';
+import { isMobile } from '@/lib/whatsapp';
 
 function Timeline({ order }: { order: Order }) {
   const steps = STATUS_STEPS;
@@ -150,7 +151,7 @@ export default function OrderPage() {
         <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm text-muted-foreground">Este negocio no está disponible en Detoke por ahora. Si tenés dudas sobre el pedido, escribile directamente.</p>
       )}
       {!order.canManage && (
-        <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness}><MessageCircle /> Escribirle a {business.name}</a></Button>
+        <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness} target={isMobile() ? undefined : '_blank'} rel={isMobile() ? undefined : 'noreferrer'}><MessageCircle /> Escribirle a {business.name}</a></Button>
       )}
     </div>
   );

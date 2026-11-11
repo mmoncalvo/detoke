@@ -11,6 +11,7 @@ import { useCart } from '@/context/CartContext';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
 import { formatPrice, whatsappUrl } from '@/lib/format';
+import { openWhatsApp } from '@/lib/whatsapp';
 import { itemCount, orderMessage, statusVariant, timeAgo } from '@/lib/orders';
 import { isActive, pruneRecentOrders, readRecentOrders, removeRecentOrders, updateRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 
@@ -89,8 +90,8 @@ function removeOne(order: RecentOrder) {
 
 function RecentOrderCard({ order, onNavigate, repeat, repeating, removable, onRemove }: { order: RecentOrder; onNavigate?: () => void; repeat: (o: RecentOrder, after?: () => void) => void; repeating: boolean; removable: boolean; onRemove?: (order: RecentOrder) => void }) {
   const count = itemCount(order);
-  // Same tab: on a phone it opens the WhatsApp app, and Back returns here.
-  const resend = () => window.location.assign(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
+  // On desktop it opens in a new tab (WhatsApp Web), on a phone in the same tab so the app launches and Back returns here.
+  const resend = () => openWhatsApp(whatsappUrl(order.businessWhatsapp, orderMessage(order.url)));
 
   return (
     <li className="rounded-xl border bg-card p-3">
