@@ -5,7 +5,7 @@ export const RECENT_ORDERS_KEY = 'detoke.recentOrders';
 const CHANGE_EVENT = 'detoke:recent-orders';
 export const MAX_RECENT_ORDERS = 20;
 /** Delivered or cancelled orders leave the list after this long. */
-export const KEEP_FINISHED_MS = 2 * 24 * 60 * 60 * 1000;
+export const KEEP_FINISHED_MS = 30 * 24 * 60 * 60 * 1000;
 
 export interface RecentOrder {
   publicCode: string;
@@ -61,7 +61,7 @@ export function removeRecentOrders(list: RecentOrder[], codes: string[]): Recent
   return list.filter((o) => !codes.includes(o.publicCode));
 }
 
-/** Drops orders the server no longer has and finished ones older than two days. */
+/** Drops orders the server no longer has and finished ones older than 30 days. */
 export function pruneRecentOrders(list: RecentOrder[], now = Date.now(), missing: string[] = []): RecentOrder[] {
   return list.filter((o) => !missing.includes(o.publicCode) && (isActive(o) || now - new Date(o.updatedAt).getTime() < KEEP_FINISHED_MS));
 }
