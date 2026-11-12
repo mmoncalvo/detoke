@@ -25,7 +25,7 @@ const arg = (name: string) => {
   const index = process.argv.indexOf(name);
   return index > 0 ? process.argv[index + 1] : undefined;
 };
-const only = arg('--only')?.split(',').map((name) => name.trim());
+const only = arg('--only')?.split(/,(?!\d)/).map((name) => name.trim());
 const pick = Number(arg('--pick') ?? 0);
 const placesFile = arg('--places')?.replace(/^~/, os.homedir());
 const pexelsKey = process.env.PEXELS_API_KEY?.trim();
@@ -50,7 +50,7 @@ async function searchPexels(query: string) {
 }
 
 async function searchOpenverse(query: string) {
-  const response = await fetch(`https://api.openverse.org/v1/images/?q=${encodeURIComponent(query)}&license_type=commercial&page_size=8&mature=false`, { headers: { 'User-Agent': 'detoke-seed/1.0' } });
+  const response = await fetch(`https://api.openverse.org/v1/images/?q=${encodeURIComponent(query)}&license_type=commercial&page_size=20&mature=false`, { headers: { 'User-Agent': 'detoke-seed/1.0' } });
   if (!response.ok) throw new Error(`Openverse ${response.status}`);
   const body = (await response.json()) as { results: { url: string; creator: string | null; license: string; license_version: string; foreign_landing_url: string }[] };
   return body.results.map((r) => ({ url: r.url, credit: { source: 'Openverse', author: r.creator, license: `CC ${r.license.toUpperCase()} ${r.license_version}`, page: r.foreign_landing_url } }));

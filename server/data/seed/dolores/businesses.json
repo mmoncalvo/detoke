@@ -10,11 +10,10 @@
   "tagline": "Pizzas con envío sin costo",
   "description": "Pizzería de delivery de jueves a domingo de noche. También chivitos.",
   "logo": "/seed/logos/dolores/saday-pizzas.svg",
-  "coverImage": "pizzeria_cover.jpg",
+  "coverImage": "dolores/saday-pizzas-1.jpg",
   "gallery": [
-   "pizza_napolitana.jpg",
-   "pizza_especial.jpg",
-   "fugazzeta.jpg"
+   "dolores/saday-pizzas-3.jpg",
+   "dolores/saday-pizzas-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "092 605 707",
@@ -97,7 +96,7 @@
     "description": "Salsa de tomate casera, muzzarella y aceitunas. 8 porciones.",
     "price": 550,
     "images": [
-     "pizza_napolitana_gourmet.jpg"
+     "dolores/products/pizza-muzzarella.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -110,7 +109,7 @@
     "description": "Muzzarella, rodajas de tomate fresco, ajo y albahaca. 8 porciones.",
     "price": 630,
     "images": [
-     "pizza_napolitana.jpg"
+     "dolores/products/pizza-napolitana.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -123,7 +122,7 @@
     "description": "Muzzarella, jamón, morrón y huevo duro. 8 porciones.",
     "price": 690,
     "images": [
-     "pizza_especial.jpg"
+     "dolores/products/pizza-especial.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -137,7 +136,7 @@
     "description": "Masa alta rellena de muzzarella, con cebolla dorada arriba.",
     "price": 600,
     "images": [
-     "fugazzeta.jpg"
+     "dolores/products/fugazzeta.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -150,7 +149,7 @@
     "description": "Porción grande de fainá de garbanzos, crocante por fuera.",
     "price": 100,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -163,7 +162,7 @@
     "description": "Masa cerrada al horno con jamón cocido, muzzarella y orégano.",
     "price": 400,
     "images": [
-     "calzone_artesanal.jpg"
+     "dolores/products/calzone-de-jamon-y-queso.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -176,7 +175,7 @@
     "description": "Masa de larga fermentación, queso crema y hierbas.",
     "price": 420,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -189,7 +188,7 @@
     "description": "Carne cortada a cuchillo, cebolla, huevo y aceitunas.",
     "price": 100,
     "images": [
-     "empanadas_de_carne.jpg"
+     "dolores/products/empanada-de-carne.jpg"
     ],
     "category": "empanadas",
     "featured": false,
@@ -202,7 +201,7 @@
     "description": "Pollo desmenuzado con cebolla y morrón.",
     "price": 100,
     "images": [
-     "empanadas_de_pollo.jpg"
+     "dolores/products/empanada-de-pollo.jpg"
     ],
     "category": "empanadas",
     "featured": false,
@@ -215,7 +214,7 @@
     "description": "Rubia, tirada en botella retornable.",
     "price": 200,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-artesanal-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -228,7 +227,7 @@
     "description": "Bien fría.",
     "price": 160,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -248,11 +247,10 @@
   "tagline": null,
   "description": "Pizzería con salón.",
   "logo": "/seed/logos/dolores/sabores-nuestros.svg",
-  "coverImage": "pizza_napolitana.jpg",
+  "coverImage": "dolores/sabores-nuestros-1.jpg",
   "gallery": [
-   "pizza_napolitana.jpg",
-   "pizza_especial.jpg",
-   "fugazzeta.jpg"
+   "dolores/sabores-nuestros-3.jpg",
+   "dolores/sabores-nuestros-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "092 110 162",
@@ -335,7 +333,7 @@
     "description": "Salsa de tomate casera, muzzarella y aceitunas. 8 porciones.",
     "price": 550,
     "images": [
-     "pizza_napolitana_gourmet.jpg"
+     "dolores/products/pizza-muzzarella.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -348,7 +346,7 @@
     "description": "Muzzarella, rodajas de tomate fresco, ajo y albahaca. 8 porciones.",
     "price": 630,
     "images": [
-     "pizza_napolitana.jpg"
+     "dolores/products/pizza-napolitana.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -361,7 +359,7 @@
     "description": "Muzzarella, jamón, morrón y huevo duro. 8 porciones.",
     "price": 690,
     "images": [
-     "pizza_especial.jpg"
+     "dolores/products/pizza-especial.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -375,7 +373,7 @@
     "description": "Masa alta rellena de muzzarella, con cebolla dorada arriba.",
     "price": 600,
     "images": [
-     "fugazzeta.jpg"
+     "dolores/products/fugazzeta.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -388,7 +386,7 @@
     "description": "Porción grande de fainá de garbanzos, crocante por fuera.",
     "price": 100,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -401,7 +399,7 @@
     "description": "Masa cerrada al horno con jamón cocido, muzzarella y orégano.",
     "price": 400,
     "images": [
-     "calzone_artesanal.jpg"
+     "dolores/products/calzone-de-jamon-y-queso.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -414,7 +412,7 @@
     "description": "Masa de larga fermentación, queso crema y hierbas.",
     "price": 420,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -427,7 +425,7 @@
     "description": "Carne cortada a cuchillo, cebolla, huevo y aceitunas.",
     "price": 100,
     "images": [
-     "empanadas_de_carne.jpg"
+     "dolores/products/empanada-de-carne.jpg"
     ],
     "category": "empanadas",
     "featured": false,
@@ -440,7 +438,7 @@
     "description": "Pollo desmenuzado con cebolla y morrón.",
     "price": 100,
     "images": [
-     "empanadas_de_pollo.jpg"
+     "dolores/products/empanada-de-pollo.jpg"
     ],
     "category": "empanadas",
     "featured": false,
@@ -453,7 +451,7 @@
     "description": "Rubia, tirada en botella retornable.",
     "price": 200,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-artesanal-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -466,7 +464,7 @@
     "description": "Bien fría.",
     "price": 160,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -486,11 +484,11 @@
   "tagline": null,
   "description": "Pizzería en 18 de Julio.",
   "logo": "/seed/logos/dolores/la-cantina-1935.svg",
-  "coverImage": "fugazzeta.jpg",
+  "coverImage": "dolores/la-cantina-1935-1.jpg",
   "gallery": [
-   "pizza_napolitana.jpg",
-   "pizza_especial.jpg",
-   "fugazzeta.jpg"
+   "dolores/la-cantina-1935-2.jpg",
+   "dolores/la-cantina-1935-3.jpg",
+   "dolores/la-cantina-1935-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "092 002 309",
@@ -583,7 +581,7 @@
     "description": "Salsa de tomate casera, muzzarella y aceitunas. 8 porciones.",
     "price": 550,
     "images": [
-     "pizza_napolitana_gourmet.jpg"
+     "dolores/products/pizza-muzzarella.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -596,7 +594,7 @@
     "description": "Muzzarella, rodajas de tomate fresco, ajo y albahaca. 8 porciones.",
     "price": 630,
     "images": [
-     "pizza_napolitana.jpg"
+     "dolores/products/pizza-napolitana.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -609,7 +607,7 @@
     "description": "Muzzarella, jamón, morrón y huevo duro. 8 porciones.",
     "price": 690,
     "images": [
-     "pizza_especial.jpg"
+     "dolores/products/pizza-especial.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": true,
@@ -623,7 +621,7 @@
     "description": "Masa alta rellena de muzzarella, con cebolla dorada arriba.",
     "price": 600,
     "images": [
-     "fugazzeta.jpg"
+     "dolores/products/fugazzeta.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -636,7 +634,7 @@
     "description": "Porción grande de fainá de garbanzos, crocante por fuera.",
     "price": 100,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -649,7 +647,7 @@
     "description": "Masa cerrada al horno con jamón cocido, muzzarella y orégano.",
     "price": 400,
     "images": [
-     "calzone_artesanal.jpg"
+     "dolores/products/calzone-de-jamon-y-queso.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -662,7 +660,7 @@
     "description": "Masa de larga fermentación, queso crema y hierbas.",
     "price": 420,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -675,7 +673,7 @@
     "description": "Carne cortada a cuchillo, cebolla, huevo y aceitunas.",
     "price": 100,
     "images": [
-     "empanadas_de_carne.jpg"
+     "dolores/products/empanada-de-carne.jpg"
     ],
     "category": "empanadas",
     "featured": false,
@@ -688,7 +686,7 @@
     "description": "Pollo desmenuzado con cebolla y morrón.",
     "price": 100,
     "images": [
-     "empanadas_de_pollo.jpg"
+     "dolores/products/empanada-de-pollo.jpg"
     ],
     "category": "empanadas",
     "featured": false,
@@ -701,7 +699,7 @@
     "description": "Rubia, tirada en botella retornable.",
     "price": 200,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-artesanal-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -714,7 +712,7 @@
     "description": "Bien fría.",
     "price": 160,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -734,11 +732,9 @@
   "tagline": "Chivitos y minutas",
   "description": "Minutas, chivitos y comida al paso, con salón y delivery.",
   "logo": "/seed/logos/dolores/lo-de-lucy.svg",
-  "coverImage": "el-estanciero_cover.jpg",
+  "coverImage": "dolores/lo-de-lucy-1.jpg",
   "gallery": [
-   "empanadas_de_pollo.jpg",
-   "tortilla_de_papas.jpg",
-   "asado_de_tira.jpg"
+   "dolores/lo-de-lucy-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 3173",
@@ -856,7 +852,7 @@
     "description": "Carne cortada a cuchillo, la receta de la casa.",
     "price": 100,
     "images": [
-     "empanadas_de_carne.jpg"
+     "dolores/products/empanada-de-carne-al-horno.jpg"
     ],
     "category": "empanadas",
     "featured": true,
@@ -869,7 +865,7 @@
     "description": "Pollo, cebolla y un toque de pimentón.",
     "price": 100,
     "images": [
-     "empanadas_de_pollo.jpg"
+     "dolores/products/empanada-de-pollo.jpg"
     ],
     "category": "empanadas",
     "featured": true,
@@ -882,7 +878,7 @@
     "description": "Jugosa, para dos personas. Con o sin cebolla.",
     "price": 340,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -895,7 +891,7 @@
     "description": "Costillas de cerdo glaseadas, con chimichurri casero.",
     "price": 560,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-con-chimichurri.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -908,7 +904,7 @@
     "description": "Peceto al horno con salsa de cebolla y arroz blanco.",
     "price": 490,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-con-arroz.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -921,7 +917,7 @@
     "description": "Arrollado relleno con ensalada de la casa.",
     "price": 380,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo-con-ensalada.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -934,7 +930,7 @@
     "description": "Arroz salteado con verduras de estación.",
     "price": 290,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -947,7 +943,7 @@
     "description": "Papas hervidas con salsa cremosa de ají y tomillo.",
     "price": 290,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -960,7 +956,7 @@
     "description": "Porción abundante para compartir.",
     "price": 450,
     "images": [
-     "pollo_al_horno.jpg"
+     "dolores/products/papas-fritas-con-carne-desmechada.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -974,7 +970,7 @@
     "description": "Lomo, panceta, jamón, muzzarella, huevo y aceitunas, con papas fritas.",
     "price": 650,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-canadiense.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -987,7 +983,7 @@
     "description": "Bien fría.",
     "price": 160,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -1000,7 +996,7 @@
     "description": "Tarta de acelga y huevo duro, como la de la abuela.",
     "price": 190,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pascualina-porcion.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1020,11 +1016,11 @@
   "tagline": "Pizzas, chivitos y menú del día",
   "description": "Pizzería, chivitería y panadería con menús de almuerzo variados.",
   "logo": "/seed/logos/dolores/a-lo-de-martha.svg",
-  "coverImage": "empanadas_de_carne.jpg",
+  "coverImage": "dolores/a-lo-de-martha-1.jpg",
   "gallery": [
-   "empanadas_de_pollo.jpg",
-   "tortilla_de_papas.jpg",
-   "asado_de_tira.jpg"
+   "dolores/a-lo-de-martha-2.jpg",
+   "dolores/a-lo-de-martha-3.jpg",
+   "dolores/a-lo-de-martha-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "094 086 010",
@@ -1147,7 +1143,7 @@
     "description": "Carne cortada a cuchillo, la receta de la casa.",
     "price": 100,
     "images": [
-     "empanadas_de_carne.jpg"
+     "dolores/products/empanada-de-carne-al-horno.jpg"
     ],
     "category": "empanadas",
     "featured": true,
@@ -1160,7 +1156,7 @@
     "description": "Pollo, cebolla y un toque de pimentón.",
     "price": 100,
     "images": [
-     "empanadas_de_pollo.jpg"
+     "dolores/products/empanada-de-pollo.jpg"
     ],
     "category": "empanadas",
     "featured": true,
@@ -1173,7 +1169,7 @@
     "description": "Jugosa, para dos personas. Con o sin cebolla.",
     "price": 340,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1186,7 +1182,7 @@
     "description": "Costillas de cerdo glaseadas, con chimichurri casero.",
     "price": 560,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-con-chimichurri.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1199,7 +1195,7 @@
     "description": "Peceto al horno con salsa de cebolla y arroz blanco.",
     "price": 490,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-con-arroz.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1212,7 +1208,7 @@
     "description": "Arrollado relleno con ensalada de la casa.",
     "price": 380,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo-con-ensalada.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1225,7 +1221,7 @@
     "description": "Arroz salteado con verduras de estación.",
     "price": 290,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1238,7 +1234,7 @@
     "description": "Papas hervidas con salsa cremosa de ají y tomillo.",
     "price": 290,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1251,7 +1247,7 @@
     "description": "Porción abundante para compartir.",
     "price": 450,
     "images": [
-     "pollo_al_horno.jpg"
+     "dolores/products/papas-fritas-con-carne-desmechada.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1265,7 +1261,7 @@
     "description": "Lomo, panceta, jamón, muzzarella, huevo y aceitunas, con papas fritas.",
     "price": 650,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-canadiense.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -1278,7 +1274,7 @@
     "description": "Bien fría.",
     "price": 160,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -1291,7 +1287,7 @@
     "description": "Tarta de acelga y huevo duro, como la de la abuela.",
     "price": 190,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pascualina-porcion.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1311,11 +1307,10 @@
   "tagline": "Comida casera con menú del día",
   "description": "Rotisería de mediodía con menú diario.",
   "logo": "/seed/logos/dolores/cafer.svg",
-  "coverImage": "tortilla_de_papas.jpg",
+  "coverImage": "dolores/cafer-1.jpg",
   "gallery": [
-   "empanadas_de_pollo.jpg",
-   "tortilla_de_papas.jpg",
-   "asado_de_tira.jpg"
+   "dolores/cafer-3.jpg",
+   "dolores/cafer-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "099 600 918",
@@ -1409,7 +1404,7 @@
     "description": "Carne cortada a cuchillo, la receta de la casa.",
     "price": 100,
     "images": [
-     "empanadas_de_carne.jpg"
+     "dolores/products/empanada-de-carne-al-horno.jpg"
     ],
     "category": "empanadas",
     "featured": true,
@@ -1422,7 +1417,7 @@
     "description": "Pollo, cebolla y un toque de pimentón.",
     "price": 100,
     "images": [
-     "empanadas_de_pollo.jpg"
+     "dolores/products/empanada-de-pollo.jpg"
     ],
     "category": "empanadas",
     "featured": true,
@@ -1435,7 +1430,7 @@
     "description": "Jugosa, para dos personas. Con o sin cebolla.",
     "price": 340,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1448,7 +1443,7 @@
     "description": "Costillas de cerdo glaseadas, con chimichurri casero.",
     "price": 560,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-con-chimichurri.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1461,7 +1456,7 @@
     "description": "Peceto al horno con salsa de cebolla y arroz blanco.",
     "price": 490,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-con-arroz.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1474,7 +1469,7 @@
     "description": "Arrollado relleno con ensalada de la casa.",
     "price": 380,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo-con-ensalada.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1487,7 +1482,7 @@
     "description": "Arroz salteado con verduras de estación.",
     "price": 290,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1500,7 +1495,7 @@
     "description": "Papas hervidas con salsa cremosa de ají y tomillo.",
     "price": 290,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1513,7 +1508,7 @@
     "description": "Porción abundante para compartir.",
     "price": 450,
     "images": [
-     "pollo_al_horno.jpg"
+     "dolores/products/papas-fritas-con-carne-desmechada.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1527,7 +1522,7 @@
     "description": "Lomo, panceta, jamón, muzzarella, huevo y aceitunas, con papas fritas.",
     "price": 650,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-canadiense.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -1540,7 +1535,7 @@
     "description": "Bien fría.",
     "price": 160,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -1553,7 +1548,7 @@
     "description": "Tarta de acelga y huevo duro, como la de la abuela.",
     "price": 190,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pascualina-porcion.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1573,11 +1568,10 @@
   "tagline": "Parrilla, pizzas y postres caseros",
   "description": "Parrilla y especialidades de la casa, porciones grandes para compartir.",
   "logo": "/seed/logos/dolores/restaurant-caramora.svg",
-  "coverImage": "peceto.jpg",
+  "coverImage": "dolores/restaurant-caramora-1.jpg",
   "gallery": [
-   "peceto.jpg",
-   "arroz_premium.jpg",
-   "ensalada_rusa.jpg"
+   "dolores/restaurant-caramora-3.jpg",
+   "dolores/restaurant-caramora-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2115",
@@ -1683,7 +1677,7 @@
     "description": "Costillas de cerdo cocidas lento, con chimichurri.",
     "price": 690,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-a-la-barbacoa.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1696,7 +1690,7 @@
     "description": "Con arroz blanco y salsa de la casa.",
     "price": 620,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-al-horno.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1709,7 +1703,7 @@
     "description": "Plato vegetariano del día.",
     "price": 430,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1723,7 +1717,7 @@
     "description": "Con ensalada fresca y aderezo de mostaza.",
     "price": 420,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1736,7 +1730,7 @@
     "description": "Entrada para compartir.",
     "price": 380,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1749,7 +1743,7 @@
     "description": "Clásica, jugosa al centro.",
     "price": 440,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1762,7 +1756,7 @@
     "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
     "price": 560,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-al-pan.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -1775,7 +1769,7 @@
     "description": "Porción de torta húmeda con ganache.",
     "price": 290,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -1788,7 +1782,7 @@
     "description": "Porción, hecha todos los días.",
     "price": 260,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -1801,7 +1795,7 @@
     "description": "Botella de 750 ml.",
     "price": 520,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-de-la-casa.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -1814,7 +1808,7 @@
     "description": "Con o sin gas.",
     "price": 75,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -1834,11 +1828,9 @@
   "tagline": "Milanesas abundantes",
   "description": "Comedor con milanesas, minutas y platos para compartir. Abre todos los días.",
   "logo": "/seed/logos/dolores/el-retorno.svg",
-  "coverImage": "asado_de_tira.jpg",
+  "coverImage": "dolores/el-retorno-2.jpg",
   "gallery": [
-   "peceto.jpg",
-   "arroz_premium.jpg",
-   "ensalada_rusa.jpg"
+   "dolores/el-retorno-3.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2471",
@@ -1964,7 +1956,7 @@
     "description": "Costillas de cerdo cocidas lento, con chimichurri.",
     "price": 690,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-a-la-barbacoa.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -1977,7 +1969,7 @@
     "description": "Con arroz blanco y salsa de la casa.",
     "price": 620,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-al-horno.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -1990,7 +1982,7 @@
     "description": "Plato vegetariano del día.",
     "price": 430,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2004,7 +1996,7 @@
     "description": "Con ensalada fresca y aderezo de mostaza.",
     "price": 420,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2017,7 +2009,7 @@
     "description": "Entrada para compartir.",
     "price": 380,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2030,7 +2022,7 @@
     "description": "Clásica, jugosa al centro.",
     "price": 440,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2043,7 +2035,7 @@
     "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
     "price": 560,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-al-pan.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -2056,7 +2048,7 @@
     "description": "Porción de torta húmeda con ganache.",
     "price": 290,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2069,7 +2061,7 @@
     "description": "Porción, hecha todos los días.",
     "price": 260,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2082,7 +2074,7 @@
     "description": "Botella de 750 ml.",
     "price": 520,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-de-la-casa.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -2095,7 +2087,7 @@
     "description": "Con o sin gas.",
     "price": 75,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -2115,11 +2107,10 @@
   "tagline": "Parrilla atendida por sus dueños",
   "description": "Parrilla y cocina casera.",
   "logo": "/seed/logos/dolores/los-faroles.svg",
-  "coverImage": "peceto.jpg",
+  "coverImage": "dolores/los-faroles-1.jpg",
   "gallery": [
-   "peceto.jpg",
-   "arroz_premium.jpg",
-   "ensalada_rusa.jpg"
+   "dolores/los-faroles-2.jpg",
+   "dolores/los-faroles-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 3219",
@@ -2236,7 +2227,7 @@
     "description": "Costillas de cerdo cocidas lento, con chimichurri.",
     "price": 690,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-a-la-barbacoa.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2249,7 +2240,7 @@
     "description": "Con arroz blanco y salsa de la casa.",
     "price": 620,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-al-horno.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2262,7 +2253,7 @@
     "description": "Plato vegetariano del día.",
     "price": 430,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2276,7 +2267,7 @@
     "description": "Con ensalada fresca y aderezo de mostaza.",
     "price": 420,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2289,7 +2280,7 @@
     "description": "Entrada para compartir.",
     "price": 380,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2302,7 +2293,7 @@
     "description": "Clásica, jugosa al centro.",
     "price": 440,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2315,7 +2306,7 @@
     "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
     "price": 560,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-al-pan.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -2328,7 +2319,7 @@
     "description": "Porción de torta húmeda con ganache.",
     "price": 290,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2341,7 +2332,7 @@
     "description": "Porción, hecha todos los días.",
     "price": 260,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2354,7 +2345,7 @@
     "description": "Botella de 750 ml.",
     "price": 520,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-de-la-casa.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -2367,7 +2358,7 @@
     "description": "Con o sin gas.",
     "price": 75,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -2387,11 +2378,10 @@
   "tagline": "Parrillada familiar",
   "description": "Parrilla y comedor familiar atendido por sus dueños.",
   "logo": "/seed/logos/dolores/la-herradura-parrillada-comedor.svg",
-  "coverImage": "asado_de_tira.jpg",
+  "coverImage": "dolores/la-herradura-parrillada-comedor-1.jpg",
   "gallery": [
-   "peceto.jpg",
-   "arroz_premium.jpg",
-   "ensalada_rusa.jpg"
+   "dolores/la-herradura-parrillada-comedor-3.jpg",
+   "dolores/la-herradura-parrillada-comedor-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "091 697 737",
@@ -2513,7 +2503,7 @@
     "description": "Costillas de cerdo cocidas lento, con chimichurri.",
     "price": 690,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-a-la-barbacoa.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2526,7 +2516,7 @@
     "description": "Con arroz blanco y salsa de la casa.",
     "price": 620,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-al-horno.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2539,7 +2529,7 @@
     "description": "Plato vegetariano del día.",
     "price": 430,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2553,7 +2543,7 @@
     "description": "Con ensalada fresca y aderezo de mostaza.",
     "price": 420,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2566,7 +2556,7 @@
     "description": "Entrada para compartir.",
     "price": 380,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2579,7 +2569,7 @@
     "description": "Clásica, jugosa al centro.",
     "price": 440,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2592,7 +2582,7 @@
     "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
     "price": 560,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-al-pan.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -2605,7 +2595,7 @@
     "description": "Porción de torta húmeda con ganache.",
     "price": 290,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2618,7 +2608,7 @@
     "description": "Porción, hecha todos los días.",
     "price": 260,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2631,7 +2621,7 @@
     "description": "Botella de 750 ml.",
     "price": 520,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-de-la-casa.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -2644,7 +2634,7 @@
     "description": "Con o sin gas.",
     "price": 75,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -2664,11 +2654,11 @@
   "tagline": "Merienda y café",
   "description": "Café con meriendas y juegos de mesa.",
   "logo": "/seed/logos/dolores/canela-coffee-bar.svg",
-  "coverImage": "peceto.jpg",
+  "coverImage": "dolores/canela-coffee-bar-1.jpg",
   "gallery": [
-   "peceto.jpg",
-   "arroz_premium.jpg",
-   "ensalada_rusa.jpg"
+   "dolores/canela-coffee-bar-2.jpg",
+   "dolores/canela-coffee-bar-3.jpg",
+   "dolores/canela-coffee-bar-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "092 643 709",
@@ -2756,7 +2746,7 @@
     "description": "Costillas de cerdo cocidas lento, con chimichurri.",
     "price": 690,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-a-la-barbacoa.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2769,7 +2759,7 @@
     "description": "Con arroz blanco y salsa de la casa.",
     "price": 620,
     "images": [
-     "peceto.jpg"
+     "dolores/products/peceto-al-horno.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2782,7 +2772,7 @@
     "description": "Plato vegetariano del día.",
     "price": 430,
     "images": [
-     "arroz_premium.jpg"
+     "dolores/products/arroz-con-vegetales.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2796,7 +2786,7 @@
     "description": "Con ensalada fresca y aderezo de mostaza.",
     "price": 420,
     "images": [
-     "ensalada_rusa.jpg"
+     "dolores/products/arrollado-de-pollo.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2809,7 +2799,7 @@
     "description": "Entrada para compartir.",
     "price": 380,
     "images": [
-     "papas_blancas.jpg"
+     "dolores/products/papas-con-salsa-de-aji.jpg"
     ],
     "category": "platos",
     "featured": true,
@@ -2822,7 +2812,7 @@
     "description": "Clásica, jugosa al centro.",
     "price": 440,
     "images": [
-     "tortilla_de_papas.jpg"
+     "dolores/products/tortilla-de-papas.jpg"
     ],
     "category": "platos",
     "featured": false,
@@ -2835,7 +2825,7 @@
     "description": "Lomo, jamón, muzzarella, lechuga, tomate y huevo, con papas fritas.",
     "price": 560,
     "images": [
-     "sandwich_de_milanesa.jpg"
+     "dolores/products/chivito-al-pan.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -2848,7 +2838,7 @@
     "description": "Porción de torta húmeda con ganache.",
     "price": 290,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2861,7 +2851,7 @@
     "description": "Porción, hecha todos los días.",
     "price": 260,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -2874,7 +2864,7 @@
     "description": "Botella de 750 ml.",
     "price": 520,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-de-la-casa.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -2887,7 +2877,7 @@
     "description": "Con o sin gas.",
     "price": 75,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -2907,11 +2897,11 @@
   "tagline": null,
   "description": "Panadería y confitería; toma encargos.",
   "logo": "/seed/logos/dolores/panaderia-los-gallegos.svg",
-  "coverImage": "panaderia_cover.jpg",
+  "coverImage": "dolores/panaderia-los-gallegos-1.jpg",
   "gallery": [
-   "fainá_casera.jpg",
-   "medialunas.jpg",
-   "pre-pizza.jpg"
+   "dolores/panaderia-los-gallegos-2.jpg",
+   "dolores/panaderia-los-gallegos-3.jpg",
+   "dolores/panaderia-los-gallegos-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2021",
@@ -3013,7 +3003,7 @@
     "description": "Pieza de 1 kg, miga densa y aireada.",
     "price": 160,
     "images": [
-     "pan_integral.jpg"
+     "dolores/products/pan-de-campo.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3026,7 +3016,7 @@
     "description": "Porción de fainá al horno.",
     "price": 95,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -3039,7 +3029,7 @@
     "description": "Recién horneadas, con almíbar.",
     "price": 390,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissants-de-manteca-docena.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3052,7 +3042,7 @@
     "description": "Porción grande, ideal para la merienda.",
     "price": 300,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3065,7 +3055,7 @@
     "description": "Medio kilo de bizcochos de grasa.",
     "price": 210,
     "images": [
-     "bizcochos.jpg"
+     "dolores/products/canasta-de-bizcochos.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3078,7 +3068,7 @@
     "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
     "price": 280,
     "images": [
-     "facturas_mixtas.jpg"
+     "dolores/products/bizcochos-surtidos-docena.jpg"
     ],
     "category": "pasteleria",
     "featured": true,
@@ -3091,7 +3081,7 @@
     "description": "Hogaza de 800 g, corteza crocante.",
     "price": 200,
     "images": [
-     "panaderia_cover.jpg"
+     "dolores/products/pan-de-masa-madre.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3105,7 +3095,7 @@
     "description": "Pack de cuatro.",
     "price": 260,
     "images": [
-     "donas.jpg"
+     "dolores/products/donas-azucaradas.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3118,7 +3108,7 @@
     "description": "Tarta entera, tamaño familiar.",
     "price": 890,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3131,7 +3121,7 @@
     "description": "Recién horneado, varias veces por día.",
     "price": 100,
     "images": [
-     "pan_francés.jpg"
+     "dolores/products/pan-flauta-1-kg.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3144,7 +3134,7 @@
     "description": "Torta entera para ocho personas.",
     "price": 1300,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3164,11 +3154,9 @@
   "tagline": "Abierta todo el día",
   "description": "Panadería, confitería y productos envasados.",
   "logo": "/seed/logos/dolores/panaderia-mas-que-rico.svg",
-  "coverImage": "medialunas.jpg",
+  "coverImage": "dolores/panaderia-mas-que-rico-1.jpg",
   "gallery": [
-   "fainá_casera.jpg",
-   "medialunas.jpg",
-   "pre-pizza.jpg"
+   "dolores/panaderia-mas-que-rico-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "098 831 606",
@@ -3266,7 +3254,7 @@
     "description": "Pieza de 1 kg, miga densa y aireada.",
     "price": 160,
     "images": [
-     "pan_integral.jpg"
+     "dolores/products/pan-de-campo.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3279,7 +3267,7 @@
     "description": "Porción de fainá al horno.",
     "price": 95,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -3292,7 +3280,7 @@
     "description": "Recién horneadas, con almíbar.",
     "price": 390,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissants-de-manteca-docena.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3305,7 +3293,7 @@
     "description": "Porción grande, ideal para la merienda.",
     "price": 300,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3318,7 +3306,7 @@
     "description": "Medio kilo de bizcochos de grasa.",
     "price": 210,
     "images": [
-     "bizcochos.jpg"
+     "dolores/products/canasta-de-bizcochos.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3331,7 +3319,7 @@
     "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
     "price": 280,
     "images": [
-     "facturas_mixtas.jpg"
+     "dolores/products/bizcochos-surtidos-docena.jpg"
     ],
     "category": "pasteleria",
     "featured": true,
@@ -3344,7 +3332,7 @@
     "description": "Hogaza de 800 g, corteza crocante.",
     "price": 200,
     "images": [
-     "panaderia_cover.jpg"
+     "dolores/products/pan-de-masa-madre.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3358,7 +3346,7 @@
     "description": "Pack de cuatro.",
     "price": 260,
     "images": [
-     "donas.jpg"
+     "dolores/products/donas-azucaradas.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3371,7 +3359,7 @@
     "description": "Tarta entera, tamaño familiar.",
     "price": 890,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3384,7 +3372,7 @@
     "description": "Recién horneado, varias veces por día.",
     "price": 100,
     "images": [
-     "pan_francés.jpg"
+     "dolores/products/pan-flauta-1-kg.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3397,7 +3385,7 @@
     "description": "Torta entera para ocho personas.",
     "price": 1300,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3419,9 +3407,9 @@
   "logo": "/seed/logos/dolores/panaderia-y-confiteria-higueritas-sucursal.svg",
   "coverImage": "punto-dulce_cover.jpg",
   "gallery": [
-   "fainá_casera.jpg",
-   "medialunas.jpg",
-   "pre-pizza.jpg"
+   "dolores/products/faina.jpg",
+   "dolores/products/croissants-de-manteca-docena.jpg",
+   "dolores/products/focaccia-con-queso-crema.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -3543,7 +3531,7 @@
     "description": "Pieza de 1 kg, miga densa y aireada.",
     "price": 160,
     "images": [
-     "pan_integral.jpg"
+     "dolores/products/pan-de-campo.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3556,7 +3544,7 @@
     "description": "Porción de fainá al horno.",
     "price": 95,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -3569,7 +3557,7 @@
     "description": "Recién horneadas, con almíbar.",
     "price": 390,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissants-de-manteca-docena.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3582,7 +3570,7 @@
     "description": "Porción grande, ideal para la merienda.",
     "price": 300,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3595,7 +3583,7 @@
     "description": "Medio kilo de bizcochos de grasa.",
     "price": 210,
     "images": [
-     "bizcochos.jpg"
+     "dolores/products/canasta-de-bizcochos.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3608,7 +3596,7 @@
     "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
     "price": 280,
     "images": [
-     "facturas_mixtas.jpg"
+     "dolores/products/bizcochos-surtidos-docena.jpg"
     ],
     "category": "pasteleria",
     "featured": true,
@@ -3621,7 +3609,7 @@
     "description": "Hogaza de 800 g, corteza crocante.",
     "price": 200,
     "images": [
-     "panaderia_cover.jpg"
+     "dolores/products/pan-de-masa-madre.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3635,7 +3623,7 @@
     "description": "Pack de cuatro.",
     "price": 260,
     "images": [
-     "donas.jpg"
+     "dolores/products/donas-azucaradas.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3648,7 +3636,7 @@
     "description": "Tarta entera, tamaño familiar.",
     "price": 890,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3661,7 +3649,7 @@
     "description": "Recién horneado, varias veces por día.",
     "price": 100,
     "images": [
-     "pan_francés.jpg"
+     "dolores/products/pan-flauta-1-kg.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3674,7 +3662,7 @@
     "description": "Torta entera para ocho personas.",
     "price": 1300,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3694,11 +3682,11 @@
   "tagline": null,
   "description": "Panadería de barrio con mucha salida de bizcochos y pan.",
   "logo": "/seed/logos/dolores/panaderia-el-trigal.svg",
-  "coverImage": "panaderia_cover.jpg",
+  "coverImage": "dolores/panaderia-el-trigal-1.jpg",
   "gallery": [
-   "fainá_casera.jpg",
-   "medialunas.jpg",
-   "pre-pizza.jpg"
+   "dolores/products/faina.jpg",
+   "dolores/products/croissants-de-manteca-docena.jpg",
+   "dolores/products/focaccia-con-queso-crema.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -3800,7 +3788,7 @@
     "description": "Pieza de 1 kg, miga densa y aireada.",
     "price": 160,
     "images": [
-     "pan_integral.jpg"
+     "dolores/products/pan-de-campo.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3813,7 +3801,7 @@
     "description": "Porción de fainá al horno.",
     "price": 95,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -3826,7 +3814,7 @@
     "description": "Recién horneadas, con almíbar.",
     "price": 390,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissants-de-manteca-docena.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3839,7 +3827,7 @@
     "description": "Porción grande, ideal para la merienda.",
     "price": 300,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3852,7 +3840,7 @@
     "description": "Medio kilo de bizcochos de grasa.",
     "price": 210,
     "images": [
-     "bizcochos.jpg"
+     "dolores/products/canasta-de-bizcochos.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3865,7 +3853,7 @@
     "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
     "price": 280,
     "images": [
-     "facturas_mixtas.jpg"
+     "dolores/products/bizcochos-surtidos-docena.jpg"
     ],
     "category": "pasteleria",
     "featured": true,
@@ -3878,7 +3866,7 @@
     "description": "Hogaza de 800 g, corteza crocante.",
     "price": 200,
     "images": [
-     "panaderia_cover.jpg"
+     "dolores/products/pan-de-masa-madre.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -3892,7 +3880,7 @@
     "description": "Pack de cuatro.",
     "price": 260,
     "images": [
-     "donas.jpg"
+     "dolores/products/donas-azucaradas.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3905,7 +3893,7 @@
     "description": "Tarta entera, tamaño familiar.",
     "price": 890,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3918,7 +3906,7 @@
     "description": "Recién horneado, varias veces por día.",
     "price": 100,
     "images": [
-     "pan_francés.jpg"
+     "dolores/products/pan-flauta-1-kg.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -3931,7 +3919,7 @@
     "description": "Torta entera para ocho personas.",
     "price": 1300,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -3951,11 +3939,11 @@
   "tagline": null,
   "description": null,
   "logo": "/seed/logos/dolores/panaderia-calentito.svg",
-  "coverImage": "medialunas.jpg",
+  "coverImage": "dolores/panaderia-calentito-1.jpg",
   "gallery": [
-   "fainá_casera.jpg",
-   "medialunas.jpg",
-   "pre-pizza.jpg"
+   "dolores/products/faina.jpg",
+   "dolores/products/croissants-de-manteca-docena.jpg",
+   "dolores/products/focaccia-con-queso-crema.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -4072,7 +4060,7 @@
     "description": "Pieza de 1 kg, miga densa y aireada.",
     "price": 160,
     "images": [
-     "pan_integral.jpg"
+     "dolores/products/pan-de-campo.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -4085,7 +4073,7 @@
     "description": "Porción de fainá al horno.",
     "price": 95,
     "images": [
-     "fainá_casera.jpg"
+     "dolores/products/faina.jpg"
     ],
     "category": "pizzas-y-faina",
     "featured": false,
@@ -4098,7 +4086,7 @@
     "description": "Recién horneadas, con almíbar.",
     "price": 390,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissants-de-manteca-docena.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -4111,7 +4099,7 @@
     "description": "Porción grande, ideal para la merienda.",
     "price": 300,
     "images": [
-     "pre-pizza.jpg"
+     "dolores/products/focaccia-con-queso-crema.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -4124,7 +4112,7 @@
     "description": "Medio kilo de bizcochos de grasa.",
     "price": 210,
     "images": [
-     "bizcochos.jpg"
+     "dolores/products/canasta-de-bizcochos.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -4137,7 +4125,7 @@
     "description": "Croissants, margaritas, cañoncitos de dulce de leche y bizcochos de grasa.",
     "price": 280,
     "images": [
-     "facturas_mixtas.jpg"
+     "dolores/products/bizcochos-surtidos-docena.jpg"
     ],
     "category": "pasteleria",
     "featured": true,
@@ -4150,7 +4138,7 @@
     "description": "Hogaza de 800 g, corteza crocante.",
     "price": 200,
     "images": [
-     "panaderia_cover.jpg"
+     "dolores/products/pan-de-masa-madre.jpg"
     ],
     "category": "panificados",
     "featured": true,
@@ -4164,7 +4152,7 @@
     "description": "Pack de cuatro.",
     "price": 260,
     "images": [
-     "donas.jpg"
+     "dolores/products/donas-azucaradas.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -4177,7 +4165,7 @@
     "description": "Tarta entera, tamaño familiar.",
     "price": 890,
     "images": [
-     "tarta_de_verdura.jpg"
+     "dolores/products/pastafrola-de-membrillo.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -4190,7 +4178,7 @@
     "description": "Recién horneado, varias veces por día.",
     "price": 100,
     "images": [
-     "pan_francés.jpg"
+     "dolores/products/pan-flauta-1-kg.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -4203,7 +4191,7 @@
     "description": "Torta entera para ocho personas.",
     "price": 1300,
     "images": [
-     "torta_chocolate.jpg"
+     "dolores/products/torta-de-chocolate.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -4223,11 +4211,9 @@
   "tagline": "Todo para el surtido en un lugar",
   "description": "Almacén con frutas, verduras, cerdo, pollo, pescado y bebidas.",
   "logo": "/seed/logos/dolores/provision-victoria.svg",
-  "coverImage": "la-selecta_cover.jpg",
+  "coverImage": "dolores/provision-victoria-1.jpg",
   "gallery": [
-   "harina_000.jpg",
-   "azúcar.jpg",
-   "fideos_tirabuzón.jpg"
+   "dolores/provision-victoria-3.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "097 419 606",
@@ -4329,7 +4315,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 280,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4342,7 +4328,7 @@
     "description": "Para pan y masas.",
     "price": 60,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4355,7 +4341,7 @@
     "description": "Para el café y el té.",
     "price": 90,
     "images": [
-     "azúcar.jpg"
+     "dolores/products/azucar-en-cubos-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4368,7 +4354,7 @@
     "description": "Sémola de trigo candeal.",
     "price": 80,
     "images": [
-     "fideos_tirabuzón.jpg"
+     "dolores/products/fideos-spaghetti-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -4381,7 +4367,7 @@
     "description": "Secas, de cosecha nueva.",
     "price": 120,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4394,7 +4380,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 310,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4407,7 +4393,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 170,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4420,7 +4406,7 @@
     "description": "Botella retornable.",
     "price": 150,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -4433,7 +4419,7 @@
     "description": "Sin gas.",
     "price": 85,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -4446,7 +4432,7 @@
     "description": "Exprimido y envasado en el día.",
     "price": 160,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -4460,7 +4446,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 130,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -4473,7 +4459,7 @@
     "description": "Para manos, con dosificador.",
     "price": 160,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -4493,11 +4479,9 @@
   "tagline": null,
   "description": "Almacén de barrio.",
   "logo": "/seed/logos/dolores/al-toque-market.svg",
-  "coverImage": "lentejas.jpg",
+  "coverImage": "dolores/al-toque-market-1.jpg",
   "gallery": [
-   "harina_000.jpg",
-   "azúcar.jpg",
-   "fideos_tirabuzón.jpg"
+   "dolores/al-toque-market-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "092 457 112",
@@ -4623,7 +4607,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 280,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4636,7 +4620,7 @@
     "description": "Para pan y masas.",
     "price": 60,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4649,7 +4633,7 @@
     "description": "Para el café y el té.",
     "price": 90,
     "images": [
-     "azúcar.jpg"
+     "dolores/products/azucar-en-cubos-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4662,7 +4646,7 @@
     "description": "Sémola de trigo candeal.",
     "price": 80,
     "images": [
-     "fideos_tirabuzón.jpg"
+     "dolores/products/fideos-spaghetti-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -4675,7 +4659,7 @@
     "description": "Secas, de cosecha nueva.",
     "price": 120,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4688,7 +4672,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 310,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4701,7 +4685,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 170,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4714,7 +4698,7 @@
     "description": "Botella retornable.",
     "price": 150,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -4727,7 +4711,7 @@
     "description": "Sin gas.",
     "price": 85,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -4740,7 +4724,7 @@
     "description": "Exprimido y envasado en el día.",
     "price": 160,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -4754,7 +4738,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 130,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -4767,7 +4751,7 @@
     "description": "Para manos, con dosificador.",
     "price": 160,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -4787,11 +4771,9 @@
   "tagline": null,
   "description": null,
   "logo": "/seed/logos/dolores/almacen-dsyse.svg",
-  "coverImage": "gran-bazar_cover.jpg",
+  "coverImage": "dolores/almacen-dsyse-1.jpg",
   "gallery": [
-   "harina_000.jpg",
-   "azúcar.jpg",
-   "fideos_tirabuzón.jpg"
+   "dolores/almacen-dsyse-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -4913,7 +4895,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 280,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4926,7 +4908,7 @@
     "description": "Para pan y masas.",
     "price": 60,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4939,7 +4921,7 @@
     "description": "Para el café y el té.",
     "price": 90,
     "images": [
-     "azúcar.jpg"
+     "dolores/products/azucar-en-cubos-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4952,7 +4934,7 @@
     "description": "Sémola de trigo candeal.",
     "price": 80,
     "images": [
-     "fideos_tirabuzón.jpg"
+     "dolores/products/fideos-spaghetti-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -4965,7 +4947,7 @@
     "description": "Secas, de cosecha nueva.",
     "price": 120,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4978,7 +4960,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 310,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -4991,7 +4973,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 170,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5004,7 +4986,7 @@
     "description": "Botella retornable.",
     "price": 150,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5017,7 +4999,7 @@
     "description": "Sin gas.",
     "price": 85,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5030,7 +5012,7 @@
     "description": "Exprimido y envasado en el día.",
     "price": 160,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -5044,7 +5026,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 130,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -5057,7 +5039,7 @@
     "description": "Para manos, con dosificador.",
     "price": 160,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5077,11 +5059,9 @@
   "tagline": null,
   "description": "Supermercado abierto todo el día, con rotisería y sector para comer.",
   "logo": "/seed/logos/dolores/supermercados-el-dorado.svg",
-  "coverImage": "almacen_cover.jpg",
+  "coverImage": "dolores/supermercados-el-dorado-1.jpg",
   "gallery": [
-   "harina_000.jpg",
-   "azúcar.jpg",
-   "fideos_tirabuzón.jpg"
+   "dolores/supermercados-el-dorado-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 6090",
@@ -5179,7 +5159,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 270,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5192,7 +5172,7 @@
     "description": "Para pan y masas.",
     "price": 55,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5205,7 +5185,7 @@
     "description": "Para el café y el té.",
     "price": 85,
     "images": [
-     "azúcar.jpg"
+     "dolores/products/azucar-en-cubos-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -5218,7 +5198,7 @@
     "description": "Sémola de trigo candeal.",
     "price": 75,
     "images": [
-     "fideos_tirabuzón.jpg"
+     "dolores/products/fideos-spaghetti-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -5232,7 +5212,7 @@
     "description": "Secas, de cosecha nueva.",
     "price": 110,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5245,7 +5225,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 290,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5258,7 +5238,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 160,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5271,7 +5251,7 @@
     "description": "Botella retornable.",
     "price": 140,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5284,7 +5264,7 @@
     "description": "Sin gas.",
     "price": 85,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5297,7 +5277,7 @@
     "description": "Exprimido y envasado en el día.",
     "price": 150,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5310,7 +5290,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 120,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5323,7 +5303,7 @@
     "description": "Para manos, con dosificador.",
     "price": 150,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -5343,11 +5323,10 @@
   "tagline": null,
   "description": "Supermercado de la cooperativa Cadol.",
   "logo": "/seed/logos/dolores/supermercado-cadol.svg",
-  "coverImage": "don-carnicero_cover.jpg",
+  "coverImage": "dolores/supermercado-cadol-1.jpg",
   "gallery": [
-   "stevia.jpg",
-   "coca_cola_1.5l.jpg",
-   "agua_mineral.jpg"
+   "dolores/supermercado-cadol-2.jpg",
+   "dolores/supermercado-cadol-3.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2277",
@@ -5449,7 +5428,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 290,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5462,7 +5441,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 160,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5475,7 +5454,7 @@
     "description": "Botella retornable.",
     "price": 140,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5488,7 +5467,7 @@
     "description": "Sin gas.",
     "price": 85,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5501,7 +5480,7 @@
     "description": "Exprimido y envasado en el día.",
     "price": 150,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -5514,7 +5493,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 120,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5527,7 +5506,7 @@
     "description": "Para manos, con dosificador.",
     "price": 150,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -5540,7 +5519,7 @@
     "description": "Protección anticaries.",
     "price": 120,
     "images": [
-     "pasta_dental.jpg"
+     "dolores/products/pasta-dental-90-g.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5553,7 +5532,7 @@
     "description": "Para todo tipo de cabello.",
     "price": 220,
     "images": [
-     "shampoo.jpg"
+     "dolores/products/shampoo-400-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5566,7 +5545,7 @@
     "description": "Selección de primera.",
     "price": 120,
     "images": [
-     "manzanas_rojas.jpg"
+     "dolores/products/manzana-roja-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -5579,7 +5558,7 @@
     "description": "Madura justa.",
     "price": 100,
     "images": [
-     "bananas.jpg"
+     "dolores/products/banana-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -5592,7 +5571,7 @@
     "description": "Bolsa de primera.",
     "price": 60,
     "images": [
-     "cebollas.jpg"
+     "dolores/products/cebolla-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -5612,11 +5591,10 @@
   "tagline": null,
   "description": "Supermercado con rotisería, carnicería y panadería, junto a la estación Axion.",
   "logo": "/seed/logos/dolores/la-estacion-mercado.svg",
-  "coverImage": "almacen_cover.jpg",
+  "coverImage": "dolores/la-estacion-mercado-1.jpg",
   "gallery": [
-   "jabón_líquido.jpg",
-   "pasta_dental.jpg",
-   "shampoo.jpg"
+   "dolores/la-estacion-mercado-3.jpg",
+   "dolores/la-estacion-mercado-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2401",
@@ -5718,7 +5696,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 120,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5731,7 +5709,7 @@
     "description": "Para manos, con dosificador.",
     "price": 150,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -5744,7 +5722,7 @@
     "description": "Protección anticaries.",
     "price": 120,
     "images": [
-     "pasta_dental.jpg"
+     "dolores/products/pasta-dental-90-g.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5757,7 +5735,7 @@
     "description": "Para todo tipo de cabello.",
     "price": 220,
     "images": [
-     "shampoo.jpg"
+     "dolores/products/shampoo-400-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -5770,7 +5748,7 @@
     "description": "Selección de primera.",
     "price": 120,
     "images": [
-     "manzanas_rojas.jpg"
+     "dolores/products/manzana-roja-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -5783,7 +5761,7 @@
     "description": "Madura justa.",
     "price": 100,
     "images": [
-     "bananas.jpg"
+     "dolores/products/banana-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -5796,7 +5774,7 @@
     "description": "Bolsa de primera.",
     "price": 60,
     "images": [
-     "cebollas.jpg"
+     "dolores/products/cebolla-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -5809,7 +5787,7 @@
     "description": "Lavada.",
     "price": 60,
     "images": [
-     "zanahorias.jpg"
+     "dolores/products/zanahoria-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -5822,7 +5800,7 @@
     "description": "Vino tinto uruguayo de Canelones.",
     "price": 390,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-750-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -5835,7 +5813,7 @@
     "description": "Rubia, botella.",
     "price": 110,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -5848,7 +5826,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 270,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5861,7 +5839,7 @@
     "description": "Para pan y masas.",
     "price": 55,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -5881,11 +5859,9 @@
   "tagline": "Todo en un solo lugar",
   "description": "Supermercado de barrio con buenas ofertas.",
   "logo": "/seed/logos/dolores/provision-bella-vista.svg",
-  "coverImage": "don-carnicero_cover.jpg",
+  "coverImage": "dolores/provision-bella-vista-1.jpg",
   "gallery": [
-   "cebollas.jpg",
-   "zanahorias.jpg",
-   "vino_malbec.jpg"
+   "dolores/provision-bella-vista-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 4154",
@@ -5987,7 +5963,7 @@
     "description": "Madura justa.",
     "price": 100,
     "images": [
-     "bananas.jpg"
+     "dolores/products/banana-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -6000,7 +5976,7 @@
     "description": "Bolsa de primera.",
     "price": 60,
     "images": [
-     "cebollas.jpg"
+     "dolores/products/cebolla-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -6013,7 +5989,7 @@
     "description": "Lavada.",
     "price": 60,
     "images": [
-     "zanahorias.jpg"
+     "dolores/products/zanahoria-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -6026,7 +6002,7 @@
     "description": "Vino tinto uruguayo de Canelones.",
     "price": 390,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-750-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -6039,7 +6015,7 @@
     "description": "Rubia, botella.",
     "price": 110,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -6052,7 +6028,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 270,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6065,7 +6041,7 @@
     "description": "Para pan y masas.",
     "price": 55,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6078,7 +6054,7 @@
     "description": "Para el café y el té.",
     "price": 85,
     "images": [
-     "azúcar.jpg"
+     "dolores/products/azucar-en-cubos-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -6091,7 +6067,7 @@
     "description": "Sémola de trigo candeal.",
     "price": 75,
     "images": [
-     "fideos_tirabuzón.jpg"
+     "dolores/products/fideos-spaghetti-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -6105,7 +6081,7 @@
     "description": "Secas, de cosecha nueva.",
     "price": 110,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6118,7 +6094,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 290,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6131,7 +6107,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 160,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6153,9 +6129,9 @@
   "logo": "/seed/logos/dolores/autoservice-emanuel-carniceria-los-naranjos.svg",
   "coverImage": "almacen_cover.jpg",
   "gallery": [
-   "harina_000.jpg",
-   "azúcar.jpg",
-   "fideos_tirabuzón.jpg"
+   "dolores/products/harina-0000-1-kg.jpg",
+   "dolores/products/azucar-en-cubos-500-g.jpg",
+   "dolores/products/fideos-spaghetti-500-g.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 5495",
@@ -6268,7 +6244,7 @@
     "description": "Con palo, molienda tradicional.",
     "price": 270,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6281,7 +6257,7 @@
     "description": "Para pan y masas.",
     "price": 55,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-0000-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6294,7 +6270,7 @@
     "description": "Para el café y el té.",
     "price": 85,
     "images": [
-     "azúcar.jpg"
+     "dolores/products/azucar-en-cubos-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -6307,7 +6283,7 @@
     "description": "Sémola de trigo candeal.",
     "price": 75,
     "images": [
-     "fideos_tirabuzón.jpg"
+     "dolores/products/fideos-spaghetti-500-g.jpg"
     ],
     "category": "almacen",
     "featured": true,
@@ -6321,7 +6297,7 @@
     "description": "Secas, de cosecha nueva.",
     "price": 110,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6334,7 +6310,7 @@
     "description": "Miel de campo, sin agregados.",
     "price": 290,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6347,7 +6323,7 @@
     "description": "Pimentón, orégano y comino en frascos.",
     "price": 160,
     "images": [
-     "stevia.jpg"
+     "dolores/products/especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6360,7 +6336,7 @@
     "description": "Botella retornable.",
     "price": 140,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -6373,7 +6349,7 @@
     "description": "Sin gas.",
     "price": 85,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -6386,7 +6362,7 @@
     "description": "Exprimido y envasado en el día.",
     "price": 150,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -6399,7 +6375,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 120,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -6412,7 +6388,7 @@
     "description": "Para manos, con dosificador.",
     "price": 150,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -6432,11 +6408,10 @@
   "tagline": "Cortes de producción propia",
   "description": "Carnicería con cortes envasados al vacío, fiambres y pastas caseras; opciones para celíacos.",
   "logo": "/seed/logos/dolores/la-piara.svg",
-  "coverImage": "carniceria_cover.jpg",
+  "coverImage": "dolores/la-piara-1.jpg",
   "gallery": [
-   "chorizo_de_cerdo.jpg",
-   "carniceria_cover.jpg",
-   "asado_de_tira.jpg"
+   "dolores/la-piara-2.jpg",
+   "dolores/la-piara-4.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 6264",
@@ -6558,7 +6533,7 @@
     "description": "Corte fino para la parrilla.",
     "price": 650,
     "images": [
-     "matambre.jpg"
+     "dolores/products/asado-de-tira-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -6571,7 +6546,7 @@
     "description": "Elaboración propia, cerdo y vaca.",
     "price": 430,
     "images": [
-     "chorizo_de_cerdo.jpg"
+     "dolores/products/chorizo-parrillero-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -6584,7 +6559,7 @@
     "description": "Pieza tierna, con su grasita.",
     "price": 690,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/vacio-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -6598,7 +6573,7 @@
     "description": "Corte ancho, madurado.",
     "price": 770,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/bife-angosto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6611,7 +6586,7 @@
     "description": "Limpia y lista para la parrilla.",
     "price": 870,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/entrana-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6624,7 +6599,7 @@
     "description": "La cortamos fina a pedido.",
     "price": 620,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/nalga-para-milanesas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6637,7 +6612,7 @@
     "description": "Marinadas, listas para el horno.",
     "price": 500,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-de-cerdo-adobadas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6650,7 +6625,7 @@
     "description": "Pieza entera, sin grasa.",
     "price": 720,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/peceto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6663,7 +6638,7 @@
     "description": "Para acompañar el asado.",
     "price": 180,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/chimichurri-casero-250-ml.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6685,9 +6660,9 @@
   "logo": "/seed/logos/dolores/carniceria-san-antonio.svg",
   "coverImage": "24hs-abierto_cover.jpg",
   "gallery": [
-   "chorizo_de_cerdo.jpg",
-   "carniceria_cover.jpg",
-   "asado_de_tira.jpg"
+   "dolores/products/chorizo-parrillero-1-kg.jpg",
+   "dolores/products/vacio-1-kg.jpg",
+   "dolores/products/bife-angosto-1-kg.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2740",
@@ -6804,7 +6779,7 @@
     "description": "Corte fino para la parrilla.",
     "price": 650,
     "images": [
-     "matambre.jpg"
+     "dolores/products/asado-de-tira-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -6817,7 +6792,7 @@
     "description": "Elaboración propia, cerdo y vaca.",
     "price": 430,
     "images": [
-     "chorizo_de_cerdo.jpg"
+     "dolores/products/chorizo-parrillero-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -6830,7 +6805,7 @@
     "description": "Pieza tierna, con su grasita.",
     "price": 690,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/vacio-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -6844,7 +6819,7 @@
     "description": "Corte ancho, madurado.",
     "price": 770,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/bife-angosto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6857,7 +6832,7 @@
     "description": "Limpia y lista para la parrilla.",
     "price": 870,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/entrana-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6870,7 +6845,7 @@
     "description": "La cortamos fina a pedido.",
     "price": 620,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/nalga-para-milanesas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6883,7 +6858,7 @@
     "description": "Marinadas, listas para el horno.",
     "price": 500,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-de-cerdo-adobadas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6896,7 +6871,7 @@
     "description": "Pieza entera, sin grasa.",
     "price": 720,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/peceto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -6909,7 +6884,7 @@
     "description": "Para acompañar el asado.",
     "price": 180,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/chimichurri-casero-250-ml.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -6929,11 +6904,11 @@
   "tagline": null,
   "description": null,
   "logo": "/seed/logos/dolores/carniceria-los-paraisos.svg",
-  "coverImage": "matambre.jpg",
+  "coverImage": "dolores/carniceria-los-paraisos-1.jpg",
   "gallery": [
-   "chorizo_de_cerdo.jpg",
-   "carniceria_cover.jpg",
-   "asado_de_tira.jpg"
+   "dolores/products/chorizo-parrillero-1-kg.jpg",
+   "dolores/products/vacio-1-kg.jpg",
+   "dolores/products/bife-angosto-1-kg.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 4004",
@@ -7055,7 +7030,7 @@
     "description": "Corte fino para la parrilla.",
     "price": 650,
     "images": [
-     "matambre.jpg"
+     "dolores/products/asado-de-tira-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -7068,7 +7043,7 @@
     "description": "Elaboración propia, cerdo y vaca.",
     "price": 430,
     "images": [
-     "chorizo_de_cerdo.jpg"
+     "dolores/products/chorizo-parrillero-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -7081,7 +7056,7 @@
     "description": "Pieza tierna, con su grasita.",
     "price": 690,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/vacio-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -7095,7 +7070,7 @@
     "description": "Corte ancho, madurado.",
     "price": 770,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/bife-angosto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7108,7 +7083,7 @@
     "description": "Limpia y lista para la parrilla.",
     "price": 870,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/entrana-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7121,7 +7096,7 @@
     "description": "La cortamos fina a pedido.",
     "price": 620,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/nalga-para-milanesas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7134,7 +7109,7 @@
     "description": "Marinadas, listas para el horno.",
     "price": 500,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-de-cerdo-adobadas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7147,7 +7122,7 @@
     "description": "Pieza entera, sin grasa.",
     "price": 720,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/peceto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7160,7 +7135,7 @@
     "description": "Para acompañar el asado.",
     "price": 180,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/chimichurri-casero-250-ml.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -7182,9 +7157,9 @@
   "logo": "/seed/logos/dolores/carniceria-del-puerto.svg",
   "coverImage": "carniceria_cover.jpg",
   "gallery": [
-   "chorizo_de_cerdo.jpg",
-   "carniceria_cover.jpg",
-   "asado_de_tira.jpg"
+   "dolores/products/chorizo-parrillero-1-kg.jpg",
+   "dolores/products/vacio-1-kg.jpg",
+   "dolores/products/bife-angosto-1-kg.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -7301,7 +7276,7 @@
     "description": "Corte fino para la parrilla.",
     "price": 650,
     "images": [
-     "matambre.jpg"
+     "dolores/products/asado-de-tira-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -7314,7 +7289,7 @@
     "description": "Elaboración propia, cerdo y vaca.",
     "price": 430,
     "images": [
-     "chorizo_de_cerdo.jpg"
+     "dolores/products/chorizo-parrillero-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -7327,7 +7302,7 @@
     "description": "Pieza tierna, con su grasita.",
     "price": 690,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/vacio-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": true,
@@ -7341,7 +7316,7 @@
     "description": "Corte ancho, madurado.",
     "price": 770,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/bife-angosto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7354,7 +7329,7 @@
     "description": "Limpia y lista para la parrilla.",
     "price": 870,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/entrana-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7367,7 +7342,7 @@
     "description": "La cortamos fina a pedido.",
     "price": 620,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/nalga-para-milanesas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7380,7 +7355,7 @@
     "description": "Marinadas, listas para el horno.",
     "price": 500,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/costillas-de-cerdo-adobadas-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7393,7 +7368,7 @@
     "description": "Pieza entera, sin grasa.",
     "price": 720,
     "images": [
-     "carniceria_cover.jpg"
+     "dolores/products/peceto-1-kg.jpg"
     ],
     "category": "carnes",
     "featured": false,
@@ -7406,7 +7381,7 @@
     "description": "Para acompañar el asado.",
     "price": 180,
     "images": [
-     "asado_de_tira.jpg"
+     "dolores/products/chimichurri-casero-250-ml.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -7426,11 +7401,10 @@
   "tagline": null,
   "description": "Frutería y verdulería.",
   "logo": "/seed/logos/dolores/frutidol.svg",
-  "coverImage": "verduleria_cover.jpg",
+  "coverImage": "dolores/frutidol-1.jpg",
   "gallery": [
-   "bananas.jpg",
-   "limones.jpg",
-   "tomates_cherry.jpg"
+   "dolores/frutidol-2.jpg",
+   "dolores/frutidol-3.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -7528,7 +7502,7 @@
     "description": "Dulce y crocante.",
     "price": 110,
     "images": [
-     "manzanas_rojas.jpg"
+     "dolores/products/manzana-roja-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -7541,7 +7515,7 @@
     "description": "De Ecuador, en su punto.",
     "price": 90,
     "images": [
-     "bananas.jpg"
+     "dolores/products/banana-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -7554,7 +7528,7 @@
     "description": "Jugosos y con mucho aroma.",
     "price": 90,
     "images": [
-     "limones.jpg"
+     "dolores/products/limon-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -7568,7 +7542,7 @@
     "description": "Dulces, ideales para ensalada.",
     "price": 120,
     "images": [
-     "tomates_cherry.jpg"
+     "dolores/products/tomate-cherry-500-g.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7581,7 +7555,7 @@
     "description": "Bolsa de primera calidad.",
     "price": 55,
     "images": [
-     "cebollas.jpg"
+     "dolores/products/cebolla-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7594,7 +7568,7 @@
     "description": "Frescas, recién llegadas.",
     "price": 55,
     "images": [
-     "zanahorias.jpg"
+     "dolores/products/zanahoria-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7607,7 +7581,7 @@
     "description": "Carnosos, para horno o parrilla.",
     "price": 220,
     "images": [
-     "verduleria_cover.jpg"
+     "dolores/products/morron-rojo-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7620,7 +7594,7 @@
     "description": "Hojas tiernas del día.",
     "price": 60,
     "images": [
-     "verduleria_cover.jpg"
+     "dolores/products/acelga-atado.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7633,7 +7607,7 @@
     "description": "Selección de estación para la semana, 5 kg.",
     "price": 590,
     "images": [
-     "gran-bazar_cover.jpg"
+     "dolores/products/bolson-de-frutas-y-verduras.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -7655,9 +7629,9 @@
   "logo": "/seed/logos/dolores/verduleria-los-hermanos.svg",
   "coverImage": "manzanas_rojas.jpg",
   "gallery": [
-   "bananas.jpg",
-   "limones.jpg",
-   "tomates_cherry.jpg"
+   "dolores/products/banana-1-kg.jpg",
+   "dolores/products/limon-1-kg.jpg",
+   "dolores/products/tomate-cherry-500-g.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -7774,7 +7748,7 @@
     "description": "Dulce y crocante.",
     "price": 110,
     "images": [
-     "manzanas_rojas.jpg"
+     "dolores/products/manzana-roja-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -7787,7 +7761,7 @@
     "description": "De Ecuador, en su punto.",
     "price": 90,
     "images": [
-     "bananas.jpg"
+     "dolores/products/banana-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -7800,7 +7774,7 @@
     "description": "Jugosos y con mucho aroma.",
     "price": 90,
     "images": [
-     "limones.jpg"
+     "dolores/products/limon-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -7814,7 +7788,7 @@
     "description": "Dulces, ideales para ensalada.",
     "price": 120,
     "images": [
-     "tomates_cherry.jpg"
+     "dolores/products/tomate-cherry-500-g.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7827,7 +7801,7 @@
     "description": "Bolsa de primera calidad.",
     "price": 55,
     "images": [
-     "cebollas.jpg"
+     "dolores/products/cebolla-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7840,7 +7814,7 @@
     "description": "Frescas, recién llegadas.",
     "price": 55,
     "images": [
-     "zanahorias.jpg"
+     "dolores/products/zanahoria-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7853,7 +7827,7 @@
     "description": "Carnosos, para horno o parrilla.",
     "price": 220,
     "images": [
-     "verduleria_cover.jpg"
+     "dolores/products/morron-rojo-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7866,7 +7840,7 @@
     "description": "Hojas tiernas del día.",
     "price": 60,
     "images": [
-     "verduleria_cover.jpg"
+     "dolores/products/acelga-atado.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -7879,7 +7853,7 @@
     "description": "Selección de estación para la semana, 5 kg.",
     "price": 590,
     "images": [
-     "gran-bazar_cover.jpg"
+     "dolores/products/bolson-de-frutas-y-verduras.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -7901,9 +7875,9 @@
   "logo": "/seed/logos/dolores/la-providencia.svg",
   "coverImage": "zanahorias.jpg",
   "gallery": [
-   "bananas.jpg",
-   "limones.jpg",
-   "tomates_cherry.jpg"
+   "dolores/products/banana-1-kg.jpg",
+   "dolores/products/limon-1-kg.jpg",
+   "dolores/products/tomate-cherry-500-g.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "091 475 269",
@@ -8020,7 +7994,7 @@
     "description": "Dulce y crocante.",
     "price": 110,
     "images": [
-     "manzanas_rojas.jpg"
+     "dolores/products/manzana-roja-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -8033,7 +8007,7 @@
     "description": "De Ecuador, en su punto.",
     "price": 90,
     "images": [
-     "bananas.jpg"
+     "dolores/products/banana-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -8046,7 +8020,7 @@
     "description": "Jugosos y con mucho aroma.",
     "price": 90,
     "images": [
-     "limones.jpg"
+     "dolores/products/limon-1-kg.jpg"
     ],
     "category": "frutas",
     "featured": true,
@@ -8060,7 +8034,7 @@
     "description": "Dulces, ideales para ensalada.",
     "price": 120,
     "images": [
-     "tomates_cherry.jpg"
+     "dolores/products/tomate-cherry-500-g.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -8073,7 +8047,7 @@
     "description": "Bolsa de primera calidad.",
     "price": 55,
     "images": [
-     "cebollas.jpg"
+     "dolores/products/cebolla-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -8086,7 +8060,7 @@
     "description": "Frescas, recién llegadas.",
     "price": 55,
     "images": [
-     "zanahorias.jpg"
+     "dolores/products/zanahoria-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -8099,7 +8073,7 @@
     "description": "Carnosos, para horno o parrilla.",
     "price": 220,
     "images": [
-     "verduleria_cover.jpg"
+     "dolores/products/morron-rojo-1-kg.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -8112,7 +8086,7 @@
     "description": "Hojas tiernas del día.",
     "price": 60,
     "images": [
-     "verduleria_cover.jpg"
+     "dolores/products/acelga-atado.jpg"
     ],
     "category": "verduras",
     "featured": false,
@@ -8125,7 +8099,7 @@
     "description": "Selección de estación para la semana, 5 kg.",
     "price": 590,
     "images": [
-     "gran-bazar_cover.jpg"
+     "dolores/products/bolson-de-frutas-y-verduras.jpg"
     ],
     "category": "frutas",
     "featured": false,
@@ -8145,11 +8119,9 @@
   "tagline": "Productos naturales a granel",
   "description": "Harinas, frutos secos y semillas a granel; se puede llevar envase propio.",
   "logo": "/seed/logos/dolores/la-esquina-almacen-natural.svg",
-  "coverImage": "dietetica_cover.jpg",
+  "coverImage": "dolores/la-esquina-almacen-natural-1.jpg",
   "gallery": [
-   "nueces_peladas.jpg",
-   "semillas_chía.jpg",
-   "granola.jpg"
+   "dolores/la-esquina-almacen-natural-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -8262,7 +8234,7 @@
     "description": "Almendras, nueces, castañas y pasas.",
     "price": 630,
     "images": [
-     "dietetica_cover.jpg"
+     "dolores/products/mix-de-frutos-secos-500-g.jpg"
     ],
     "category": "frutos-secos-y-semillas",
     "featured": true,
@@ -8275,7 +8247,7 @@
     "description": "Mariposa extra light.",
     "price": 360,
     "images": [
-     "nueces_peladas.jpg"
+     "dolores/products/nueces-250-g.jpg"
     ],
     "category": "frutos-secos-y-semillas",
     "featured": true,
@@ -8288,7 +8260,7 @@
     "description": "Fuente natural de omega 3.",
     "price": 160,
     "images": [
-     "semillas_chía.jpg"
+     "dolores/products/semillas-de-chia-250-g.jpg"
     ],
     "category": "frutos-secos-y-semillas",
     "featured": true,
@@ -8302,7 +8274,7 @@
     "description": "Con avena tostada y miel.",
     "price": 310,
     "images": [
-     "granola.jpg"
+     "dolores/products/granola-500-g.jpg"
     ],
     "category": "frutos-secos-y-semillas",
     "featured": false,
@@ -8315,7 +8287,7 @@
     "description": "De productores locales.",
     "price": 340,
     "images": [
-     "miel_pura.jpg"
+     "dolores/products/miel-pura-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -8328,7 +8300,7 @@
     "description": "Secas, a granel.",
     "price": 120,
     "images": [
-     "lentejas.jpg"
+     "dolores/products/lentejas-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -8341,7 +8313,7 @@
     "description": "Frascos de 100 g.",
     "price": 190,
     "images": [
-     "stevia.jpg"
+     "dolores/products/hierbas-y-especias-surtidas.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -8354,7 +8326,7 @@
     "description": "Molienda en piedra.",
     "price": 100,
     "images": [
-     "harina_000.jpg"
+     "dolores/products/harina-integral-1-kg.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -8367,7 +8339,7 @@
     "description": "Sin agroquímicos.",
     "price": 250,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-organica-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -8387,8 +8359,11 @@
   "tagline": null,
   "description": "Heladería del centro, sobre 18 de Julio.",
   "logo": "/seed/logos/dolores/heladeria-monte-bianco.svg",
-  "coverImage": null,
-  "gallery": [],
+  "coverImage": "dolores/heladeria-monte-bianco-1.jpg",
+  "gallery": [
+   "dolores/heladeria-monte-bianco-3.jpg",
+   "dolores/heladeria-monte-bianco-4.jpg"
+  ],
   "whatsapp": "59899760994",
   "phone": "4534 5705",
   "email": null,
@@ -8484,7 +8459,9 @@
     "description": "Hasta 2 gustos.",
     "price": 220,
     "slug": "helado-1-4-kg-heladeria-monte-bianco",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-4-kg.jpg"
+    ],
     "category": "helados",
     "featured": false,
     "isAvailable": true,
@@ -8495,7 +8472,9 @@
     "description": "Hasta 3 gustos.",
     "price": 400,
     "slug": "helado-1-2-kg-heladeria-monte-bianco",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-2-kg.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8506,7 +8485,9 @@
     "description": "Hasta 4 gustos.",
     "price": 720,
     "slug": "helado-1-kg-heladeria-monte-bianco",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-kg.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8517,7 +8498,9 @@
     "description": "Una bocha, el gusto que quieras.",
     "price": 120,
     "slug": "cucurucho-heladeria-monte-bianco",
-    "images": [],
+    "images": [
+     "dolores/products/cucurucho.jpg"
+    ],
     "category": "helados",
     "featured": false,
     "isAvailable": true,
@@ -8528,7 +8511,9 @@
     "description": "Para 8 porciones. Consultá los gustos del día.",
     "price": 890,
     "slug": "torta-helada-heladeria-monte-bianco",
-    "images": [],
+    "images": [
+     "dolores/products/torta-helada.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8547,8 +8532,10 @@
   "tagline": null,
   "description": "Franquicia de helados con salón.",
   "logo": "/seed/logos/dolores/grido-helado.svg",
-  "coverImage": null,
-  "gallery": [],
+  "coverImage": "dolores/grido-helado-1.jpg",
+  "gallery": [
+   "dolores/grido-helado-2.jpg"
+  ],
   "whatsapp": "59899760994",
   "phone": "091 352 855",
   "email": null,
@@ -8644,7 +8631,9 @@
     "description": "Hasta 2 gustos.",
     "price": 220,
     "slug": "helado-1-4-kg-grido-helado",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-4-kg.jpg"
+    ],
     "category": "helados",
     "featured": false,
     "isAvailable": true,
@@ -8655,7 +8644,9 @@
     "description": "Hasta 3 gustos.",
     "price": 400,
     "slug": "helado-1-2-kg-grido-helado",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-2-kg.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8666,7 +8657,9 @@
     "description": "Hasta 4 gustos.",
     "price": 720,
     "slug": "helado-1-kg-grido-helado",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-kg.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8677,7 +8670,9 @@
     "description": "Una bocha, el gusto que quieras.",
     "price": 120,
     "slug": "cucurucho-grido-helado",
-    "images": [],
+    "images": [
+     "dolores/products/cucurucho.jpg"
+    ],
     "category": "helados",
     "featured": false,
     "isAvailable": true,
@@ -8688,7 +8683,9 @@
     "description": "Para 8 porciones. Consultá los gustos del día.",
     "price": 890,
     "slug": "torta-helada-grido-helado",
-    "images": [],
+    "images": [
+     "dolores/products/torta-helada.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8707,8 +8704,12 @@
   "tagline": null,
   "description": null,
   "logo": "/seed/logos/dolores/heladeria-j-l.svg",
-  "coverImage": null,
-  "gallery": [],
+  "coverImage": "dolores/heladeria-j-l-1.jpg",
+  "gallery": [
+   "dolores/products/helado-1-2-kg.jpg",
+   "dolores/products/helado-1-kg.jpg",
+   "dolores/products/cucurucho.jpg"
+  ],
   "whatsapp": "59899760994",
   "phone": null,
   "email": null,
@@ -8799,7 +8800,9 @@
     "description": "Hasta 2 gustos.",
     "price": 220,
     "slug": "helado-1-4-kg-heladeria-j-l",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-4-kg.jpg"
+    ],
     "category": "helados",
     "featured": false,
     "isAvailable": true,
@@ -8810,7 +8813,9 @@
     "description": "Hasta 3 gustos.",
     "price": 400,
     "slug": "helado-1-2-kg-heladeria-j-l",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-2-kg.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8821,7 +8826,9 @@
     "description": "Hasta 4 gustos.",
     "price": 720,
     "slug": "helado-1-kg-heladeria-j-l",
-    "images": [],
+    "images": [
+     "dolores/products/helado-1-kg.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8832,7 +8839,9 @@
     "description": "Una bocha, el gusto que quieras.",
     "price": 120,
     "slug": "cucurucho-heladeria-j-l",
-    "images": [],
+    "images": [
+     "dolores/products/cucurucho.jpg"
+    ],
     "category": "helados",
     "featured": false,
     "isAvailable": true,
@@ -8843,7 +8852,9 @@
     "description": "Para 8 porciones. Consultá los gustos del día.",
     "price": 890,
     "slug": "torta-helada-heladeria-j-l",
-    "images": [],
+    "images": [
+     "dolores/products/torta-helada.jpg"
+    ],
     "category": "helados",
     "featured": true,
     "isAvailable": true,
@@ -8864,9 +8875,9 @@
   "logo": "/seed/logos/dolores/kiosco-yoni.svg",
   "coverImage": "diettica-orgnica_cover.jpg",
   "gallery": [
-   "agua_mineral.jpg",
-   "sprite.jpg",
-   "jugo_de_naranja.jpg"
+   "dolores/products/agua-mineral-500-ml.jpg",
+   "dolores/products/agua-tonica-500-ml.jpg",
+   "dolores/products/jugo-de-naranja-500-ml.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 2771",
@@ -8983,7 +8994,7 @@
     "description": "Bien fría.",
     "price": 170,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -8996,7 +9007,7 @@
     "description": "Sin gas.",
     "price": 55,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9009,7 +9020,7 @@
     "description": "Servila con hielo y limón.",
     "price": 85,
     "images": [
-     "sprite.jpg"
+     "dolores/products/agua-tonica-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9023,7 +9034,7 @@
     "description": "Listo para llevar.",
     "price": 100,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9036,7 +9047,7 @@
     "description": "Rubia, fría.",
     "price": 130,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -9049,7 +9060,7 @@
     "description": "Del día, por unidad.",
     "price": 75,
     "images": [
-     "donas.jpg"
+     "dolores/products/dona-azucarada.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -9062,7 +9073,7 @@
     "description": "Por unidad, para acompañar el café.",
     "price": 45,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissant-de-manteca.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -9075,7 +9086,7 @@
     "description": "Armado en el momento.",
     "price": 310,
     "images": [
-     "salame.jpg"
+     "dolores/products/sandwich-de-jamon-crudo-y-queso.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -9088,7 +9099,7 @@
     "description": "Para no quedarte sin mate.",
     "price": 150,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -9110,9 +9121,9 @@
   "logo": "/seed/logos/dolores/quiosco-del-paso.svg",
   "coverImage": "campo-y-sol_cover.jpg",
   "gallery": [
-   "agua_mineral.jpg",
-   "sprite.jpg",
-   "jugo_de_naranja.jpg"
+   "dolores/products/agua-mineral-500-ml.jpg",
+   "dolores/products/agua-tonica-500-ml.jpg",
+   "dolores/products/jugo-de-naranja-500-ml.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -9210,7 +9221,7 @@
     "description": "Bien fría.",
     "price": 170,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9223,7 +9234,7 @@
     "description": "Sin gas.",
     "price": 55,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9236,7 +9247,7 @@
     "description": "Servila con hielo y limón.",
     "price": 85,
     "images": [
-     "sprite.jpg"
+     "dolores/products/agua-tonica-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9250,7 +9261,7 @@
     "description": "Listo para llevar.",
     "price": 100,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9263,7 +9274,7 @@
     "description": "Rubia, fría.",
     "price": 130,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -9276,7 +9287,7 @@
     "description": "Del día, por unidad.",
     "price": 75,
     "images": [
-     "donas.jpg"
+     "dolores/products/dona-azucarada.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -9289,7 +9300,7 @@
     "description": "Por unidad, para acompañar el café.",
     "price": 45,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissant-de-manteca.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -9302,7 +9313,7 @@
     "description": "Armado en el momento.",
     "price": 310,
     "images": [
-     "salame.jpg"
+     "dolores/products/sandwich-de-jamon-crudo-y-queso.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -9315,7 +9326,7 @@
     "description": "Para no quedarte sin mate.",
     "price": 150,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -9337,9 +9348,9 @@
   "logo": "/seed/logos/dolores/lo-d-fiore.svg",
   "coverImage": "diettica-orgnica_cover.jpg",
   "gallery": [
-   "agua_mineral.jpg",
-   "sprite.jpg",
-   "jugo_de_naranja.jpg"
+   "dolores/products/agua-mineral-500-ml.jpg",
+   "dolores/products/agua-tonica-500-ml.jpg",
+   "dolores/products/jugo-de-naranja-500-ml.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "098 480 877",
@@ -9437,7 +9448,7 @@
     "description": "Bien fría.",
     "price": 170,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9450,7 +9461,7 @@
     "description": "Sin gas.",
     "price": 55,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9463,7 +9474,7 @@
     "description": "Servila con hielo y limón.",
     "price": 85,
     "images": [
-     "sprite.jpg"
+     "dolores/products/agua-tonica-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": true,
@@ -9477,7 +9488,7 @@
     "description": "Listo para llevar.",
     "price": 100,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9490,7 +9501,7 @@
     "description": "Rubia, fría.",
     "price": 130,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -9503,7 +9514,7 @@
     "description": "Del día, por unidad.",
     "price": 75,
     "images": [
-     "donas.jpg"
+     "dolores/products/dona-azucarada.jpg"
     ],
     "category": "pasteleria",
     "featured": false,
@@ -9516,7 +9527,7 @@
     "description": "Por unidad, para acompañar el café.",
     "price": 45,
     "images": [
-     "medialunas.jpg"
+     "dolores/products/croissant-de-manteca.jpg"
     ],
     "category": "panificados",
     "featured": false,
@@ -9529,7 +9540,7 @@
     "description": "Armado en el momento.",
     "price": 310,
     "images": [
-     "salame.jpg"
+     "dolores/products/sandwich-de-jamon-crudo-y-queso.jpg"
     ],
     "category": "sandwiches",
     "featured": false,
@@ -9542,7 +9553,7 @@
     "description": "Para no quedarte sin mate.",
     "price": 150,
     "images": [
-     "yerba_mate.jpg"
+     "dolores/products/yerba-mate-500-g.jpg"
     ],
     "category": "almacen",
     "featured": false,
@@ -9562,11 +9573,9 @@
   "tagline": null,
   "description": "Refrescos, bebidas alcohólicas, regalos y fiambres.",
   "logo": "/seed/logos/dolores/super-shanikar.svg",
-  "coverImage": "vino_malbec.jpg",
+  "coverImage": "dolores/super-shanikar-1.jpg",
   "gallery": [
-   "cerveza_lata.jpg",
-   "coca_cola_1.5l.jpg",
-   "agua_mineral.jpg"
+   "dolores/super-shanikar-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": null,
@@ -9683,7 +9692,7 @@
     "description": "Vino tinto uruguayo de Canelones.",
     "price": 450,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-750-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": true,
@@ -9696,7 +9705,7 @@
     "description": "Doce meses en barrica.",
     "price": 820,
     "images": [
-     "vino_malbec.jpg"
+     "dolores/products/tannat-reserva-750-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": true,
@@ -9709,7 +9718,7 @@
     "description": "Ligera y refrescante.",
     "price": 190,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-artesanal-rubia-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": true,
@@ -9723,7 +9732,7 @@
     "description": "Lupulada, con final amargo.",
     "price": 210,
     "images": [
-     "cerveza_lata.jpg"
+     "dolores/products/cerveza-artesanal-ipa-500-ml.jpg"
     ],
     "category": "bebidas-con-alcohol",
     "featured": false,
@@ -9736,7 +9745,7 @@
     "description": "Pack individual.",
     "price": 140,
     "images": [
-     "coca_cola_1.5l.jpg"
+     "dolores/products/refresco-cola-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9749,7 +9758,7 @@
     "description": "Sin gas.",
     "price": 75,
     "images": [
-     "agua_mineral.jpg"
+     "dolores/products/agua-mineral-1-5-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9762,7 +9771,7 @@
     "description": "Para tus tragos.",
     "price": 80,
     "images": [
-     "sprite.jpg"
+     "dolores/products/agua-tonica-500-ml.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9775,7 +9784,7 @@
     "description": "Exprimido.",
     "price": 170,
     "images": [
-     "jugo_de_naranja.jpg"
+     "dolores/products/jugo-de-naranja-1-l.jpg"
     ],
     "category": "bebidas-sin-alcohol",
     "featured": false,
@@ -9795,11 +9804,9 @@
   "tagline": "Bazar, descartables y repostería",
   "description": "Artículos de cocina, descartables, cotillón, repostería, papelería y limpieza.",
   "logo": "/seed/logos/dolores/miken-packing.svg",
-  "coverImage": "papel_higiénico.jpg",
+  "coverImage": "dolores/miken-packing-1.jpg",
   "gallery": [
-   "jabón_líquido.jpg",
-   "pasta_dental.jpg",
-   "shampoo.jpg"
+   "dolores/miken-packing-2.jpg"
   ],
   "whatsapp": "59899760994",
   "phone": "4534 4200",
@@ -9892,7 +9899,7 @@
     "description": "Doble hoja, 30 metros.",
     "price": 120,
     "images": [
-     "papel_higiénico.jpg"
+     "dolores/products/papel-higienico-x4.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -9905,7 +9912,7 @@
     "description": "Para manos, con dosificador.",
     "price": 150,
     "images": [
-     "jabón_líquido.jpg"
+     "dolores/products/jabon-liquido-500-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": true,
@@ -9918,7 +9925,7 @@
     "description": "Protección anticaries.",
     "price": 120,
     "images": [
-     "pasta_dental.jpg"
+     "dolores/products/pasta-dental-90-g.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
@@ -9931,7 +9938,7 @@
     "description": "Para todo tipo de cabello.",
     "price": 220,
     "images": [
-     "shampoo.jpg"
+     "dolores/products/shampoo-400-ml.jpg"
     ],
     "category": "limpieza-y-perfumeria",
     "featured": false,
