@@ -7,7 +7,7 @@ import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, 
 import { Button } from '@/components/ui/button';
 import { Textarea } from '@/components/ui/textarea';
 import { whatsappUrl } from '@/lib/format';
-import { isMobile } from '@/lib/whatsapp';
+import { whatsappLinkProps } from '@/lib/whatsapp';
 
 /** Status buttons for the business: the next step, and reject or cancel with confirmation. */
 export function OrderActions({ order, onChange, compact }: { order: Order; onChange: (order: Order) => void; compact?: boolean }) {
@@ -54,7 +54,7 @@ export function OrderActions({ order, onChange, compact }: { order: Order; onCha
         </Button>
       )}
       {customerChat && (
-        <Button asChild size={compact ? 'sm' : 'default'} variant="ghost"><a href={customerChat} target={isMobile() ? undefined : '_blank'} rel={isMobile() ? undefined : 'noreferrer'}><MessageCircle /> Escribirle</a></Button>
+        <Button asChild size={compact ? 'sm' : 'default'} variant="ghost"><a href={customerChat} {...whatsappLinkProps()}><MessageCircle /> Escribirle</a></Button>
       )}
 
       <AlertDialog open={cancelling} onOpenChange={setCancelling}>

@@ -6,7 +6,7 @@ import { cn } from '@/lib/utils';
 export function BrandMark({ className, inverted }: { className?: string; inverted?: boolean; compact?: boolean }) {
   return (
     <Link to="/" className={cn('inline-flex shrink-0 items-center rounded-md', className)} aria-label="Detoke, inicio">
-      <Wordmark className={cn('text-[1.6rem]', inverted ? 'text-sidebar-accent-foreground' : 'text-primary')} />
+      <Wordmark className={cn('text-[1.3rem] min-[360px]:text-[1.6rem]', inverted ? 'text-sidebar-accent-foreground' : 'text-primary')} />
     </Link>
   );
 }

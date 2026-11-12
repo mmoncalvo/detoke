@@ -14,7 +14,7 @@ import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
 import { useTitle } from '@/hooks/useTitle';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { formatDateTime, statusVariant } from '@/lib/orders';
-import { isMobile } from '@/lib/whatsapp';
+import { whatsappLinkProps } from '@/lib/whatsapp';
 
 function Timeline({ order }: { order: Order }) {
   const steps = STATUS_STEPS;
@@ -22,8 +22,8 @@ function Timeline({ order }: { order: Order }) {
   const stopped = order.status === 'cancelled';
   const last = order.statusHistory.at(-1);
 
-  // Si el pedido saltó directamente a completed (o confirmed) sin pasar por los
-  // estados intermedios, se muestra como si hubiera atravesado todo el flujo.
+  // An order that jumped straight to a later status (say, from new to finished) shows the steps
+  // in between as done, as if it had gone through the whole flow.
   const currentStepIndex = steps.indexOf(order.status);
   const effectiveSteps = new Set(reached.keys());
   if (currentStepIndex > 0) {
@@ -159,7 +159,7 @@ export default function OrderPage() {
         <p className="mt-4 rounded-xl bg-secondary px-4 py-3 text-sm text-muted-foreground">Este negocio no está disponible en Detoke por ahora. Si tenés dudas sobre el pedido, escribile directamente.</p>
       )}
       {!order.canManage && (
-        <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness} target={isMobile() ? undefined : '_blank'} rel={isMobile() ? undefined : 'noreferrer'}><MessageCircle /> Escribirle a {business.name}</a></Button>
+        <Button asChild variant="outline" className="mt-4 w-full"><a href={askBusiness} {...whatsappLinkProps()}><MessageCircle /> Escribirle a {business.name}</a></Button>
       )}
     </div>
   );

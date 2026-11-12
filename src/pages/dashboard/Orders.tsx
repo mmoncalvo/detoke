@@ -79,7 +79,7 @@ export default function Orders() {
   const [status, setStatus] = useUrlState('status', ALL, { persist: 'detoke.orders.status', allowed: TABS });
   const [period, setPeriod] = useUrlState('period', 'week');
   const [sound, setSound] = useState(readSoundPreference);
-  const days = (PERIODS[period] ?? PERIODS.today).days;
+  const days = (PERIODS[period] ?? PERIODS.week).days;
 
   const from = useMemo(() => since(days), [days]);
   const { data: orders, setData, error, loading, reload } = useFetch<Order[]>(`/orders/mine${from ? `?since=${encodeURIComponent(from)}` : ''}`);

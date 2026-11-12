@@ -17,7 +17,7 @@ import { useAuth } from '@/context/AuthContext';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { whatsappUrl } from '@/lib/format';
-import { isMobile } from '@/lib/whatsapp';
+import { whatsappLinkProps } from '@/lib/whatsapp';
 
 type Input = z.input<typeof contactSchema>;
 type Output = z.output<typeof contactSchema>;
@@ -47,7 +47,7 @@ function Channels({ info }: { info: ContactInfo }) {
         {rows.map(({ icon: Icon, label, href }) => (
           <li key={label} className="flex items-center gap-2.5">
             <Icon className="size-4 shrink-0 text-primary" />
-            {href ? <a href={href} target={isMobile() ? undefined : '_blank'} rel={isMobile() ? undefined : 'noreferrer'} className="min-w-0 break-words hover:underline">{label}</a> : <span>{label}</span>}
+            {href ? <a href={href} {...(href.startsWith('mailto:') ? {} : whatsappLinkProps())} className="min-w-0 break-words hover:underline">{label}</a> : <span>{label}</span>}
           </li>
         ))}
       </ul>

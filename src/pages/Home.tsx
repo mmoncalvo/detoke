@@ -86,7 +86,6 @@ export default function Home() {
                 type="text"
                 name="detoke-home-query"
                 {...NO_AUTOFILL}
-                autoComplete="off"
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
                 placeholder="¿Qué estás buscando?"

@@ -18,7 +18,7 @@ import { Skeleton } from '@/components/ui/skeleton';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { formatPrice, whatsappUrl } from '@/lib/format';
-import { isMobile } from '@/lib/whatsapp';
+import { whatsappLinkProps } from '@/lib/whatsapp';
 import { imageUrl } from '@/lib/images';
 import NotFound from './NotFound';
 
@@ -80,9 +80,9 @@ export default function BusinessPage() {
     return [...groups.values()].sort((a, b) => a.position - b.position);
   }, [business, search]);
 
-  // Marca el tag de la sección activa según la posición de scroll. Usa offsetTop de cada sección
-  // (monotónico) en lugar de distancia al centro, así el tag no parpadea al llegar al límite
-  // entre dos secciones: cambia solo cuando el scroll entra claramente en la siguiente.
+  // Highlights the tag of the section on screen as the page scrolls. It compares each section's
+  // offsetTop (which only grows) instead of the distance to the center, so the tag does not flicker
+  // at the border between two sections: it changes once the next one is clearly in.
   useEffect(() => {
     let raf = 0;
     let current: string | null = null;
@@ -115,16 +115,16 @@ export default function BusinessPage() {
     };
   }, [sections]);
 
-  // Mide el alto del nav sticky (buscador + tags) para que las secciones queden justo por
-  // debajo de su borde inferior al hacer scroll o al saltar desde un tag.
+  // Measures the sticky bar (search + tags) so sections stop right under it when scrolled to,
+  // also from a tag. It exists only once the business has loaded, and its height can change
+  // (tags wrap, the window resizes), hence the ResizeObserver.
   useEffect(() => {
     const el = stickyRef.current;
     if (!el) return;
-    const measure = () => setStickyHeight(el.offsetHeight);
-    measure();
-    window.addEventListener('resize', measure);
-    return () => window.removeEventListener('resize', measure);
-  }, []);
+    const observer = new ResizeObserver(() => setStickyHeight(el.offsetHeight));
+    observer.observe(el);
+    return () => observer.disconnect();
+  }, [business]);
 
   const scrollMargin = `calc(64px + ${stickyHeight}px)`;
 
@@ -167,7 +167,7 @@ export default function BusinessPage() {
               <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
             </div>
             <div className="flex gap-2">
-              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} target={isMobile() ? undefined : '_blank'} rel={isMobile() ? undefined : 'noreferrer'}><MessageCircle /> WhatsApp</a></Button>
+              <Button asChild className="flex-1 sm:flex-none"><a href={whatsappUrl(business.whatsapp)} {...whatsappLinkProps()}><MessageCircle /> WhatsApp</a></Button>
               <Button variant="outline" size="icon" aria-label="Compartir" onClick={share}><Share2 className="size-4" /></Button>
             </div>
           </div>

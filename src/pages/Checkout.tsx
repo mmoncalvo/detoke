@@ -18,7 +18,7 @@ import { useTitle } from '@/hooks/useTitle';
 import { OrdersInProgress } from '@/components/orders/RecentOrders';
 import { useRecentOrders } from '@/hooks/useRecentOrders';
 import { formatPrice, whatsappUrl } from '@/lib/format';
-import { openWhatsApp } from '@/lib/whatsapp';
+import { openWhatsApp, prepareWhatsAppTab } from '@/lib/whatsapp';
 import { orderMessage } from '@/lib/orders';
 import { addRecentOrder, isActive, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 import { readCustomer, writeCustomer, type CustomerDetails } from '@/lib/customer';
@@ -99,6 +99,8 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
     // A second click while the first is on its way does nothing.
     if (busy.current) return;
     busy.current = true;
+    // Opened now, in the click: opened after the server answers, Safari would block it.
+    const whatsapp = prepareWhatsAppTab();
     setSending(true);
     requestId.current ??= newRequestId();
     try {
@@ -122,9 +124,10 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
       // The order is out: only this business leaves the cart, the others stay as they were.
       removeBusiness(business.id);
       onSent(recent);
-      // Desktop opens in a new tab (WhatsApp Web), a phone in the same tab so the app launches and Back returns here.
-      openWhatsApp(whatsappUrl(business.whatsapp, orderMessage(url)));
+      // Desktop: the tab opened in the click (WhatsApp Web); phone: this tab, so the app launches and Back returns here.
+      whatsapp.go(whatsappUrl(business.whatsapp, orderMessage(url)));
     } catch (err) {
+      whatsapp.cancel();
       toast.error((err as Error).message);
     } finally {
       busy.current = false;

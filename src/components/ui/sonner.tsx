@@ -10,9 +10,9 @@ import {
 import { useTheme } from "@/context/ThemeContext"
 import { Toaster as Sonner, type ToasterProps } from "sonner"
 
-// Navbars: público h-16 (64 px) y dashboard h-14 (56 px), ambos sticky top-0, más el
-// banner de impersonación opcional encima. En pantallas pequeñas los toasts empiezan
-// justo debajo del navbar para no tapar los contadores de pedidos y carrito.
+// Navbars: public h-16 (64 px) and dashboard h-14 (56 px), both sticky at the top, plus the optional
+// impersonation banner above. On small screens toasts start right below the navbar so they do not
+// cover the order and cart counters.
 const OFFSET_DESKTOP = 12
 const OFFSET_MOBILE = 72
 

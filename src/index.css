@@ -26,6 +26,9 @@
   --accent: oklch(0.92 0.07 92);
   --accent-foreground: oklch(0.33 0.06 75);
   --mustard: oklch(0.78 0.14 82);
+  /* The awning's stripes: the same green and mustard in both themes. */
+  --awning-a: #5ab086;
+  --awning-b: #d7a646;
   --tomato: oklch(0.56 0.18 31);
   --hero: oklch(0.43 0.085 163);
   --success: oklch(0.55 0.13 155);
@@ -140,6 +143,12 @@
     outline-width: 0.5px;
   }
 
+  /* Keyboard focus stays clearly visible where a component has no ring of its own (links and the like). */
+  :where(a, summary, [tabindex]):focus-visible {
+    outline: 2px solid color-mix(in oklch, var(--ring) 60%, transparent);
+    outline-offset: 2px;
+  }
+
   html {
     scroll-padding-top: 8rem;
   }
@@ -242,7 +251,7 @@
 /* The scalloped shop awning used as the brand's signature edge. */
 @utility awning {
   height: 18px;
-  background: repeating-linear-gradient(90deg, #5ab086 0 32px, #d7a646 32px 64px);
+  background: repeating-linear-gradient(90deg, var(--awning-a) 0 32px, var(--awning-b) 32px 64px);
   mask: radial-gradient(16px at 16px 2px, #000 98%, transparent) 0 0 / 32px 100% repeat-x;
 }
 

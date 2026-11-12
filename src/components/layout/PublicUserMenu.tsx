@@ -22,7 +22,7 @@ export function PublicUserMenu() {
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
         <button className="relative ml-1 flex items-center rounded-full outline-none transition-opacity hover:opacity-85 focus-visible:ring-2 focus-visible:ring-ring/40" aria-label={pending ? `Tu cuenta, ${pending} pedidos nuevos en tu negocio` : 'Tu cuenta'}>
-          <Avatar className="size-9 sm:size-10">
+          <Avatar className="size-8 min-[360px]:size-9 sm:size-10">
             {user.avatarUrl && <AvatarImage src={user.avatarUrl} alt="" referrerPolicy="no-referrer" className="object-cover" />}
             <AvatarFallback className="bg-secondary text-xs font-semibold">{initials(user.name)}</AvatarFallback>
           </Avatar>

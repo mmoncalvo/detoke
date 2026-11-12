@@ -67,8 +67,8 @@ export default function Explore() {
   const businessCategories = useFetch<BusinessCategory[]>('/business-categories');
   const productCategories = useFetch<ProductCategory[]>('/product-categories');
 
-  // Cuando se elige una categoría (incluido al llegar desde un tag de la home), la lleva al área
-  // visible del listado horizontal para que el usuario vea qué filtro está activo.
+  // When a category is picked (also when arriving from a home tag), scroll its chip into view in the
+  // horizontal list so the active filter is visible.
   useEffect(() => {
     if (!chipContainer.current || !category) return;
     const active = chipContainer.current.querySelector<HTMLElement>('[aria-pressed="true"]');
@@ -130,7 +130,7 @@ export default function Explore() {
           )}
         </div>
         {tab === 'businesses' && (
-          <div className="flex items-center md:justify-end gap-8 min-w-[300px] p-4 md:py-0">
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 p-4 md:min-w-[300px] md:justify-end md:py-0">
             <div className="flex items-center gap-2">
               <Switch id="open-now" checked={open} onCheckedChange={(v) => update({ open: v ? 'true' : null })} />
               <Label htmlFor="open-now">Abierto ahora</Label>
