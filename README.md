@@ -59,6 +59,8 @@ Las fotos del seed están en `data/images/`; lo que suben los usuarios va a `dat
 | `npm run lint` | Chequeo de tipos (igual que `npm run typecheck`) |
 | `npm run db:seed` | **Borra la base** y carga los datos de ejemplo |
 | `npm run db:demo` | Recarga solo los datos de ejemplo (cuentas `@detoke.test`, sus negocios, productos y pedidos); las cuentas reales, sus negocios y pedidos quedan intactos |
+| `npm run db:seed -- dolores` | **Borra la base** y carga los 40 negocios reales de Dolores (Soriano) en vez del demo. `npm run db:seed` vuelve al demo |
+| `npm run places:dolores -- --complete server/data/seed/dolores/input.json` | Regenera el set de Dolores desde `input.json` (catálogo, logos, fotos genéricas y horarios que falten) |
 | `npm run db:check-images` | Verifica que existan todas las imágenes del seed |
 | `npm run build` | Compila la web en `dist/` |
 | `npm start` | Producción: sirve la API, `/data` y `dist/` |

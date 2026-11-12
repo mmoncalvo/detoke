@@ -62,5 +62,9 @@
   {
     "name": "Limpieza y perfumería",
     "slug": "limpieza-y-perfumeria"
+  },
+  {
+    "name": "Helados",
+    "slug": "helados"
   }
 ]

@@ -12,6 +12,16 @@ const seedDir = path.join(path.dirname(fileURLToPath(import.meta.url)), '..', 'd
 const readSeed = (name: string) => JSON.parse(fs.readFileSync(path.join(seedDir, name), 'utf8'));
 
 export const DEMO_PASSWORD = 'detoke1234';
+
+/**
+ * Business sets that can be loaded. Categories and sample messages are shared; only the businesses change.
+ * - demo: invented businesses in Montevideo and nearby cities.
+ * - dolores: real businesses of Dolores (Soriano), built from public Google Places data by `npm run places:dolores`.
+ */
+export const SEED_SETS = { demo: 'businesses.json', dolores: 'dolores/businesses.json' } as const;
+export type SeedSet = keyof typeof SEED_SETS;
+export const isSeedSet = (value: unknown): value is SeedSet => typeof value === 'string' && value in SEED_SETS;
+const readBusinesses = (set: SeedSet): SeedBusiness[] => readSeed(SEED_SETS[set]);
 export const ADMIN_EMAIL = 'admin@detoke.test';
 
 interface SeedBusiness {
@@ -37,8 +47,8 @@ const PATHS: Record<OrderStatus, OrderStatus[]> = {
   cancelled: ['pending', 'cancelled'],
 };
 /** A few orders in different statuses for the first sample businesses (only those without orders). */
-export async function seedOrders(limit = 8) {
-  const businesses = await Business.findAll({ where: { slug: readSeed('businesses.json').map((b: { slug: string }) => b.slug) }, include: [Product], order: [['name', 'ASC']], limit });
+export async function seedOrders(set: SeedSet = 'demo', limit = 8) {
+  const businesses = await Business.findAll({ where: { slug: readBusinesses(set).map((b) => b.slug as string) }, include: [Product], order: [['name', 'ASC']], limit });
   let created = 0;
   for (const [index, business] of businesses.entries()) {
     if (await Order.count({ where: { businessId: business.id } })) continue;
@@ -100,7 +110,7 @@ export async function seedCustomers(passwordHash: string) {
 
 export const seedContactMessages = () => ContactMessage.bulkCreate(readSeed('contact-messages.json'));
 
-export async function seed() {
+export async function seed(set: SeedSet = 'demo') {
   await initDb({ reset: true });
 
   const businessCategories = await BusinessCategory.bulkCreate(readSeed('business-categories.json').map((c: object, position: number) => ({ ...c, position })));
@@ -111,7 +121,7 @@ export async function seed() {
   const passwordHash = await bcrypt.hash(DEMO_PASSWORD, 10);
   await User.create({ email: ADMIN_EMAIL, name: 'Administración Detoke', role: 'admin', passwordHash });
 
-  const businesses: SeedBusiness[] = readSeed('businesses.json');
+  const businesses = readBusinesses(set);
   let productCount = 0;
   for (const { owner, category, products, ...data } of businesses) {
     const user = await User.create({ ...owner, passwordHash });
@@ -125,7 +135,7 @@ export async function seed() {
   }
 
   await seedContactMessages();
-  await seedOrders();
+  await seedOrders(set);
   const customers = await seedCustomers(passwordHash);
 
   return { businesses: businesses.length, products: productCount, accounts: [...businesses.map((b) => `${b.owner.email} (${b.name})`), ...customers] };
@@ -147,7 +157,7 @@ async function upsertCategories<M extends typeof BusinessCategory | typeof Produ
  * are updated in place (found by email), their products and orders are recreated, and the sample
  * contact messages are replaced. Real accounts, their businesses and their orders stay as they are.
  */
-export async function refreshDemo() {
+export async function refreshDemo(set: SeedSet = 'demo') {
   await initDb();
   const businessCategoryIds = await upsertCategories(BusinessCategory, 'business-categories.json');
   const productCategoryIds = await upsertCategories(ProductCategory, 'product-categories.json');
@@ -157,7 +167,7 @@ export async function refreshDemo() {
   if (admin) await admin.update({ role: 'admin', passwordHash });
   else await User.create({ email: ADMIN_EMAIL, name: 'Administración Detoke', role: 'admin', passwordHash });
 
-  const businesses: SeedBusiness[] = readSeed('businesses.json');
+  const businesses = readBusinesses(set);
   let productCount = 0;
   for (const { owner, category, products, ...data } of businesses) {
     const existingUser = await User.findOne({ where: { email: owner.email } });
@@ -182,7 +192,7 @@ export async function refreshDemo() {
   const messages: { email: string }[] = readSeed('contact-messages.json');
   await ContactMessage.destroy({ where: { email: messages.map((m) => m.email) } });
   await seedContactMessages();
-  const orders = await seedOrders();
+  const orders = await seedOrders(set);
   const customers = await seedCustomers(passwordHash);
 
   return { businesses: businesses.length, products: productCount, orders, accounts: [...businesses.map((b) => `${b.owner.email} (${b.name})`), ...customers] };

@@ -12,6 +12,8 @@
     "test": "vitest run",
     "db:seed": "tsx scripts/seed.ts",
     "db:demo": "tsx scripts/seed-demo.ts",
+    "db:seed:dolores": "tsx scripts/seed.ts dolores",
+    "places:dolores": "tsx scripts/places-dolores.ts",
     "brand:icons": "tsx scripts/brand-icons.tsx",
     "db:check-images": "tsx scripts/check-seed-images.ts"
   },

@@ -1,0 +1,4390 @@
+[
+  {
+    "owner": {
+      "name": "Saday Pizzas",
+      "email": "saday-pizzas@detoke.test"
+    },
+    "category": "pizzeria",
+    "name": "Saday Pizzas",
+    "slug": "saday-pizzas",
+    "tagline": "Pizzas con envío sin costo",
+    "description": "Pizzería de delivery de jueves a domingo de noche. También chivitos.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 92 605 707",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Callejón Escuela 112",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5399037,
+    "longitude": -58.2104143,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": false,
+        "ranges": []
+      },
+      "wednesday": {
+        "open": false,
+        "ranges": []
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:30",
+            "to": "01:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:30",
+            "to": "01:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:30",
+            "to": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:30",
+            "to": "01:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "delivery"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJAwEfINc_xIYRLUNRFYPQXuM",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJAwEfINc_xIYRLUNRFYPQXuM",
+      "rating": 5.0,
+      "ratingCount": 7,
+      "realWhatsappCandidate": "59892605707",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Dirección de Google ambigua (Callejón Escuela 112 entre Héctor Saavedra y ...): confirmar",
+        "Reseñas mencionan envío gratis y chivitería"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Sabores Nuestros",
+      "email": "sabores-nuestros@detoke.test"
+    },
+    "category": "pizzeria",
+    "name": "Sabores Nuestros",
+    "slug": "sabores-nuestros",
+    "tagline": null,
+    "description": "Pizzería con salón.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 92 110 162",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dolores (dirección a confirmar)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5272675,
+    "longitude": -58.2160192,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": false,
+        "ranges": []
+      },
+      "wednesday": {
+        "open": false,
+        "ranges": []
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJL3AGFQAppZUR-W-ngE9Hv8A",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJL3AGFQAppZUR-W-ngE9Hv8A",
+      "rating": 4.9,
+      "ratingCount": 15,
+      "realWhatsappCandidate": "59892110162",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Google tiene dirección incompleta ('Dr 1514')",
+        "Google mostraba además 00:00-12:00 algunos días (parece error); se dejó solo la franja de la noche"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "La Cantina 1935",
+      "email": "la-cantina-1935@detoke.test"
+    },
+    "category": "pizzeria",
+    "name": "La Cantina 1935",
+    "slug": "la-cantina-1935",
+    "tagline": null,
+    "description": "Pizzería en 18 de Julio.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 92 002 309",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "18 de Julio (a confirmar número)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5283179,
+    "longitude": -58.2204381,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJjxbO3bYppZURIDE3jJPei7o",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJjxbO3bYppZURIDE3jJPei7o",
+      "rating": 4.5,
+      "ratingCount": 2,
+      "realWhatsappCandidate": "59892002309",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Google marca el lunes 00:00-17:00 (parece error); se puso cerrado"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Lo de Lucy",
+      "email": "lo-de-lucy@detoke.test"
+    },
+    "category": "rotiseria",
+    "name": "Lo de Lucy",
+    "slug": "lo-de-lucy",
+    "tagline": "Chivitos y minutas",
+    "description": "Minutas, chivitos y comida al paso, con salón y delivery.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 3173",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "18 de Julio (a confirmar número)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.528837,
+    "longitude": -58.220021,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "02:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "delivery",
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJExoFMPYopZURq34TnHegL4o",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJExoFMPYopZURq34TnHegL4o",
+      "rating": 4.3,
+      "ratingCount": 431,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo: no sirve para WhatsApp",
+        "Reseñas mencionan delivery rápido"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "A lo de Martha",
+      "email": "a-lo-de-martha@detoke.test"
+    },
+    "category": "rotiseria",
+    "name": "A lo de Martha",
+    "slug": "a-lo-de-martha",
+    "tagline": "Pizzas, chivitos y menú del día",
+    "description": "Pizzería, chivitería y panadería con menús de almuerzo variados.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 94 086 010",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "José Pedro Varela",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5336972,
+    "longitude": -58.2139742,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "14:00"
+          },
+          {
+            "from": "19:00",
+            "to": "00:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "14:00"
+          },
+          {
+            "from": "19:00",
+            "to": "00:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "14:00"
+          },
+          {
+            "from": "19:00",
+            "to": "00:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "14:00"
+          },
+          {
+            "from": "19:00",
+            "to": "00:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "14:00"
+          },
+          {
+            "from": "19:00",
+            "to": "00:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "10:00",
+            "to": "14:00"
+          },
+          {
+            "from": "19:00",
+            "to": "00:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "delivery",
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJERWwXpwppZURTMIKBKbwFdc",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJERWwXpwppZURTMIKBKbwFdc",
+      "rating": 4.3,
+      "ratingCount": 8,
+      "realWhatsappCandidate": "59894086010",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Reseñas mencionan pedidos que llegan calientes (delivery)"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Cafer",
+      "email": "cafer@detoke.test"
+    },
+    "category": "rotiseria",
+    "name": "Cafer",
+    "slug": "cafer",
+    "tagline": "Comida casera con menú del día",
+    "description": "Rotisería de mediodía con menú diario.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 99 600 918",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Tomás Villalba entre Rodó y Gomensoro",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5306523,
+    "longitude": -58.224695,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": false,
+        "ranges": []
+      }
+    },
+    "deliveryOptions": [
+      "delivery",
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJZ4w5Z-kppZURl7EYiS6nHfI",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJZ4w5Z-kppZURl7EYiS6nHfI",
+      "rating": 4.0,
+      "ratingCount": 2,
+      "realWhatsappCandidate": "59899600918",
+      "hoursFromGoogle": true,
+      "toConfirm": []
+    }
+  },
+  {
+    "owner": {
+      "name": "Restaurant Caramora",
+      "email": "restaurant-caramora@detoke.test"
+    },
+    "category": "restaurante",
+    "name": "Restaurant Caramora",
+    "slug": "restaurant-caramora",
+    "tagline": "Parrilla, pizzas y postres caseros",
+    "description": "Parrilla y especialidades de la casa, porciones grandes para compartir.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2115",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dolores (dirección a confirmar)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5263996,
+    "longitude": -58.2176689,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:30",
+            "to": "15:30"
+          },
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:30",
+            "to": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:30",
+            "to": "15:30"
+          },
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:30",
+            "to": "15:30"
+          },
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "delivery",
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJ7wP20vUopZUR02QebZfzpgY",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ7wP20vUopZUR02QebZfzpgY",
+      "rating": 4.4,
+      "ratingCount": 801,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Google no tiene calle; está en el centro",
+        "Google lo marca con delivery y catering",
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "El Retorno",
+      "email": "el-retorno@detoke.test"
+    },
+    "category": "restaurante",
+    "name": "El Retorno",
+    "slug": "el-retorno",
+    "tagline": "Milanesas abundantes",
+    "description": "Comedor con milanesas, minutas y platos para compartir. Abre todos los días.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2471",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dr. Adalberto Schuster",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5315477,
+    "longitude": -58.2164,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:30",
+            "to": "16:00"
+          },
+          {
+            "from": "18:30",
+            "to": "02:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJawVy3V4opZURJyHZKH0-tUA",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJawVy3V4opZURJyHZKH0-tUA",
+      "rating": 4.2,
+      "ratingCount": 865,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Los Faroles",
+      "email": "los-faroles@detoke.test"
+    },
+    "category": "restaurante",
+    "name": "Los Faroles",
+    "slug": "los-faroles",
+    "tagline": "Parrilla atendida por sus dueños",
+    "description": "Parrilla y cocina casera.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 3219",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dolores (dirección a confirmar)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5302406,
+    "longitude": -58.2186898,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "19:30",
+            "to": "00:30"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJwwoCuVgopZURVYFT1WNQpiQ",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJwwoCuVgopZURVYFT1WNQpiQ",
+      "rating": 4.4,
+      "ratingCount": 337,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Google sin calle (Plus Code FQ9J+WG3)",
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "La Herradura Parrillada & Comedor",
+      "email": "la-herradura-parrillada-comedor@detoke.test"
+    },
+    "category": "restaurante",
+    "name": "La Herradura Parrillada & Comedor",
+    "slug": "la-herradura-parrillada-comedor",
+    "tagline": "Parrillada familiar",
+    "description": "Parrilla y comedor familiar atendido por sus dueños.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 91 697 737",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Gral. José Gervasio Artigas 962",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5274769,
+    "longitude": -58.2121391,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "13:30"
+          },
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "13:30"
+          },
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "13:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "13:30"
+          },
+          {
+            "from": "20:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "14:30"
+          },
+          {
+            "from": "20:00",
+            "to": "01:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "14:00"
+          },
+          {
+            "from": "20:00",
+            "to": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "15:00"
+          },
+          {
+            "from": "20:00",
+            "to": "01:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJf1M3mbUppZURqANRZmFxbx0",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJf1M3mbUppZURqANRZmFxbx0",
+      "rating": 4.3,
+      "ratingCount": 45,
+      "realWhatsappCandidate": "59891697737",
+      "hoursFromGoogle": true,
+      "toConfirm": []
+    }
+  },
+  {
+    "owner": {
+      "name": "Canela Coffee Bar",
+      "email": "canela-coffee-bar@detoke.test"
+    },
+    "category": "restaurante",
+    "name": "Canela Coffee Bar",
+    "slug": "canela-coffee-bar",
+    "tagline": "Merienda y café",
+    "description": "Café con meriendas y juegos de mesa.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 92 643 709",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Asencio 1533",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.528805,
+    "longitude": -58.2185371,
+    "hours": {
+      "monday": {
+        "open": false,
+        "ranges": []
+      },
+      "tuesday": {
+        "open": false,
+        "ranges": []
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "16:30",
+            "to": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "16:30",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "16:30",
+            "to": "02:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "16:30",
+            "to": "06:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "16:30",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJfYAPdAAppZURB0WqwaPc60w",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJfYAPdAAppZURB0WqwaPc60w",
+      "rating": 4.2,
+      "ratingCount": 10,
+      "realWhatsappCandidate": "59892643709",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Podría ir en 'otros' si se agrega rubro cafetería"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Panadería Los Gallegos",
+      "email": "panaderia-los-gallegos@detoke.test"
+    },
+    "category": "panaderia",
+    "name": "Panadería Los Gallegos",
+    "slug": "panaderia-los-gallegos",
+    "tagline": null,
+    "description": "Panadería y confitería; toma encargos.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2021",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Tomás Gomensoro 1073",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5259727,
+    "longitude": -58.2160334,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "20:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:00"
+          },
+          {
+            "from": "14:30",
+            "to": "20:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "20:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "20:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "20:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "20:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:30"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJvWSatPUopZURlwgi0PUvStQ",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJvWSatPUopZURlwgi0PUvStQ",
+      "rating": 4.6,
+      "ratingCount": 125,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Panadería Más Que Rico",
+      "email": "panaderia-mas-que-rico@detoke.test"
+    },
+    "category": "panaderia",
+    "name": "Panadería Más Que Rico",
+    "slug": "panaderia-mas-que-rico",
+    "tagline": "Abierta todo el día",
+    "description": "Panadería, confitería y productos envasados.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 98 831 606",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Río Negro 1420",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5258329,
+    "longitude": -58.2252638,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "06:00",
+            "to": "22:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJUyc4f2gppZURVebaTZW_5vM",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJUyc4f2gppZURVebaTZW_5vM",
+      "rating": 4.2,
+      "ratingCount": 52,
+      "realWhatsappCandidate": "59898831606",
+      "hoursFromGoogle": true,
+      "toConfirm": []
+    }
+  },
+  {
+    "owner": {
+      "name": "Panadería y Confitería Higueritas (sucursal)",
+      "email": "panaderia-y-confiteria-higueritas-sucursal@detoke.test"
+    },
+    "category": "panaderia",
+    "name": "Panadería y Confitería Higueritas (sucursal)",
+    "slug": "panaderia-y-confiteria-higueritas-sucursal",
+    "tagline": null,
+    "description": "Panadería y confitería con lugar para desayunar o merendar.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dolores (dirección a confirmar)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5286007,
+    "longitude": -58.2174502,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJYf7Q_vUopZUR-gwChrQYNPk",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJYf7Q_vUopZUR-gwChrQYNPk",
+      "rating": 4.5,
+      "ratingCount": 57,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Google sin calle (Plus Code FQCM+H23)"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Panadería El Trigal",
+      "email": "panaderia-el-trigal@detoke.test"
+    },
+    "category": "panaderia",
+    "name": "Panadería El Trigal",
+    "slug": "panaderia-el-trigal",
+    "tagline": null,
+    "description": "Panadería de barrio con mucha salida de bizcochos y pan.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Grito de Asencio 2104",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5382468,
+    "longitude": -58.2123378,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          },
+          {
+            "from": "15:00",
+            "to": "21:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJIxenxekppZURqPC3TOV6HB4",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJIxenxekppZURqPC3TOV6HB4",
+      "rating": 4.3,
+      "ratingCount": 53,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Google marca 24 h de miércoles a sábado (parece error); se puso 07:30-13:00"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Panadería Calentito",
+      "email": "panaderia-calentito@detoke.test"
+    },
+    "category": "panaderia",
+    "name": "Panadería Calentito",
+    "slug": "panaderia-calentito",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Pbro. Bonifacio Redruello 1818",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5318608,
+    "longitude": -58.2127132,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJnSdmSHsppZURFnm46jfsI20",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJnSdmSHsppZURFnm46jfsI20",
+      "rating": 4.5,
+      "ratingCount": 17,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Provisión Victoria",
+      "email": "provision-victoria@detoke.test"
+    },
+    "category": "almacen",
+    "name": "Provisión Victoria",
+    "slug": "provision-victoria",
+    "tagline": "Todo para el surtido en un lugar",
+    "description": "Almacén con frutas, verduras, cerdo, pollo, pescado y bebidas.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 97 419 606",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Asencio 2293",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5409833,
+    "longitude": -58.2101744,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "23:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:00",
+            "to": "14:00"
+          },
+          {
+            "from": "17:00",
+            "to": "21:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJY-4WVYUppZURv-U2YgkmxXw",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJY-4WVYUppZURv-U2YgkmxXw",
+      "rating": 4.6,
+      "ratingCount": 58,
+      "realWhatsappCandidate": "59897419606",
+      "hoursFromGoogle": true,
+      "toConfirm": []
+    }
+  },
+  {
+    "owner": {
+      "name": "Al Toque Market",
+      "email": "al-toque-market@detoke.test"
+    },
+    "category": "almacen",
+    "name": "Al Toque Market",
+    "slug": "al-toque-market",
+    "tagline": null,
+    "description": "Almacén de barrio.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 92 457 112",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Francisco Prestes 1180",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5284413,
+    "longitude": -58.217052,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:30"
+          },
+          {
+            "from": "15:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:30"
+          },
+          {
+            "from": "15:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:30"
+          },
+          {
+            "from": "15:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:30"
+          },
+          {
+            "from": "15:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:30"
+          },
+          {
+            "from": "15:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "13:30"
+          },
+          {
+            "from": "15:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:00",
+            "to": "13:00"
+          },
+          {
+            "from": "18:00",
+            "to": "23:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJDecFEwAppZURqIbCc_OIKL8",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDecFEwAppZURqIbCc_OIKL8",
+      "rating": 5.0,
+      "ratingCount": 1,
+      "realWhatsappCandidate": "59892457112",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Google tiene dos fichas (ChIJW9oDUQAppZURNjIIx82TYZ8 trae el teléfono, con coordenadas distintas): confirmar ubicación"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Almacén DsySe",
+      "email": "almacen-dsyse@detoke.test"
+    },
+    "category": "almacen",
+    "name": "Almacén DsySe",
+    "slug": "almacen-dsyse",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Anagualpo esquina (a confirmar)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5341215,
+    "longitude": -58.2038972,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          },
+          {
+            "from": "17:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          },
+          {
+            "from": "17:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          },
+          {
+            "from": "17:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          },
+          {
+            "from": "17:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          },
+          {
+            "from": "17:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:30",
+            "to": "13:00"
+          },
+          {
+            "from": "17:00",
+            "to": "22:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJqfFZsMQppZUR9ZfREPw_AU4",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJqfFZsMQppZUR9ZfREPw_AU4",
+      "rating": 4.5,
+      "ratingCount": 2,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Sin teléfono en Google"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Supermercados El Dorado",
+      "email": "supermercados-el-dorado@detoke.test"
+    },
+    "category": "supermercado",
+    "name": "Supermercados El Dorado",
+    "slug": "supermercados-el-dorado",
+    "tagline": null,
+    "description": "Supermercado abierto todo el día, con rotisería y sector para comer.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 6090",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Carlos Puig (a confirmar número)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5311,
+    "longitude": -58.215557,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJGW77ie0ppZUR6My9f3uII6Q",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJGW77ie0ppZUR6My9f3uII6Q",
+      "rating": 4.4,
+      "ratingCount": 493,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Cadena: puede costar más la venta, pero sirve de referencia en la demo",
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Supermercado Cadol",
+      "email": "supermercado-cadol@detoke.test"
+    },
+    "category": "supermercado",
+    "name": "Supermercado Cadol",
+    "slug": "supermercado-cadol",
+    "tagline": null,
+    "description": "Supermercado de la cooperativa Cadol.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2277",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Carlos Puig 1763",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5318555,
+    "longitude": -58.2150058,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "21:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "14:00"
+          },
+          {
+            "from": "15:30",
+            "to": "21:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJDTGq9V4opZURD71bCJlc8Vk",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDTGq9V4opZURD71bCJlc8Vk",
+      "rating": 4.3,
+      "ratingCount": 678,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "La Estación Mercado",
+      "email": "la-estacion-mercado@detoke.test"
+    },
+    "category": "supermercado",
+    "name": "La Estación Mercado",
+    "slug": "la-estacion-mercado",
+    "tagline": null,
+    "description": "Supermercado con rotisería, carnicería y panadería, junto a la estación Axion.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2401",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Andrés Cheveste 1223",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5344644,
+    "longitude": -58.2142695,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "22:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "14:00"
+          },
+          {
+            "from": "16:00",
+            "to": "22:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJmbHeMZMppZURIfW8XhzADuI",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJmbHeMZMppZURIfW8XhzADuI",
+      "rating": 4.5,
+      "ratingCount": 203,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Provisión Bella Vista",
+      "email": "provision-bella-vista@detoke.test"
+    },
+    "category": "supermercado",
+    "name": "Provisión Bella Vista",
+    "slug": "provision-bella-vista",
+    "tagline": "Todo en un solo lugar",
+    "description": "Supermercado de barrio con buenas ofertas.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 4154",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Grito de Asencio 2146",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5387434,
+    "longitude": -58.2119467,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "22:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "22:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "22:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "22:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "22:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "22:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "13:00"
+          },
+          {
+            "from": "16:00",
+            "to": "21:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJg8gkIWgopZURPReTaGKHk2c",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJg8gkIWgopZURPReTaGKHk2c",
+      "rating": 4.6,
+      "ratingCount": 274,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Autoservice Emanuel – Carnicería Los Naranjos",
+      "email": "autoservice-emanuel-carniceria-los-naranjos@detoke.test"
+    },
+    "category": "supermercado",
+    "name": "Autoservice Emanuel – Carnicería Los Naranjos",
+    "slug": "autoservice-emanuel-carniceria-los-naranjos",
+    "tagline": null,
+    "description": "Autoservicio con carnicería.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 5495",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dr. Justo Pastor Sotura 1106",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.528484,
+    "longitude": -58.2152583,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:00",
+            "to": "12:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": false,
+        "ranges": []
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJEwFa6V8ppZURl2JDgYroS8Q",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJEwFa6V8ppZURl2JDgYroS8Q",
+      "rating": 4.7,
+      "ratingCount": 9,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "La Piara",
+      "email": "la-piara@detoke.test"
+    },
+    "category": "carniceria",
+    "name": "La Piara",
+    "slug": "la-piara",
+    "tagline": "Cortes de producción propia",
+    "description": "Carnicería con cortes envasados al vacío, fiambres y pastas caseras; opciones para celíacos.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 6264",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Grito de Asencio 1286",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5250233,
+    "longitude": -58.2214293,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:15"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:15"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:15"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:15"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:15"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:15"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:00",
+            "to": "13:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJXRFQelYppZURttWheCtTRrU",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJXRFQelYppZURttWheCtTRrU",
+      "rating": 4.6,
+      "ratingCount": 41,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Carnicería San Antonio",
+      "email": "carniceria-san-antonio@detoke.test"
+    },
+    "category": "carniceria",
+    "name": "Carnicería San Antonio",
+    "slug": "carniceria-san-antonio",
+    "tagline": "Chorizos caseros",
+    "description": "Carnicería de Roberto Isla; reconocida por sus embutidos.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2740",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Pbro. Bonifacio Redruello 1892",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5330482,
+    "longitude": -58.2117757,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJS1B3WWcopZURf3CEGpha5D0",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJS1B3WWcopZURf3CEGpha5D0",
+      "rating": 4.5,
+      "ratingCount": 17,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Teléfono fijo",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Carnicería Los Paraísos",
+      "email": "carniceria-los-paraisos@detoke.test"
+    },
+    "category": "carniceria",
+    "name": "Carnicería Los Paraísos",
+    "slug": "carniceria-los-paraisos",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 4004",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "José Enrique Rodó 1273",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5286712,
+    "longitude": -58.2193294,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "12:30"
+          },
+          {
+            "from": "16:30",
+            "to": "20:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "07:30",
+            "to": "13:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJbT-78-sppZUREQiLnfxT1YA",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJbT-78-sppZUREQiLnfxT1YA",
+      "rating": 5.0,
+      "ratingCount": 4,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Carnicería Del Puerto",
+      "email": "carniceria-del-puerto@detoke.test"
+    },
+    "category": "carniceria",
+    "name": "Carnicería Del Puerto",
+    "slug": "carniceria-del-puerto",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "18 de Julio 1885 esq. Carlos María Solari",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5244729,
+    "longitude": -58.2228884,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJCyyon_AopZURip42t8lANiM",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJCyyon_AopZURip42t8lANiM",
+      "rating": 4.1,
+      "ratingCount": 42,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Frutidol",
+      "email": "frutidol@detoke.test"
+    },
+    "category": "verduleria",
+    "name": "Frutidol",
+    "slug": "frutidol",
+    "tagline": null,
+    "description": "Frutería y verdulería.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "José Pedro Varela (a confirmar número)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5335562,
+    "longitude": -58.2124038,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "21:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "21:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "21:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "21:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "21:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "21:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:00",
+            "to": "13:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJEUdnWcoppZURnpHYsy8G6jg",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJEUdnWcoppZURnpHYsy8G6jg",
+      "rating": 4.8,
+      "ratingCount": 4,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Google tenía el martes 08:00-09:00 y el domingo hasta la 01:00 (parecen errores); se normalizó"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Verdulería Los Hermanos",
+      "email": "verduleria-los-hermanos@detoke.test"
+    },
+    "category": "verduleria",
+    "name": "Verdulería Los Hermanos",
+    "slug": "verduleria-los-hermanos",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Coronel Vélez",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5394875,
+    "longitude": -58.2151423,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJ93tDH0MopZURoJGeNQkADcc",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ93tDH0MopZURoJGeNQkADcc",
+      "rating": 4.5,
+      "ratingCount": 2,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "La Providencia",
+      "email": "la-providencia@detoke.test"
+    },
+    "category": "verduleria",
+    "name": "La Providencia",
+    "slug": "la-providencia",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 91 475 269",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Yandinola 2117",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5344851,
+    "longitude": -58.2057847,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJUekHyRcppZURp4QWDmHLixA",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJUekHyRcppZURp4QWDmHLixA",
+      "rating": null,
+      "ratingCount": null,
+      "realWhatsappCandidate": "59891475269",
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Google lo marca como almacén/comestibles: confirmar rubro",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "La Esquina Almacén Natural",
+      "email": "la-esquina-almacen-natural@detoke.test"
+    },
+    "category": "dietetica",
+    "name": "La Esquina Almacén Natural",
+    "slug": "la-esquina-almacen-natural",
+    "tagline": "Productos naturales a granel",
+    "description": "Harinas, frutos secos y semillas a granel; se puede llevar envase propio.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Grito de Asencio 2002",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5365784,
+    "longitude": -58.2135208,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "12:00"
+          },
+          {
+            "from": "15:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "09:00",
+            "to": "12:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": false,
+        "ranges": []
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJYaEIX1QppZURU-IBv7cKOEs",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJYaEIX1QppZURU-IBv7cKOEs",
+      "rating": 4.8,
+      "ratingCount": 6,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Reseña menciona descuento con tarjetas Santander"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Heladería Monte Bianco",
+      "email": "heladeria-monte-bianco@detoke.test"
+    },
+    "category": "heladeria",
+    "name": "Heladería Monte Bianco",
+    "slug": "heladeria-monte-bianco",
+    "tagline": null,
+    "description": "Heladería del centro, sobre 18 de Julio.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 5705",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "18 de Julio 1557",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.529855,
+    "longitude": -58.219279,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "22:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "22:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "22:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "22:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "22:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "11:00",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJk2mFolgopZURfqkNg--aEcI",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJk2mFolgopZURfqkNg--aEcI",
+      "rating": 4.6,
+      "ratingCount": 122,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Grido Helado",
+      "email": "grido-helado@detoke.test"
+    },
+    "category": "heladeria",
+    "name": "Grido Helado",
+    "slug": "grido-helado",
+    "tagline": null,
+    "description": "Franquicia de helados con salón.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 91 352 855",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "18 de Julio 1649 esq. Artigas",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5310599,
+    "longitude": -58.2180313,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "23:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "12:00",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJXT67GHcppZURSuGdHVCaTbc",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJXT67GHcppZURSuGdHVCaTbc",
+      "rating": 4.6,
+      "ratingCount": 189,
+      "realWhatsappCandidate": "59891352855",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Es franquicia de cadena: la decisión de sumarse puede no ser local"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Heladería J & L",
+      "email": "heladeria-j-l@detoke.test"
+    },
+    "category": "heladeria",
+    "name": "Heladería J & L",
+    "slug": "heladeria-j-l",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Libertador Juan Antonio Lavalleja",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5355684,
+    "longitude": -58.2140923,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJW-HkCF0opZURmGDx7x-GAus",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJW-HkCF0opZURmGDx7x-GAus",
+      "rating": 4.3,
+      "ratingCount": 63,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Sin teléfono en Google",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Kiosco Yoni",
+      "email": "kiosco-yoni@detoke.test"
+    },
+    "category": "kiosco",
+    "name": "Kiosco Yoni",
+    "slug": "kiosco-yoni",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 2771",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Pedro Rico Puppo 1169",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5261807,
+    "longitude": -58.2186436,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJ_fj_jvYopZURsUEX7BIjics",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_fj_jvYopZURsUEX7BIjics",
+      "rating": 4.3,
+      "ratingCount": 82,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Google lo clasifica como tienda de artículos para el hogar; por reseñas vende regalos/juguetes: quizás 'bazar-y-limpieza'",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Quiosco del Paso",
+      "email": "quiosco-del-paso@detoke.test"
+    },
+    "category": "kiosco",
+    "name": "Quiosco del Paso",
+    "slug": "quiosco-del-paso",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Elena Barros 1430",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5274281,
+    "longitude": -58.2239003,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "23:30"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJS7sYFgAppZUR-tednpWPra8",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJS7sYFgAppZUR-tednpWPra8",
+      "rating": null,
+      "ratingCount": null,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Sin teléfono en Google"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Lo d' Fiore",
+      "email": "lo-d-fiore@detoke.test"
+    },
+    "category": "kiosco",
+    "name": "Lo d' Fiore",
+    "slug": "lo-d-fiore",
+    "tagline": null,
+    "description": null,
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 98 480 877",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Carlos María Solari casi (a confirmar)",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5214544,
+    "longitude": -58.2184414,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "00:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "01:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "01:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "00:00"
+          }
+        ]
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJy03XHOAppZURVi02Bra54gc",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJy03XHOAppZURVi02Bra54gc",
+      "rating": 5.0,
+      "ratingCount": 1,
+      "realWhatsappCandidate": "59898480877",
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Google no da el rubro exacto (store): confirmar"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Super Shanikar",
+      "email": "super-shanikar@detoke.test"
+    },
+    "category": "bebidas",
+    "name": "Super Shanikar",
+    "slug": "super-shanikar",
+    "tagline": null,
+    "description": "Refrescos, bebidas alcohólicas, regalos y fiambres.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": null,
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Dr. Adalberto Schuster 1377",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5327882,
+    "longitude": -58.218867,
+    "hours": null,
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJDZ106iIppZURetdz3VK0gZY",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDZ106iIppZURetdz3VK0gZY",
+      "rating": 5.0,
+      "ratingCount": 3,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": false,
+      "toConfirm": [
+        "Google lo marca como supermercado; por reseñas encaja en bebidas",
+        "Sin teléfono en Google",
+        "Sin horarios en Google: confirmar en la visita"
+      ]
+    }
+  },
+  {
+    "owner": {
+      "name": "Miken Packing",
+      "email": "miken-packing@detoke.test"
+    },
+    "category": "bazar-y-limpieza",
+    "name": "Miken Packing",
+    "slug": "miken-packing",
+    "tagline": "Bazar, descartables y repostería",
+    "description": "Artículos de cocina, descartables, cotillón, repostería, papelería y limpieza.",
+    "logo": null,
+    "coverImage": null,
+    "gallery": [],
+    "whatsapp": "59899760994",
+    "phone": "+598 4534 4200",
+    "email": null,
+    "website": null,
+    "instagram": null,
+    "facebook": null,
+    "address": "Carlos Puig 1569",
+    "neighborhood": null,
+    "city": "Dolores",
+    "province": "Soriano",
+    "postalCode": "75100",
+    "latitude": -33.5290077,
+    "longitude": -58.2171787,
+    "hours": {
+      "monday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "tuesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "wednesday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "thursday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "friday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "saturday": {
+        "open": true,
+        "ranges": [
+          {
+            "from": "08:00",
+            "to": "19:00"
+          }
+        ]
+      },
+      "sunday": {
+        "open": false,
+        "ranges": []
+      }
+    },
+    "deliveryOptions": [
+      "pickup"
+    ],
+    "deliveryFee": null,
+    "minimumOrder": null,
+    "deliveryRadiusKm": null,
+    "paymentMethods": [
+      "cash"
+    ],
+    "isVerified": false,
+    "isActive": true,
+    "products": [],
+    "_source": {
+      "provider": "Google Places",
+      "placeId": "ChIJ98LYVl8opZUR4IAB-xIVVKc",
+      "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ98LYVl8opZUR4IAB-xIVVKc",
+      "rating": 4.5,
+      "ratingCount": 164,
+      "realWhatsappCandidate": null,
+      "hoursFromGoogle": true,
+      "toConfirm": [
+        "Teléfono fijo"
+      ]
+    }
+  }
+]

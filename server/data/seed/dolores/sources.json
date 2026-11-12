@@ -1,0 +1,534 @@
+{
+ "saday-pizzas": {
+  "provider": "Google Places",
+  "placeId": "ChIJAwEfINc_xIYRLUNRFYPQXuM",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJAwEfINc_xIYRLUNRFYPQXuM",
+  "rating": 5,
+  "ratingCount": 7,
+  "realWhatsappCandidate": "59892605707",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Dirección de Google ambigua (Callejón Escuela 112 entre Héctor Saavedra y ...): confirmar",
+   "Reseñas mencionan envío gratis y chivitería"
+  ],
+  "genericHours": false
+ },
+ "sabores-nuestros": {
+  "provider": "Google Places",
+  "placeId": "ChIJL3AGFQAppZUR-W-ngE9Hv8A",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJL3AGFQAppZUR-W-ngE9Hv8A",
+  "rating": 4.9,
+  "ratingCount": 15,
+  "realWhatsappCandidate": "59892110162",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Google tiene dirección incompleta ('Dr 1514')",
+   "Google mostraba además 00:00-12:00 algunos días (parece error); se dejó solo la franja de la noche"
+  ],
+  "genericHours": false
+ },
+ "la-cantina-1935": {
+  "provider": "Google Places",
+  "placeId": "ChIJjxbO3bYppZURIDE3jJPei7o",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJjxbO3bYppZURIDE3jJPei7o",
+  "rating": 4.5,
+  "ratingCount": 2,
+  "realWhatsappCandidate": "59892002309",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Google marca el lunes 00:00-17:00 (parece error); se puso cerrado"
+  ],
+  "genericHours": false
+ },
+ "lo-de-lucy": {
+  "provider": "Google Places",
+  "placeId": "ChIJExoFMPYopZURq34TnHegL4o",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJExoFMPYopZURq34TnHegL4o",
+  "rating": 4.3,
+  "ratingCount": 431,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo: no sirve para WhatsApp",
+   "Reseñas mencionan delivery rápido"
+  ],
+  "genericHours": false
+ },
+ "a-lo-de-martha": {
+  "provider": "Google Places",
+  "placeId": "ChIJERWwXpwppZURTMIKBKbwFdc",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJERWwXpwppZURTMIKBKbwFdc",
+  "rating": 4.3,
+  "ratingCount": 8,
+  "realWhatsappCandidate": "59894086010",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Reseñas mencionan pedidos que llegan calientes (delivery)"
+  ],
+  "genericHours": false
+ },
+ "cafer": {
+  "provider": "Google Places",
+  "placeId": "ChIJZ4w5Z-kppZURl7EYiS6nHfI",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJZ4w5Z-kppZURl7EYiS6nHfI",
+  "rating": 4,
+  "ratingCount": 2,
+  "realWhatsappCandidate": "59899600918",
+  "hoursFromGoogle": true,
+  "toConfirm": [],
+  "genericHours": false
+ },
+ "restaurant-caramora": {
+  "provider": "Google Places",
+  "placeId": "ChIJ7wP20vUopZUR02QebZfzpgY",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ7wP20vUopZUR02QebZfzpgY",
+  "rating": 4.4,
+  "ratingCount": 801,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Google no tiene calle; está en el centro",
+   "Google lo marca con delivery y catering",
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "el-retorno": {
+  "provider": "Google Places",
+  "placeId": "ChIJawVy3V4opZURJyHZKH0-tUA",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJawVy3V4opZURJyHZKH0-tUA",
+  "rating": 4.2,
+  "ratingCount": 865,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "los-faroles": {
+  "provider": "Google Places",
+  "placeId": "ChIJwwoCuVgopZURVYFT1WNQpiQ",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJwwoCuVgopZURVYFT1WNQpiQ",
+  "rating": 4.4,
+  "ratingCount": 337,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Google sin calle (Plus Code FQ9J+WG3)",
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "la-herradura-parrillada-comedor": {
+  "provider": "Google Places",
+  "placeId": "ChIJf1M3mbUppZURqANRZmFxbx0",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJf1M3mbUppZURqANRZmFxbx0",
+  "rating": 4.3,
+  "ratingCount": 45,
+  "realWhatsappCandidate": "59891697737",
+  "hoursFromGoogle": true,
+  "toConfirm": [],
+  "genericHours": false
+ },
+ "canela-coffee-bar": {
+  "provider": "Google Places",
+  "placeId": "ChIJfYAPdAAppZURB0WqwaPc60w",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJfYAPdAAppZURB0WqwaPc60w",
+  "rating": 4.2,
+  "ratingCount": 10,
+  "realWhatsappCandidate": "59892643709",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Podría ir en 'otros' si se agrega rubro cafetería"
+  ],
+  "genericHours": false
+ },
+ "panaderia-los-gallegos": {
+  "provider": "Google Places",
+  "placeId": "ChIJvWSatPUopZURlwgi0PUvStQ",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJvWSatPUopZURlwgi0PUvStQ",
+  "rating": 4.6,
+  "ratingCount": 125,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "panaderia-mas-que-rico": {
+  "provider": "Google Places",
+  "placeId": "ChIJUyc4f2gppZURVebaTZW_5vM",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJUyc4f2gppZURVebaTZW_5vM",
+  "rating": 4.2,
+  "ratingCount": 52,
+  "realWhatsappCandidate": "59898831606",
+  "hoursFromGoogle": true,
+  "toConfirm": [],
+  "genericHours": false
+ },
+ "panaderia-y-confiteria-higueritas-sucursal": {
+  "provider": "Google Places",
+  "placeId": "ChIJYf7Q_vUopZUR-gwChrQYNPk",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJYf7Q_vUopZUR-gwChrQYNPk",
+  "rating": 4.5,
+  "ratingCount": 57,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Google sin calle (Plus Code FQCM+H23)"
+  ],
+  "genericHours": false
+ },
+ "panaderia-el-trigal": {
+  "provider": "Google Places",
+  "placeId": "ChIJIxenxekppZURqPC3TOV6HB4",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJIxenxekppZURqPC3TOV6HB4",
+  "rating": 4.3,
+  "ratingCount": 53,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Google marca 24 h de miércoles a sábado (parece error); se puso 07:30-13:00"
+  ],
+  "genericHours": false
+ },
+ "panaderia-calentito": {
+  "provider": "Google Places",
+  "placeId": "ChIJnSdmSHsppZURFnm46jfsI20",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJnSdmSHsppZURFnm46jfsI20",
+  "rating": 4.5,
+  "ratingCount": 17,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "provision-victoria": {
+  "provider": "Google Places",
+  "placeId": "ChIJY-4WVYUppZURv-U2YgkmxXw",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJY-4WVYUppZURv-U2YgkmxXw",
+  "rating": 4.6,
+  "ratingCount": 58,
+  "realWhatsappCandidate": "59897419606",
+  "hoursFromGoogle": true,
+  "toConfirm": [],
+  "genericHours": false
+ },
+ "al-toque-market": {
+  "provider": "Google Places",
+  "placeId": "ChIJDecFEwAppZURqIbCc_OIKL8",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDecFEwAppZURqIbCc_OIKL8",
+  "rating": 5,
+  "ratingCount": 1,
+  "realWhatsappCandidate": "59892457112",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Google tiene dos fichas (ChIJW9oDUQAppZURNjIIx82TYZ8 trae el teléfono, con coordenadas distintas): confirmar ubicación"
+  ],
+  "genericHours": false
+ },
+ "almacen-dsyse": {
+  "provider": "Google Places",
+  "placeId": "ChIJqfFZsMQppZUR9ZfREPw_AU4",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJqfFZsMQppZUR9ZfREPw_AU4",
+  "rating": 4.5,
+  "ratingCount": 2,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Sin teléfono en Google"
+  ],
+  "genericHours": false
+ },
+ "supermercados-el-dorado": {
+  "provider": "Google Places",
+  "placeId": "ChIJGW77ie0ppZUR6My9f3uII6Q",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJGW77ie0ppZUR6My9f3uII6Q",
+  "rating": 4.4,
+  "ratingCount": 493,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Cadena: puede costar más la venta, pero sirve de referencia en la demo",
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "supermercado-cadol": {
+  "provider": "Google Places",
+  "placeId": "ChIJDTGq9V4opZURD71bCJlc8Vk",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDTGq9V4opZURD71bCJlc8Vk",
+  "rating": 4.3,
+  "ratingCount": 678,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "la-estacion-mercado": {
+  "provider": "Google Places",
+  "placeId": "ChIJmbHeMZMppZURIfW8XhzADuI",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJmbHeMZMppZURIfW8XhzADuI",
+  "rating": 4.5,
+  "ratingCount": 203,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "provision-bella-vista": {
+  "provider": "Google Places",
+  "placeId": "ChIJg8gkIWgopZURPReTaGKHk2c",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJg8gkIWgopZURPReTaGKHk2c",
+  "rating": 4.6,
+  "ratingCount": 274,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "autoservice-emanuel-carniceria-los-naranjos": {
+  "provider": "Google Places",
+  "placeId": "ChIJEwFa6V8ppZURl2JDgYroS8Q",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJEwFa6V8ppZURl2JDgYroS8Q",
+  "rating": 4.7,
+  "ratingCount": 9,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "la-piara": {
+  "provider": "Google Places",
+  "placeId": "ChIJXRFQelYppZURttWheCtTRrU",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJXRFQelYppZURttWheCtTRrU",
+  "rating": 4.6,
+  "ratingCount": 41,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "carniceria-san-antonio": {
+  "provider": "Google Places",
+  "placeId": "ChIJS1B3WWcopZURf3CEGpha5D0",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJS1B3WWcopZURf3CEGpha5D0",
+  "rating": 4.5,
+  "ratingCount": 17,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Teléfono fijo",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "carniceria-los-paraisos": {
+  "provider": "Google Places",
+  "placeId": "ChIJbT-78-sppZUREQiLnfxT1YA",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJbT-78-sppZUREQiLnfxT1YA",
+  "rating": 5,
+  "ratingCount": 4,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "carniceria-del-puerto": {
+  "provider": "Google Places",
+  "placeId": "ChIJCyyon_AopZURip42t8lANiM",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJCyyon_AopZURip42t8lANiM",
+  "rating": 4.1,
+  "ratingCount": 42,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "frutidol": {
+  "provider": "Google Places",
+  "placeId": "ChIJEUdnWcoppZURnpHYsy8G6jg",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJEUdnWcoppZURnpHYsy8G6jg",
+  "rating": 4.8,
+  "ratingCount": 4,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Google tenía el martes 08:00-09:00 y el domingo hasta la 01:00 (parecen errores); se normalizó"
+  ],
+  "genericHours": false
+ },
+ "verduleria-los-hermanos": {
+  "provider": "Google Places",
+  "placeId": "ChIJ93tDH0MopZURoJGeNQkADcc",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ93tDH0MopZURoJGeNQkADcc",
+  "rating": 4.5,
+  "ratingCount": 2,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "la-providencia": {
+  "provider": "Google Places",
+  "placeId": "ChIJUekHyRcppZURp4QWDmHLixA",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJUekHyRcppZURp4QWDmHLixA",
+  "rating": null,
+  "ratingCount": null,
+  "realWhatsappCandidate": "59891475269",
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Google lo marca como almacén/comestibles: confirmar rubro",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "la-esquina-almacen-natural": {
+  "provider": "Google Places",
+  "placeId": "ChIJYaEIX1QppZURU-IBv7cKOEs",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJYaEIX1QppZURU-IBv7cKOEs",
+  "rating": 4.8,
+  "ratingCount": 6,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Reseña menciona descuento con tarjetas Santander"
+  ],
+  "genericHours": false
+ },
+ "heladeria-monte-bianco": {
+  "provider": "Google Places",
+  "placeId": "ChIJk2mFolgopZURfqkNg--aEcI",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJk2mFolgopZURfqkNg--aEcI",
+  "rating": 4.6,
+  "ratingCount": 122,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ },
+ "grido-helado": {
+  "provider": "Google Places",
+  "placeId": "ChIJXT67GHcppZURSuGdHVCaTbc",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJXT67GHcppZURSuGdHVCaTbc",
+  "rating": 4.6,
+  "ratingCount": 189,
+  "realWhatsappCandidate": "59891352855",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Es franquicia de cadena: la decisión de sumarse puede no ser local"
+  ],
+  "genericHours": false
+ },
+ "heladeria-j-l": {
+  "provider": "Google Places",
+  "placeId": "ChIJW-HkCF0opZURmGDx7x-GAus",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJW-HkCF0opZURmGDx7x-GAus",
+  "rating": 4.3,
+  "ratingCount": 63,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Sin teléfono en Google",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "kiosco-yoni": {
+  "provider": "Google Places",
+  "placeId": "ChIJ_fj_jvYopZURsUEX7BIjics",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ_fj_jvYopZURsUEX7BIjics",
+  "rating": 4.3,
+  "ratingCount": 82,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Google lo clasifica como tienda de artículos para el hogar; por reseñas vende regalos/juguetes: quizás 'bazar-y-limpieza'",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "quiosco-del-paso": {
+  "provider": "Google Places",
+  "placeId": "ChIJS7sYFgAppZUR-tednpWPra8",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJS7sYFgAppZUR-tednpWPra8",
+  "rating": null,
+  "ratingCount": null,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Sin teléfono en Google"
+  ],
+  "genericHours": false
+ },
+ "lo-d-fiore": {
+  "provider": "Google Places",
+  "placeId": "ChIJy03XHOAppZURVi02Bra54gc",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJy03XHOAppZURVi02Bra54gc",
+  "rating": 5,
+  "ratingCount": 1,
+  "realWhatsappCandidate": "59898480877",
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Google no da el rubro exacto (store): confirmar"
+  ],
+  "genericHours": false
+ },
+ "super-shanikar": {
+  "provider": "Google Places",
+  "placeId": "ChIJDZ106iIppZURetdz3VK0gZY",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJDZ106iIppZURetdz3VK0gZY",
+  "rating": 5,
+  "ratingCount": 3,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": false,
+  "toConfirm": [
+   "Google lo marca como supermercado; por reseñas encaja en bebidas",
+   "Sin teléfono en Google",
+   "Sin horarios en Google: confirmar en la visita"
+  ],
+  "genericHours": true
+ },
+ "miken-packing": {
+  "provider": "Google Places",
+  "placeId": "ChIJ98LYVl8opZUR4IAB-xIVVKc",
+  "mapsUrl": "https://www.google.com/maps/place/?q=place_id:ChIJ98LYVl8opZUR4IAB-xIVVKc",
+  "rating": 4.5,
+  "ratingCount": 164,
+  "realWhatsappCandidate": null,
+  "hoursFromGoogle": true,
+  "toConfirm": [
+   "Teléfono fijo"
+  ],
+  "genericHours": false
+ }
+}
