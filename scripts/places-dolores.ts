@@ -519,6 +519,9 @@ function nationalPhone(value: unknown) {
   return phone.replace(/^\+598\s*9/, '09').replace(/^\+598\s*/, '');
 }
 
+/** A photo saved in data/images/dolores, as the seed refers to it ("dolores/<name>.jpg"), or null. */
+const ownPhoto = (name: string) => (fs.existsSync(path.join(PHOTO_DIR, `${name}.jpg`)) ? `dolores/${name}.jpg` : null);
+
 type SeedInput = { slug: string; name: string; category: string; products?: SeedProduct[]; hours?: BusinessHours | null; logo?: string | null; coverImage?: string | null; gallery?: string[]; _source?: unknown; [field: string]: unknown };
 
 function complete(file: string) {
@@ -534,8 +537,15 @@ function complete(file: string) {
     perCategory.set(category, index + 1);
     sources[slug] = { ...(_source as object), genericHours: !business.hours };
     const sameCategory = demo.filter((b) => b.category === category);
-    const products = business.products?.length ? business.products : catalogFor(category, demo, index).map((p) => ({ ...p, slug: `${slugify(p.name)}-${slug}` }));
+    const products = (business.products?.length ? business.products : catalogFor(category, demo, index).map((p) => ({ ...p, slug: `${slugify(p.name)}-${slug}` })))
+      .map((p) => (ownPhoto(`products/${slugify(p.name)}`) ? { ...p, images: [ownPhoto(`products/${slugify(p.name)}`)] } : p));
     const productImages = [...new Set(products.flatMap((p) => ((p as SeedProduct).images as string[] | undefined) ?? []))];
+    // Real photos of the place, downloaded by `npm run photos:dolores`: the first is the cover.
+    const placePhotos = [1, 2, 3, 4, 5].map((n) => ownPhoto(`${slug}-${n}`)).filter((photo): photo is string => !!photo);
+    if (placePhotos.length) {
+      business.coverImage = placePhotos[0];
+      business.gallery = placePhotos.slice(1);
+    }
     return {
       ...business,
       address: cleanAddress(business.address),
