@@ -21,6 +21,19 @@ export function GalleryLightbox({ photos, start, onClose, title }: { photos: str
     return () => void api.off('select', update);
   }, [api]);
 
+  // The keyboard arrows work as soon as the modal opens, wherever the focus is (the carousel alone
+  // listens only while it has the focus; those presses arrive here already handled and are skipped).
+  useEffect(() => {
+    if (!api || !many || start === null) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.defaultPrevented) return;
+      if (e.key === 'ArrowLeft') { e.preventDefault(); api.scrollPrev(); }
+      else if (e.key === 'ArrowRight') { e.preventDefault(); api.scrollNext(); }
+    };
+    window.addEventListener('keydown', onKey);
+    return () => window.removeEventListener('keydown', onKey);
+  }, [api, many, start]);
+
   const arrow = 'size-10 cursor-pointer border-0 bg-black/45 text-white backdrop-blur-sm hover:bg-black/65 hover:text-white dark:bg-black/45 dark:hover:bg-black/65';
 
   return (
