@@ -255,11 +255,11 @@ export default function BusinessPage() {
             ))}
 
             {business.gallery.length > 0 && (
-              <section className="mt-12">
-                <h2 className="mb-4 mt-6 text-xl font-bold border-b border-foreground/20 dark:border-foreground/8 pb-2">Galería</h2>
+              <section className="mt-12 rounded-2xl border bg-card p-4 sm:p-6">
+                <h2 className="mb-4 text-xl font-bold">Galería</h2>
                 <div className="grid grid-cols-3 gap-2 sm:gap-3">
                   {business.gallery.map((src) => (
-                    <button key={src} onClick={() => setPhoto(src)} className="overflow-hidden rounded-xl" aria-label="Ampliar foto">
+                    <button key={src} onClick={() => setPhoto(src)} className="cursor-pointer overflow-hidden rounded-xl" aria-label="Ampliar foto">
                       <SafeImage src={src} alt="" className="aspect-square w-full transition-transform hover:scale-105" />
                     </button>
                   ))}
