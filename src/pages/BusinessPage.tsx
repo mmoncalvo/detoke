@@ -29,7 +29,7 @@ function InfoBlock({ icon: Icon, title, children }: { icon: typeof Clock; title:
   return (
     <Card className="gap-2 rounded-2xl py-4 shadow-none">
       <CardHeader className="px-4">
-        <CardTitle><h2 className="flex items-center gap-2 font-sans text-sm font-semibold"><Icon className="size-4 text-primary" /> {title}</h2></CardTitle>
+        <CardTitle role="heading" aria-level={2} className="flex items-center gap-2 font-sans text-sm"><Icon className="size-4 text-primary" /> {title}</CardTitle>
       </CardHeader>
       <CardContent className="px-4 text-sm">{children}</CardContent>
     </Card>
@@ -260,7 +260,7 @@ export default function BusinessPage() {
             {business.gallery.length > 0 && (
               <Card className="mt-12 gap-4 rounded-2xl py-4 shadow-none sm:py-6">
                 <CardHeader className="px-4 sm:px-6">
-                  <CardTitle><h2 className="text-xl font-bold">Galería</h2></CardTitle>
+                  <CardTitle role="heading" aria-level={2}>Galería</CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-3 gap-2 px-4 sm:gap-3 sm:px-6">
                   {business.gallery.map((src) => (
