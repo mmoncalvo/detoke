@@ -23,7 +23,7 @@ export function ProductDialog({ product, business, onClose }: { product: Product
 
   return (
     <Dialog open={!!product} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[90svh] gap-0 overflow-y-auto p-0 sm:max-w-3xl">
+      <DialogContent className="max-h-[92svh] max-w-[calc(100%-1.5rem)] gap-0 overflow-y-auto p-0 sm:max-w-4xl lg:max-w-5xl">
         {product && owner && (
           <div className="grid sm:grid-cols-2">
             <div>
@@ -38,10 +38,10 @@ export function ProductDialog({ product, business, onClose }: { product: Product
                 </div>
               )}
             </div>
-            <div className="flex flex-col p-6">
+            <div className="flex flex-col p-6 lg:p-8">
               {product.category && <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{product.category.name}</p>}
-              <DialogTitle className="mt-1 font-display text-2xl leading-tight">{product.name}</DialogTitle>
-              <DialogDescription className="mt-2 text-sm leading-relaxed">{product.description || `De ${owner.name}.`}</DialogDescription>
+              <DialogTitle className="mt-1 font-display text-2xl leading-tight lg:text-3xl">{product.name}</DialogTitle>
+              <DialogDescription className="mt-2 text-sm leading-relaxed lg:text-base">{product.description || `De ${owner.name}.`}</DialogDescription>
               <ProductPrice product={product} className="mt-4 text-2xl" />
               {product.stock != null && product.stock <= 10 && <p className="mt-1 text-sm font-medium text-warning-foreground">Quedan {product.stock}</p>}
 
