@@ -312,10 +312,10 @@ export default function BusinessPage() {
 
         <ProductDialog product={selected} business={business} onClose={() => setSelected(null)} />
         <Dialog open={!!photo} onOpenChange={(open) => !open && setPhoto(null)}>
-          <DialogContent className="max-w-3xl p-2">
+          <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-3xl">
             <DialogTitle className="sr-only">Foto de {business.name}</DialogTitle>
             <DialogDescription className="sr-only">Foto ampliada de la galería</DialogDescription>
-            {photo && <img src={imageUrl(photo)} alt="" className="max-h-[80svh] w-full rounded-md object-contain" />}
+            {photo && <img src={imageUrl(photo)} alt="" className="block max-h-[85svh] w-full object-cover" />}
           </DialogContent>
         </Dialog>
       </div>

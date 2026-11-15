@@ -26,19 +26,21 @@ export function ProductDialog({ product, business, onClose }: { product: Product
       <DialogContent className="max-h-[92svh] max-w-[calc(100%-1.5rem)] gap-0 overflow-y-auto p-0 sm:max-w-4xl lg:max-w-5xl">
         {product && owner && (
           <div className="grid sm:grid-cols-2">
-            <div>
-              <SafeImage src={product.images[image]} alt={product.name} className="aspect-square w-full sm:rounded-l-lg" />
+            {/* The photo covers its whole column (square on phones, as tall as the details beside it on
+                larger screens), with the other photos' thumbnails over its bottom edge. */}
+            <div className="relative aspect-square sm:aspect-auto">
+              <SafeImage src={product.images[image]} alt={product.name} className="absolute inset-0 size-full" />
               {product.images.length > 1 && (
-                <div className="flex gap-2 p-3">
+                <div className="absolute inset-x-0 bottom-0 flex gap-2 bg-gradient-to-t from-black/40 to-transparent p-3 pt-8">
                   {product.images.map((src, i) => (
-                    <button key={src} onClick={() => setImage(i)} aria-label={`Ver imagen ${i + 1}`} className={`overflow-hidden rounded-md border-2 ${i === image ? 'border-primary' : 'border-transparent'}`}>
+                    <button key={src} onClick={() => setImage(i)} aria-label={`Ver imagen ${i + 1}`} className={`cursor-pointer overflow-hidden rounded-md border-2 shadow-sm ${i === image ? 'border-white' : 'border-white/30'}`}>
                       <SafeImage src={src} alt="" className="size-12" />
                     </button>
                   ))}
                 </div>
               )}
             </div>
-            <div className="flex flex-col p-6 lg:p-8">
+            <div className="flex flex-col p-6 sm:min-h-[26rem] lg:min-h-[32rem] lg:p-8">
               {product.category && <p className="text-xs font-semibold uppercase tracking-wide text-muted-foreground">{product.category.name}</p>}
               <DialogTitle className="mt-1 font-display text-2xl leading-tight lg:text-3xl">{product.name}</DialogTitle>
               <DialogDescription className="mt-2 text-sm leading-relaxed lg:text-base">{product.description || `De ${owner.name}.`}</DialogDescription>
