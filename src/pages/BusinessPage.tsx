@@ -4,6 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { DAYS, DAY_LABELS, fold, formatDayHours, PAYMENT_LABELS, todayKey } from '@shared/business';
 import type { Business, Product } from '@shared/types';
+import { GalleryLightbox } from '@/components/business/GalleryLightbox';
 import { OpenBadge } from '@/components/business/OpenBadge';
 import { ParallaxCover } from '@/components/business/ParallaxCover';
 import { SafeImage } from '@/components/common/SafeImage';
@@ -13,14 +14,12 @@ import { ProductDialog } from '@/components/product/ProductDialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
-import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { formatPrice, whatsappUrl } from '@/lib/format';
 import { whatsappLinkProps } from '@/lib/whatsapp';
-import { imageUrl } from '@/lib/images';
 import NotFound from './NotFound';
 
 const BusinessMap = lazy(() => import('@/components/business/BusinessMap'));
@@ -64,7 +63,7 @@ export default function BusinessPage() {
   const { data: business, error, loading, reload } = useFetch<Business>(`/businesses/${slug}`);
   const [selected, setSelected] = useState<Product | null>(null);
   const [search, setSearch] = useState('');
-  const [photo, setPhoto] = useState<string | null>(null);
+  const [photo, setPhoto] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [stickyHeight, setStickyHeight] = useState(0);
   const stickyRef = useRef<HTMLDivElement>(null);
@@ -263,8 +262,8 @@ export default function BusinessPage() {
                   <CardTitle role="heading" aria-level={2}>Galería</CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-3 gap-2 px-4 sm:gap-3 sm:px-6">
-                  {business.gallery.map((src) => (
-                    <button key={src} onClick={() => setPhoto(src)} className="cursor-pointer overflow-hidden rounded-xl" aria-label="Ampliar foto">
+                  {business.gallery.map((src, i) => (
+                    <button key={src} onClick={() => setPhoto(i)} className="cursor-pointer overflow-hidden rounded-xl" aria-label="Ampliar foto">
                       <SafeImage src={src} alt="" className="aspect-square w-full transition-transform hover:scale-105" />
                     </button>
                   ))}
@@ -311,13 +310,7 @@ export default function BusinessPage() {
         </div>
 
         <ProductDialog product={selected} business={business} onClose={() => setSelected(null)} />
-        <Dialog open={!!photo} onOpenChange={(open) => !open && setPhoto(null)}>
-          <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-3xl">
-            <DialogTitle className="sr-only">Foto de {business.name}</DialogTitle>
-            <DialogDescription className="sr-only">Foto ampliada de la galería</DialogDescription>
-            {photo && <img src={imageUrl(photo)} alt="" className="block max-h-[85svh] w-full object-cover" />}
-          </DialogContent>
-        </Dialog>
+        <GalleryLightbox photos={business.gallery} start={photo} onClose={() => setPhoto(null)} title={business.name} />
       </div>
     </>
   );
