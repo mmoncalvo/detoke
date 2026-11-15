@@ -12,6 +12,7 @@ import { ProductCard } from '@/components/product/ProductCard';
 import { ProductDialog } from '@/components/product/ProductDialog';
 import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
+import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { Input } from '@/components/ui/input';
 import { Skeleton } from '@/components/ui/skeleton';
@@ -26,10 +27,12 @@ const BusinessMap = lazy(() => import('@/components/business/BusinessMap'));
 
 function InfoBlock({ icon: Icon, title, children }: { icon: typeof Clock; title: string; children: React.ReactNode }) {
   return (
-    <section className="rounded-2xl border bg-card p-4">
-      <h2 className="mb-2 flex items-center gap-2 font-sans text-sm font-semibold"><Icon className="size-4 text-primary" /> {title}</h2>
-      <div className="text-sm">{children}</div>
-    </section>
+    <Card className="gap-2 rounded-2xl py-4 shadow-none">
+      <CardHeader className="px-4">
+        <CardTitle><h2 className="flex items-center gap-2 font-sans text-sm font-semibold"><Icon className="size-4 text-primary" /> {title}</h2></CardTitle>
+      </CardHeader>
+      <CardContent className="px-4 text-sm">{children}</CardContent>
+    </Card>
   );
 }
 
@@ -255,16 +258,18 @@ export default function BusinessPage() {
             ))}
 
             {business.gallery.length > 0 && (
-              <section className="mt-12 rounded-2xl border bg-card p-4 sm:p-6">
-                <h2 className="mb-4 text-xl font-bold">Galería</h2>
-                <div className="grid grid-cols-3 gap-2 sm:gap-3">
+              <Card className="mt-12 gap-4 rounded-2xl py-4 shadow-none sm:py-6">
+                <CardHeader className="px-4 sm:px-6">
+                  <CardTitle><h2 className="text-xl font-bold">Galería</h2></CardTitle>
+                </CardHeader>
+                <CardContent className="grid grid-cols-3 gap-2 px-4 sm:gap-3 sm:px-6">
                   {business.gallery.map((src) => (
                     <button key={src} onClick={() => setPhoto(src)} className="cursor-pointer overflow-hidden rounded-xl" aria-label="Ampliar foto">
                       <SafeImage src={src} alt="" className="aspect-square w-full transition-transform hover:scale-105" />
                     </button>
                   ))}
-                </div>
-              </section>
+                </CardContent>
+              </Card>
             )}
           </div>
 
