@@ -69,7 +69,7 @@ export default function Overview() {
       </div>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle className="font-display text-lg">Pedidos de hoy</CardTitle>
           <CardDescription>Los nuevos aparecen al instante en Pedidos.</CardDescription>
         </CardHeader>
@@ -91,7 +91,7 @@ export default function Overview() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle className="font-display text-lg">Tu página pública</CardTitle>
           <CardDescription>Compartila en tus redes y con tus clientes.</CardDescription>
         </CardHeader>
@@ -105,7 +105,7 @@ export default function Overview() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle className="font-display text-lg">{done === steps.length ? 'Tu perfil está completo' : 'Completá tu perfil'}</CardTitle>
           <CardDescription>{done} de {steps.length} pasos. Los perfiles completos reciben más pedidos.</CardDescription>
           <Progress value={(done / steps.length) * 100} className="mt-2" aria-label="Perfil completo" />

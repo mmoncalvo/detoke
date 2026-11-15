@@ -80,7 +80,7 @@ export function ProfileCard() {
 
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="border-b">
         <CardTitle className="font-display text-lg">Perfil</CardTitle>
         <CardDescription>Tus datos para entrar y para tus pedidos.</CardDescription>
       </CardHeader>
@@ -158,7 +158,7 @@ export function SecurityCard() {
   const creating = security && !security.hasPassword;
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="border-b">
         <CardTitle className="font-display text-lg">Seguridad</CardTitle>
         <CardDescription>
           {creating ? 'Ingresás con Google. Si querés, creá una contraseña para entrar también con tu email.' : security?.hasGoogle ? 'Podés ingresar con Google o con tu email y contraseña.' : 'Cambiá la contraseña con la que ingresás.'}
@@ -202,7 +202,7 @@ export function PreferencesCard() {
   const [permission, setPermission] = useState<NotificationPermission>(() => (canNotify() ? Notification.permission : 'denied'));
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="border-b">
         <CardTitle className="font-display text-lg">Preferencias</CardTitle>
         <CardDescription>Se guardan en este dispositivo.</CardDescription>
       </CardHeader>

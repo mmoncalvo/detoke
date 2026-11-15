@@ -44,7 +44,7 @@ export default function DeliveryPayments() {
   return (
     <form onSubmit={submit} className="space-y-5">
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle className="font-display text-lg">Formas de entrega</CardTitle>
           <CardDescription>Elegí al menos una.</CardDescription>
         </CardHeader>
@@ -61,7 +61,7 @@ export default function DeliveryPayments() {
       </Card>
 
       <Card>
-        <CardHeader>
+        <CardHeader className="border-b">
           <CardTitle className="font-display text-lg">Medios de pago</CardTitle>
           <CardDescription>Los clientes eligen uno al hacer el pedido.</CardDescription>
         </CardHeader>

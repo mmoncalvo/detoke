@@ -27,7 +27,7 @@ const toForm = (business: Business): Input => Object.fromEntries(FIELDS.map((fie
 function Section({ title, description, children }: { title: string; description?: string; children: React.ReactNode }) {
   return (
     <Card>
-      <CardHeader>
+      <CardHeader className="border-b">
         <CardTitle className="font-display text-lg">{title}</CardTitle>
         {description && <CardDescription>{description}</CardDescription>}
       </CardHeader>
