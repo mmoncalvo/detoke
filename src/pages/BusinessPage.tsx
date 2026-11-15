@@ -65,6 +65,9 @@ export default function BusinessPage() {
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [stickyHeight, setStickyHeight] = useState(0);
   const stickyRef = useRef<HTMLDivElement>(null);
+  const tagsRef = useRef<HTMLElement>(null);
+  const stickyHeightRef = useRef(0);
+  stickyHeightRef.current = stickyHeight;
   useTitle(business?.name);
 
   const sections = useMemo(() => {
@@ -80,23 +83,27 @@ export default function BusinessPage() {
     return [...groups.values()].sort((a, b) => a.position - b.position);
   }, [business, search]);
 
-  // Highlights the tag of the section on screen as the page scrolls. It compares each section's
-  // offsetTop (which only grows) instead of the distance to the center, so the tag does not flicker
-  // at the border between two sections: it changes once the next one is clearly in.
+  // Highlights the tag of the section on screen as the page scrolls: the last section whose top has
+  // passed a line at 35% of the viewport. Sections are in page order, so the tag does not flicker at
+  // the border between two of them: it changes once the next one is clearly in.
   useEffect(() => {
     let raf = 0;
     let current: string | null = null;
 
     const update = () => {
       raf = 0;
-      const trigger = window.scrollY + window.innerHeight * 0.35;
+      // Measured against the viewport: offsetTop is relative to the nearest positioned ancestor, not the page.
+      // Never above the sticky bars (navbar + search + tags), which are taller than that on phones.
+      const trigger = Math.max(window.innerHeight * 0.35, 64 + stickyHeightRef.current + 32);
       let next: string | null = null;
       for (const s of sections) {
         const el = document.getElementById(`section-${s.id}`);
         if (!el) continue;
-        if (el.offsetTop <= trigger) next = s.id;
+        if (el.getBoundingClientRect().top <= trigger) next = s.id;
         else break;
       }
+      // At the bottom of the page the last sections may never reach the trigger line: the last one wins.
+      if (sections.length && window.scrollY + window.innerHeight >= document.documentElement.scrollHeight - 4) next = sections[sections.length - 1].id;
       if (next && next !== current) {
         current = next;
         setActiveSection(next);
@@ -125,6 +132,34 @@ export default function BusinessPage() {
     observer.observe(el);
     return () => observer.disconnect();
   }, [business]);
+
+  // Keeps the active tag in sight: when it is not comfortably visible in the horizontal list, the list
+  // (and only the list, not the page) glides to center it.
+  useEffect(() => {
+    const nav = tagsRef.current;
+    const tag = activeSection ? nav?.querySelector<HTMLElement>(`a[href="#section-${activeSection}"]`) : null;
+    if (!nav || !tag) return;
+    const margin = 32;
+    // Position of the tag inside the scrollable list, in the list's own coordinates.
+    const left = tag.getBoundingClientRect().left - nav.getBoundingClientRect().left + nav.scrollLeft;
+    const right = left + tag.offsetWidth;
+    if (left >= nav.scrollLeft + margin && right <= nav.scrollLeft + nav.clientWidth - margin) return;
+    const to = Math.max(0, Math.min(left - (nav.clientWidth - tag.offsetWidth) / 2, nav.scrollWidth - nav.clientWidth));
+    if (matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      nav.scrollLeft = to;
+      return;
+    }
+    // Animated by hand: a native smooth scroll here would cancel the page's own smooth scroll
+    // after a tag is clicked (Chrome runs one programmatic smooth scroll at a time).
+    const from = nav.scrollLeft;
+    const start = performance.now();
+    let frame = requestAnimationFrame(function step(now) {
+      const t = Math.min(1, (now - start) / 380);
+      nav.scrollLeft = from + (to - from) * (1 - (1 - t) ** 3);
+      if (t < 1) frame = requestAnimationFrame(step);
+    });
+    return () => cancelAnimationFrame(frame);
+  }, [activeSection]);
 
   const scrollMargin = `calc(64px + ${stickyHeight}px)`;
 
@@ -186,7 +221,7 @@ export default function BusinessPage() {
                 <Input noAutofill value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Buscar en ${business.name}`} className="bg-card pl-9" aria-label="Buscar productos" />
               </div>
               {sections.length > 1 && (
-                <nav aria-label="Categorías de productos" className="mt-2 flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
+                <nav ref={tagsRef} aria-label="Categorías de productos" className="mt-2 flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
                   {sections.map((s) => (
                     <a
                       key={s.id}
@@ -195,7 +230,9 @@ export default function BusinessPage() {
                         e.preventDefault();
                         setActiveSection(s.id);
                         const el = document.getElementById(`section-${s.id}`);
-                        if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        // Exact landing right under the sticky bars (scrollIntoView would also add the page's
+                        // scroll-padding and stop lower than that).
+                        if (el) window.scrollTo({ top: el.getBoundingClientRect().top + window.scrollY - (64 + stickyHeight + 8), behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
                       }}
                       className={`shrink-0 rounded-full px-3 py-1 text-sm font-medium transition-colors ${activeSection === s.id ? 'bg-primary text-primary-foreground hover:bg-primary' : 'bg-secondary hover:bg-accent'}`}
                     >
