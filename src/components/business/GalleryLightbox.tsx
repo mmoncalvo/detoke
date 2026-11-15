@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Carousel, type CarouselApi, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious } from '@/components/ui/carousel';
 import { Dialog, DialogContent, DialogDescription, DialogTitle } from '@/components/ui/dialog';
 import { imageUrl } from '@/lib/images';
@@ -12,6 +12,7 @@ export function GalleryLightbox({ photos, start, onClose, title }: { photos: str
   const many = photos.length > 1;
   const [api, setApi] = useState<CarouselApi>();
   const [current, setCurrent] = useState(0);
+  const content = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!api) return;
@@ -38,7 +39,8 @@ export function GalleryLightbox({ photos, start, onClose, title }: { photos: str
 
   return (
     <Dialog open={start !== null} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="gap-0 overflow-hidden p-0 sm:max-w-3xl">
+      {/* On open the focus goes to the modal itself, not to the close button: no ring over the photo. */}
+      <DialogContent ref={content} onOpenAutoFocus={(e) => { e.preventDefault(); content.current?.focus(); }} className="gap-0 overflow-hidden p-0 outline-none sm:max-w-3xl">
         <DialogTitle className="sr-only">Fotos de {title}</DialogTitle>
         <DialogDescription className="sr-only">{many ? `Foto ${current + 1} de ${photos.length}. Usá las flechas para pasar de una a otra.` : 'Foto ampliada de la galería'}</DialogDescription>
         {start !== null && (

@@ -1,5 +1,5 @@
 import { Minus, Plus } from 'lucide-react';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { toast } from 'sonner';
 import type { BusinessSummary, Product } from '@shared/types';
 import { SafeImage } from '@/components/common/SafeImage';
@@ -20,10 +20,12 @@ export function ProductDialog({ product, business, onClose }: { product: Product
   }, [product?.id]);
 
   const owner = business ?? product?.business;
+  const content = useRef<HTMLDivElement>(null);
 
   return (
     <Dialog open={!!product} onOpenChange={(open) => !open && onClose()}>
-      <DialogContent className="max-h-[92svh] max-w-[calc(100%-1.5rem)] gap-0 overflow-y-auto p-0 sm:max-w-4xl lg:max-w-5xl">
+      {/* On open the focus goes to the modal itself, not to its first button: no ring on open. */}
+      <DialogContent ref={content} onOpenAutoFocus={(e) => { e.preventDefault(); content.current?.focus(); }} className="max-h-[92svh] outline-none max-w-[calc(100%-1.5rem)] gap-0 overflow-y-auto p-0 sm:max-w-4xl lg:max-w-5xl">
         {product && owner && (
           <div className="grid sm:grid-cols-2">
             {/* The photo covers its whole column (square on phones, as tall as the details beside it on
