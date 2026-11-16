@@ -14,6 +14,7 @@ import { Tabs, TabsList, TabsTrigger } from '@/components/ui/tabs';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { categoryIcon } from '@/lib/category-icons';
+import { ScrollRow } from '@/components/common/ScrollRow';
 
 const PAGE_SIZE = 20;
 
@@ -143,7 +144,7 @@ export default function Explore() {
         )}
       </div>
 
-      <div ref={chipContainer} className="-mx-4 my-4 flex gap-2 overflow-x-auto px-4 pb-2 [scrollbar-width:none]">
+      <ScrollRow scrollRef={chipContainer} wrapperClassName="my-4" className="gap-2 py-1">
         <Chip active={!category} onClick={() => update({ category: null })}>Todos</Chip>
         {tab === 'businesses'
           ? (businessCategories.data ?? []).filter((c) => (c.businessCount ?? 0) > 0).map((c) => {
@@ -151,7 +152,7 @@ export default function Explore() {
             return <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}><Icon className="size-4" /> {c.name}</Chip>;
           })
           : (productCategories.data ?? []).map((c) => <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}>{c.name}</Chip>)}
-      </div>
+      </ScrollRow>
 
       <div className="mt-4 flex h-8 items-center justify-between">
         <p className="text-sm text-muted-foreground" aria-live="polite">

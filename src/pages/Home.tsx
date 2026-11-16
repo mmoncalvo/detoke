@@ -6,6 +6,7 @@ import type { Business, BusinessCategory, Product } from '@shared/types';
 import { BusinessCard, BusinessCardSkeleton } from '@/components/business/BusinessCard';
 import { SafeImage } from '@/components/common/SafeImage';
 import { ErrorState } from '@/components/common/States';
+import { ScrollRow } from '@/components/common/ScrollRow';
 import { ProductCard, ProductCardSkeleton } from '@/components/product/ProductCard';
 import { ProductDialog } from '@/components/product/ProductDialog';
 import { Button } from '@/components/ui/button';
@@ -111,7 +112,7 @@ export default function Home() {
       </section>
 
       <div className="mx-auto max-w-page space-y-14 px-4 pt-8">
-        <nav aria-label="Rubros" className="-mx-4 flex gap-2 overflow-x-auto px-4 pb-1 [scrollbar-width:none]">
+        <ScrollRow navLabel="Rubros" className="gap-2 py-1">
           {(categories.data ?? []).filter((c) => (c.businessCount ?? 0) > 0).map((category) => {
             const Icon = categoryIcon(category.icon);
             return (
@@ -120,7 +121,7 @@ export default function Home() {
               </Link>
             );
           })}
-        </nav>
+        </ScrollRow>
 
         <section>
           <SectionHeader title={anyOpen ? 'Abierto ahora' : 'Negocios del barrio'} subtitle={anyOpen ? 'Comercios que te atienden en este momento.' : 'A esta hora casi todos descansan, pero podés mirar sus catálogos.'} to={anyOpen ? '/explorar?open=true' : '/explorar'} />
