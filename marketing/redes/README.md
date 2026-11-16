@@ -9,6 +9,8 @@ Mismo diseño que la web: verde del hero, toldo de rayas, "detoke!" con el "!" m
 | `instagram/detoke-instagram-post-presentacion-1080x1350` | 1080 × 1350 | Primer post (4:5). En la grilla del perfil se ve bien el recorte 3:4 |
 | `instagram/detoke-instagram-historia-como-funciona-1080x1920` | 1080 × 1920 | Historia "cómo funciona", para guardar en un destacado |
 | `instagram/destacados/detoke-destacado-*` | 1080 × 1920 | Portadas de destacados: Cómo pedir, Comercios, Sumá tu negocio, Novedades, Zonas |
+| `instagram/detoke-post-comercios-1080x1350` | 1080 × 1350 | Post para invitar a los comercios a sumarse (sirve también para Facebook). Texto sugerido en `textos-comercios.md` |
+| `instagram/detoke-historia-comercios-1080x1920` | 1080 × 1920 | La misma invitación en formato historia |
 | `logo/*` | | Logo en verde (fondo claro), en crema (fondo oscuro) e isotipo "d!" |
 
 Para regenerarlas: `npm i --no-save playwright lucide-static` y `node scripts/marketing-social.cjs`. Las fotos salen de `data/images` (seed) y los íconos de Lucide.

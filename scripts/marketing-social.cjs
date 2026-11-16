@@ -223,6 +223,69 @@ add('perfil/detoke-perfil-1080.svg', 1080, 1080, 'detoke! foto de perfil',
 }
 
 // ---------------------------------------------------------------------------------------------------
+// For businesses: why to join and how (same claims as the site: free, no fees, orders on WhatsApp).
+/** Largest size (up to `max`) at which `str` fits in `width`. */
+function fit(font, str, width, max, tracking = 0) {
+  return Math.min(max, Math.floor((max * width) / shape(font, str, max, tracking).width));
+}
+/** A benefit: mustard badge with an icon, title and one line below, on a soft card. */
+function benefit({ x, y, w, h, ic, title, sub, titleSize, subSize }) {
+  const r = h * 0.3;
+  return `<rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${h * 0.22}" fill="${C.pill}" stroke="${C.line}" stroke-width="2"/>`
+    + `<circle cx="${x + h / 2}" cy="${y + h / 2}" r="${r}" fill="${C.mustard}"/>`
+    + drawIcon(ic, { cx: x + h / 2, cy: y + h / 2, size: r * 0.95, color: C.hero, stroke: 2.3 })
+    + text(F.bodyBold, title, { x: x + h, y: y + h / 2 - subSize * 0.15, size: titleSize, fill: C.cream })
+    + text(F.body, sub, { x: x + h, y: y + h / 2 + subSize * 1.15, size: subSize, fill: C.soft });
+}
+/** The call to action: a mustard button with dark text, as on the site. */
+function button({ x, y, label, size, anchor = 'start' }) {
+  const s = shape(F.bodyBold, label, size);
+  const padX = size * 1.1, h = size * 2.3, w = s.width + 2 * padX + size * 1.4;
+  const left = anchor === 'middle' ? x - w / 2 : x;
+  return { w, svg: `<rect x="${left}" y="${y}" width="${w}" height="${h}" rx="${h * 0.28}" fill="${C.mustard}"/>`
+    + drawIcon('store', { cx: left + padX + size * 0.45, cy: y + h / 2, size: size * 0.95, color: C.hero, stroke: 2.2 })
+    + `<path transform="translate(${(left + padX + size * 1.4).toFixed(1)} ${(y + h / 2 + size * 0.36).toFixed(1)})" d="${s.d}" fill="${C.hero}"/>` };
+}
+const BENEFITS = [
+  ['badge-percent', 'Gratis y sin comisiones', 'No cobramos por publicar ni por vender.'],
+  ['message-circle', 'Pedidos directo a tu WhatsApp', 'Con el detalle completo y aviso al instante.'],
+  ['store', 'Tu catálogo en minutos', 'Productos, precios, horarios y envíos.'],
+  ['map-pin', 'Te encuentran en tu zona', 'Los vecinos ven quién está abierto hoy.'],
+];
+{
+  const W = 1080, H = 1350, x0 = 110, inner = W - 2 * x0;
+  let b = hero(W, H) + awning(W, 2);
+  b += pill({ x: x0, y: 112, size: 30, label: 'Para comercios' });
+  const hs = fit(F.display, '¿Tenés un comercio?', inner, 104, -0.025);
+  b += text(F.display, '¿Tenés un comercio?', { x: x0, y: 290, size: hs, fill: C.cream, tracking: -0.025 });
+  b += text(F.display, 'Sumalo gratis.', { x: x0, y: 290 + hs * 1.08, size: hs, fill: C.mustard, tracking: -0.025 });
+  BENEFITS.forEach(([ic, title, sub], i) => {
+    b += benefit({ x: x0, y: 470 + i * 152, w: inner, h: 132, ic, title, sub, titleSize: 36, subSize: 27 });
+  });
+  b += button({ x: x0, y: 1092, label: 'Sumá tu negocio', size: 34 }).svg;
+  b += text(F.body, 'Link en la bio', { x: W - x0, y: 1092 + 34 * 1.15 + 12, size: 30, fill: C.soft, anchor: 'end' });
+  b += `<rect y="${H - 120}" width="${W}" height="120" fill="#0E271B"/>`;
+  b += wordmark({ x: x0, y: H - 84, h: 46 }).svg;
+  b += text(F.body, 'Comercios de Uruguay', { x: W - x0, y: H - 48, size: 30, fill: C.soft, anchor: 'end' });
+  add('instagram/detoke-post-comercios-1080x1350.svg', W, H, 'detoke! post para comercios', b);
+}
+{
+  const W = 1080, H = 1920, x0 = 110, inner = W - 2 * x0;
+  let b = hero(W, H) + awning(W, 2.5);
+  b += photo('del-barrio_cover.jpg', { cx: 330, cy: 470, w: 300, h: 400, angle: -5 });
+  b += photo('verduleria_cover.jpg', { cx: 730, cy: 500, w: 290, h: 380, angle: 5 });
+  b += pill({ x: W / 2, y: 760, size: 32, label: 'Para comercios', anchor: 'middle' });
+  const hs = fit(F.display, '¿Tenés un comercio?', inner, 110, -0.025);
+  b += text(F.display, '¿Tenés un comercio?', { x: W / 2, y: 930, size: hs, fill: C.cream, anchor: 'middle', tracking: -0.025 });
+  b += text(F.display, 'Sumalo gratis.', { x: W / 2, y: 930 + hs * 1.08, size: hs, fill: C.mustard, anchor: 'middle', tracking: -0.025 });
+  BENEFITS.slice(0, 3).forEach(([ic, title, sub], i) => {
+    b += benefit({ x: x0, y: 1130 + i * 160, w: inner, h: 140, ic, title, sub, titleSize: 38, subSize: 28 });
+  });
+  b += button({ x: W / 2, y: 1636, label: 'Sumá tu negocio', size: 36, anchor: 'middle' }).svg;
+  add('instagram/detoke-historia-comercios-1080x1920.svg', W, H, 'detoke! historia para comercios', b);
+}
+
+// ---------------------------------------------------------------------------------------------------
 // Instagram highlight covers: a story (1080 × 1920) with the icon in the middle; Instagram shows a
 // circle cut from the center, so the icon stays inside a 600 px circle.
 {
