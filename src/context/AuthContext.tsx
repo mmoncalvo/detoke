@@ -3,6 +3,7 @@ import { toast } from 'sonner';
 import type { Business, Impersonator, Session, User } from '@shared/types';
 import { api, ApiError, getAdminToken, getToken, setAdminToken, setToken, setUnauthorizedHandler } from '@/api';
 import { refreshSocketAuth } from '@/socket';
+import { saveGuestData } from '@/lib/guestData';
 
 interface AuthState {
   user: User | null;
@@ -84,6 +85,8 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }, [apply, signOut, restoreAdmin]);
 
   const signIn = useCallback((session: Session) => {
+    // Coming in as a visitor: keep a copy of their data, to give it back on sign-out.
+    if (!getToken()) saveGuestData();
     setToken(session.token);
     apply(session);
     refreshSocketAuth();

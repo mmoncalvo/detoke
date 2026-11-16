@@ -1,7 +1,7 @@
 import { createContext, useCallback, useContext, useEffect, useMemo, useState, type ReactNode } from 'react';
 import type { BusinessSummary, Product } from '@shared/types';
+import { CART_KEY as STORAGE_KEY } from '@/lib/guestData';
 
-const STORAGE_KEY = 'detoke.cart';
 
 export interface CartItem {
   id: string;

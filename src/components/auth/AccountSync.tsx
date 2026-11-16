@@ -4,17 +4,19 @@ import type { CartLine, Product, User } from '@shared/types';
 import { api } from '@/api';
 import { useAuth } from '@/context/AuthContext';
 import { useCart, type CartItem } from '@/context/CartContext';
-import { readCustomer, writeCustomer, CUSTOMER_KEY } from '@/lib/customer';
-import { addRecentOrder, readRecentOrders, toRecentOrder, writeRecentOrders, RECENT_ORDERS_KEY } from '@/lib/recentOrders';
+import { readCustomer, writeCustomer, CUSTOMER_KEY, type CustomerDetails } from '@/lib/customer';
+import { CART_KEY, takeGuestData } from '@/lib/guestData';
+import { addRecentOrder, readRecentOrders, toRecentOrder, writeRecentOrders, RECENT_ORDERS_KEY, type RecentOrder } from '@/lib/recentOrders';
 
 const CHECKOUT_SENT_KEY = 'detoke.checkoutSent';
 
-/** Adds up the browser's cart and the account's, by product. */
+/** Joins the browser's cart and the account's, by product. */
 function mergeCarts(local: CartItem[], saved: { product: Product; quantity: number }[]): CartItem[] {
   const merged = new Map(local.map((item) => [item.id, { ...item }]));
   for (const { product, quantity } of saved) {
     const current = merged.get(product.id);
-    if (current) current.quantity = Math.min(99, current.quantity + quantity);
+    // The larger amount, not the sum: the visitor's cart comes back on sign-out and may be brought in again.
+    if (current) current.quantity = Math.min(99, Math.max(current.quantity, quantity));
     else if (product.business) merged.set(product.id, { id: product.id, name: product.name, price: product.price, image: product.images[0] ?? null, quantity, business: product.business });
   }
   return [...merged.values()];
@@ -26,7 +28,8 @@ const toLines = (items: CartItem[]): CartLine[] => items.map((item) => ({ produc
  * What a visitor kept in this browser becomes theirs when they sign in or create an account:
  * the orders they placed are attached to the account, the cart is merged with the saved one, and the
  * checkout details fill the profile's blanks. From then on the cart is saved in the account.
- * Signing out clears it all from the browser, so a shared device does not mix accounts.
+ * Signing out clears the account's data from the browser, so a shared device does not mix accounts,
+ * and gives back what the visitor had before signing in (see guestData).
  */
 export function AccountSync() {
   const { user, impersonatedBy, setUser } = useAuth();
@@ -78,18 +81,28 @@ export function AccountSync() {
     return () => clearTimeout(timer);
   }, [items, buyer]);
 
-  // Sign-out: this account's cart, orders and details leave the browser.
+  // Sign-out: this account's cart, orders and details leave the browser, and the visitor's come back.
   useEffect(() => {
     if (previousUser.current && !user) {
-      replace([]);
-      writeRecentOrders(() => []);
-      for (const key of [CUSTOMER_KEY, CHECKOUT_SENT_KEY, RECENT_ORDERS_KEY]) {
+      const guest = takeGuestData();
+      const parse = <T,>(key: string, fallback: T): T => {
+        try {
+          return JSON.parse(guest?.[key] ?? 'null') ?? fallback;
+        } catch {
+          return fallback;
+        }
+      };
+      replace(parse<CartItem[]>(CART_KEY, []));
+      writeRecentOrders(() => parse<RecentOrder[]>(RECENT_ORDERS_KEY, []));
+      for (const key of [CUSTOMER_KEY, CHECKOUT_SENT_KEY]) {
         try {
           (key === CHECKOUT_SENT_KEY ? sessionStorage : localStorage).removeItem(key);
         } catch {
           /* storage not available */
         }
       }
+      const customer = parse<CustomerDetails | null>(CUSTOMER_KEY, null);
+      if (customer) writeCustomer(customer);
       syncedFor.current = null;
     }
     previousUser.current = user;
