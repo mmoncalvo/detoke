@@ -62,9 +62,6 @@ export default function Home() {
         <Awning className="relative" />
         <div className="relative mx-auto grid max-w-page items-center gap-10 px-4 pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_480px]">
           <div className="min-w-0">
-            <p className="relative inline-flex items-center gap-2 rounded-full bg-sidebar-accent px-3 py-1 text-sm font-medium text-mustard">
-              <span className="size-1.5 rounded-full bg-mustard" aria-hidden /> Comercios de cercanía
-            </p>
             <h1 className="relative mt-4 max-w-2xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
               Todo el barrio, <span className="text-mustard block">de toque.</span>
             </h1>
