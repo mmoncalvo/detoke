@@ -48,10 +48,14 @@ export default function Home() {
   }, [businesses.data]);
 
   const featured = useMemo(() => {
-    // One product per business and per photo, so the shelf does not repeat itself.
+    // Random pick on every load, one product per business and per photo, so the shelf does not repeat itself.
     const seen = new Set<string>();
     const isNew = (key: string) => !seen.has(key) && !!seen.add(key);
-    const shuffled = [...(products.data ?? [])].sort((a, b) => a.id.localeCompare(b.id));
+    const shuffled = [...(products.data ?? [])];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
     return shuffled.filter((p) => !seen.has(p.businessId) && isNew(p.images[0] ?? p.id) && isNew(p.businessId)).slice(0, 12);
   }, [products.data]);
 
