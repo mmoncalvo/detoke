@@ -84,12 +84,9 @@ export default function PublicLayout() {
         <div className="noise-layer" aria-hidden />
         <Awning className="relative" />
         <div className="relative mx-auto flex max-w-page flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
-          <div>
-            <div className="flex items-center gap-3">
-              <BrandMark inverted />
-              <SocialLinks />
-            </div>
-            <p className="mt-2 text-sm">Los comercios de tu barrio, con su catálogo y pedidos directos por WhatsApp.</p>
+          <div className="flex items-center gap-3">
+            <BrandMark inverted />
+            <SocialLinks />
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <Link to="/explorar" className="hover:text-sidebar-accent-foreground">Explorar</Link>
