@@ -2,6 +2,7 @@ import { LogIn, ReceiptText, Search, ShoppingBag } from 'lucide-react';
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Outlet, useLocation } from 'react-router-dom';
 import { BrandMark } from '@/components/common/BrandMark';
+import { SocialLinks } from '@/components/common/SocialLinks';
 import { ThemeToggle } from '@/components/common/ThemeToggle';
 import { CartSheet } from '@/components/layout/CartSheet';
 import { ImpersonationBanner } from '@/components/layout/ImpersonationBanner';
@@ -84,8 +85,11 @@ export default function PublicLayout() {
         <Awning className="relative" />
         <div className="relative mx-auto flex max-w-page flex-col gap-4 px-4 py-10 sm:flex-row sm:items-center sm:justify-between">
           <div>
-            <BrandMark inverted />
-            <p className="mt-2 max-w-sm text-sm">Los comercios de tu barrio, con su catálogo y pedidos directos por WhatsApp.</p>
+            <div className="flex items-center gap-3">
+              <BrandMark inverted />
+              <SocialLinks />
+            </div>
+            <p className="mt-2 text-sm">Los comercios de tu barrio, con su catálogo y pedidos directos por WhatsApp.</p>
           </div>
           <div className="flex flex-wrap gap-x-6 gap-y-2 text-sm">
             <Link to="/explorar" className="hover:text-sidebar-accent-foreground">Explorar</Link>
