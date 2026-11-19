@@ -294,7 +294,7 @@ export default function BusinessPage() {
                   <div className="mt-3">
                     <Suspense fallback={<Skeleton className="h-48 w-full rounded-xl" />}><BusinessMap latitude={business.latitude} longitude={business.longitude} /></Suspense>
                     <Button asChild variant="link" className="mt-1 h-auto p-0">
-                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`} rel="noreferrer">Cómo llegar</a>
+                      <a href={`https://www.google.com/maps/dir/?api=1&destination=${business.latitude},${business.longitude}`} target="_blank" rel="noopener noreferrer" className="cursor-pointer">Cómo llegar</a>
                     </Button>
                   </div>
                 )}
