@@ -24,9 +24,9 @@ async function assertCategory(id?: string | null) {
   if (id && !(await ProductCategory.findByPk(id))) throw new HttpError(400, 'Elegí una categoría de la lista');
 }
 
-// Public: list available products of active businesses. Filters: businessId, category (slug), search, featured
+// Public: list available products of active businesses. Filters: businessId, category (slug), search, featured, sale (on offer)
 productRoutes.get('/', asyncHandler(async (req, res) => {
-  const { businessId, category, search, featured } = req.query;
+  const { businessId, category, search, featured, sale } = req.query;
 
   const products = await Product.findAll({
     where: {
@@ -42,7 +42,8 @@ productRoutes.get('/', asyncHandler(async (req, res) => {
   });
 
   const term = typeof search === 'string' ? fold(search.trim()) : '';
-  ok(res, term ? products.filter((p) => fold(p.name).includes(term)) : products);
+  const onSale = (p: Product) => p.compareAtPrice != null && p.compareAtPrice > p.price;
+  ok(res, products.filter((p) => (!term || fold(p.name).includes(term)) && (sale !== 'true' || onSale(p))));
 }));
 
 // Protected: every product of the session user's business, available or not

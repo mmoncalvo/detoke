@@ -37,6 +37,7 @@ export default function Explore() {
   const category = params.get('category') ?? '';
   const open = params.get('open') === 'true';
   const delivery = params.get('delivery') === 'true';
+  const sale = params.get('sale') === 'true';
   const search = params.get('search') ?? '';
 
   const [text, setText] = useState(search);
@@ -63,7 +64,7 @@ export default function Explore() {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [text]);
 
-  useEffect(() => setVisible(PAGE_SIZE), [tab, category, open, delivery, search]);
+  useEffect(() => setVisible(PAGE_SIZE), [tab, category, open, delivery, sale, search]);
 
   const businessCategories = useFetch<BusinessCategory[]>('/business-categories');
   const productCategories = useFetch<ProductCategory[]>('/product-categories');
@@ -83,16 +84,18 @@ export default function Explore() {
     if (tab === 'businesses') {
       if (open) q.set('open', 'true');
       if (delivery) q.set('delivery', 'true');
+    } else if (sale) {
+      q.set('sale', 'true');
     }
     return q.toString();
-  }, [tab, search, category, open, delivery]);
+  }, [tab, search, category, open, delivery, sale]);
 
   const businesses = useFetch<Business[]>(tab === 'businesses' ? `/businesses?${query}` : null);
   const products = useFetch<Product[]>(tab === 'products' ? `/products?${query}` : null);
 
   const results = tab === 'businesses' ? businesses : products;
   const count = results.data?.length ?? 0;
-  const hasFilters = !!(search || category || open || delivery);
+  const hasFilters = !!(search || category || (tab === 'businesses' ? open || delivery : sale));
   const clear = () => {
     setText('');
     setParams(tab === 'products' ? { tab } : {}, { replace: true });
@@ -142,6 +145,14 @@ export default function Explore() {
             </div>
           </div>
         )}
+        {tab === 'products' && (
+          <div className="flex flex-wrap items-center gap-x-8 gap-y-3 p-4 md:justify-end md:py-0">
+            <div className="flex items-center gap-2">
+              <Switch id="on-sale" checked={sale} onCheckedChange={(v) => update({ sale: v ? 'true' : null })} />
+              <Label htmlFor="on-sale">En oferta</Label>
+            </div>
+          </div>
+        )}
       </div>
 
       <ScrollRow scrollRef={chipContainer} wrapperClassName="my-4" className="gap-2 py-1">
@@ -169,7 +180,7 @@ export default function Explore() {
         ) : count === 0 ? (
           <EmptyState
             icon={tab === 'businesses' ? SearchX : PackageSearch}
-            title={open ? 'No hay negocios abiertos con esos filtros' : 'No encontramos resultados'}
+            title={tab === 'businesses' && open ? 'No hay negocios abiertos con esos filtros' : tab === 'products' && sale ? 'No hay productos en oferta con esos filtros' : 'No encontramos resultados'}
             description="Probá con otra búsqueda o sacá algún filtro."
             action={hasFilters && <Button variant="outline" onClick={clear}>Limpiar filtros</Button>}
           />
