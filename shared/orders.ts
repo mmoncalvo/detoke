@@ -1,5 +1,5 @@
 // Orders: statuses, the transitions between them and their labels.
-import type { DeliveryOption, PaymentMethod } from './business.js';
+import { afterOpenHours, type BusinessHours, type DeliveryOption, type PaymentMethod } from './business.js';
 
 export const ORDER_STATUSES = ['pending', 'confirmed', 'completed', 'cancelled'] as const;
 export type OrderStatus = (typeof ORDER_STATUSES)[number];
@@ -21,6 +21,16 @@ export function nextStatuses(status: OrderStatus): OrderStatus[] {
 }
 
 export const canTransition = (from: OrderStatus, to: OrderStatus) => nextStatuses(from).includes(to);
+
+/** Hours the business has, counted within its schedule, to confirm an order before the buyer can cancel it. */
+export const CUSTOMER_CANCEL_AFTER_HOURS = 24;
+
+/** When a buyer with an account may cancel an order the business has not confirmed yet. */
+export const customerCancelFrom = (order: { createdAt?: Date | string }, hours: BusinessHours | null | undefined) =>
+  afterOpenHours(hours, new Date(order.createdAt ?? Date.now()), CUSTOMER_CANCEL_AFTER_HOURS);
+
+/** Reason saved in the history when the buyer cancels an order that was not confirmed in time. */
+export const CUSTOMER_CANCEL_REASON = 'El cliente lo canceló porque el negocio no lo confirmó a tiempo';
 
 /** One word per status. The customer reads "Recibido" where the business reads "Nuevo". */
 export function statusLabel(status: OrderStatus, audience: 'customer' | 'business' = 'customer') {
@@ -108,4 +118,6 @@ export interface Order {
 /** An order as the public page gets it, plus whether the viewer can change its status. */
 export interface OrderView extends Order {
   canManage: boolean;
+  /** Only for the buyer's own account while the order is new: from when they can cancel it (ISO). */
+  customerCancelFrom?: string | null;
 }

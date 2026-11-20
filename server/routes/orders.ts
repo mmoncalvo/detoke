@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import { Op, UniqueConstraintError, type WhereOptions } from 'sequelize';
-import { canTransition, FINAL_STATUSES, type OrderItem, type OrderStatus } from '../../shared/orders.js';
+import { canTransition, CUSTOMER_CANCEL_REASON, customerCancelFrom, FINAL_STATUSES, type OrderItem, type OrderStatus } from '../../shared/orders.js';
 import { claimOrdersSchema, orderCreateSchema, orderStatusSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
@@ -122,6 +122,19 @@ orderRoutes.delete('/customer', requireAuth, asyncHandler(async (req, res) => {
   ok(res, { hidden });
 }));
 
+// Protected: the buyer cancels an order the business did not confirm within 24 hours of its schedule.
+orderRoutes.post('/customer/:code/cancel', requireAuth, asyncHandler(async (req, res) => {
+  const order = await Order.findOne({ where: { publicCode: req.params.code, customerUserId: currentUser(req).id }, include: [{ model: Business, attributes: ['hours'] }] });
+  if (!order) throw new HttpError(404, 'No encontramos ese pedido en tu cuenta');
+  if (order.status !== 'pending') throw new HttpError(409, 'Solo se pueden cancelar los pedidos que el negocio todavía no confirmó. Actualizá la página.');
+  if (Date.now() < customerCancelFrom(order, order.business?.hours).getTime()) throw new HttpError(409, 'Todavía no podés cancelar este pedido: el negocio tiene tiempo para confirmarlo');
+
+  await order.update({ status: 'cancelled', statusHistory: [...order.statusHistory, { status: 'cancelled', at: new Date().toISOString(), by: req.impersonation ? 'admin' : 'customer', reason: CUSTOMER_CANCEL_REASON }] });
+  const saved = orderJson((await withBusiness(order.id))!);
+  emitOrderUpdated(saved);
+  ok(res, saved);
+}));
+
 // Protected: undo the removal of an order from the history
 orderRoutes.post('/customer/:code/restore', requireAuth, asyncHandler(async (req, res) => {
   const [restored] = await Order.update({ customerHiddenAt: null }, { where: { publicCode: req.params.code, customerUserId: currentUser(req).id }, silent: true });
@@ -153,14 +166,19 @@ orderRoutes.get('/mine', requireAuth, asyncHandler(async (req, res) => {
 
 // Public: an order by its code. The business owner (or an admin) also gets canManage.
 orderRoutes.get('/public/:code', asyncHandler(async (req, res) => {
-  const order = await Order.findOne({ where: { publicCode: req.params.code }, include: [{ model: Business, attributes: [...ORDER_BUSINESS_ATTRIBUTES, 'ownerId'] }] });
+  const order = await Order.findOne({ where: { publicCode: req.params.code }, include: [{ model: Business, attributes: [...ORDER_BUSINESS_ATTRIBUTES, 'ownerId', 'hours'] }] });
   if (!order) throw new HttpError(404, 'No encontramos ese pedido');
 
   const viewer = await optionalUser(req);
   const canManage = !!viewer && (viewer.role === 'admin' || order.business?.ownerId === viewer.id);
+  const isBuyer = !!viewer && !!order.customerUserId && order.customerUserId === viewer.id;
+  const cancelFrom = isBuyer && order.status === 'pending' ? customerCancelFrom(order, order.business?.hours).toISOString() : null;
   const json = orderJson(order);
-  if (json.business) delete (json.business as unknown as Record<string, unknown>).ownerId;
-  ok(res, { ...json, canManage });
+  if (json.business) {
+    delete (json.business as unknown as Record<string, unknown>).ownerId;
+    delete (json.business as unknown as Record<string, unknown>).hours;
+  }
+  ok(res, { ...json, canManage, customerCancelFrom: cancelFrom });
 }));
 
 // Protected: move an order to another status (owner of the business or admin)

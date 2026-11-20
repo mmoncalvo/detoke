@@ -3,6 +3,7 @@ import { useCallback } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import { DELIVERY_LABELS, PAYMENT_LABELS } from '@shared/business';
 import { FINAL_STATUSES, STATUS_STEPS, statusLabel, type Order, type OrderView } from '@shared/orders';
+import { CustomerCancel } from '@/components/orders/CustomerCancel';
 import { OrderActions } from '@/components/orders/OrderActions';
 import { SafeImage } from '@/components/common/SafeImage';
 import { EmptyState, ErrorState } from '@/components/common/States';
@@ -78,7 +79,7 @@ export default function OrderPage() {
   const resync = useCallback(() => reload(), [reload]);
   useRoom('order', code, resync);
   useSocketEvent('order:updated', (updated) => {
-    if (updated.publicCode === code) setData((current) => (current ? { ...updated, canManage: current.canManage } : current));
+    if (updated.publicCode === code) setData((current) => (current ? { ...updated, canManage: current.canManage, customerCancelFrom: current.customerCancelFrom } : current));
   });
 
   if (loading && !order) return <div className="mx-auto max-w-form space-y-4 px-4 py-8"><Skeleton className="h-24 w-full" /><Skeleton className="h-72 w-full" /></div>;
@@ -106,6 +107,7 @@ export default function OrderPage() {
         </div>
         {!finished && !order.canManage && <p className="mt-1 text-sm text-muted-foreground">Esta página se actualiza sola cuando el negocio avanza con tu pedido.</p>}
         <div className="mt-5"><Timeline order={order} /></div>
+        {!order.canManage && <CustomerCancel order={order} onChange={(updated) => setData({ ...updated, canManage: false, customerCancelFrom: null })} />}
         {order.canManage && !finished && (
           <div className="mt-5 border-t pt-4">
             <p className="mb-2 text-sm font-semibold">Actualizar el estado</p>

@@ -102,6 +102,60 @@ export function openStatus(hours: BusinessHours | null | undefined, date = new D
   return { isOpen: false, label: 'Cerrado' };
 }
 
+/** Offset of the marketplace time zone from UTC at that instant, in ms (Montevideo: -3 h). */
+function zoneOffset(date: Date) {
+  const parts = new Intl.DateTimeFormat('en-US', { timeZone: TIMEZONE, year: 'numeric', month: '2-digit', day: '2-digit', hour: '2-digit', minute: '2-digit', second: '2-digit', hourCycle: 'h23' }).formatToParts(date);
+  const get = (type: string) => Number(parts.find((p) => p.type === type)?.value);
+  const asUtc = Date.UTC(get('year'), get('month') - 1, get('day'), get('hour'), get('minute'), get('second'));
+  return asUtc - Math.floor(date.getTime() / 1000) * 1000;
+}
+
+/** The instant of a wall-clock time (HH:mm) on a local calendar day given as a UTC midnight. */
+function zonedInstant(dayUtc: number, time: string) {
+  const [h, m] = time.split(':').map(Number);
+  const guess = dayUtc + (h * 60 + m) * 60_000;
+  return guess - zoneOffset(new Date(guess));
+}
+
+/**
+ * The moment the business has been open for `hoursCount` hours since `from`, counting only the
+ * time inside its schedule. Without a schedule the hours run straight through.
+ */
+export function afterOpenHours(hours: BusinessHours | null | undefined, from: Date, hoursCount: number): Date {
+  let remaining = hoursCount * 3_600_000;
+  if (!hasHours(hours)) return new Date(from.getTime() + remaining);
+  const schedule = hours as BusinessHours;
+  const start = from.getTime();
+  // Local calendar day of `from`, as UTC midnight; start one day earlier for overnight ranges.
+  const local = new Date(start + zoneOffset(from));
+  const firstDay = Date.UTC(local.getUTCFullYear(), local.getUTCMonth(), local.getUTCDate()) - 86_400_000;
+
+  // Overlapping ranges count once: nothing before the cursor is counted again.
+  let cursor = start;
+  // A schedule open at least once a week gives 24 h within a few months; the cap only guards odd data.
+  for (let week = 0; week < 60; week += 1) {
+    const intervals: [number, number][] = [];
+    for (let i = 0; i < 7; i += 1) {
+      const day = firstDay + (week * 7 + i) * 86_400_000;
+      const dayIndex = (new Date(day).getUTCDay() + 6) % 7;
+      for (const range of dayRanges(schedule, dayIndex)) {
+        const open = zonedInstant(day, range.from);
+        const close = zonedInstant(overnight(range) ? day + 86_400_000 : day, range.to);
+        if (close > open) intervals.push([open, close]);
+      }
+    }
+    intervals.sort((a, b) => a[0] - b[0]);
+    for (const [open, close] of intervals) {
+      const begin = Math.max(open, cursor);
+      if (close <= begin) continue;
+      if (close - begin >= remaining) return new Date(begin + remaining);
+      remaining -= close - begin;
+      cursor = Math.max(cursor, close);
+    }
+  }
+  return new Date(start + hoursCount * 3_600_000);
+}
+
 export const todayKey = (date = new Date()): Day => DAYS[localTime(date).dayIndex];
 
 export const formatDayHours = (day?: DayHours) =>
