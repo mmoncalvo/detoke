@@ -149,7 +149,7 @@ export function LocationFields({ value, onChange }: { value: LocationValue; onCh
             renderOption={(c) => (
               <>
                 <span className="font-medium">{c.neighborhood ?? c.city}</span>
-                <span className="text-muted-foreground">, {c.neighborhood ? c.city : c.province}{c.country !== 'Argentina' && `, ${c.country}`}</span>
+                <span className="text-muted-foreground">, {c.neighborhood ? c.city : c.province}{c.country !== 'Uruguay' && `, ${c.country}`}</span>
               </>
             )}
             placeholder="Escribí tu ciudad"

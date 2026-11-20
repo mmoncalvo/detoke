@@ -432,5 +432,9 @@ describe('shared rules', () => {
     expect(slugify('Fiambrería & Quesería')).toBe('fiambreria-queseria');
     expect(normalizeWhatsapp('+54 9 11 2345-6789')).toBe('5491123456789');
     expect(normalizeWhatsapp('11 2345 6789')).toBe('5491123456789');
+    expect(normalizeWhatsapp('099 123 456')).toBe('59899123456');
+    expect(normalizeWhatsapp('99 123 456')).toBe('59899123456');
+    expect(normalizeWhatsapp('+598 99 123 456')).toBe('59899123456');
+    expect(normalizeWhatsapp('4534 1234')).toBe('59845341234');
   });
 });

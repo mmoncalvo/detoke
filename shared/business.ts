@@ -173,8 +173,14 @@ export function slugify(text: string) {
 /** Lowercase without accents, for searching. */
 export const fold = (text: string) => text.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
 
-/** Digits with country code, as wa.me expects. A bare 10-digit number is taken as Argentine. */
+/**
+ * Digits with country code, as wa.me expects. Uruguayan local numbers get 598: a mobile with its
+ * leading 0 (099 123 456) or any 8-digit number (99 123 456, 4534 1234). A bare 10-digit number is
+ * still taken as Argentine.
+ */
 export function normalizeWhatsapp(value: string) {
   const digits = value.replace(/\D/g, '').replace(/^00/, '');
+  if (digits.length === 9 && digits.startsWith('09')) return `598${digits.slice(1)}`;
+  if (digits.length === 8) return `598${digits}`;
   return digits.length === 10 ? `549${digits}` : digits;
 }

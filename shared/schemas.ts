@@ -20,7 +20,7 @@ const optionalUrl = z
 const whatsapp = z
   .string({ required_error: 'Completá el WhatsApp' })
   .transform(normalizeWhatsapp)
-  .refine((v) => /^[1-9]\d{9,14}$/.test(v), 'Ingresá el número con código de área, por ejemplo 11 2345 6789');
+  .refine((v) => /^[1-9]\d{9,14}$/.test(v), 'Ingresá un número válido, por ejemplo 099 123 456');
 
 const optionalPhone = z
   .string()
