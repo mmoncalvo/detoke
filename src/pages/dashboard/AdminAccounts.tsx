@@ -355,7 +355,7 @@ export default function AdminAccounts() {
           </AlertDialogHeader>
           <div className="space-y-2">
             <Label htmlFor="disable-reason">Motivo (opcional, lo ve el dueño)</Label>
-            <Textarea id="disable-reason" rows={2} maxLength={300} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Por ejemplo: datos de contacto incorrectos" />
+            <Textarea id="disable-reason" rows={2} maxLength={300} value={reason} onChange={(e) => setReason(e.target.value)} placeholder="Ej: Datos de contacto incorrectos" />
           </div>
           <AlertDialogFooter>
             <AlertDialogCancel disabled={working}>Cancelar</AlertDialogCancel>

@@ -201,7 +201,7 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
 
         <div className="space-y-1.5">
           <Label htmlFor={`notes-${business.id}`}>Aclaraciones (opcional)</Label>
-          <Textarea id={`notes-${business.id}`} rows={2} placeholder="Sin cebolla, tocar timbre 3B..." value={notes} onChange={(e) => setNotes(e.target.value)} />
+          <Textarea id={`notes-${business.id}`} rows={2} placeholder="Ej: Sin cebolla, tocar timbre 3B..." value={notes} onChange={(e) => setNotes(e.target.value)} />
         </div>
 
         <dl className="space-y-1 rounded-xl bg-secondary/60 p-3 text-sm">

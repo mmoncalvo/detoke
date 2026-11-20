@@ -52,7 +52,7 @@ function ProfileForm({ business }: { business: Business }) {
         <Section title="Identidad" description="Cómo te ven los clientes.">
           <TextField control={form.control} name="name" label="Nombre del negocio" />
           <SelectField control={form.control} name="businessCategoryId" label="Rubro" placeholder="Elegí tu rubro" options={categories.data ?? []} />
-          <TextField control={form.control} name="tagline" label="Frase corta" maxLength={90} placeholder="Pizza a la piedra desde 1987" description="Se muestra en las tarjetas, debajo del nombre." />
+          <TextField control={form.control} name="tagline" label="Frase corta" maxLength={90} placeholder="Ej: Pizza a la piedra desde 1987" description="Se muestra en las tarjetas, debajo del nombre." />
           <TextAreaField control={form.control} name="description" label="Descripción" rows={4} maxLength={600} placeholder="Contá qué hacen, desde cuándo y qué los hace distintos." />
         </Section>
 
@@ -68,9 +68,9 @@ function ProfileForm({ business }: { business: Business }) {
             <TextField control={form.control} name="whatsapp" label="WhatsApp" type="tel" description="Acá llegan los pedidos." />
             <TextField control={form.control} name="phone" label="Teléfono" type="tel" />
             <TextField control={form.control} name="email" label="Email público" type="email" />
-            <TextField control={form.control} name="website" label="Sitio web" placeholder="minegocio.com" />
-            <TextField control={form.control} name="instagram" label="Instagram" placeholder="@minegocio" />
-            <TextField control={form.control} name="facebook" label="Facebook" placeholder="facebook.com/minegocio" />
+            <TextField control={form.control} name="website" label="Sitio web" placeholder="Ej: minegocio.com" />
+            <TextField control={form.control} name="instagram" label="Instagram" placeholder="Ej: @minegocio" />
+            <TextField control={form.control} name="facebook" label="Facebook" placeholder="Ej: facebook.com/minegocio" />
           </div>
         </Section>
 

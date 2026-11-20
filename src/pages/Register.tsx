@@ -73,7 +73,7 @@ function BusinessStep({ onBack, onNext }: { onBack?: () => void; onNext: (busine
       <form onSubmit={form.handleSubmit(onNext)} className="space-y-4" noValidate>
         <TextField control={form.control} name="name" label="Nombre del negocio" autoFocus />
         <SelectField control={form.control} name="businessCategoryId" label="Rubro" placeholder="Elegí tu rubro" options={categories.data ?? []} />
-        <TextField control={form.control} name="whatsapp" label="WhatsApp del negocio" type="tel" inputMode="tel" placeholder="11 2345 6789" description="Acá te van a llegar los pedidos. Si estás fuera de Argentina, incluí el código de país." />
+        <TextField control={form.control} name="whatsapp" label="WhatsApp del negocio" type="tel" inputMode="tel" placeholder="Ej: 11 2345 6789" description="Acá te van a llegar los pedidos. Si estás fuera de Argentina, incluí el código de país." />
         <div className="flex items-center justify-between gap-3 pt-2">
           {onBack ? <Button type="button" variant="ghost" onClick={onBack}>Volver</Button> : <span />}
           <Button type="submit" size="lg" disabled={form.formState.isSubmitting}>{form.formState.isSubmitting && <Loader2 className="animate-spin" />} Crear mi negocio</Button>

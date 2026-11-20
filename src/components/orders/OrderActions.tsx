@@ -63,7 +63,7 @@ export function OrderActions({ order, onChange, compact }: { order: Order; onCha
             <AlertDialogTitle>¿Cancelar el pedido #{order.number}?</AlertDialogTitle>
             <AlertDialogDescription>{order.customerName} lo va a ver en el link del pedido. Si querés, contale el motivo.</AlertDialogDescription>
           </AlertDialogHeader>
-          <Textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3} maxLength={200} placeholder="Por ejemplo: nos quedamos sin stock (opcional)" aria-label="Motivo" />
+          <Textarea value={reason} onChange={(e) => setReason(e.target.value)} rows={3} maxLength={200} placeholder="Ej: Nos quedamos sin stock (opcional)" aria-label="Motivo" />
           <AlertDialogFooter>
             <AlertDialogCancel>No, volver</AlertDialogCancel>
             <AlertDialogAction
