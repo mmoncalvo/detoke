@@ -11,6 +11,7 @@ import { contactRoutes } from './contact.js';
 import { productRoutes } from './products.js';
 import { searchRoutes } from './search.js';
 import { ogRoutes } from './og.js';
+import { pushRoutes } from './push.js';
 
 
 export const apiRoutes = Router();
@@ -28,3 +29,4 @@ apiRoutes.use('/geo', geoRoutes);
 apiRoutes.use('/orders', orderRoutes);
 apiRoutes.use('/contact', contactRoutes);
 apiRoutes.use('/og', ogRoutes);
+apiRoutes.use('/push', pushRoutes);

@@ -5,6 +5,7 @@ import { DELIVERY_LABELS, PAYMENT_LABELS } from '@shared/business';
 import { FINAL_STATUSES, STATUS_STEPS, statusLabel, type Order, type OrderView } from '@shared/orders';
 import { CustomerCancel } from '@/components/orders/CustomerCancel';
 import { OrderActions } from '@/components/orders/OrderActions';
+import { OrderNotifications } from '@/components/orders/OrderNotifications';
 import { SafeImage } from '@/components/common/SafeImage';
 import { EmptyState, ErrorState } from '@/components/common/States';
 import { Badge } from '@/components/ui/badge';
@@ -106,6 +107,7 @@ export default function OrderPage() {
           <Badge variant={statusVariant(order.status)}>{finished ? 'Finalizado' : 'En curso'}</Badge>
         </div>
         {!finished && !order.canManage && <p className="mt-1 text-sm text-muted-foreground">Esta página se actualiza sola cuando el negocio avanza con tu pedido.</p>}
+        {!finished && !order.canManage && <OrderNotifications code={order.publicCode} />}
         <div className="mt-5"><Timeline order={order} /></div>
         {!order.canManage && <CustomerCancel order={order} onChange={(updated) => setData({ ...updated, canManage: false, customerCancelFrom: null })} />}
         {order.canManage && !finished && (

@@ -4,6 +4,7 @@ import type { Order } from '@shared/orders';
 import { api } from '@/api';
 import { useRoom, useSocketEvent } from '@/hooks/useRealtime';
 import { formatPrice } from '@/lib/format';
+import { pushSupported } from '@/lib/push';
 
 const SOUND_KEY = 'detoke.orderSound';
 
@@ -61,13 +62,14 @@ function chime() {
   }
 }
 
-/** Browser notifications, only when the user turned them on (from Mi cuenta) and the tab is in the background. */
-export const canNotify = () => typeof Notification !== 'undefined';
-
+/**
+ * In the background the system notification comes from the server (Web Push, see src/lib/push.ts),
+ * even with Detoke closed. This page-made one is only for browsers without push.
+ */
 function notify(title: string, body: string, onClick: () => void) {
-  if (!canNotify() || Notification.permission !== 'granted' || !document.hidden) return;
+  if (pushSupported() || typeof Notification === 'undefined' || Notification.permission !== 'granted' || !document.hidden) return;
   try {
-    const notification = new Notification(title, { body, icon: '/favicon.svg', tag: title });
+    const notification = new Notification(title, { body, icon: '/notification-icon.png', tag: title });
     notification.onclick = () => {
       window.focus();
       onClick();

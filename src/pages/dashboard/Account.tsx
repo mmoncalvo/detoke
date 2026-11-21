@@ -14,7 +14,8 @@ import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/context/AuthContext';
 import { useTheme, type Theme } from '@/context/ThemeContext';
-import { canNotify, readSoundPreference, saveSoundPreference } from '@/hooks/useOrderAlerts';
+import { readSoundPreference, saveSoundPreference } from '@/hooks/useOrderAlerts';
+import { usePush } from '@/hooks/usePush';
 import { useTitle } from '@/hooks/useTitle';
 
 const MAX_IMAGE_MB = 5;
@@ -206,7 +207,8 @@ export function PreferencesCard() {
       .catch(() => toast.error('No pudimos guardar el tema en tu cuenta'));
   };
   const [sound, setSound] = useState(readSoundPreference);
-  const [permission, setPermission] = useState<NotificationPermission>(() => (canNotify() ? Notification.permission : 'denied'));
+  const push = usePush();
+  const isSeller = user?.role === 'seller';
   return (
     <Card>
       <CardHeader className="border-b">
@@ -230,15 +232,19 @@ export function PreferencesCard() {
             <Switch id="order-sound" checked={sound} onCheckedChange={(on) => { saveSoundPreference(on); setSound(on); }} />
           </div>
         )}
-        {user?.role === 'seller' && canNotify() && (
+        {user?.role !== 'admin' && push.state && push.state !== 'unsupported' && (
           <div className="flex items-center justify-between gap-4 pt-4">
-            <div>
-              <p className="text-sm font-medium">Avisos del navegador</p>
-              <p className="text-sm text-muted-foreground">
-                {permission === 'granted' ? 'Activados: te avisamos de pedidos nuevos aunque Detoke esté en otra pestaña.' : permission === 'denied' ? 'Están bloqueados. Podés habilitarlos desde la configuración del navegador para este sitio.' : 'Para enterarte de pedidos nuevos aunque Detoke esté en otra pestaña.'}
-              </p>
-            </div>
-            {permission === 'default' && <Button type="button" variant="outline" size="sm" onClick={() => void Notification.requestPermission().then(setPermission)}>Activar</Button>}
+            <Label htmlFor="push-notifications" className="block cursor-pointer">
+              <span className="block text-sm font-medium">Notificaciones</span>
+              <span className="block text-sm font-normal text-muted-foreground">
+                {push.state === 'denied'
+                  ? 'Están bloqueadas en este navegador. Podés habilitarlas desde la configuración del sitio.'
+                  : isSeller
+                    ? 'Te avisamos de pedidos nuevos y de cómo avanzan tus compras, aunque Detoke esté cerrado.'
+                    : 'Te avisamos cuando el negocio confirma, finaliza o cancela tu pedido, aunque Detoke esté cerrado.'}
+              </span>
+            </Label>
+            <Switch id="push-notifications" checked={push.state === 'on'} disabled={push.busy || push.state === 'denied'} onCheckedChange={(on) => void (on ? push.enable() : push.disable())} />
           </div>
         )}
       </CardContent>

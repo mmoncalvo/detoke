@@ -8,6 +8,7 @@ import { rateLimit } from '../middleware/rateLimit.js';
 import { currentBusiness, currentUser, optionalUser, requireAuth } from '../middleware/requireAuth.js';
 import { Business, Order, Product } from '../models/index.js';
 import { newPublicCode, oneAtATime, ORDER_BUSINESS_ATTRIBUTES, orderJson, withBusiness } from '../services/orders.js';
+import { pushOrderCreated, pushOrderUpdated } from '../services/push.js';
 import { emitOrderCreated, emitOrderUpdated } from '../services/realtime.js';
 import { ok } from '../services/response.js';
 import { formatMoney } from '../services/money.js';
@@ -91,7 +92,10 @@ orderRoutes.post('/', limit, asyncHandler(async (req, res) => {
   });
 
   const saved = orderJson((await withBusiness(order.id))!);
-  if (created) emitOrderCreated(saved);
+  if (created) {
+    emitOrderCreated(saved);
+    pushOrderCreated(saved);
+  }
   ok(res, { order: saved, url: `${config.appUrl}/pedido/${order.publicCode}` }, created ? 201 : 200);
 }));
 
@@ -132,6 +136,7 @@ orderRoutes.post('/customer/:code/cancel', requireAuth, asyncHandler(async (req,
   await order.update({ status: 'cancelled', statusHistory: [...order.statusHistory, { status: 'cancelled', at: new Date().toISOString(), by: req.impersonation ? 'admin' : 'customer', reason: CUSTOMER_CANCEL_REASON }] });
   const saved = orderJson((await withBusiness(order.id))!);
   emitOrderUpdated(saved);
+  pushOrderUpdated(saved);
   ok(res, saved);
 }));
 
@@ -195,5 +200,6 @@ orderRoutes.patch('/:code/status', requireAuth, asyncHandler(async (req, res) =>
 
   const saved = orderJson((await withBusiness(order.id))!);
   emitOrderUpdated(saved);
+  pushOrderUpdated(saved);
   ok(res, saved);
 }));

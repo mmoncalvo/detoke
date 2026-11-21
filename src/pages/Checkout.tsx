@@ -22,6 +22,7 @@ import { openWhatsApp, prepareWhatsAppTab } from '@/lib/whatsapp';
 import { orderMessage } from '@/lib/orders';
 import { addRecentOrder, isActive, toRecentOrder, writeRecentOrders, type RecentOrder } from '@/lib/recentOrders';
 import { readCustomer, writeCustomer, type CustomerDetails } from '@/lib/customer';
+import { syncPush } from '@/lib/push';
 import { useAuth } from '@/context/AuthContext';
 
 /** Orders sent in this tab, so their confirmation is still there when the customer comes back from WhatsApp. */
@@ -121,6 +122,8 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
       requestId.current = null;
       const recent = toRecentOrder(order, business, url);
       writeRecentOrders((list) => addRecentOrder(list, recent));
+      // Where notifications are already allowed, this browser hears about the order's status.
+      void syncPush(order.publicCode);
       // The order is out: only this business leaves the cart, the others stay as they were.
       removeBusiness(business.id);
       onSent(recent);

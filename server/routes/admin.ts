@@ -11,6 +11,7 @@ import { sequelize } from '../db.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
 import { currentUser, requireAdmin, requireAuth, signToken } from '../middleware/requireAuth.js';
 import { AdminAction, AuditLog, Business, BusinessCategory, ImpersonationLog, Order, Product, User } from '../models/index.js';
+import { removeUserPush } from '../services/push.js';
 import { emitBusinessStatus } from '../services/realtime.js';
 import { ok } from '../services/response.js';
 import { businessOf, userData } from './auth.js';
@@ -127,6 +128,7 @@ adminRoutes.delete('/businesses/:id', requireAuth, requireAdmin, asyncHandler(as
     const sessions = await ImpersonationLog.findAll({ where: { targetUserId: ownerId }, attributes: ['id'], transaction });
     await AuditLog.destroy({ where: { targetUserId: ownerId }, transaction });
     await ImpersonationLog.destroy({ where: { id: sessions.map((s) => s.id) }, transaction });
+    await removeUserPush(ownerId, transaction);
     await User.destroy({ where: { id: ownerId }, transaction });
   });
   await removeUploads(files);
@@ -162,6 +164,7 @@ adminRoutes.delete('/users/:id', requireAuth, requireAdmin, asyncHandler(async (
     const sessions = await ImpersonationLog.findAll({ where: { targetUserId: user.id }, attributes: ['id'], transaction });
     await AuditLog.destroy({ where: { targetUserId: user.id }, transaction });
     await ImpersonationLog.destroy({ where: { id: sessions.map((s) => s.id) }, transaction });
+    await removeUserPush(user.id, transaction);
     await user.destroy({ transaction });
   });
   await removeUploads([user.avatarUrl]);

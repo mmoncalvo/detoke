@@ -80,6 +80,11 @@ export const config = {
     clientSecret: process.env.GOOGLE_CLIENT_SECRET?.trim() || null,
     redirectUri: process.env.GOOGLE_REDIRECT_URI?.trim() || `${appUrl}/api/auth/google/callback`,
   },
+  /** Web Push keys. Without them the server generates a pair once and keeps it in the database. */
+  push: {
+    publicKey: process.env.VAPID_PUBLIC_KEY?.trim() || null,
+    privateKey: process.env.VAPID_PRIVATE_KEY?.trim() || null,
+  },
   /** Origins allowed to call the API in production, besides the same-origin web app. */
   corsOrigins: (process.env.CORS_ORIGINS ?? appUrl).split(',').map((s) => s.trim()).filter(Boolean),
 };

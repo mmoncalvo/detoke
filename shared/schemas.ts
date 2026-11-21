@@ -68,6 +68,16 @@ export const cartSchema = z.object({
 export const themeSchema = z.object({ theme: z.enum(['light', 'dark'], { message: 'Elegí modo claro u oscuro' }) });
 
 /** Order codes saved in this browser, to attach them to the account. */
+/** A browser's push subscription (PushSubscription.toJSON()), and optionally an order to follow by code. */
+export const pushSubscribeSchema = z.object({
+  subscription: z.object({
+    endpoint: z.string().url().max(1024),
+    keys: z.object({ p256dh: z.string().min(1).max(255), auth: z.string().min(1).max(255) }),
+  }),
+  orderCode: z.string().min(6).max(32).optional(),
+});
+export const pushUnsubscribeSchema = z.object({ endpoint: z.string().url().max(1024) });
+
 export const claimOrdersSchema = z.object({ codes: z.array(z.string().min(6).max(32)).max(50) });
 
 /** What a user edits in Mi cuenta. */

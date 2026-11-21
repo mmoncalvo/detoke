@@ -7,6 +7,7 @@ import { OrderAlertsProvider } from '@/context/OrderAlertsContext';
 import { RecentOrdersWatcher } from '@/components/orders/RecentOrders';
 import { AccountSync } from '@/components/auth/AccountSync';
 import { ThemeSync } from '@/components/auth/ThemeSync';
+import { PushSync } from '@/components/auth/PushSync';
 
 const Home = lazy(() => import('@/pages/Home'));
 const Explore = lazy(() => import('@/pages/Explore'));
@@ -46,6 +47,7 @@ export default function App() {
     <RecentOrdersWatcher />
     <AccountSync />
     <ThemeSync />
+    <PushSync />
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<PublicLayout />}>
