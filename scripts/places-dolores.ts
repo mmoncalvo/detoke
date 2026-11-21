@@ -227,8 +227,7 @@ function toPayments(place: Place): PaymentMethod[] {
   const options = place.paymentOptions;
   if (options?.acceptsCashOnly) return ['cash'];
   const methods: PaymentMethod[] = ['cash'];
-  if (options?.acceptsDebitCards) methods.push('debit');
-  if (options?.acceptsCreditCards) methods.push('credit');
+  if (options?.acceptsDebitCards || options?.acceptsCreditCards) methods.push('pos');
   return methods;
 }
 

@@ -93,7 +93,7 @@ describe('orders', () => {
     expect((await send({ fulfillment: 'delivery', deliveryAddress: 'X', items: [{ productId: fugazza.id, quantity: 1 }] })).body.error).toBe('El pedido mínimo para delivery es $ 20.000');
     expect((await send({ fulfillment: 'delivery' })).body.error).toBe('Completá la dirección de entrega');
     expect((await send({ items: [{ productId: fugazza.id, quantity: 5 }] })).body.error).toBe('De "Fugazza" quedan 3');
-    expect((await send({ paymentMethod: 'mercadopago' })).body.error).toBe('Este negocio no acepta ese medio de pago');
+    expect((await send({ paymentMethod: 'pos' })).body.error).toBe('Este negocio no acepta ese medio de pago');
 
     const other = await register(categories.pizzas.id, 'Otra Pizzería');
     const foreign = await Product.create({ businessId: other.business.id, name: 'Ajena', slug: 'ajena-pedidos', price: 1 });

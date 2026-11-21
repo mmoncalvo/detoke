@@ -102,10 +102,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -384,8 +382,7 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "transfer",
-      "mercadopago"
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -639,8 +636,7 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
+      "pos",
       "transfer"
     ],
     "isVerified": true,
@@ -920,10 +916,8 @@
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": false,
     "isActive": true,
@@ -1210,8 +1204,8 @@
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
-      "debit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -1478,9 +1472,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -1750,7 +1743,7 @@
     "deliveryRadiusKm": 3,
     "paymentMethods": [
       "cash",
-      "credit",
+      "pos",
       "transfer"
     ],
     "isVerified": true,
@@ -2030,8 +2023,8 @@
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
-      "debit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": false,
     "isActive": true,
@@ -2283,10 +2276,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -2527,10 +2518,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -2799,7 +2788,7 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
+      "pos",
       "transfer"
     ],
     "isVerified": true,
@@ -3070,9 +3059,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": false,
     "isActive": true,
@@ -3340,9 +3328,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -3585,9 +3572,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -3842,9 +3828,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -4216,7 +4201,7 @@
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
-      "debit",
+      "pos",
       "transfer"
     ],
     "isVerified": false,
@@ -4575,8 +4560,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -4804,8 +4789,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "credit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -5049,9 +5034,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -5285,8 +5269,7 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
+      "pos",
       "transfer"
     ],
     "isVerified": false,
@@ -5515,10 +5498,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -5771,10 +5752,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -5998,9 +5977,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "debit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -6243,10 +6221,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": false,
     "isActive": true,
@@ -6489,8 +6465,7 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
+      "pos",
       "transfer"
     ],
     "isVerified": true,
@@ -6732,9 +6707,8 @@
     "deliveryRadiusKm": null,
     "paymentMethods": [
       "cash",
-      "debit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -6971,8 +6945,7 @@
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit"
+      "pos"
     ],
     "isVerified": true,
     "isActive": true,
@@ -7216,10 +7189,8 @@
     "deliveryRadiusKm": 3,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": false,
     "isActive": true,
@@ -7448,9 +7419,8 @@
     "deliveryRadiusKm": 5,
     "paymentMethods": [
       "cash",
-      "debit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,
@@ -7661,10 +7631,8 @@
     "deliveryRadiusKm": 2,
     "paymentMethods": [
       "cash",
-      "debit",
-      "credit",
-      "transfer",
-      "mercadopago"
+      "pos",
+      "transfer"
     ],
     "isVerified": true,
     "isActive": true,

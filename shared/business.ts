@@ -27,15 +27,13 @@ export interface DayHours {
 
 export type BusinessHours = Record<Day, DayHours>;
 
-export const PAYMENT_METHODS = ['cash', 'debit', 'credit', 'transfer', 'mercadopago'] as const;
+export const PAYMENT_METHODS = ['cash', 'pos', 'transfer'] as const;
 export type PaymentMethod = (typeof PAYMENT_METHODS)[number];
 
 export const PAYMENT_LABELS: Record<PaymentMethod, string> = {
   cash: 'Efectivo',
-  debit: 'Débito',
-  credit: 'Crédito',
+  pos: 'POS',
   transfer: 'Transferencia',
-  mercadopago: 'Mercado Pago',
 };
 
 export const DELIVERY_OPTIONS = ['delivery', 'pickup'] as const;

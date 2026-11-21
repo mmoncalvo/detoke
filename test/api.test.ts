@@ -97,7 +97,7 @@ describe('my business', () => {
     const { token } = await register(categories.pizzas.id);
 
     const ok = await request(app).put('/api/businesses/me').set(auth(token)).send({
-      tagline: 'La mejor', website: 'detoke.test', instagram: '@lamejor', deliveryOptions: ['delivery'], paymentMethods: ['cash', 'mercadopago'], deliveryFee: '1500', hours: defaultHours(),
+      tagline: 'La mejor', website: 'detoke.test', instagram: '@lamejor', deliveryOptions: ['delivery'], paymentMethods: ['cash', 'pos'], deliveryFee: '1500', hours: defaultHours(),
     });
     expect(ok.status).toBe(200);
     expect(ok.body.data.website).toBe('https://detoke.test');
