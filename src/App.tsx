@@ -6,6 +6,7 @@ import PublicLayout from '@/layouts/PublicLayout';
 import { OrderAlertsProvider } from '@/context/OrderAlertsContext';
 import { RecentOrdersWatcher } from '@/components/orders/RecentOrders';
 import { AccountSync } from '@/components/auth/AccountSync';
+import { ThemeSync } from '@/components/auth/ThemeSync';
 
 const Home = lazy(() => import('@/pages/Home'));
 const Explore = lazy(() => import('@/pages/Explore'));
@@ -44,6 +45,7 @@ export default function App() {
     <OrderAlertsProvider>
     <RecentOrdersWatcher />
     <AccountSync />
+    <ThemeSync />
     <Suspense fallback={<PageLoader />}>
       <Routes>
         <Route element={<PublicLayout />}>

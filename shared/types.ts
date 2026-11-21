@@ -89,6 +89,9 @@ export interface CartLine {
   quantity: number;
 }
 
+/** Light or dark color mode. */
+export type Theme = 'light' | 'dark';
+
 export interface User {
   id: string;
   email: string;
@@ -97,6 +100,8 @@ export interface User {
   role: UserRole;
   address?: string | null;
   avatarUrl?: string | null;
+  /** Color mode chosen in Mi cuenta; null until the user picks one there. */
+  theme?: Theme | null;
 }
 
 export type Impersonator = Pick<User, 'id' | 'name' | 'email'>;

@@ -1,9 +1,10 @@
 import { Moon, Sun } from 'lucide-react';
 import { Button } from '@/components/ui/button';
 import { Tooltip, TooltipContent, TooltipTrigger } from '@/components/ui/tooltip';
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme, type Theme } from '@/context/ThemeContext';
 
-export function ThemeToggle({ className }: { className?: string }) {
+/** `onChange` runs after the switch (Mi cuenta uses it to save the choice in the account). */
+export function ThemeToggle({ className, onChange }: { className?: string; onChange?: (theme: Theme) => void }) {
   const { theme, setTheme } = useTheme();
   const isDark = theme === 'dark';
   const label = isDark ? 'Cambiar a modo claro' : 'Cambiar a modo oscuro';
@@ -11,7 +12,11 @@ export function ThemeToggle({ className }: { className?: string }) {
   return (
     <Tooltip>
       <TooltipTrigger asChild>
-        <Button variant="ghost" size="icon" className={className} aria-label={label} onClick={() => setTheme(isDark ? 'light' : 'dark')}>
+        <Button variant="ghost" size="icon" className={className} aria-label={label} onClick={() => {
+          const next = isDark ? 'light' : 'dark';
+          setTheme(next);
+          onChange?.(next);
+        }}>
           <Icon className="size-5" />
         </Button>
       </TooltipTrigger>

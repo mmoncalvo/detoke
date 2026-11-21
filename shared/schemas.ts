@@ -64,6 +64,9 @@ export const cartSchema = z.object({
   items: z.array(z.object({ productId: z.string().min(1), quantity: z.number().int().min(1).max(99) })).max(100, 'El carrito tiene demasiados productos'),
 });
 
+/** The color mode a user saves in Mi cuenta. */
+export const themeSchema = z.object({ theme: z.enum(['light', 'dark'], { message: 'Elegí modo claro u oscuro' }) });
+
 /** Order codes saved in this browser, to attach them to the account. */
 export const claimOrdersSchema = z.object({ codes: z.array(z.string().min(6).max(32)).max(50) });
 

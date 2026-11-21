@@ -13,7 +13,7 @@ import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import { Switch } from '@/components/ui/switch';
 import { useAuth } from '@/context/AuthContext';
-import { useTheme } from '@/context/ThemeContext';
+import { useTheme, type Theme } from '@/context/ThemeContext';
 import { canNotify, readSoundPreference, saveSoundPreference } from '@/hooks/useOrderAlerts';
 import { useTitle } from '@/hooks/useTitle';
 
@@ -196,15 +196,22 @@ export function SecurityCard() {
 }
 
 export function PreferencesCard() {
-  const { user } = useAuth();
+  const { user, impersonatedBy, setUser } = useAuth();
   const { theme } = useTheme();
+  // The theme picked here is saved in the account and follows the user to any device (not while an admin impersonates).
+  const saveTheme = (next: Theme) => {
+    if (!user || impersonatedBy) return;
+    api<User>('/auth/me/theme', { method: 'PUT', body: { theme: next } })
+      .then(setUser)
+      .catch(() => toast.error('No pudimos guardar el tema en tu cuenta'));
+  };
   const [sound, setSound] = useState(readSoundPreference);
   const [permission, setPermission] = useState<NotificationPermission>(() => (canNotify() ? Notification.permission : 'denied'));
   return (
     <Card>
       <CardHeader className="border-b">
         <CardTitle className="font-display text-lg">Preferencias</CardTitle>
-        <CardDescription>Se guardan en este dispositivo.</CardDescription>
+        <CardDescription>El tema se guarda en tu cuenta; el resto, en este dispositivo.</CardDescription>
       </CardHeader>
       <CardContent className="divide-y">
         <div className="flex items-center justify-between gap-4 pb-4">
@@ -212,7 +219,7 @@ export function PreferencesCard() {
             <p className="text-sm font-medium">Tema</p>
             <p className="text-sm text-muted-foreground">Modo {theme === 'dark' ? 'oscuro' : 'claro'}</p>
           </div>
-          <ThemeToggle className="border" />
+          <ThemeToggle className="border" onChange={saveTheme} />
         </div>
         {user?.role === 'seller' && (
           <div className="flex items-center justify-between gap-4 pt-4">

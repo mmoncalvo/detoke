@@ -28,6 +28,21 @@ describe('account', () => {
     expect((await request(app).patch('/api/auth/me').send({ name: 'Ana', email: 'a@b.co' })).status).toBe(401);
   });
 
+  it('saves the theme in the account and returns it on sign-in', async () => {
+    const seller = await register(categories.pizzas.id);
+    expect((await request(app).get('/api/auth/me').set(auth(seller.token))).body.data.user.theme).toBeNull();
+
+    const res = await request(app).put('/api/auth/me/theme').set(auth(seller.token)).send({ theme: 'dark' });
+    expect(res.status).toBe(200);
+    expect(res.body.data.theme).toBe('dark');
+    expect((await request(app).put('/api/auth/me/theme').set(auth(seller.token)).send({ theme: 'sepia' })).status).toBe(400);
+    expect((await request(app).put('/api/auth/me/theme').send({ theme: 'light' })).status).toBe(401);
+
+    const login = await request(app).post('/api/auth/login').send({ email: seller.user.email, password: 'secreta123' });
+    expect(login.body.data.user.theme).toBe('dark');
+    expect((await request(app).get('/api/auth/me').set(auth(seller.token))).body.data.user.theme).toBe('dark');
+  });
+
   it('changes the password only with the current one', async () => {
     const seller = await register(categories.pizzas.id);
     const security = await request(app).get('/api/auth/me/security').set(auth(seller.token));

@@ -1,6 +1,6 @@
 import { Router } from 'express';
 import bcrypt from 'bcryptjs';
-import { cartSchema, customerRegisterSchema, loginSchema, passwordChangeSchema, profileSchema, registerSchema } from '../../shared/schemas.js';
+import { cartSchema, themeSchema, customerRegisterSchema, loginSchema, passwordChangeSchema, profileSchema, registerSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
 import { sequelize } from '../db.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
@@ -15,7 +15,7 @@ export const authRoutes = Router();
 
 export const DISABLED_ACCOUNT = 'Tu cuenta fue deshabilitada por el equipo de Detoke. Escribinos desde Contacto si querés revisarlo.';
 
-export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, address: user.address ?? null, role: user.role, avatarUrl: user.avatarUrl ?? null });
+export const userData = (user: User) => ({ id: user.id, email: user.email, name: user.name, phone: user.phone, address: user.address ?? null, role: user.role, avatarUrl: user.avatarUrl ?? null, theme: user.theme ?? null });
 export const businessOf = (user: User) => Business.findOne({ where: { ownerId: user.id }, include: [BusinessCategory] });
 
 authRoutes.post('/register', asyncHandler(async (req, res) => {
@@ -107,6 +107,14 @@ authRoutes.post('/me/avatar', requireAuth, upload.single('image'), asyncHandler(
 authRoutes.delete('/me/avatar', requireAuth, asyncHandler(async (req, res) => {
   const user = currentUser(req);
   await user.update({ avatarUrl: null });
+  ok(res, userData(user));
+}));
+
+// Protected: the color mode chosen in Mi cuenta
+authRoutes.put('/me/theme', requireAuth, asyncHandler(async (req, res) => {
+  const { theme } = themeSchema.parse(req.body);
+  const user = currentUser(req);
+  await user.update({ theme });
   ok(res, userData(user));
 }));
 
