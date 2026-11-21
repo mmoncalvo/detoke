@@ -12,7 +12,7 @@ import { useTitle } from '@/hooks/useTitle';
 
 function CheckList<T extends string>({ options, labels, value, onChange }: { options: readonly T[]; labels: Record<T, string>; value: T[]; onChange: (value: T[]) => void }) {
   return (
-    <div className="grid gap-2 sm:grid-cols-2">
+    <div className="grid gap-2 sm:grid-cols-3">
       {options.map((option) => (
         <Label key={option} className="flex cursor-pointer items-center gap-3 rounded-lg border p-3 font-medium has-[[data-state=checked]]:border-primary has-[[data-state=checked]]:bg-primary/5">
           <Checkbox checked={value.includes(option)} onCheckedChange={(checked) => onChange(checked ? [...value, option] : value.filter((v) => v !== option))} />
