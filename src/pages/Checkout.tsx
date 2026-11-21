@@ -211,7 +211,7 @@ function OrderCard({ group, customer, setCustomer, index, count, onSent }: { gro
         </dl>
 
         {missing > 0 && (
-          <Alert><AlertTriangle /><AlertDescription>El pedido mínimo para delivery es {formatPrice(business.minimumOrder ?? 0)}. Te faltan {formatPrice(missing)}{business.deliveryOptions.includes('pickup') ? ', o podés retirarlo en el local' : ''}.</AlertDescription></Alert>
+          <Alert variant="warning"><AlertTriangle /><AlertDescription>El pedido mínimo para delivery es {formatPrice(business.minimumOrder ?? 0)}. Te faltan {formatPrice(missing)}{business.deliveryOptions.includes('pickup') ? ', o podés retirarlo en el local' : ''}.</AlertDescription></Alert>
         )}
         {!status.isOpen && <p className="text-sm text-warning-foreground">Ahora está cerrado. Podés mandar el pedido y lo verán cuando abran.</p>}
 
