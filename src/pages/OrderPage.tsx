@@ -5,7 +5,7 @@ import { DELIVERY_LABELS, PAYMENT_LABELS } from '@shared/business';
 import { FINAL_STATUSES, STATUS_STEPS, statusLabel, type Order, type OrderView } from '@shared/orders';
 import { CustomerCancel } from '@/components/orders/CustomerCancel';
 import { OrderActions } from '@/components/orders/OrderActions';
-import { OrderNotifications } from '@/components/orders/OrderNotifications';
+import { OrderNotifications, OrderNotificationsBell, useOrderNotifications } from '@/components/orders/OrderNotifications';
 import { SafeImage } from '@/components/common/SafeImage';
 import { EmptyState, ErrorState } from '@/components/common/States';
 import { Badge } from '@/components/ui/badge';
@@ -79,6 +79,7 @@ export default function OrderPage() {
 
   const resync = useCallback(() => reload(), [reload]);
   useRoom('order', code, resync);
+  const notifications = useOrderNotifications(code ?? '', !!order && !order.canManage && !FINAL_STATUSES.includes(order.status));
   useSocketEvent('order:updated', (updated) => {
     if (updated.publicCode === code) setData((current) => (current ? { ...updated, canManage: current.canManage, customerCancelFrom: current.customerCancelFrom } : current));
   });
@@ -93,13 +94,18 @@ export default function OrderPage() {
 
   return (
     <div className="mx-auto max-w-form px-4 py-8">
-      <Link to={`/negocio/${business.slug}`} className="flex items-center gap-3">
-        <SafeImage src={business.logo} alt="" className="size-12 rounded-xl" />
-        <div>
-          <p className="font-semibold hover:underline">{business.name}</p>
-          <p className="text-sm text-muted-foreground">Pedido #{order.number} · {formatDateTime(order.createdAt)}</p>
-        </div>
-      </Link>
+      <div className="flex items-center gap-3">
+        <Link to={`/negocio/${business.slug}`} className="flex min-w-0 items-center gap-3">
+          <SafeImage src={business.logo} alt="" className="size-12 shrink-0 rounded-xl" />
+          <div className="min-w-0">
+            <p className="font-semibold hover:underline">{business.name}</p>
+            <p className="text-sm text-muted-foreground">Pedido #{order.number} · {formatDateTime(order.createdAt)}</p>
+          </div>
+        </Link>
+        <OrderNotificationsBell state={notifications} />
+      </div>
+
+      <OrderNotifications state={notifications} number={order.number} businessName={business.name} />
 
       <section className="mt-6 rounded-2xl border bg-card p-5" aria-live="polite">
         <div className="flex flex-wrap items-center justify-between gap-2">
@@ -107,7 +113,6 @@ export default function OrderPage() {
           <Badge variant={statusVariant(order.status)}>{finished ? 'Finalizado' : 'En curso'}</Badge>
         </div>
         {!finished && !order.canManage && <p className="mt-1 text-sm text-muted-foreground">Esta página se actualiza sola cuando el negocio avanza con tu pedido.</p>}
-        {!finished && !order.canManage && <OrderNotifications code={order.publicCode} />}
         <div className="mt-5"><Timeline order={order} /></div>
         {!order.canManage && <CustomerCancel order={order} onChange={(updated) => setData({ ...updated, canManage: false, customerCancelFrom: null })} />}
         {order.canManage && !finished && (

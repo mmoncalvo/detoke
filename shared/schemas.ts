@@ -65,6 +65,7 @@ export const cartSchema = z.object({
 });
 
 /** The color mode a user saves in Mi cuenta. */
+export const notificationsSchema = z.object({ enabled: z.boolean() });
 export const themeSchema = z.object({ theme: z.enum(['light', 'dark'], { message: 'Elegí modo claro u oscuro' }) });
 
 /** Order codes saved in this browser, to attach them to the account. */

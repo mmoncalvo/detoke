@@ -5,23 +5,23 @@ import { api } from '@/api';
 
 export type PushState = 'unsupported' | 'denied' | 'off' | 'on';
 
-// Set when the user turns the notifications off here, so signing in again does not turn them back on.
-const OFF_KEY = 'detoke.pushOff';
+// Guests keep whether they want notifications in the browser; accounts keep it in the database (users.notifications).
+const PREFERENCE_KEY = 'detoke.notifications';
 
-function setTurnedOff(off: boolean) {
+export function readLocalPreference(): boolean | null {
   try {
-    if (off) localStorage.setItem(OFF_KEY, '1');
-    else localStorage.removeItem(OFF_KEY);
+    const value = localStorage.getItem(PREFERENCE_KEY);
+    return value === 'on' ? true : value === 'off' ? false : null;
   } catch {
-    /* storage not available */
+    return null;
   }
 }
 
-function turnedOff() {
+export function writeLocalPreference(on: boolean) {
   try {
-    return localStorage.getItem(OFF_KEY) === '1';
+    localStorage.setItem(PREFERENCE_KEY, on ? 'on' : 'off');
   } catch {
-    return false;
+    /* storage not available */
   }
 }
 
@@ -75,13 +75,11 @@ export async function enablePush(orderCode?: string): Promise<PushState> {
   const permission = Notification.permission === 'default' ? await Notification.requestPermission() : Notification.permission;
   if (permission !== 'granted') return permission === 'denied' ? 'denied' : 'off';
   await save(await subscribe(), orderCode);
-  setTurnedOff(false);
   return 'on';
 }
 
-/** Turns the notifications off on this browser. `remember` keeps them off after signing in again. */
-export async function disablePush({ remember = true } = {}) {
-  if (remember) setTurnedOff(true);
+/** Stops the notifications on this browser. */
+export async function disablePush() {
   const subscription = await currentSubscription();
   if (!subscription) return;
   await api('/push/unsubscribe', { method: 'POST', body: { endpoint: subscription.endpoint } }).catch(() => undefined);
@@ -89,12 +87,11 @@ export async function disablePush({ remember = true } = {}) {
 }
 
 /**
- * Without asking anything: where the user already allowed notifications (and did not turn them off
- * here), subscribes this browser and tells the server, so it belongs to the session's account and,
+ * Without asking anything: where the browser already allowed notifications, subscribes this browser and tells the server, so it belongs to the session's account and,
  * with `orderCode`, follows that order. Returns whether the browser is subscribed.
  */
 export async function syncPush(orderCode?: string) {
-  if (!pushSupported() || Notification.permission !== 'granted' || turnedOff()) return false;
+  if (!pushSupported() || Notification.permission !== 'granted') return false;
   try {
     await save(await subscribe(), orderCode);
     return true;

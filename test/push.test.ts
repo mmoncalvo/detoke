@@ -104,6 +104,20 @@ describe('push notifications', () => {
     expect((await PushSubscription.findOne({ where: { endpoint: subscription('impersonating').endpoint } }))!.userId).toBeNull();
   });
 
+  it('keeps the notifications preference in the account, never changed by impersonation', async () => {
+    const owner = await User.findByPk(shop.user.id);
+    expect(owner!.notifications).toBeNull();
+    const res = await request(app).put('/api/auth/me/notifications').set(auth(shop.token)).send({ enabled: true });
+    expect(res.status).toBe(200);
+    expect(res.body.data.notifications).toBe(true);
+    expect((await User.findByPk(shop.user.id))!.notifications).toBe(true);
+    const admin = await User.findOne({ where: { email: 'admin-push@detoke.test' } });
+    const impersonating = signToken(owner!, { actorId: admin!.id, logId: 'log' });
+    expect((await request(app).put('/api/auth/me/notifications').set(auth(impersonating)).send({ enabled: false })).status).not.toBe(200);
+    expect((await User.findByPk(shop.user.id))!.notifications).toBe(true);
+    expect((await request(app).put('/api/auth/me/notifications').set(auth(shop.token)).send({ enabled: 'si' })).status).toBe(400);
+  });
+
   it('forgets a browser on unsubscribe and when the push service says it is gone', async () => {
     await subscribe('gone', { token: shop.token });
     await placeOrder();

@@ -102,6 +102,8 @@ export interface User {
   avatarUrl?: string | null;
   /** Color mode chosen in Mi cuenta; null until the user picks one there. */
   theme?: Theme | null;
+  /** Wants system notifications about orders; null until the user chooses. */
+  notifications?: boolean | null;
 }
 
 export type Impersonator = Pick<User, 'id' | 'name' | 'email'>;

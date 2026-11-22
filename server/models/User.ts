@@ -22,6 +22,8 @@ export class User extends Model {
   @Column(DataType.JSON) cart!: CartLine[] | null;
   /** Color mode chosen in Mi cuenta, applied on sign-in on any device. */
   @Column(DataType.STRING) theme!: Theme | null;
+  /** Whether the user wants system notifications about orders; null until they choose. Each device still needs the browser's permission. */
+  @Column(DataType.BOOLEAN) notifications!: boolean | null;
   /** Set when an admin disables a customer account: it can no longer sign in or order. */
   @Column(DataType.DATE) disabledAt!: Date | null;
   @Column(DataType.STRING) disabledReason!: string | null;

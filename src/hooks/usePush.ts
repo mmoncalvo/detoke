@@ -1,11 +1,42 @@
 import { useCallback, useEffect, useState } from 'react';
 import { toast } from 'sonner';
-import { disablePush, enablePush, pushState, type PushState } from '@/lib/push';
+import type { User } from '@shared/types';
+import { api } from '@/api';
+import { useAuth } from '@/context/AuthContext';
+import { disablePush, enablePush, pushState, readLocalPreference, writeLocalPreference, type PushState } from '@/lib/push';
 
-/** This browser's notification state, and the actions to change it (enable must run in a click). */
+/**
+ * Whether the person wants system notifications: in the account when signed in (it follows them to
+ * every device), in this browser otherwise. Null until they choose. An admin acting as someone else
+ * changes nothing.
+ */
+export function useNotificationPreference() {
+  const { user, impersonatedBy, setUser } = useAuth();
+  const [local, setLocal] = useState(readLocalPreference);
+  const preference = user ? user.notifications ?? null : local;
+
+  const setPreference = useCallback(async (on: boolean) => {
+    if (impersonatedBy) return;
+    if (!user) {
+      writeLocalPreference(on);
+      setLocal(on);
+      return;
+    }
+    try {
+      setUser(await api<User>('/auth/me/notifications', { method: 'PUT', body: { enabled: on } }));
+    } catch {
+      toast.error('No pudimos guardar la preferencia en tu cuenta');
+    }
+  }, [user, impersonatedBy, setUser]);
+
+  return { preference, setPreference };
+}
+
+/** This browser's notification state, the saved preference, and the actions (enable must run in a click). */
 export function usePush() {
   const [state, setState] = useState<PushState | null>(null);
   const [busy, setBusy] = useState(false);
+  const { preference, setPreference } = useNotificationPreference();
 
   useEffect(() => {
     let alive = true;
@@ -20,6 +51,7 @@ export function usePush() {
     try {
       const next = await enablePush(orderCode);
       setState(next);
+      if (next === 'on') await setPreference(true);
       if (next === 'denied') toast.error('El navegador bloqueó las notificaciones. Podés habilitarlas desde la configuración del sitio.');
       return next;
     } catch {
@@ -28,17 +60,18 @@ export function usePush() {
     } finally {
       setBusy(false);
     }
-  }, []);
+  }, [setPreference]);
 
   const disable = useCallback(async () => {
     setBusy(true);
     try {
       await disablePush();
       setState('off');
+      await setPreference(false);
     } finally {
       setBusy(false);
     }
-  }, []);
+  }, [setPreference]);
 
-  return { state, busy, enable, disable };
+  return { state, setState, busy, enable, disable, preference };
 }
