@@ -89,7 +89,7 @@ export function OrderNotifications({ state, number, businessName }: { state: Ord
   return (
     <>
       {following && (
-        <p className="my-6 -mb-2 flex items-center gap-4 px-2 text-sm text-muted-foreground font-semibold">
+        <p className="my-6 mb-0 flex items-center gap-4 px-2 text-sm text-muted-foreground font-semibold">
           <BellRing className="size-4 shrink-0 text-primary" /> Te vamos a avisar con una notificación cuando cambie el estado.
         </p>
       )}
@@ -106,7 +106,7 @@ export function OrderNotifications({ state, number, businessName }: { state: Ord
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
-            <Button type="button" variant="link" className='!no-underline text-muted-foreground' onClick={close}>Ahora no</Button>
+            <Button type="button" variant="secondary" onClick={close}>Ahora no</Button>
             <Button type="button" disabled={busy} onClick={() => void activate()}>
               {busy && <Loader2 className="animate-spin" />} Activar notificaciones
             </Button>

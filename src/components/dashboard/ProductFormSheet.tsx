@@ -123,7 +123,7 @@ export function ProductFormSheet({ open, product, categories, onClose, onSaved }
               ))}
             </div>
             <div className="flex gap-2 border-t p-4">
-              <Button type="button" variant="outline" className="flex-1" onClick={onClose}>Cancelar</Button>
+              <Button type="button" variant="secondary" className="flex-1" onClick={onClose}>Cancelar</Button>
               <Button type="submit" className="flex-1" disabled={form.formState.isSubmitting || uploading}>{form.formState.isSubmitting && <Loader2 className="animate-spin" />} Guardar</Button>
             </div>
           </form>

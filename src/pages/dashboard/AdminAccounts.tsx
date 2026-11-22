@@ -337,7 +337,7 @@ export default function AdminAccounts() {
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel disabled={entering}>Cancelar</AlertDialogCancel>
+            <AlertDialogCancel variant='secondary' disabled={entering}>Cancelar</AlertDialogCancel>
             <AlertDialogAction onClick={(e) => { e.preventDefault(); void enter(); }} disabled={entering}>
               {entering && <Loader2 className="animate-spin" />} Entrar como {picked?.user.name.split(' ')[0]}
             </AlertDialogAction>
