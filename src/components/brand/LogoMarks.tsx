@@ -115,7 +115,7 @@ export function Wordmark({ className, name = WORDMARK, accent = false, depth = '
   // works in both themes), or a soft shadow. Small sizes and the monogram stay flat.
   const under = depth === 'extrude' ? { fill: 'color-mix(in oklch, currentColor 62%, black)', dy: 3.2 } : depth === 'shadow' ? { fill: 'rgb(0 0 0 / 0.22)', dy: 4 } : null;
   return (
-    <svg viewBox={`${x} ${y} ${width} ${height + (under?.dy ?? 0)}`} className={cn('h-[1.05em] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke!" xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox={`${x} ${y} ${width} ${height + (under?.dy ?? 0)}`} className={cn('h-[1.2rem] md:h-[1.4rem] w-auto shrink-0 overflow-visible text-[1.35rem]', className)} role="img" aria-label="detoke!" xmlns="http://www.w3.org/2000/svg">
       {under && <g transform={`translate(0 ${under.dy})`} style={{ fill: under.fill }}>{w.letters.map((l, i) => <path key={i} d={l.d} />)}</g>}
       {w.letters.map((l, i) => <path key={i} d={l.d} fill={accent && l.char === '!' ? BRAND.mustard : 'currentColor'} />)}
     </svg>

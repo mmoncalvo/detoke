@@ -39,10 +39,10 @@ export default function PublicLayout() {
         <ImpersonationBanner />
         <div className="mx-auto flex h-16 max-w-page items-center gap-1 px-3 min-[360px]:px-4 sm:gap-2">
           <BrandMark compact />
-          <nav className="ml-1 block sm:ml-6" aria-label="Principal">
+          <nav className="ml-4 block sm:ml-6" aria-label="Principal">
             <NavLink to="/explorar" className={({ isActive }) => navLinkClass(isActive)}>Explorar</NavLink>
-            <NavLink to="/nosotros" className={({ isActive }) => `hidden md:inline-block ${navLinkClass(isActive)}`}>Nosotros</NavLink>
-            <NavLink to="/contact" className={({ isActive }) => `hidden md:inline-block ${navLinkClass(isActive)}`}>Contacto</NavLink>
+            <NavLink to="/nosotros" className={({ isActive }) => `hidden sm:inline-block ${navLinkClass(isActive)}`}>Nosotros</NavLink>
+            <NavLink to="/contact" className={({ isActive }) => `hidden sm:inline-block ${navLinkClass(isActive)}`}>Contacto</NavLink>
           </nav>
 
           <button
@@ -54,7 +54,7 @@ export default function PublicLayout() {
             <kbd className="rounded bg-secondary px-1.5 py-0.5 text-[10px] font-medium">⌘K</kbd>
           </button>
 
-          <div className="ml-auto flex items-center lg:ml-2 sm:gap-1">
+          <div className="ml-auto lg:ml-4 flex items-center justify-between gap-1 md:gap-2">
             <Button variant="ghost" size="icon" className={`size-8 min-[360px]:size-9 lg:hidden ${NAV_ICON}`} aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
             <ThemeToggle className={`size-8 min-[360px]:size-9 sm:size-10 ${NAV_ICON}`} />
             {recent.length > 0 && (
