@@ -54,7 +54,7 @@ export default function PublicLayout() {
             <kbd className="rounded bg-secondary px-1.5 py-0.5 text-[10px] font-medium">⌘K</kbd>
           </button>
 
-          <div className="ml-auto lg:ml-4 flex items-center justify-between gap-1 md:gap-2">
+          <div className="ml-auto lg:ml-2 flex items-center justify-between gap-1">
             <Button variant="ghost" size="icon" className={`size-8 min-[360px]:size-9 lg:hidden ${NAV_ICON}`} aria-label="Buscar" onClick={() => setSearchOpen(true)}><Search className="size-5" /></Button>
             <ThemeToggle className={`size-8 min-[360px]:size-9 sm:size-10 ${NAV_ICON}`} />
             {recent.length > 0 && (
