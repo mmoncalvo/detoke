@@ -244,7 +244,10 @@ export function PreferencesCard() {
                     : 'Te avisamos cuando el negocio confirma, finaliza o cancela tu pedido, aunque Detoke esté cerrado.'}
               </span>
             </Label>
-            <Switch id="push-notifications" checked={push.state === 'on'} disabled={push.busy || push.state === 'denied'} onCheckedChange={(on) => void (on ? push.enable() : push.disable())} />
+            <div className="flex shrink-0 items-center gap-2">
+              {push.state === 'on' && push.preference !== false && <Button type="button" variant="ghost" size="sm" disabled={push.busy} onClick={() => void push.test()}>Probar</Button>}
+              <Switch id="push-notifications" checked={push.state === 'on' && push.preference !== false} disabled={push.busy || push.state === 'denied'} onCheckedChange={(on) => void (on ? push.enable() : push.disable())} />
+            </div>
           </div>
         )}
       </CardContent>

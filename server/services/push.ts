@@ -38,24 +38,47 @@ export function forgetVapidKeys() {
 // The push services ask for a contact: the public https address, or an email.
 const subject = () => (config.appUrl.startsWith('https://') ? config.appUrl : `mailto:${config.contact.email ?? 'hola@detoke.test'}`);
 
-/** Sends to each subscription; the ones the browser dropped (404/410) are deleted. */
-async function send(subscriptions: PushSubscription[], payload: PushPayload) {
-  if (!subscriptions.length) return;
+const host = (endpoint: string) => {
+  try {
+    return new URL(endpoint).host;
+  } catch {
+    return 'unknown';
+  }
+};
+
+/**
+ * Sends to each subscription and returns how many the push service accepted. Subscriptions it no longer
+ * knows (404/410) or that were made with another key (401/403, after a database reset) are deleted:
+ * the browser makes a new one the next time Detoke opens there.
+ */
+export async function send(subscriptions: PushSubscription[], payload: PushPayload, label = payload.title) {
+  if (!subscriptions.length) {
+    if (!config.isTest) console.log(`[push] ${label}: nobody to notify`);
+    return 0;
+  }
   const { publicKey, privateKey } = await vapidKeys();
   const body = JSON.stringify(payload);
-  await Promise.all(subscriptions.map(async (s) => {
+  const results = await Promise.all(subscriptions.map(async (s) => {
     try {
       await webpush.sendNotification({ endpoint: s.endpoint, keys: { p256dh: s.p256dh, auth: s.auth } }, body, {
         vapidDetails: { subject: subject(), publicKey, privateKey },
         TTL: 60 * 60 * 24,
         urgency: 'high',
       });
+      return true;
     } catch (err) {
       const status = (err as { statusCode?: number }).statusCode;
-      if (status === 404 || status === 410) await s.destroy();
-      else console.error('[push] Could not send a notification:', status ?? err);
+      if (status && [401, 403, 404, 410].includes(status)) {
+        await PushOrderFollow.destroy({ where: { subscriptionId: s.id } });
+        await s.destroy();
+      }
+      console.error(`[push] ${label}: ${host(s.endpoint)} refused it (${status ?? (err as Error).message})${status && [401, 403, 404, 410].includes(status) ? ', subscription removed' : ''}`);
+      return false;
     }
   }));
+  const sent = results.filter(Boolean).length;
+  if (!config.isTest) console.log(`[push] ${label}: sent to ${sent} of ${subscriptions.length}`);
+  return sent;
 }
 
 const pending = new Set<Promise<unknown>>();

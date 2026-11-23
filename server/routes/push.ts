@@ -6,7 +6,7 @@ import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
 import { rateLimit } from '../middleware/rateLimit.js';
 import { optionalUser } from '../middleware/requireAuth.js';
 import { Order, PushOrderFollow, PushSubscription } from '../models/index.js';
-import { vapidKeys } from '../services/push.js';
+import { send, vapidKeys } from '../services/push.js';
 import { ok } from '../services/response.js';
 
 export const pushRoutes = Router();
@@ -37,11 +37,15 @@ pushRoutes.get('/key', asyncHandler(async (_req, res) => {
 // Public: save (or refresh) this browser's subscription. Signed in, it belongs to that account;
 // without a session it only follows the order whose code it sends.
 pushRoutes.post('/subscribe', limit, asyncHandler(async (req, res) => {
-  const { subscription, orderCode } = pushSubscribeSchema.parse(req.body);
+  const { subscription, orderCode, previousEndpoint } = pushSubscribeSchema.parse(req.body);
   const user = await owner(req);
   const values = { endpoint: subscription.endpoint, p256dh: subscription.keys.p256dh, auth: subscription.keys.auth, userId: user?.id ?? null };
   let row = await PushSubscription.findOne({ where: { endpoint: subscription.endpoint } });
-  if (row) await row.update(values);
+  // The browser renewed its subscription on its own (the service worker sends it, without a session):
+  // the new one takes the place of the old, with its account and the orders it followed.
+  const previous = !row && previousEndpoint ? await PushSubscription.findOne({ where: { endpoint: previousEndpoint } }) : null;
+  if (previous) row = await previous.update({ ...values, userId: user?.id ?? previous.userId });
+  else if (row) await row.update(values);
   else row = await PushSubscription.create(values);
 
   if (orderCode) {
@@ -62,4 +66,14 @@ pushRoutes.post('/unsubscribe', limit, asyncHandler(async (req, res) => {
     await row.destroy();
   }
   ok(res, { subscribed: false });
+}));
+
+// Public: a test notification to this browser (Mi cuenta), to check that they arrive.
+pushRoutes.post('/test', limit, asyncHandler(async (req, res) => {
+  const { endpoint } = pushUnsubscribeSchema.parse(req.body);
+  const row = await PushSubscription.findOne({ where: { endpoint } });
+  if (!row) throw new HttpError(404, 'Este navegador no tiene las notificaciones activas');
+  const sent = await send([row], { title: 'Notificaciones activas', body: 'Así te vamos a avisar de tus pedidos.', url: '/', tag: `test-${Date.now()}` }, 'test');
+  if (!sent) throw new HttpError(502, 'El servicio de notificaciones del navegador no aceptó el envío. Volvé a cargar la página y probá de nuevo.');
+  ok(res, { sent });
 }));

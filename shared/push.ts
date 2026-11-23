@@ -9,11 +9,6 @@ export interface PushPayload {
   url: string;
   /** Notifications with the same tag replace each other instead of piling up. */
   tag: string;
-  /**
-   * Not shown while a Detoke window in the foreground is on a path starting with this one: the open
-   * page already shows the change ('/' for the business, whose alerts work on any page).
-   */
-  quietOn: string;
 }
 
 // Short on purpose: a title and one line. Each status has its own tag, so every change is a new
@@ -26,7 +21,6 @@ export function newOrderPush(order: Pick<Order, 'id' | 'number' | 'total' | 'cus
     body: `${order.customerName} · ${formatMoney(order.total)}`,
     url: '/dashboard/orders',
     tag: `order-${order.id}-pending`,
-    quietOn: '/',
   };
 }
 
@@ -37,7 +31,6 @@ export function customerCancelledPush(order: Pick<Order, 'id' | 'number' | 'cust
     body: `${order.customerName} lo canceló.`,
     url: '/dashboard/orders',
     tag: `order-${order.id}-cancelled`,
-    quietOn: '/',
   };
 }
 
@@ -56,6 +49,5 @@ export function statusPush(order: Pick<Order, 'id' | 'number' | 'publicCode' | '
     body: bodies[order.status],
     url: `/pedido/${order.publicCode}`,
     tag: `order-${order.id}-${order.status}`,
-    quietOn: `/pedido/${order.publicCode}`,
   };
 }

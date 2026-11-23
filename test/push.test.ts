@@ -8,6 +8,7 @@ vi.mock('web-push', async (original) => {
       ...real.default,
       sendNotification: vi.fn(async (sub: { endpoint: string }, body: string) => {
         if (sub.endpoint.includes('gone')) throw Object.assign(new Error('gone'), { statusCode: 410 });
+        if (sub.endpoint.includes('oldkey')) throw Object.assign(new Error('key mismatch'), { statusCode: 403 });
         sent.push({ endpoint: sub.endpoint, payload: JSON.parse(body) });
       }),
     },
@@ -126,5 +127,36 @@ describe('push notifications', () => {
     sent.length = 0;
     await placeOrder();
     expect(sent).toEqual([]);
+  });
+
+  it('drops subscriptions made with another key, and moves a renewed one with its account and orders', async () => {
+    await subscribe('oldkey', { token: shop.token });
+    await subscribe('owner-again', { token: shop.token });
+    await placeOrder();
+    expect(await PushSubscription.count({ where: { endpoint: subscription('oldkey').endpoint } })).toBe(0);
+    expect(sent.map((s) => s.endpoint)).toEqual([subscription('owner-again').endpoint]);
+
+    // The service worker renews it without a session: the account and the followed orders move over.
+    const order = await placeOrder();
+    await subscribe('follower', { orderCode: order.publicCode });
+    const renewed = await request(app).post('/api/push/subscribe').send({ subscription: subscription('owner-renewed'), previousEndpoint: subscription('owner-again').endpoint });
+    expect(renewed.status).toBe(200);
+    const moved = await PushSubscription.findOne({ where: { endpoint: subscription('owner-renewed').endpoint } });
+    expect(moved!.userId).toBe(shop.user.id);
+    expect(await PushSubscription.count({ where: { endpoint: subscription('owner-again').endpoint } })).toBe(0);
+    await request(app).post('/api/push/subscribe').send({ subscription: subscription('follower-renewed'), previousEndpoint: subscription('follower').endpoint });
+    sent.length = 0;
+    await setStatus(order.publicCode, 'confirmed');
+    expect(sent.map((s) => s.endpoint)).toEqual([subscription('follower-renewed').endpoint]);
+  });
+
+  it('sends a test notification to one browser', async () => {
+    sent.length = 0;
+    const res = await request(app).post('/api/push/test').send({ endpoint: subscription('owner-renewed').endpoint });
+    expect(res.status).toBe(200);
+    expect(sent).toHaveLength(1);
+    expect((await request(app).post('/api/push/test').send({ endpoint: subscription('nobody-here').endpoint })).status).toBe(404);
+    await subscribe('oldkey2');
+    expect((await request(app).post('/api/push/test').send({ endpoint: subscription('oldkey2').endpoint })).status).toBe(502);
   });
 });

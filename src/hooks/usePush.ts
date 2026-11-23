@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import type { User } from '@shared/types';
 import { api } from '@/api';
 import { useAuth } from '@/context/AuthContext';
-import { disablePush, enablePush, pushState, readLocalPreference, writeLocalPreference, type PushState } from '@/lib/push';
+import { disablePush, enablePush, pushState, testPush, readLocalPreference, writeLocalPreference, type PushState } from '@/lib/push';
 
 /**
  * Whether the person wants system notifications: in the account when signed in (it follows them to
@@ -73,5 +73,17 @@ export function usePush() {
     }
   }, [setPreference]);
 
-  return { state, setState, busy, enable, disable, preference };
+  const test = useCallback(async () => {
+    setBusy(true);
+    try {
+      await testPush();
+      toast.success('Te mandamos una notificación de prueba. Si no la ves, revisá que el sistema permita las notificaciones del navegador.');
+    } catch (err) {
+      toast.error((err as Error).message || 'No pudimos enviar la notificación de prueba');
+    } finally {
+      setBusy(false);
+    }
+  }, []);
+
+  return { state, setState, busy, enable, disable, test, preference };
 }

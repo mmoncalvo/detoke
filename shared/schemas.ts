@@ -76,6 +76,8 @@ export const pushSubscribeSchema = z.object({
     keys: z.object({ p256dh: z.string().min(1).max(255), auth: z.string().min(1).max(255) }),
   }),
   orderCode: z.string().min(6).max(32).optional(),
+  /** Sent by the service worker when the browser replaced its subscription. */
+  previousEndpoint: z.string().url().max(1024).optional(),
 });
 export const pushUnsubscribeSchema = z.object({ endpoint: z.string().url().max(1024) });
 

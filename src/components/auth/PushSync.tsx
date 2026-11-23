@@ -31,8 +31,10 @@ export function PushSync() {
       void disablePush();
       return;
     }
+    // On every load: where the browser allows notifications and the person did not turn them off, the
+    // subscription is renewed and tied to whoever is signed in now, so the server always has it right.
     if (!id) {
-      if (readLocalPreference()) void syncPush();
+      if (readLocalPreference() !== false) void syncPush();
       return;
     }
     const local = readLocalPreference();
@@ -40,8 +42,8 @@ export function PushSync() {
       void api<User>('/auth/me/notifications', { method: 'PUT', body: { enabled: local } }).then(setUser).catch(() => undefined);
       return;
     }
-    if (wants === true) void syncPush();
-    else if (wants === false) void disablePush();
+    if (wants === false) void disablePush();
+    else void syncPush();
   }, [id, wants, isLoading, impersonatedBy, setUser]);
 
   return null;
