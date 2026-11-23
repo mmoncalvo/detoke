@@ -57,7 +57,9 @@ export function SearchDialog({ open, onOpenChange }: { open: boolean; onOpenChan
   const go = (result: SearchResult) => {
     onOpenChange(false);
     setQuery('');
-    navigate(result.type === 'category' ? `/explorar?category=${result.slug}` : `/negocio/${result.slug}`);
+    if (result.type === 'category') return navigate(`/explorar?category=${result.slug}`);
+    // A product opens its business page, which scrolls to the product's section and then opens its detail.
+    navigate(`/negocio/${result.slug}`, result.type === 'product' ? { state: { openProductId: result.id } } : undefined);
   };
 
   return (

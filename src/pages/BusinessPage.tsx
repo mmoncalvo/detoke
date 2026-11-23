@@ -1,6 +1,6 @@
 import { AtSign, BadgeCheck, Bike, Clock, CreditCard, Globe, MapPin, MessageCircle, PackageOpen, Search, Share2, Store } from 'lucide-react';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
 import { DAYS, DAY_LABELS, fold, formatDayHours, PAYMENT_LABELS, todayKey } from '@shared/business';
 import type { Business, Product } from '@shared/types';
@@ -60,6 +60,9 @@ function DeliveryInfo({ business }: { business: Business }) {
 
 export default function BusinessPage() {
   const { slug } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const openProductId = (location.state as { openProductId?: string } | null)?.openProductId;
   const { data: business, error, loading, reload } = useFetch<Business>(`/businesses/${slug}`);
   const [selected, setSelected] = useState<Product | null>(null);
   const [search, setSearch] = useState('');
@@ -162,6 +165,59 @@ export default function BusinessPage() {
     });
     return () => cancelAnimationFrame(frame);
   }, [activeSection]);
+
+  // Coming from the global search with a product: glide to its section, then open its detail once the
+  // scroll ends. The request lives in the navigation state and is cleared once handled, so neither a
+  // reload nor going back opens the product again.
+  useEffect(() => {
+    // While moving from one business to another, the previous one stays loaded until the new one
+    // arrives: wait for the right business, or the product would not be found and the request lost.
+    if (!business || !openProductId || business.slug !== slug) return;
+    const product = business.products?.find((p) => p.id === openProductId);
+    // Clearing the state re-runs this effect (and its cleanup), so it is done only once nothing is pending.
+    const clearRequest = () => navigate(`${location.pathname}${location.search}`, { replace: true, state: null });
+    const open = () => {
+      setSelected(product ?? null);
+      clearRequest();
+    };
+    if (!product) {
+      clearRequest();
+      return;
+    }
+    setSearch('');
+    setSelected(null);
+    const sectionId = product.category?.id ?? 'other';
+    let frame = 0;
+    // Short pause so the page has rendered (and the visitor sees where they landed) before moving.
+    const timer = setTimeout(() => {
+      const el = document.getElementById(`section-${sectionId}`);
+      if (!el) return open();
+      setActiveSection(sectionId);
+      const offset = 64 + (stickyRef.current?.offsetHeight ?? 0) + 8;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      const to = Math.max(0, Math.min(el.getBoundingClientRect().top + window.scrollY - offset, maxScroll));
+      const from = window.scrollY;
+      const distance = to - from;
+      if (Math.abs(distance) < 4 || matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        window.scrollTo(0, to);
+        return open();
+      }
+      // Animated by hand (not behavior: 'smooth') to know exactly when it ends, on every browser.
+      const duration = Math.min(1100, Math.max(450, Math.abs(distance) * 0.6));
+      const start = performance.now();
+      frame = requestAnimationFrame(function step(now) {
+        const t = Math.min(1, (now - start) / duration);
+        const eased = t < 0.5 ? 4 * t ** 3 : 1 - (-2 * t + 2) ** 3 / 2;
+        window.scrollTo(0, from + distance * eased);
+        if (t < 1) frame = requestAnimationFrame(step);
+        else open();
+      });
+    }, 250);
+    return () => {
+      clearTimeout(timer);
+      cancelAnimationFrame(frame);
+    };
+  }, [business, openProductId, slug]);
 
   const scrollMargin = `calc(64px + ${stickyHeight}px)`;
 
