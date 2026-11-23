@@ -95,6 +95,9 @@ export default function Explore() {
 
   const results = tab === 'businesses' ? businesses : products;
   const count = results.data?.length ?? 0;
+  // Tapping the active category chip clears it, falling back to "Todos".
+  const toggleCategory = (slug: string) => update({ category: category === slug ? null : slug });
+
   const hasFilters = !!(search || category || (tab === 'businesses' ? open || delivery : sale));
   const clear = () => {
     setText('');
@@ -160,9 +163,9 @@ export default function Explore() {
         {tab === 'businesses'
           ? (businessCategories.data ?? []).filter((c) => (c.businessCount ?? 0) > 0).map((c) => {
             const Icon = categoryIcon(c.icon);
-            return <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}><Icon className="size-4" /> {c.name}</Chip>;
+            return <Chip key={c.id} active={category === c.slug} onClick={() => toggleCategory(c.slug)}><Icon className="size-4" /> {c.name}</Chip>;
           })
-          : (productCategories.data ?? []).map((c) => <Chip key={c.id} active={category === c.slug} onClick={() => update({ category: c.slug })}>{c.name}</Chip>)}
+          : (productCategories.data ?? []).map((c) => <Chip key={c.id} active={category === c.slug} onClick={() => toggleCategory(c.slug)}>{c.name}</Chip>)}
       </ScrollRow>
 
       <div className="mt-4 flex h-8 items-center justify-between">
