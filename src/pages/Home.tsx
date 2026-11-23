@@ -64,14 +64,14 @@ export default function Home() {
       <section className="relative overflow-hidden bg-sidebar dark:bg-hero text-sidebar-accent-foreground dark:border dark:border-sidebar-border/60 dark:shadow-[0_24px_60px_-16px_rgb(0_0_0/0.4)]">
         <div className="noise-layer" aria-hidden />
         <Awning className="relative" />
-        <div className="relative mx-auto grid max-w-page items-center gap-10 px-4 pb-16 pt-10 sm:pb-24 sm:pt-16 lg:grid-cols-[minmax(0,1fr)_420px] xl:grid-cols-[minmax(0,1fr)_480px]">
-          <div className="min-w-0">
-            <h1 className="relative mt-4 max-w-2xl text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl lg:text-7xl">
+        <div className="relative mx-auto grid max-w-page items-center gap-10 px-4 pb-16 pt-10 sm:pb-24 sm:pt-16 md:grid-cols-[minmax(0,1fr)_300px] md:gap-8 lg:grid-cols-[minmax(0,1fr)_420px] lg:gap-10 xl:grid-cols-[minmax(0,1fr)_480px]">
+          <div className="min-w-0 text-center md:text-left">
+            <h1 className="relative mx-auto mt-4 max-w-2xl md:mx-0 text-[2.6rem] font-extrabold leading-[1.02] sm:text-6xl md:text-5xl lg:text-6xl xl:text-7xl">
               Todo el barrio, <span className="text-mustard block">de toque.</span>
             </h1>
-            <p className="relative mt-5 max-w-lg text-base text-sidebar-foreground sm:text-lg">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
+            <p className="relative mx-auto mt-5 max-w-lg text-base text-sidebar-foreground sm:text-lg md:text-base md:mx-0 lg:text-lg">Mirá qué tienen hoy los comercios de tu zona y hacé tu pedido directo por WhatsApp.</p>
             <form
-              className="relative mt-8 flex max-w-xl cursor-text items-center gap-2 rounded-xl bg-card border-2 border-input p-1.5 shadow-2xl shadow-black/25 "
+              className="relative mt-8 flex w-full cursor-text text-left md:max-w-xl items-center gap-2 rounded-xl bg-card border-2 border-input p-1.5 shadow-2xl shadow-black/25 "
               role="search"
               onSubmit={(e) => { e.preventDefault(); navigate(`/explorar?search=${encodeURIComponent(query)}`); }}
               onClick={(e) => {
@@ -95,20 +95,21 @@ export default function Home() {
               />
               <Button type="submit" size="lg">Buscar</Button>
             </form>
-            <div className="relative mt-4 flex flex-wrap gap-2 text-sm">
+            <div className="relative mt-4 flex flex-wrap justify-center gap-2 text-sm md:justify-start">
               <Link to="/explorar?open=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Abierto ahora</Link>
               <Link to="/explorar?delivery=true" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Con delivery</Link>
               <Link to="/explorar?tab=products" className="rounded-full border border-sidebar-border px-3 py-1.5 text-sidebar-foreground transition-colors hover:border-mustard hover:text-sidebar-accent-foreground">Ver productos</Link>
             </div>
-            {/* Smaller screens: three photos overlapping, a reduced version of the collage. */}
-            <div className="relative mx-auto mt-10 h-48 max-w-sm lg:hidden" aria-hidden>
-              <SafeImage src="panaderia_cover.jpg" alt="" className={`${PHOTO} left-0 top-4 h-36 w-[42%] -rotate-6`} />
-              <SafeImage src="verduleria_cover.jpg" alt="" className={`${PHOTO} right-0 top-0 h-36 w-[42%] rotate-6`} />
-              <SafeImage src="pizza_napolitana.jpg" alt="" className={`${PHOTO} bottom-0 left-1/2 z-10 h-40 w-[48%] -translate-x-1/2 rotate-[-2deg]`} />
+            {/* Small screens: three photos overlapping, a reduced version of the collage. */}
+            <div className="relative mx-auto mt-10 h-48 max-w-sm sm:h-60 sm:max-w-md md:hidden" aria-hidden>
+              <SafeImage src="panaderia_cover.jpg" alt="" className={`${PHOTO} left-0 top-4 h-36 w-[42%] -rotate-6 sm:h-44`} />
+              <SafeImage src="verduleria_cover.jpg" alt="" className={`${PHOTO} right-0 top-0 h-36 w-[42%] rotate-6 sm:h-44`} />
+              <SafeImage src="pizza_napolitana.jpg" alt="" className={`${PHOTO} bottom-0 left-1/2 z-10 h-40 w-[48%] sm:h-48 -translate-x-1/2 rotate-[-2deg]`} />
             </div>
           </div>
 
-          <HeroCollage className="hidden h-[440px] lg:block" />
+          {/* Medium screens keep the side-by-side layout: the same collage, zoomed out to fit a narrower column. */}
+          <HeroCollage className="hidden h-[440px] md:block md:[zoom:0.72] lg:[zoom:1]" />
         </div>
       </section>
 

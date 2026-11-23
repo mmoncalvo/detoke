@@ -49,17 +49,30 @@ export function HeroCollage({ className }: { className?: string }) {
       target.y = y;
       if (!frame) frame = requestAnimationFrame(tick);
     };
+    // The photos start to react before the pointer reaches them: within REACH px around the collage the
+    // pull fades in with distance, so there is no jump at the edge of the sensing area.
+    const REACH = 220;
+    const clamp = (v: number) => Math.max(-1, Math.min(1, v));
     const move = (e: PointerEvent) => {
+      if (e.pointerType !== 'mouse') return;
       const r = box.getBoundingClientRect();
-      aim(((e.clientX - r.left) / r.width) * 2 - 1, ((e.clientY - r.top) / r.height) * 2 - 1);
+      const dx = Math.max(r.left - e.clientX, 0, e.clientX - r.right);
+      const dy = Math.max(r.top - e.clientY, 0, e.clientY - r.bottom);
+      const strength = Math.max(0, 1 - Math.hypot(dx, dy) / REACH);
+      if (!strength) return aim(0, 0);
+      const x = clamp(((e.clientX - r.left) / r.width) * 2 - 1);
+      const y = clamp(((e.clientY - r.top) / r.height) * 2 - 1);
+      aim(x * strength, y * strength);
     };
     const leave = () => aim(0, 0);
-    box.addEventListener('pointermove', move);
-    box.addEventListener('pointerleave', leave);
+    window.addEventListener('pointermove', move, { passive: true });
+    document.documentElement.addEventListener('pointerleave', leave);
+    window.addEventListener('blur', leave);
     return () => {
       cancelAnimationFrame(frame);
-      box.removeEventListener('pointermove', move);
-      box.removeEventListener('pointerleave', leave);
+      window.removeEventListener('pointermove', move);
+      document.documentElement.removeEventListener('pointerleave', leave);
+      window.removeEventListener('blur', leave);
     };
   }, []);
 
@@ -70,22 +83,24 @@ export function HeroCollage({ className }: { className?: string }) {
           key={photo.src}
           className={cn('group absolute', photo.place)}
           style={{
-            transform: `translate3d(calc(var(--px) * ${14 * photo.depth}px), calc(var(--py) * ${10 * photo.depth}px), 0) rotateX(calc(var(--py) * ${-7 * photo.depth}deg)) rotateY(calc(var(--px) * ${8 * photo.depth}deg)) rotate(${photo.angle}deg)`,
+            transform: `translate3d(calc(var(--px) * ${22 * photo.depth}px), calc(var(--py) * ${16 * photo.depth}px), 0) rotateX(calc(var(--py) * ${-10 * photo.depth}deg)) rotateY(calc(var(--px) * ${12 * photo.depth}deg)) rotate(${photo.angle}deg)`,
           }}
         >
           {/* Dropped on the table one after another, then floating gently, each at its own pace. */}
           <div className="hero-drop h-full w-full" style={{ animationDelay: `${120 + i * 110}ms` }}>
             <div className="hero-float relative h-full w-full" style={{ animationDuration: `${6 + i * 1.3}s`, animationDelay: `${-i * 1.7}s` }}>
+              {/* Tailwind v4 scale-* and translate-* set the individual `scale` and `translate` properties, not
+                  `transform`, so those are the ones to transition: otherwise the lift jumps instead of easing. */}
               <SafeImage
                 src={photo.src}
                 alt=""
                 loading="eager"
                 fetchPriority={photo.priority ? 'high' : undefined}
-                className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[transform,box-shadow] duration-[700ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-hover:shadow-[0_24px_40px_-12px_rgb(0_0_0/0.65)]"
+                className="h-full w-full rounded-2xl border-[5px] border-[#FBF7EE] object-cover shadow-[0_18px_40px_-12px_rgb(0_0_0/0.55)] transition-[scale,translate,box-shadow] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] [will-change:scale,translate] group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-hover:shadow-[0_24px_40px_-12px_rgb(0_0_0/0.65)]"
               />
               {/* A soft light that follows the pointer over the photo under it. */}
               <span
-                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 mix-blend-soft-light transition-[opacity,transform] duration-[700ms] ease-[cubic-bezier(0.25,0.46,0.45,0.94)] group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-hover:opacity-100"
+                className="pointer-events-none absolute inset-0 rounded-2xl opacity-0 mix-blend-soft-light transition-[opacity,scale,translate] duration-[650ms] ease-[cubic-bezier(0.22,1,0.36,1)] [will-change:scale,translate] group-hover:-translate-y-0.5 group-hover:scale-[1.04] group-hover:opacity-100"
                 style={{ background: 'radial-gradient(circle at calc(50% + var(--px) * 45%) calc(50% + var(--py) * 45%), rgb(255 255 255 / 0.55), transparent 60%)' }}
               />
             </div>
