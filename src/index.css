@@ -12,6 +12,8 @@
   /* The page is a muted cream; the navbar above it is the cleanest surface. */
   --background: oklch(0.962 0.009 88);
   --navbar: oklch(0.99 0.004 88);
+  /* Navbar search field: a soft step below the navbar so it reads as a field. */
+  --navbar-search: oklch(0.982 0.006 88);
   --foreground: oklch(0.255 0.03 155);
   --card: oklch(0.995 0.004 88);
   --card-foreground: oklch(0.255 0.03 155);
@@ -54,6 +56,7 @@
   /* The page sits a step deeper; the navbar a step lighter. */
   --background: oklch(0.188 0.014 155);
   --navbar: oklch(0.235 0.017 155);
+  --navbar-search: oklch(0.226 0.016 155);
   --foreground: oklch(0.95 0.012 88);
   --card: oklch(0.25 0.018 155);
   --card-foreground: oklch(0.95 0.012 88);
@@ -103,6 +106,7 @@
   --radius-xl: calc(var(--radius) + 4px);
   --color-background: var(--background);
   --color-navbar: var(--navbar);
+  --color-navbar-search: var(--navbar-search);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
   --color-card-foreground: var(--card-foreground);

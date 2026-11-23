@@ -47,7 +47,7 @@ export default function PublicLayout() {
 
           <button
             onClick={() => setSearchOpen(true)}
-            className="ml-auto hidden h-10 w-72 items-center gap-2 rounded-lg border bg-card px-3 text-sm text-muted-foreground outline-none transition-colors duration-200 hover:border-primary/30 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 lg:flex"
+            className="ml-auto hidden h-10 w-72 items-center gap-2 cursor-pointer rounded-lg border border-border/60 bg-navbar-search px-3 text-sm text-muted-foreground outline-none transition-colors duration-200 hover:border-primary/30 hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/40 lg:flex"
           >
             <Search className="size-4" />
             <span className="flex-1 text-left">Buscar en el barrio</span>
