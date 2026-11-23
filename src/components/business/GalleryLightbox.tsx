@@ -41,7 +41,7 @@ export function GalleryLightbox({ photos, start, onClose, title }: { photos: str
     <Dialog open={start !== null} onOpenChange={(open) => !open && onClose()}>
       {/* On open the focus goes to the modal itself, not to the close button: no ring over the photo. */}
       <DialogContent ref={content} onOpenAutoFocus={(e) => { e.preventDefault(); content.current?.focus(); }} className="gap-0 overflow-hidden p-0 outline-none sm:max-w-3xl">
-        <DialogTitle className="sr-only">Fotos de {title}</DialogTitle>
+        <DialogTitle className="border-b px-4 py-3 pr-12 text-base font-semibold">Galería de {title}</DialogTitle>
         <DialogDescription className="sr-only">{many ? `Foto ${current + 1} de ${photos.length}. Usá las flechas para pasar de una a otra.` : 'Foto ampliada de la galería'}</DialogDescription>
         {start !== null && (
           <Carousel setApi={setApi} opts={{ startIndex: start, loop: true, duration: 22 }} className="relative">

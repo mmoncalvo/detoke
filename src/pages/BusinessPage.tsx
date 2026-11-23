@@ -313,9 +313,9 @@ export default function BusinessPage() {
             ))}
 
             {business.gallery.length > 0 && (
-              <Card className="mt-12 gap-4 rounded-2xl py-4 shadow-none sm:py-6">
-                <CardHeader className="border-b px-4 sm:px-6 [.border-b]:pb-4">
-                  <CardTitle role="heading" aria-level={2}>Galería</CardTitle>
+              <Card className="mt-12 gap-4 rounded-2xl py-4 shadow-none sm:py-6 bg-secondary">
+                <CardHeader className="border-b border-muted-foreground/30 px-4 sm:px-6 [.border-b]:pb-4 mb-2">
+                  <CardTitle className='font-thin' role="heading" aria-level={2}>Galería de <span className='font-semibold italic'>{business.name}</span></CardTitle>
                 </CardHeader>
                 <CardContent className="grid grid-cols-3 gap-2 px-4 sm:gap-3 sm:px-6">
                   {business.gallery.map((src, i) => (
