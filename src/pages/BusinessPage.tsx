@@ -15,7 +15,9 @@ import { Badge } from '@/components/ui/badge';
 import { Button } from '@/components/ui/button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Input } from '@/components/ui/input';
+import { Label } from '@/components/ui/label';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
 import { useFetch } from '@/hooks/useFetch';
 import { useTitle } from '@/hooks/useTitle';
 import { formatPrice, whatsappUrl } from '@/lib/format';
@@ -66,6 +68,7 @@ export default function BusinessPage() {
   const { data: business, error, loading, reload } = useFetch<Business>(`/businesses/${slug}`);
   const [selected, setSelected] = useState<Product | null>(null);
   const [search, setSearch] = useState('');
+  const [saleOnly, setSaleOnly] = useState(false);
   const [photo, setPhoto] = useState<number | null>(null);
   const [activeSection, setActiveSection] = useState<string | null>(null);
   const [stickyHeight, setStickyHeight] = useState(0);
@@ -80,13 +83,14 @@ export default function BusinessPage() {
     const groups = new Map<string, { id: string; name: string; position: number; products: Product[] }>();
     for (const product of business?.products ?? []) {
       if (term && !fold(product.name).includes(term)) continue;
+      if (saleOnly && !(product.compareAtPrice != null && product.compareAtPrice > product.price)) continue;
       const key = product.category?.id ?? 'other';
       const group = groups.get(key) ?? { id: key, name: product.category?.name ?? 'Otros', position: product.category?.position ?? Infinity, products: [] };
       group.products.push(product);
       groups.set(key, group);
     }
     return [...groups.values()].sort((a, b) => a.position - b.position);
-  }, [business, search]);
+  }, [business, search, saleOnly]);
 
   // Highlights the tag of the section on screen as the page scrolls: the last section whose top has
   // passed a line at 35% of the viewport. Sections are in page order, so the tag does not flicker at
@@ -185,6 +189,7 @@ export default function BusinessPage() {
       return;
     }
     setSearch('');
+    setSaleOnly(false);
     setSelected(null);
     const sectionId = product.category?.id ?? 'other';
     let frame = 0;
@@ -274,9 +279,15 @@ export default function BusinessPage() {
         <div className="mt-8 grid gap-8 lg:grid-cols-[1fr_320px]">
           <div className="min-w-0">
             <div className="sticky top-16 z-20 -mx-4 bg-background/95 px-4 pb-3 pt-3 backdrop-blur sm:mx-0 sm:px-0" ref={stickyRef}>
-              <div className="relative">
-                <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
-                <Input noAutofill value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Buscar en ${business.name}`} className="bg-card pl-9" aria-label="Buscar productos" />
+              <div className="flex items-center gap-4">
+                <div className="relative min-w-0 flex-1">
+                  <Search className="absolute left-3 top-1/2 size-4 -translate-y-1/2 text-muted-foreground" />
+                  <Input noAutofill value={search} onChange={(e) => setSearch(e.target.value)} placeholder={`Buscar en ${business.name}`} className="bg-card pl-9" aria-label="Buscar productos" />
+                </div>
+                <div className="flex shrink-0 items-center gap-2">
+                  <Switch id="business-on-sale" checked={saleOnly} onCheckedChange={setSaleOnly} />
+                  <Label htmlFor="business-on-sale">En oferta</Label>
+                </div>
               </div>
               {sections.length > 1 && (
                 <nav ref={tagsRef} aria-label="Categorías de productos" className="mt-2 flex gap-1.5 overflow-x-auto [scrollbar-width:none]">
@@ -302,7 +313,7 @@ export default function BusinessPage() {
             </div>
 
             {sections.length === 0 ? (
-              <EmptyState icon={PackageOpen} title={search ? 'No encontramos ese producto' : 'Todavía no hay productos publicados'} description={search ? 'Probá con otra palabra.' : 'Podés consultar por WhatsApp.'} />
+              <EmptyState icon={PackageOpen} title={saleOnly ? (search ? 'No encontramos ese producto en oferta' : 'Este negocio no tiene productos en oferta') : search ? 'No encontramos ese producto' : 'Todavía no hay productos publicados'} description={search ? 'Probá con otra palabra.' : saleOnly ? 'Apagá el filtro para ver todos los productos.' : 'Podés consultar por WhatsApp.'} />
             ) : sections.map((section) => (
               <section key={section.id} id={`section-${section.id}`} className="mt-8" style={{ scrollMarginTop: scrollMargin }}>
                 <h2 className="mb-4 mt-6 text-xl font-bold border-b border-foreground/20 dark:border-foreground/8 pb-2">{section.name}</h2>
