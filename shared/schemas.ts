@@ -106,6 +106,10 @@ export const businessStatusSchema = z.object({
   reason: optionalText(300),
 });
 
+export const businessVerifiedSchema = z.object({
+  verified: z.boolean({ required_error: 'Indicá si el negocio está verificado' }),
+});
+
 export const loginSchema = z.object({
   email: z.string({ required_error: 'Completá el email' }).trim().toLowerCase().email('Ingresá un email válido'),
   password: z.string({ required_error: 'Completá la contraseña' }).min(1, 'Completá la contraseña'),

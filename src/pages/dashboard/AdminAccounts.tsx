@@ -17,6 +17,7 @@ import { Textarea } from '@/components/ui/textarea';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Skeleton } from '@/components/ui/skeleton';
+import { Switch } from '@/components/ui/switch';
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from '@/components/ui/table';
 import { useAuth } from '@/context/AuthContext';
 import { useFetch } from '@/hooks/useFetch';
@@ -131,6 +132,25 @@ export default function AdminAccounts() {
       toast.error((err as Error).message);
     } finally {
       setWorking(false);
+    }
+  };
+
+  // Optimistic: the switch moves at once and goes back if the server refuses.
+  const [verifiedOverride, setVerifiedOverride] = useState<Record<string, boolean>>({});
+  const [verifying, setVerifying] = useState<string | null>(null);
+  const changeVerified = async (account: AdminAccount, verified: boolean) => {
+    const business = account.business;
+    if (!business) return;
+    setVerifying(business.id);
+    setVerifiedOverride((current) => ({ ...current, [business.id]: verified }));
+    try {
+      await api(`/admin/businesses/${business.id}/verified`, { method: 'PATCH', body: { verified } });
+      toast.success(verified ? `${business.name} quedó verificado` : `${business.name} ya no aparece como verificado`);
+    } catch (err) {
+      setVerifiedOverride((current) => ({ ...current, [business.id]: !verified }));
+      toast.error((err as Error).message);
+    } finally {
+      setVerifying(null);
     }
   };
 
@@ -251,6 +271,7 @@ export default function AdminAccounts() {
                   <TableHead className="hidden lg:table-cell">Rubro</TableHead>
                   <TableHead className="hidden text-right sm:table-cell">Productos</TableHead>
                   <TableHead className="hidden sm:table-cell">Perfil</TableHead>
+                  <TableHead>Verificado</TableHead>
                   <TableHead><span className="sr-only">Acciones</span></TableHead>
                 </TableRow>
               </TableHeader>
@@ -276,6 +297,17 @@ export default function AdminAccounts() {
                     <TableCell className="hidden text-right tabular-nums sm:table-cell">{account.productCount}</TableCell>
                     <TableCell className="hidden sm:table-cell">
                       {account.profile.complete ? <Badge variant="success">Completo</Badge> : <Badge variant="warning">{account.profile.done} de {account.profile.total}</Badge>}
+                    </TableCell>
+                    <TableCell>
+                      {account.business ? (
+                        <Switch
+                          className="cursor-pointer"
+                          checked={verifiedOverride[account.business.id] ?? account.business.isVerified}
+                          disabled={verifying === account.business.id}
+                          onCheckedChange={(checked) => void changeVerified(account, checked)}
+                          aria-label={`Verificado: ${account.business.name}`}
+                        />
+                      ) : <span className="text-muted-foreground">—</span>}
                     </TableCell>
                     <TableCell className="text-right">
                       <div className="flex items-center justify-end gap-1">

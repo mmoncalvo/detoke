@@ -5,7 +5,7 @@ import { Op } from 'sequelize';
 import { fold } from '../../shared/business.js';
 import { profileChecklist } from '../../shared/profile.js';
 import type { AdminAccount, Business as BusinessDTO } from '../../shared/types.js';
-import { businessStatusSchema } from '../../shared/schemas.js';
+import { businessStatusSchema, businessVerifiedSchema } from '../../shared/schemas.js';
 import { config } from '../config.js';
 import { sequelize } from '../db.js';
 import { asyncHandler, HttpError } from '../middleware/errorHandler.js';
@@ -103,6 +103,16 @@ adminRoutes.patch('/businesses/:id/status', requireAuth, requireAdmin, asyncHand
   emitBusinessStatus(business);
   console.log(`[admin] ${currentUser(req).email} ${disabled ? 'disabled' : 'enabled'} ${business.slug}`);
   ok(res, { id: business.id, isActive: business.isActive, disabledAt: business.disabledAt, disabledReason: business.disabledReason });
+}));
+
+// Admin: mark a business as verified (shows the tick next to its name) or remove the mark
+adminRoutes.patch('/businesses/:id/verified', requireAuth, requireAdmin, asyncHandler(async (req, res) => {
+  const { verified } = businessVerifiedSchema.parse(req.body);
+  const business = await managedBusiness(req);
+  await business.update({ isVerified: verified });
+  await AdminAction.create({ adminId: currentUser(req).id, action: verified ? 'business.verify' : 'business.unverify', targetUserId: business.ownerId, targetBusinessId: business.id, details: { name: business.name } });
+  console.log(`[admin] ${currentUser(req).email} ${verified ? 'verified' : 'unverified'} ${business.slug}`);
+  ok(res, { id: business.id, isVerified: business.isVerified });
 }));
 
 /** Uploaded files are deleted with the account; seed photos are shared and stay. */

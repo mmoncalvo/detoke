@@ -77,6 +77,20 @@ describe('admin: disable and delete businesses', () => {
     expect((await request(app).post('/api/auth/login').send({ email: s.user.email, password: 'secreta123' })).status).toBe(401);
   });
 
+  it('verifying shows the tick on the public page; removing it hides it again', async () => {
+    const s = await shop('Pizzería Verificada');
+    const verify = await request(app).patch(`/api/admin/businesses/${s.business.id}/verified`).set(auth(adminToken)).send({ verified: true });
+    expect(verify.status).toBe(200);
+    expect(verify.body.data.isVerified).toBe(true);
+    expect((await request(app).get(`/api/businesses/${s.business.slug}`)).body.data.isVerified).toBe(true);
+    expect(await AdminAction.count({ where: { targetBusinessId: s.business.id, action: 'business.verify' } })).toBe(1);
+
+    await request(app).patch(`/api/admin/businesses/${s.business.id}/verified`).set(auth(adminToken)).send({ verified: false });
+    expect((await request(app).get(`/api/businesses/${s.business.slug}`)).body.data.isVerified).toBe(false);
+    expect((await request(app).patch(`/api/admin/businesses/${s.business.id}/verified`).set(auth(adminToken)).send({})).status).toBe(400);
+    expect((await request(app).patch(`/api/admin/businesses/${s.business.id}/verified`).set(auth(s.token)).send({ verified: true })).status).toBe(403);
+  });
+
   it('only admins can do it, and never on an admin account', async () => {
     const s = await shop('Pizzería Protegida');
     expect((await request(app).patch(`/api/admin/businesses/${s.business.id}/status`).set(auth(s.token)).send({ disabled: true })).status).toBe(403);
