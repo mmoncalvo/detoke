@@ -1,4 +1,4 @@
-import { AtSign, BadgeCheck, Bike, Clock, CreditCard, Globe, MapPin, MessageCircle, PackageOpen, Search, Share2, Store } from 'lucide-react';
+import { AtSign, Bike, Clock, CreditCard, Globe, MapPin, MessageCircle, PackageOpen, Search, Share2, Store } from 'lucide-react';
 import { lazy, Suspense, useEffect, useMemo, useRef, useState } from 'react';
 import { Link, useLocation, useNavigate, useParams } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -7,6 +7,7 @@ import type { Business, Product } from '@shared/types';
 import { GalleryLightbox } from '@/components/business/GalleryLightbox';
 import { OpenBadge } from '@/components/business/OpenBadge';
 import { ParallaxCover } from '@/components/business/ParallaxCover';
+import { VerifiedBadge } from '@/components/business/VerifiedBadge';
 import { SafeImage } from '@/components/common/SafeImage';
 import { EmptyState, ErrorState } from '@/components/common/States';
 import { ProductCard } from '@/components/product/ProductCard';
@@ -260,7 +261,7 @@ export default function BusinessPage() {
             <div className="min-w-0 flex-1">
               <h1 className="flex items-start gap-2 text-3xl font-extrabold sm:text-4xl">
                 {business.name}
-                {business.isVerified && <BadgeCheck className="size-6 shrink-0 text-primary m-2" aria-label="Negocio verificado" />}
+                {business.isVerified && <VerifiedBadge className="size-6 m-2" />}
               </h1>
               <p className="text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
             </div>

@@ -1,9 +1,10 @@
-import { BadgeCheck, Bike, Store } from 'lucide-react';
+import { Bike, Store } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import type { Business } from '@shared/types';
 import { SafeImage } from '@/components/common/SafeImage';
 import { Skeleton } from '@/components/ui/skeleton';
 import { OpenBadge } from './OpenBadge';
+import { VerifiedBadge } from './VerifiedBadge';
 
 export function BusinessCard({ business }: { business: Business }) {
   const delivers = business.deliveryOptions.includes('delivery');
@@ -17,7 +18,7 @@ export function BusinessCard({ business }: { business: Business }) {
         <SafeImage src={business.logo} alt={`Logo de ${business.name}`} className="absolute -top-7 left-4 size-14 rounded-xl border-2 border-card shadow-sm" />
         <h3 className="flex items-center gap-1 text-lg font-semibold leading-snug">
           <span className="truncate">{business.name}</span>
-          {business.isVerified && <BadgeCheck className="size-4 shrink-0 text-primary" aria-label="Negocio verificado" />}
+          {business.isVerified && <VerifiedBadge className="size-4" />}
         </h3>
         <p className="text-sm text-muted-foreground">{[business.category?.name, business.neighborhood].filter(Boolean).join(' · ')}</p>
         {business.tagline && <p className="mt-2 line-clamp-2 text-sm">{business.tagline}</p>}
